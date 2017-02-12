@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class LoginResponse {
-    @SerializedName("token")
+    @SerializedName("code")
     @Expose
-    public String token;
-    @SerializedName("success")
+    public String code;
+    @SerializedName("message")
     @Expose
-    public Boolean success;
-   }
+    public Boolean message;
+}

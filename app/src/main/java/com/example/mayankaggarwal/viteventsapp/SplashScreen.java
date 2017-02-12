@@ -32,4 +32,5 @@ public class SplashScreen extends AppCompatActivity {
         waitHandler.removeCallbacks(waitCallback);
         super.onDestroy();
     }
+
 }

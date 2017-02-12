@@ -6,7 +6,8 @@
     android:fitsSystemWindows="false"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/mi_baseline">
+    android:padding="@dimen/mi_baseline"
+    android:id="@+id/login_fragment">
 
 
     <LinearLayout
@@ -155,6 +156,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.95"/>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            android:paddingTop="10dp"
+                            android:backgroundTint="@color/color_accent"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="true"
+                            android:layout_margin="3dp"
+                            android:layout_gravity="center"/>
 
 
                     </LinearLayout>

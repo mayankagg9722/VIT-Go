@@ -1,9 +1,18 @@
 package com.example.mayankaggarwal.viteventsapp.rest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
@@ -18,7 +27,8 @@ import retrofit2.Response;
 
 public class Auth {
 
-    public static void login(String regno, String password, final Activity activity,final OnLoginCallback onLoginCallback){
+    public static void login(String regno, String password, final Activity activity, final OnLoginCallback onLoginCallback) {
+
 
         ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
@@ -33,16 +43,30 @@ public class Auth {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Log.d("response", String.valueOf(response));
-
                 try {
-                    if (response.body() != null && response.body().success) {
+                    if (response.body() != null) {
+                        if (response.body().code.equals("200")) {
+                            Prefs.setPrefs("loggedIn","true", activity);
+                            Prefs.setPrefs("Name", response.body().message.toString(), activity);
+                            onLoginCallback.onSuccess();
+                        } else {
+                            final AlertDialog.Builder alert=new AlertDialog.Builder(activity);
+                            LayoutInflater inflater = activity.getLayoutInflater();
+                            final View dialogView = inflater.inflate(R.layout.error_window, null);
+                            ImageButton ok= (ImageButton) dialogView.findViewById(R.id.errorImageOkButton);
+                            alert.setView(dialogView);
+                            final AlertDialog alertDialog=alert.create();
 
-                        Prefs.setPrefs("token", response.body().token, activity);
-                        Prefs.setPrefs("login", "1", activity);
-
-
-                        onLoginCallback.onSuccess();
+                            ok.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.d("click","ckicking ckicking ckicking ckicking");
+                                    alertDialog.dismiss();
+                                }
+                            });
+                            alertDialog.show();
+                            onLoginCallback.onFailure();
+                        }
                     } else {
                         onLoginCallback.onFailure();
                     }
@@ -62,19 +86,17 @@ public class Auth {
     }
 
 
-
     public static String getToken(Context context) {
-        String token=Prefs.getPrefs("token",context);
+        String token = Prefs.getPrefs("token", context);
         return token;
     }
 
 
     public interface OnLoginCallback {
         void onSuccess();
+
         void onFailure();
     }
-
-
 
 
 }

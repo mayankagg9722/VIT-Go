@@ -24,7 +24,7 @@ public class SplashSlider extends IntroActivity {
         boolean fullscreen =  true;
         boolean scrollable =  true;
         boolean customFragments =  true;
-        boolean permissions = true;
+//      boolean permissions = true;
         boolean showBack = true;
         boolean showNext = true;
         boolean skipEnabled = true;
@@ -89,22 +89,21 @@ public class SplashSlider extends IntroActivity {
                 .scrollable(scrollable)
                 .build());
 
-        final Slide permissionsSlide;
-
-        if (permissions) {
-            permissionsSlide = new SimpleSlide.Builder()
-                    .title(R.string.title_permissions)
-                    .description(R.string.description_permissions)
-                    .background(R.color.color_permissions)
-                    .backgroundDark(R.color.color_dark_permissions)
-                    .scrollable(scrollable)
-                    .permissions(new String[]{Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE})
-                    .build();
-            addSlide(permissionsSlide);
-        } else {
-            permissionsSlide = null;
-        }
+//        final Slide permissionsSlide;
+//        if (permissions) {
+//            permissionsSlide = new SimpleSlide.Builder()
+//                    .title(R.string.title_permissions)
+//                    .description(R.string.description_permissions)
+//                    .background(R.color.color_permissions)
+//                    .backgroundDark(R.color.color_dark_permissions)
+//                    .scrollable(scrollable)
+//                    .permissions(new String[]{Manifest.permission.CAMERA,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE})
+//                    .build();
+//            addSlide(permissionsSlide);
+//        } else {
+//            permissionsSlide = null;
+//        }
 
         final Slide loginSlide;
         if (customFragments) {
@@ -125,9 +124,10 @@ public class SplashSlider extends IntroActivity {
                 View contentView = findViewById(android.R.id.content);
                 if (contentView != null) {
                     Slide slide = getSlide(position);
-                    if (slide == permissionsSlide) {
-                        Snackbar.make(contentView, R.string.label_grant_permissions, Snackbar.LENGTH_LONG).show();
-                    } else if (slide == loginSlide) {
+//                    if (slide == permissionsSlide) {
+//                        Snackbar.make(contentView, R.string.label_grant_permissions, Snackbar.LENGTH_LONG).show();
+//                    } else
+                    if (slide == loginSlide) {
                         Snackbar.make(contentView, R.string.label_fill_out_form, Snackbar.LENGTH_LONG).show();
                     }
                 }
