@@ -1,5 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.rest;
 
+import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
+import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 
@@ -15,5 +17,8 @@ public interface ApiInterface {
 
     @POST("checkLogin")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("getAttendance")
+    Call<AttendanceResponse> attendance(@Body AttendanceRequest attendanceRequest);
 
 }

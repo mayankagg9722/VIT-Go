@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldrtl-ldpi-v17/ic_skip.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldrtl-ldpi-v17/ic_skip.png"
+    },
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldrtl-ldpi-v17/ic_next.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldrtl-ldpi-v17/ic_next.png"
+    },
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldrtl-ldpi-v17/ic_previous.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldrtl-ldpi-v17/ic_previous.png"
+    }
+]

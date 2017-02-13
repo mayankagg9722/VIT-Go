@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:fitsSystemWindows="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/mi_baseline"
+    android:id="@+id/login_fragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.125" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/loginBackground"
+                        android:src="@drawable/loginformbackground"
+                        android:adjustViewBounds="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.55"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.45"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.1"
+                                android:orientation="vertical">
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:textColorHint="#c8ccd5"
+                                    android:theme="@style/TextLabel">
+
+                                    <EditText
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Register Number"
+                                        android:textColor="#000000"
+                                        android:textColorHint="@color/color_dark_custom_fragment_1"
+                                        android:backgroundTint="@color/color_dark_custom_fragment_1"
+                                        android:id="@+id/regno"
+                                        android:inputType="textCapCharacters"
+                                        />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                                <!--<ImageView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="2dp"-->
+                                    <!--android:src="@drawable/edit_text_bottom_border" />-->
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:textColorHint="#c8ccd5"
+                                    android:theme="@style/TextLabel">
+
+                                    <EditText
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Password"
+                                        android:id="@+id/password"
+                                        android:textColorHint="@color/color_dark_custom_fragment_1"
+                                        android:backgroundTint="@color/color_dark_custom_fragment_1"
+                                        android:textColorHighlight="#9f0000"
+                                        android:textColor="#000000"
+                                        android:inputType="textPassword"
+                                        />
+
+
+                                </android.support.design.widget.TextInputLayout>
+
+                                <!--<ImageView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="2dp"-->
+                                    <!--android:src="@drawable/edit_text_bottom_border" />-->
+
+                                <ImageButton
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/login"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@android:color/transparent"
+                                    android:src="@drawable/loginformsubmitbutton"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp"
+                                    android:scaleType="centerInside"
+                                    android:onClick="submitButtonDidPress"
+                                    />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.45"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.95"/>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            android:paddingTop="10dp"
+                            android:backgroundTint="@color/color_accent"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="true"
+                            android:layout_margin="3dp"
+                            android:layout_gravity="center"/>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.125" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

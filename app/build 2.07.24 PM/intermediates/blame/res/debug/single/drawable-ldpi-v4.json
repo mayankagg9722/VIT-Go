@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/ic_next.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldpi-v4/ic_next.png"
+    },
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/ic_finish.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldpi-v4/ic_finish.png"
+    },
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/ic_previous.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldpi-v4/ic_previous.png"
+    },
+    {
+        "merged": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/ic_skip.png",
+        "source": "/Users/mayankaggarwal/workspace/play/VitEventsApp/app/build/intermediates/exploded-aar/com.heinrichreimersoftware/material-intro/1.6/res/drawable-ldpi-v4/ic_skip.png"
+    }
+]

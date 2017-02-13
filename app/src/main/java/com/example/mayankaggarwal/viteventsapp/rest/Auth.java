@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class Auth {
 
-    public static void login(String regno, String password, final Activity activity, final OnLoginCallback onLoginCallback) {
+    public static void login(final String regno, final String password, final Activity activity, final OnLoginCallback onLoginCallback) {
 
         if (!InternetConnection.isNetworkAvailable()) {
             Log.d("called", "callde callde callde callde ");
@@ -67,7 +67,9 @@ public class Auth {
                         if (response.body() != null) {
                             if (response.body().code.equals("200")) {
                                 Prefs.setPrefs("loggedIn", "true", activity);
-                                Prefs.setPrefs("Name", response.body().message.toString(), activity);
+                                Prefs.setPrefs("name", response.body().message.toString(), activity);
+                                Prefs.setPrefs("regno", regno, activity);
+                                Prefs.setPrefs("password", password, activity);
                                 onLoginCallback.onSuccess();
                             } else {
                                 final AlertDialog.Builder alert = new AlertDialog.Builder(activity);

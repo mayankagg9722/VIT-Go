@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+
 public class SplashScreen extends AppCompatActivity {
 
 
@@ -12,9 +14,15 @@ public class SplashScreen extends AppCompatActivity {
     private final Runnable waitCallback = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(SplashScreen.this, SplashSlider.class);
-            startActivity(intent);
-            finish();
+            if(Prefs.getPrefs("loggedIn",SplashScreen.this).equals("true")){
+                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Intent intent = new Intent(SplashScreen.this, SplashSlider.class);
+                startActivity(intent);
+                finish();
+            }
         }
     };
 

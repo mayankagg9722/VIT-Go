@@ -3,6 +3,11 @@ package com.example.mayankaggarwal.viteventsapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.test.suitebuilder.TestMethod;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +17,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  {
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +40,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Realm.init(this);
+
+        final Realm realm = Realm.getDefaultInstance();
+
+        //update date and attendance
+        updateDayAndDate();
+
+        //fetch attendance
+        fetchAttendance();
+
+        recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
+        
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +63,35 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    private void updateDayAndDate() {
+        TextView main_date=(TextView)findViewById(R.id.main_date);
+        TextView main_day=(TextView)findViewById(R.id.main_day);
+        Date date=new Date();
+        SimpleDateFormat dat=new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat day=new SimpleDateFormat("E");
+        main_date.setText(dat.format(date).toString());
+        main_day.setText(day.format(date).toString()+"day");
+    }
+
+    private void fetchAttendance() {
+        if(RealmController.with(this).hasAttendance()){
+            Log.d("tagg","skip already has attendance");
+        }else{
+            Data.updateAttendance(this, new Data.UpdateCallback() {
+                @Override
+                public void onUpdate() {
+                    Log.d("tagg","success api");
+                }
+
+                @Override
+                public void onFailure() {
+                    Log.d("tagg","fail api");
+                }
+            });
+        }
     }
 
     @Override
@@ -68,7 +120,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Prefs.deletePrefs(this);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
