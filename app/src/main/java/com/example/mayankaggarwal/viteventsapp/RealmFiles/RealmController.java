@@ -5,7 +5,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
-import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -67,7 +67,7 @@ public class RealmController {
     public void clearAll() {
 
         realm.beginTransaction();
-//        realm.clear(AttendanceList.class);
+        realm.delete(AttendanceList.class);
         realm.commitTransaction();
     }
 

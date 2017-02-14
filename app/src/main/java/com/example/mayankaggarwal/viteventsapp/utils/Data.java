@@ -2,7 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
@@ -20,6 +20,7 @@ import retrofit2.Call;
  */
 
 public class Data {
+
     public static void updateAttendance(final Activity activity,final UpdateCallback updateCallback) {
         GetAttendance getAttendance = new GetAttendance(updateCallback);
         getAttendance.execute(activity);
@@ -42,15 +43,14 @@ public class Data {
             AttendanceRequest attendenceRequest = new AttendanceRequest();
             attendenceRequest.regno = regno;
             attendenceRequest.password = password;
-            Log.d("tagg", regno);
 
             final Call<AttendanceResponse> attendance = apiInterface.attendance(attendenceRequest);
 
 
             try {
-                Log.d("tagg", "in async");
+//                Log.d("tagg", "in async");
                 List<AttendanceList> attendenceList = attendance.execute().body().data;
-                Log.d("tagg",String.valueOf(attendenceList));
+//                Log.d("tagg",String.valueOf(attendenceList));
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 realm.commitTransaction();
@@ -61,12 +61,11 @@ public class Data {
                             realm.copyToRealm(e);
                         }
                     });
-                    Log.d("tagg",e.getCourseCode().toString());
-                    updateCallback.onUpdate();
+//                    Log.d("tagg",e.getCourseCode().toString());
                 }
-//                realm.close();
+                realm.close();
             }catch (Exception e){e.printStackTrace();
-                Log.d("tagg", "exceptionthrowm");
+//                Log.d("tagg", "exceptionthrowm");
                 updateCallback.onFailure();
             }
             return 0;
@@ -74,7 +73,7 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            Log.d("tagg","out of async");
+//            Log.d("tagg","out of async");
             updateCallback.onUpdate();
         }
     }

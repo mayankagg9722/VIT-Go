@@ -1,8 +1,12 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +17,10 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.rest.Auth;
+import com.example.mayankaggarwal.viteventsapp.utils.Data;
+
 import com.heinrichreimersoftware.materialintro.app.SlideFragment;
 
 public class LoginFragment extends SlideFragment {
@@ -23,6 +30,8 @@ public class LoginFragment extends SlideFragment {
     private ImageButton login;
     private boolean loggedIn = false;
     private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
+
 
     public LoginFragment() {
 
@@ -32,6 +41,7 @@ public class LoginFragment extends SlideFragment {
         return new LoginFragment();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +58,11 @@ public class LoginFragment extends SlideFragment {
         progressBar = (ProgressBar) root.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
 
+        progressDialog=new ProgressDialog(getActivity());
+        progressDialog.setTitle("Attendance");
+        progressDialog.setMessage("Loading");
+        progressDialog.create();
+
         username.setEnabled(!loggedIn);
         password.setEnabled(!loggedIn);
         login.setEnabled(!loggedIn);
@@ -61,8 +76,9 @@ public class LoginFragment extends SlideFragment {
                     @Override
                     public void onSuccess() {
                         progressBar.setVisibility(View.INVISIBLE);
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        getActivity().finish();
+                        progressDialog.show();
+                        //fetching attendance
+                        fetchAttendance(getActivity());
                     }
                     @Override
                     public void onFailure() {
@@ -94,6 +110,31 @@ public class LoginFragment extends SlideFragment {
             }
         });
     }
+
+    private void fetchAttendance(final Activity activity) {
+        if (!(RealmController.with(activity).hasAttendance())) {
+//            Log.d("tagg", "skip already has attendance");
+            Data.updateAttendance(activity, new Data.UpdateCallback() {
+                @Override
+                public void onUpdate() {
+//                    Log.d("tagg", "success api");
+                    progressDialog.dismiss();
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                }
+
+                @Override
+                public void onFailure() {
+
+//                    Log.d("tagg", "fail api");
+                    //agin try to fetch attendance
+                    progressDialog.dismiss();
+                }
+            });
+        }
+    }
+
+
 
     @Override
     public void onDestroy() {

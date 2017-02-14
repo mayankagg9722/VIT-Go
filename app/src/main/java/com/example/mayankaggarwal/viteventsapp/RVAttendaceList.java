@@ -1,9 +1,9 @@
 package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
-import android.content.Intent;
+
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +39,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             percentage= (TextView) itemView.findViewById(R.id.attendance_percentage);
             course_name= (TextView) itemView.findViewById(R.id.course_name);
             course_type= (TextView) itemView.findViewById(R.id.type);
+            course_code= (TextView) itemView.findViewById(R.id.classroom);
         }
     }
 
@@ -68,7 +69,15 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         int per=((Integer.parseInt(attendanceList.getAttended()))*100)/(Integer.parseInt(attendanceList.getTotalClasses()));
         holder.percentage.setText(String.valueOf(per));
         holder.course_name.setText(attendanceList.getCourseName());
-        holder.course_type.setText(attendanceList.getCourseType());
+        holder.course_code.setText(attendanceList.getCourseCode());
+        if(attendanceList.getCourseType().contains("Theory")){
+            holder.course_type.setText("Theory");
+        }
+        else if(attendanceList.getCourseType().equals("Soft Skill")){
+            holder.course_type.setText("Soft Skills");
+        }else{
+            holder.course_type.setText("Lab");
+        }
     }
 
     @Override

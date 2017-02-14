@@ -1,14 +1,10 @@
 package com.example.mayankaggarwal.viteventsapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.TextViewCompat;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.test.suitebuilder.TestMethod;
-import android.util.Log;
-import android.view.View;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +16,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
+
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 
 import java.text.SimpleDateFormat;
@@ -50,10 +48,11 @@ public class MainActivity extends AppCompatActivity
         //fetch attendance
         fetchAttendance();
 
+
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
-        
+        recyclerView.getAdapter().notifyDataSetChanged();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -78,17 +77,18 @@ public class MainActivity extends AppCompatActivity
 
     private void fetchAttendance() {
         if(RealmController.with(this).hasAttendance()){
-            Log.d("tagg","skip already has attendance");
+//            Log.d("tagg","skip already has attendance");
         }else{
             Data.updateAttendance(this, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
-                    Log.d("tagg","success api");
+//                    Log.d("tagg","success api");
+                    recyclerView.getAdapter().notifyDataSetChanged();
                 }
 
                 @Override
                 public void onFailure() {
-                    Log.d("tagg","fail api");
+//                    Log.d("tagg","fail api");
                 }
             });
         }
@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            RealmController.with(this).clearAll();
             Prefs.deletePrefs(this);
             finish();
         }
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            recyclerView.getAdapter().notifyDataSetChanged();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
