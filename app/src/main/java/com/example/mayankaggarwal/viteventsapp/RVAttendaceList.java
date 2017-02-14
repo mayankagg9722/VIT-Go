@@ -111,7 +111,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                             this.attendanceList.add(a);
                         }else if((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))){
                             this.attendanceList.add(a);
-                            Log.d("tagg", String.valueOf(attendanceList));
+//                            Log.d("tagg", String.valueOf(attendanceList));
                         }
                     }
             }
@@ -138,11 +138,11 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
        AttendanceList attendanceList=this.attendanceList.get(position);
 
         float per=((Float.parseFloat(attendanceList.getAttended()))*100)/(Float.parseFloat(attendanceList.getTotalClasses()));
-        Log.d("tagg", String.valueOf(per));
+//        Log.d("tagg", String.valueOf(per));
         if(per-Math.floor(per)>0.0){
             per=(int)per+1;
         }
-        Log.d("tagg", String.valueOf(per));
+//        Log.d("tagg", String.valueOf(per));
         if(per>=75){
             holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
             holder.percentage.setTextColor(Color.parseColor("#E47759"));
