@@ -43,6 +43,8 @@ dependencies {
 
     compile 'com.github.thorbenprimke:realm-recyclerview:0.9.23'
 
+    compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
+
 
 
     testCompile 'junit:junit:4.12'

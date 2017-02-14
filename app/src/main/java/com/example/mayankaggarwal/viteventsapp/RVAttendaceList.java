@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
@@ -32,8 +34,8 @@ import java.util.List;
 
 public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyViewHolder> {
 
-    private List<AttendanceList> attendanceList;
-    private Activity context;
+    public List<AttendanceList> attendanceList;
+    public Activity context;
     Boolean clickable;
 
     JsonArray main_timetable;
@@ -57,7 +59,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     String slotTime;
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
+        public List<AttendanceList> attendanceList;
         public TextView percentage;
         public TextView course_name;
         public TextView course_code;
@@ -76,6 +79,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             classroom=(TextView)itemView.findViewById(R.id.classroom);
             timeView=(TextView)itemView.findViewById(R.id.slottime);
         }
+
     }
 
     public RVAttendaceList(List<AttendanceList> atendance, Activity context, boolean clickable) {
@@ -133,9 +137,9 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     }
 
     @Override
-    public void onBindViewHolder(RVAttendaceList.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position)  {
 
-       AttendanceList attendanceList=this.attendanceList.get(position);
+       final AttendanceList attendanceList=this.attendanceList.get(position);
 
         float per=((Float.parseFloat(attendanceList.getAttended()))*100)/(Float.parseFloat(attendanceList.getTotalClasses()));
 //        Log.d("tagg", String.valueOf(per));
@@ -169,6 +173,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         }else{
             holder.course_type.setText("Lab");
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                send intent to another activity like below code
+//                Log.d("tagg",holder.timeView.getText().toString());
+            }
+        });
     }
 
     private void setDataAccday() {
