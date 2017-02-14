@@ -5,6 +5,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
+import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
 
 
 import io.realm.Realm;
@@ -73,9 +74,9 @@ public class RealmController {
 
 ////    find all objects
     public RealmResults<AttendanceList> getAtendance() {
-
         return realm.where(AttendanceList.class).findAll();
     }
+
 
    //// query a single item with the given id
 //    public AttendanceList getAttendance(String id) {
@@ -86,6 +87,10 @@ public class RealmController {
     public boolean hasAttendance() {
         return !realm.where(AttendanceList.class).findAll().isEmpty();
     }
+
+//    public boolean hasTimetable() {
+//        return !realm.where(TimetableResponse.class).findAll().isEmpty();
+//    }
 
 
 }

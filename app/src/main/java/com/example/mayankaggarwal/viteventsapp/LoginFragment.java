@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,7 +60,7 @@ public class LoginFragment extends SlideFragment {
         progressBar.setVisibility(View.INVISIBLE);
 
         progressDialog=new ProgressDialog(getActivity());
-        progressDialog.setTitle("Attendance");
+        progressDialog.setTitle("Fetching Timetable Attendance");
         progressDialog.setMessage("Loading");
         progressDialog.create();
 
@@ -77,8 +78,9 @@ public class LoginFragment extends SlideFragment {
                     public void onSuccess() {
                         progressBar.setVisibility(View.INVISIBLE);
                         progressDialog.show();
-                        //fetching attendance
-                        fetchAttendance(getActivity());
+
+                        //fetch timetable
+                        fetchTimetable(getActivity());
                     }
                     @Override
                     public void onFailure() {
@@ -131,7 +133,26 @@ public class LoginFragment extends SlideFragment {
                     progressDialog.dismiss();
                 }
             });
+        }else{
+            progressDialog.dismiss();
         }
+    }
+
+    private void fetchTimetable(final Activity activity) {
+
+        Data.updateTimetable(activity, new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                //Log.d("tagg","success api");
+                //fetching attendance
+                fetchAttendance(activity);
+            }
+            @Override
+            public void onFailure() {
+//              Log.d("tagg","fail api");
+                progressDialog.dismiss();
+            }
+        });
     }
 
 

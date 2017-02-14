@@ -4,6 +4,9 @@ import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
+import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
+import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,5 +23,8 @@ public interface ApiInterface {
 
     @POST("getAttendance")
     Call<AttendanceResponse> attendance(@Body AttendanceRequest attendanceRequest);
+
+    @POST("getTimetable")
+    Call<JsonObject> timetable(@Body TimetableRequest timetableRequest);
 
 }

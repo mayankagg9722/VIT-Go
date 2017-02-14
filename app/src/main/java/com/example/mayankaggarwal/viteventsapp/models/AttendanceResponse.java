@@ -22,7 +22,5 @@ public class AttendanceResponse {
     @Expose
     public List<AttendanceList> data =new ArrayList<>();
 
-
-
 }
 

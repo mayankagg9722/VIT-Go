@@ -1,7 +1,10 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,6 +24,8 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,10 +33,12 @@ import java.util.Date;
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener  {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private ProgressDialog progressDialog;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +46,22 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Fetching Timetable Attendance");
+        progressDialog.setMessage("Loading");
+        progressDialog.create();
+
         Realm.init(this);
 
         final Realm realm = Realm.getDefaultInstance();
+
+        progressDialog.show();
 
         //update date and attendance
         updateDayAndDate();
 
         //fetch attendance
         fetchAttendance();
-
 
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,35 +78,40 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     private void updateDayAndDate() {
-        TextView main_date=(TextView)findViewById(R.id.main_date);
-        TextView main_day=(TextView)findViewById(R.id.main_day);
-        Date date=new Date();
-        SimpleDateFormat dat=new SimpleDateFormat("MMM dd, yyyy");
-        SimpleDateFormat day=new SimpleDateFormat("E");
+
+        TextView main_date = (TextView) findViewById(R.id.main_date);
+        TextView main_day = (TextView) findViewById(R.id.main_day);
+        Date date = new Date();
+        SimpleDateFormat dat = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat day = new SimpleDateFormat("EEEE");
         main_date.setText(dat.format(date).toString());
-        main_day.setText(day.format(date).toString()+"day");
+        main_day.setText(day.format(date).toString());
+
     }
 
     private void fetchAttendance() {
-        if(RealmController.with(this).hasAttendance()){
+        if (!RealmController.with(this).hasAttendance()) {
 //            Log.d("tagg","skip already has attendance");
-        }else{
             Data.updateAttendance(this, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
 //                    Log.d("tagg","success api");
                     recyclerView.getAdapter().notifyDataSetChanged();
+                    progressDialog.dismiss();
                 }
 
                 @Override
                 public void onFailure() {
+                    progressDialog.dismiss();
 //                    Log.d("tagg","fail api");
                 }
             });
+        }else{
+            progressDialog.dismiss();
         }
     }
+
 
     @Override
     public void onBackPressed() {
