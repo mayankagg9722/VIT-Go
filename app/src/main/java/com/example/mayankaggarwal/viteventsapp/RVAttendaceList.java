@@ -3,7 +3,9 @@ package com.example.mayankaggarwal.viteventsapp;
 import android.app.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.DeadObjectException;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
@@ -177,6 +179,9 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(context, Details.class);
+                intent.putExtra("percentage",holder.percentage.getText().toString());
+                context.startActivity(intent);
 //                send intent to another activity like below code
 //                Log.d("tagg",holder.timeView.getText().toString());
             }
