@@ -56,6 +56,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     List<String> course_classroom = new ArrayList<>();
     List<String> course_type = new ArrayList<>();
     List<String> course_time = new ArrayList<>();
+    List<String> course_slot = new ArrayList<>();
 
     String slot;
     String type;
@@ -81,7 +82,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             percentage = (TextView) itemView.findViewById(R.id.attendance_percentage);
             course_name = (TextView) itemView.findViewById(R.id.course_name);
             course_type = (TextView) itemView.findViewById(R.id.type);
-            course_code = (TextView) itemView.findViewById(R.id.course_code);
             classroom = (TextView) itemView.findViewById(R.id.classroom);
             timeView = (TextView) itemView.findViewById(R.id.slottime);
             faculty = (TextView) itemView.findViewById(R.id.faculty);
@@ -110,7 +110,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //        Log.d("tagg", String.valueOf(course_classroom));
 //        Log.d("tagg", String.valueOf(course_type));
 //        Log.d("tagg", String.valueOf(course_time));
-
+//        Log.d("tagg",String.valueOf(course_slot));
         this.attendanceList = new ArrayList<>();
 
         int k = 0;
@@ -148,6 +148,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     @Override
     public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position) {
 
+        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
@@ -163,7 +164,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
         holder.percentage.setText(String.valueOf((int) per) + "%");
         holder.course_name.setText(attendanceList.getCourseName());
-        holder.course_code.setText(attendanceList.getCourseCode() + " - " + attendanceList.getSlot());
+//        holder.course_code.setText(attendanceList.getCourseCode());
 
 
         for(JsonElement a:main_faculty){
@@ -176,22 +177,15 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
-
-        int p = 0;
-        for (String code : course_code_day) {
-            if (code.contains(attendanceList.getCourseCode())) {
-                holder.classroom.setText(course_classroom.get(p));
-                holder.timeView.setText(course_time.get(p));
-            }
-            p++;
-        }
+                holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
+                holder.timeView.setText(course_time.get(position));
 
         if (attendanceList.getCourseType().contains("Theory")) {
-            holder.course_type.setText("Theory");
+            holder.course_type.setText(course_slot.get(position)+" - Theory");
         } else if (attendanceList.getCourseType().equals("Soft Skill")) {
-            holder.course_type.setText("Soft Skills");
+            holder.course_type.setText(course_slot.get(position)+" - Soft Skills");
         } else {
-            holder.course_type.setText("Lab");
+            holder.course_type.setText(course_slot.get(position)+" - Lab");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -201,8 +195,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 Intent intent = new Intent(context, Details.class);
                 intent.putExtra("percentage", holder.percentage.getText().toString());
                 intent.putExtra("coursename", holder.course_name.getText().toString());
-                intent.putExtra("classroom", holder.classroom.getText().toString());
-                intent.putExtra("code", holder.course_code.getText().toString());
+                intent.putExtra("classroom", course_classroom.get(position));
+                intent.putExtra("code", attendanceList.getCourseCode());
                 intent.putExtra("faculty", holder.faculty.getText());
                 intent.putExtra("attendedclass", attendanceList.getAttended().toString());
                 intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
@@ -255,7 +249,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 code = sub_day_array[0].replace("\"", "");
                 type = sub_day_array[1];
                 classroom = sub_day_array[2];
-                slot = sub_day_array[3];
+                slot = sub_day_array[3].replace("\"","");
 
                 //finding slot time in which are having class
                 setSlotTime(type, i);
@@ -264,6 +258,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 course_classroom.add(classroom);
                 course_type.add(type);
                 course_time.add(slotTime.replace("\"", ""));
+                course_slot.add(slot);
 
 //                Log.d("tagg",String.valueOf(classroom+"time:"+String.valueOf(slotTime)+"slot:"+String.valueOf(slot)));
             }

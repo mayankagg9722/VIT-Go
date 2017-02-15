@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity
         //fetch attendance
         fetchAttendance();
 
+        getSupportActionBar().setTitle("");
+
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
@@ -81,12 +83,10 @@ public class MainActivity extends AppCompatActivity
     private void updateDayAndDate() {
 
         TextView main_date = (TextView) findViewById(R.id.main_date);
-        TextView main_day = (TextView) findViewById(R.id.main_day);
         Date date = new Date();
-        SimpleDateFormat dat = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat dat = new SimpleDateFormat("dd MMMM,");
         SimpleDateFormat day = new SimpleDateFormat("EEEE");
-        main_date.setText(dat.format(date).toString());
-        main_day.setText(day.format(date).toString());
+        main_date.setText(dat.format(date).toString()+" "+day.format(date).toString());
 
     }
 

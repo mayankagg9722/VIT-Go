@@ -5,11 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/faculty"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="10dp"
         app:cardBackgroundColor="#ECEFF1"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
@@ -33,8 +38,9 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:id="@+id/course_name"
-                android:textSize="25dp"
-                android:padding="10dp"
+                android:textSize="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
                 <TextView
@@ -43,15 +49,8 @@
                     android:text="SJT-402"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/classroom"
-                    android:textSize="15dp"
-                    android:textColor="#607D8B"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SJT-402"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/course_code"
-                    android:textSize="15dp"
+                    android:paddingTop="4dp"
+                    android:textSize="10dp"
                     android:textColor="#607D8B"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -59,15 +58,18 @@
                     android:text="8AM-9Am"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/slottime"
-                    android:textSize="15dp"
+                    android:paddingTop="4dp"
+                    android:textSize="10dp"
                     android:textColor="#607D8B"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Theory"
-                    android:padding="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp"
                     android:id="@+id/type"
-                    android:textSize="20dp"
+                    android:textSize="10dp"
                     android:textStyle="bold"
                     android:textColor="#E47759"/>
 
@@ -82,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardBackgroundColor="#E57373"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="10dp"
                     android:id="@+id/percentage_card">
                     <TextView
                         android:layout_width="wrap_content"
@@ -102,11 +104,5 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/faculty"
-        android:visibility="gone"/>
 
 </RelativeLayout>
