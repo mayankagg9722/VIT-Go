@@ -197,7 +197,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tagg",holder.faculty.getText().toString());
+//                Log.d("tagg",holder.faculty.getText().toString());
                 Intent intent = new Intent(context, Details.class);
                 intent.putExtra("percentage", holder.percentage.getText().toString());
                 intent.putExtra("coursename", holder.course_name.getText().toString());

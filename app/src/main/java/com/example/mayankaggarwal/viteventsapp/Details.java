@@ -55,11 +55,15 @@ public class Details extends AppCompatActivity {
         attend_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attendedClasses=attendedClasses+1;
-                totalClasses=totalClasses+1;
-                prog= (int) calcPercentage(attendedClasses,totalClasses);
-                mCircleView.setValueAnimated(prog, 1000);
-                attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                int try_prog = (int) calcPercentage(attendedClasses+1 , totalClasses+1 );
+//                Log.d("tagg", String.valueOf(try_prog));
+                if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses)) {
+                    attendedClasses = attendedClasses + 1;
+                    totalClasses = totalClasses + 1;
+                    prog = (int) calcPercentage(attendedClasses, totalClasses);
+                    mCircleView.setValueAnimated(prog, 1000);
+                    attend_number.setText(String.valueOf(attendedClasses) + "/" + String.valueOf(totalClasses));
+                }
 
             }
         });
@@ -67,31 +71,43 @@ public class Details extends AppCompatActivity {
         attend_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attendedClasses=attendedClasses-1;
-                totalClasses=totalClasses-1;
-                prog= (int) calcPercentage(attendedClasses,totalClasses);
-                mCircleView.setValueAnimated(prog, 1000);
-                attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                int try_prog = (int) calcPercentage(attendedClasses-1 , totalClasses-1 );
+//                Log.d("tagg", String.valueOf(try_prog));
+                if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses) && attendedClasses>(Integer.parseInt(getIntent().getStringExtra("attendedclass")))){
+                    attendedClasses=attendedClasses-1;
+                    totalClasses=totalClasses-1;
+                    prog= (int) calcPercentage(attendedClasses,totalClasses);
+                    mCircleView.setValueAnimated(prog, 1000);
+                    attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                }
             }
         });
 
         miss_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                totalClasses=totalClasses+1;
-                prog= (int) calcPercentage(attendedClasses,totalClasses);
-                mCircleView.setValueAnimated(prog, 1000);
-                attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                int try_prog = (int) calcPercentage(attendedClasses , totalClasses+1 );
+//                Log.d("tagg", String.valueOf(try_prog));
+                if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses)) {
+                    totalClasses = totalClasses + 1;
+                    prog = (int) calcPercentage(attendedClasses, totalClasses);
+                    mCircleView.setValueAnimated(prog, 1000);
+                    attend_number.setText(String.valueOf(attendedClasses) + "/" + String.valueOf(totalClasses));
+                }
             }
         });
 
         miss_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                totalClasses=totalClasses-1;
-                prog= (int) calcPercentage(attendedClasses,totalClasses);
-                mCircleView.setValueAnimated(prog, 1000);
-                attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                int try_prog = (int) calcPercentage(attendedClasses , totalClasses-1 );
+//                Log.d("tagg", String.valueOf(try_prog));
+                if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses) && totalClasses>(Integer.parseInt(getIntent().getStringExtra("totalclass")))){
+                    totalClasses=totalClasses-1;
+                    prog= (int) calcPercentage(attendedClasses,totalClasses);
+                    mCircleView.setValueAnimated(prog, 1000);
+                    attend_number.setText(String.valueOf(attendedClasses)+"/"+String.valueOf(totalClasses));
+                }
             }
         });
 
