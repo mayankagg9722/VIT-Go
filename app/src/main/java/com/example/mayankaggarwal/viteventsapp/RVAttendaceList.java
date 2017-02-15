@@ -41,6 +41,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     Boolean clickable;
 
     JsonArray main_timetable;
+    JsonArray main_faculty;
     JsonArray sub_timetable_array;
     JsonArray sub_time_array;
 
@@ -51,17 +52,19 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     String classroom;
     String code;
 
-    List<String> course_code_day=new ArrayList<>();
-    List<String> course_classroom=new ArrayList<>();
-    List<String> course_type=new ArrayList<>();
-    List<String> course_time=new ArrayList<>();
+    List<String> course_code_day = new ArrayList<>();
+    List<String> course_classroom = new ArrayList<>();
+    List<String> course_type = new ArrayList<>();
+    List<String> course_time = new ArrayList<>();
 
     String slot;
     String type;
     String slotTime;
 
+    int k=0;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public List<AttendanceList> attendanceList;
         public TextView percentage;
         public TextView course_name;
@@ -70,16 +73,18 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         public TextView course_type;
         public CardView cardView;
         public TextView timeView;
+        public TextView faculty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardView=(CardView) itemView.findViewById(R.id.percentage_card);
-            percentage= (TextView) itemView.findViewById(R.id.attendance_percentage);
-            course_name= (TextView) itemView.findViewById(R.id.course_name);
-            course_type= (TextView) itemView.findViewById(R.id.type);
-            course_code= (TextView) itemView.findViewById(R.id.course_code);
-            classroom=(TextView)itemView.findViewById(R.id.classroom);
-            timeView=(TextView)itemView.findViewById(R.id.slottime);
+            cardView = (CardView) itemView.findViewById(R.id.percentage_card);
+            percentage = (TextView) itemView.findViewById(R.id.attendance_percentage);
+            course_name = (TextView) itemView.findViewById(R.id.course_name);
+            course_type = (TextView) itemView.findViewById(R.id.type);
+            course_code = (TextView) itemView.findViewById(R.id.course_code);
+            classroom = (TextView) itemView.findViewById(R.id.classroom);
+            timeView = (TextView) itemView.findViewById(R.id.slottime);
+            faculty = (TextView) itemView.findViewById(R.id.faculty);
         }
 
     }
@@ -87,14 +92,16 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     public RVAttendaceList(List<AttendanceList> atendance, Activity context, boolean clickable) {
 
         parser = new JsonParser();
-        json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable",context));
-        main_timetable=json.getAsJsonArray("timetable").getAsJsonArray();
+        json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
+        main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
+        main_faculty= json.getAsJsonArray("faculties");
 
+//        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
 
         Date date = new Date();
         SimpleDateFormat day = new SimpleDateFormat("E");
 
-        myday =day.format(date).toString().toUpperCase();
+        myday = day.format(date).toString().toUpperCase();
 
         //set data according to day
         setDataAccday();
@@ -104,28 +111,28 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //        Log.d("tagg", String.valueOf(course_type));
 //        Log.d("tagg", String.valueOf(course_time));
 
-        this.attendanceList=new ArrayList<>();
+        this.attendanceList = new ArrayList<>();
 
-        int k=0;
-        for(String code:course_code_day){
+        int k = 0;
+        for (String code : course_code_day) {
 
-            for(AttendanceList a:atendance){
-                    if(code.toString().contains(a.getCourseCode().toString())){
-                        if((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab") ){
-                            this.attendanceList.add(a);
-                        }else if((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")){
-                            this.attendanceList.add(a);
-                        }else if((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))){
-                            this.attendanceList.add(a);
+            for (AttendanceList a : atendance) {
+                if (code.toString().contains(a.getCourseCode().toString())) {
+                    if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
+                        this.attendanceList.add(a);
+                    } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
+                        this.attendanceList.add(a);
+                    } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
+                        this.attendanceList.add(a);
 //                            Log.d("tagg", String.valueOf(attendanceList));
-                        }
                     }
+                }
             }
             k++;
         }
 
-        this.context=context;
-        this.clickable=clickable;
+        this.context = context;
+        this.clickable = clickable;
 
     }
 
@@ -139,107 +146,126 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     }
 
     @Override
-    public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position)  {
+    public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position) {
 
-       final AttendanceList attendanceList=this.attendanceList.get(position);
+        final AttendanceList attendanceList = this.attendanceList.get(position);
 
-        float per=((Float.parseFloat(attendanceList.getAttended()))*100)/(Float.parseFloat(attendanceList.getTotalClasses()));
+        float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
 //        Log.d("tagg", String.valueOf(per));
-        if(per-Math.floor(per)>0.0){
-            per=(int)per+1;
+        if (per - Math.floor(per) > 0.0) {
+            per = (int) per + 1;
         }
 //        Log.d("tagg", String.valueOf(per));
-        if(per>=75){
+        if (per >= 75) {
             holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
             holder.percentage.setTextColor(Color.parseColor("#E47759"));
         }
 
-        holder.percentage.setText(String.valueOf((int)per)+"%");
+        holder.percentage.setText(String.valueOf((int) per) + "%");
         holder.course_name.setText(attendanceList.getCourseName());
-        holder.course_code.setText(attendanceList.getCourseCode()+" - "+attendanceList.getSlot());
+        holder.course_code.setText(attendanceList.getCourseCode() + " - " + attendanceList.getSlot());
 
-        int p=0;
-        for(String code:course_code_day){
-            if(code.contains(attendanceList.getCourseCode())){
+
+        for(JsonElement a:main_faculty){
+            if(attendanceList.getCourseName().toLowerCase().contains(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())){
+                if((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))){
+                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                }else if(attendanceList.getCourseType().toLowerCase().contains("lab")){
+                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                }
+//                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
+            }
+        }
+
+
+
+        int p = 0;
+        for (String code : course_code_day) {
+            if (code.contains(attendanceList.getCourseCode())) {
                 holder.classroom.setText(course_classroom.get(p));
                 holder.timeView.setText(course_time.get(p));
             }
             p++;
         }
 
-        if(attendanceList.getCourseType().contains("Theory")){
+        if (attendanceList.getCourseType().contains("Theory")) {
             holder.course_type.setText("Theory");
-        }
-        else if(attendanceList.getCourseType().equals("Soft Skill")){
+        } else if (attendanceList.getCourseType().equals("Soft Skill")) {
             holder.course_type.setText("Soft Skills");
-        }else{
+        } else {
             holder.course_type.setText("Lab");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, Details.class);
-                intent.putExtra("percentage",holder.percentage.getText().toString());
+                Log.d("tagg",holder.faculty.getText().toString());
+                Intent intent = new Intent(context, Details.class);
+                intent.putExtra("percentage", holder.percentage.getText().toString());
+                intent.putExtra("coursename", holder.course_name.getText().toString());
+                intent.putExtra("classroom", holder.classroom.getText().toString());
+                intent.putExtra("code", holder.course_code.getText().toString());
+                intent.putExtra("faculty", holder.faculty.getText());
+                intent.putExtra("attendedclass", attendanceList.getAttended().toString());
+                intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
+
                 context.startActivity(intent);
-//                send intent to another activity like below code
-//                Log.d("tagg",holder.timeView.getText().toString());
             }
         });
     }
 
     private void setDataAccday() {
-        if(myday.equals("MON")){
-            sub_timetable_array=main_timetable.get(2).getAsJsonArray();
+        if (myday.equals("MON")) {
+            sub_timetable_array = main_timetable.get(2).getAsJsonArray();
             //finding information
             findInfo();
-        }else if(myday.equals("TUE")){
-            sub_timetable_array=main_timetable.get(3).getAsJsonArray();
+        } else if (myday.equals("TUE")) {
+            sub_timetable_array = main_timetable.get(3).getAsJsonArray();
             //finding information
             findInfo();
-        }else if(myday.equals("WED")){
-            sub_timetable_array=main_timetable.get(4).getAsJsonArray();
+        } else if (myday.equals("WED")) {
+            sub_timetable_array = main_timetable.get(4).getAsJsonArray();
             //finding information
             findInfo();
 
-        }else if(myday.equals("THU")){
-            sub_timetable_array=main_timetable.get(5).getAsJsonArray();
+        } else if (myday.equals("THU")) {
+            sub_timetable_array = main_timetable.get(5).getAsJsonArray();
             //finding information
             findInfo();
-        }else if(myday.equals("FRI")){
-            sub_timetable_array=main_timetable.get(6).getAsJsonArray();
+        } else if (myday.equals("FRI")) {
+            sub_timetable_array = main_timetable.get(6).getAsJsonArray();
             //finding information
             findInfo();
-        }else if(myday.equals("SAT")){
-            sub_timetable_array=main_timetable.get(7).getAsJsonArray();
+        } else if (myday.equals("SAT")) {
+            sub_timetable_array = main_timetable.get(7).getAsJsonArray();
             //finding information
             //findInfo();
-        }else if(myday.equals("SUN")){
-            sub_timetable_array=main_timetable.get(8).getAsJsonArray();
+        } else if (myday.equals("SUN")) {
+            sub_timetable_array = main_timetable.get(8).getAsJsonArray();
             //finding information
             // findInfo();
         }
     }
 
     private void findInfo() {
-        int i=0;
-        for(JsonElement st:sub_timetable_array){
+        int i = 0;
+        for (JsonElement st : sub_timetable_array) {
 //                 Log.d("tagg",String.valueOf(st));
-            if(st.toString().contains("-")) {
-                String [] sub_day_array=null;
-                sub_day_array=st.toString().trim().split("-");
-                code=sub_day_array[0].replace("\"","");
-                type=sub_day_array[1];
-                classroom=sub_day_array[2];
-                slot=sub_day_array[3];
+            if (st.toString().contains("-")) {
+                String[] sub_day_array = null;
+                sub_day_array = st.toString().trim().split("-");
+                code = sub_day_array[0].replace("\"", "");
+                type = sub_day_array[1];
+                classroom = sub_day_array[2];
+                slot = sub_day_array[3];
 
                 //finding slot time in which are having class
-                setSlotTime(type,i);
+                setSlotTime(type, i);
 
                 course_code_day.add(code);
                 course_classroom.add(classroom);
                 course_type.add(type);
-                course_time.add(slotTime.replace("\"",""));
+                course_time.add(slotTime.replace("\"", ""));
 
 //                Log.d("tagg",String.valueOf(classroom+"time:"+String.valueOf(slotTime)+"slot:"+String.valueOf(slot)));
             }
@@ -247,33 +273,33 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         }
     }
 
-    private void setSlotTime(String type,int i) {
-        if(type.contains("ETH") || type.contains("TH") || type.contains("SS")){
-            sub_time_array=main_timetable.get(0).getAsJsonArray();
-            int j=0;
-            for(JsonElement time:sub_time_array){
-                if(j==i){
-                    if(Arrays.asList(course_time).contains(slotTime)){
+    private void setSlotTime(String type, int i) {
+        if (type.contains("ETH") || type.contains("TH") || type.contains("SS")) {
+            sub_time_array = main_timetable.get(0).getAsJsonArray();
+            int j = 0;
+            for (JsonElement time : sub_time_array) {
+                if (j == i) {
+                    if (Arrays.asList(course_time).contains(slotTime)) {
                         continue;
                     }
-                    slotTime=time.toString().toLowerCase().replace("to","-");
+                    slotTime = time.toString().toLowerCase().replace("to", "-");
                 }
                 j++;
             }
-        }else if(type.contains("ELA") || type.contains("LO")){
-            sub_time_array=main_timetable.get(1).getAsJsonArray();
-            int j=0;
-            for(JsonElement time:sub_time_array){
-                if(j==i){
-                    if(Arrays.asList(course_time).contains(slotTime)){
+        } else if (type.contains("ELA") || type.contains("LO")) {
+            sub_time_array = main_timetable.get(1).getAsJsonArray();
+            int j = 0;
+            for (JsonElement time : sub_time_array) {
+                if (j == i) {
+                    if (Arrays.asList(course_time).contains(slotTime)) {
                         continue;
                     }
-                    slotTime=time.toString().toLowerCase().replace("to","-");
+                    slotTime = time.toString().toLowerCase().replace("to", "-");
                 }
                 j++;
             }
-        }else{
-            slotTime="";
+        } else {
+            slotTime = "";
         }
     }
 

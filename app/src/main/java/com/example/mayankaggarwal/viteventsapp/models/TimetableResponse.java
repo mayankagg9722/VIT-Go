@@ -16,13 +16,13 @@ public class TimetableResponse  {
 
     @SerializedName("code")
     @Expose
-    public String code;
+    private String code;
     @SerializedName("timetable")
     @Expose
-    public List<List<String>> timetable = null;
+    private List<List<String>> timetable = null;
     @SerializedName("faculties")
     @Expose
-    public List<List<String>> faculties = null;
+    private List<Faculty> faculties = null;
 
     public String getCode() {
         return code;
@@ -40,11 +40,11 @@ public class TimetableResponse  {
         this.timetable = timetable;
     }
 
-    public List<List<String>> getFaculties() {
+    public List<Faculty> getFaculties() {
         return faculties;
     }
 
-    public void setFaculties(List<List<String>> faculties) {
+    public void setFaculties(List<Faculty> faculties) {
         this.faculties = faculties;
     }
 

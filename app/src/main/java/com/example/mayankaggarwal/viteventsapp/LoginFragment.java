@@ -60,8 +60,8 @@ public class LoginFragment extends SlideFragment {
         progressBar.setVisibility(View.INVISIBLE);
 
         progressDialog=new ProgressDialog(getActivity());
-        progressDialog.setTitle("Fetching Timetable Attendance");
-        progressDialog.setMessage("Loading");
+        progressDialog.setTitle("Fetching Timetable And Attendance");
+        progressDialog.setMessage("Loading..");
         progressDialog.create();
 
         username.setEnabled(!loggedIn);
