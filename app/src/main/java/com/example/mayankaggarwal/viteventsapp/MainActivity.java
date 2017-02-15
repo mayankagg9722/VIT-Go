@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -18,11 +19,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 
+import com.example.mayankaggarwal.viteventsapp.utils.InternetConnection;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
+    private  SwipeRefreshLayout swipeRefreshLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -46,9 +50,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
+
         progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Timetable Attendance");
-        progressDialog.setMessage("Loading");
+        progressDialog.setTitle("Fetching Attendance");
+        progressDialog.setMessage("Loading..");
         progressDialog.create();
 
         Realm.init(this);
@@ -69,6 +75,14 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
         recyclerView.getAdapter().notifyDataSetChanged();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                progressDialog.show();
+                    fetchAttendance();
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,24 +105,29 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void fetchAttendance() {
-        if (!RealmController.with(this).hasAttendance()) {
-//            Log.d("tagg","skip already has attendance");
+//            Log.d("tagg","attendance");
+        if(InternetConnection.isNetworkAvailable()){
             Data.updateAttendance(this, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
 //                    Log.d("tagg","success api");
                     recyclerView.getAdapter().notifyDataSetChanged();
                     progressDialog.dismiss();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onFailure() {
                     progressDialog.dismiss();
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                 }
             });
         }else{
             progressDialog.dismiss();
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
         }
     }
 
