@@ -177,8 +177,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             }
         }
 
-
-
         int p = 0;
         for (String code : course_code_day) {
             if (code.contains(attendanceList.getCourseCode())) {
