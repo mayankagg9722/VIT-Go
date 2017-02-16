@@ -5,6 +5,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
+import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
 
 
@@ -64,9 +65,8 @@ public class RealmController {
 //        realm.refresh();
     }
 
- ////   clear all objects
-    public void clearAll() {
 
+    public void clearAllAttendance(){
         realm.beginTransaction();
         realm.delete(AttendanceList.class);
         realm.commitTransaction();

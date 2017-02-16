@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,31 +57,31 @@ public class MainActivity extends AppCompatActivity
         progressDialog.setTitle("Fetching Attendance");
         progressDialog.setMessage("Loading..");
         progressDialog.create();
+        progressDialog.setCancelable(false);
 
-        Realm.init(this);
+//        Realm.init(this);
 
-        final Realm realm = Realm.getDefaultInstance();
+//        final Realm realm = Realm.getDefaultInstance();
 
-        progressDialog.show();
+
 
         //update date and attendance
         updateDayAndDate();
 
         //fetch attendance
-        fetchAttendance();
+        fetchAttendance(this);
 
         getSupportActionBar().setTitle("");
 
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
-        recyclerView.getAdapter().notifyDataSetChanged();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 //                progressDialog.show();
-                    fetchAttendance();
+                    fetchAttendance(MainActivity.this);
             }
         });
 
@@ -104,18 +105,18 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void fetchAttendance() {
+    private void fetchAttendance(final Activity activity) {
 //            Log.d("tagg","attendance");
+        progressDialog.show();
         if(InternetConnection.isNetworkAvailable()){
             Data.updateAttendance(this, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
 //                    Log.d("tagg","success api");
-                    recyclerView.getAdapter().notifyDataSetChanged();
+                    recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
                     progressDialog.dismiss();
                     swipeRefreshLayout.setRefreshing(false);
                 }
-
                 @Override
                 public void onFailure() {
                     progressDialog.dismiss();
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            RealmController.with(this).clearAll();
+//            RealmController.with(this).clearAll();
             Prefs.deletePrefs(this);
             finish();
         }

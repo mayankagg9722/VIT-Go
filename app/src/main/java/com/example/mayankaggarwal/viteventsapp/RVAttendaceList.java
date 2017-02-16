@@ -102,6 +102,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         SimpleDateFormat day = new SimpleDateFormat("E");
 
         myday = day.format(date).toString().toUpperCase();
+//        myday="THU";
 
         //set data according to day
         setDataAccday();
@@ -177,8 +178,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
-                holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
-                holder.timeView.setText(course_time.get(position));
+                //holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
+                //holder.timeView.setText(course_time.get(position));
 
         if (attendanceList.getCourseType().contains("Theory")) {
             holder.course_type.setText(course_slot.get(position)+" - Theory");

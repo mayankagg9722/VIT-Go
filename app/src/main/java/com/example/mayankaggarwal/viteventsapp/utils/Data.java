@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
@@ -73,6 +74,7 @@ public class Data {
 // //                Log.d("tagg",String.valueOf(attendenceList));
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
+                realm.delete(AttendanceList.class);
                 realm.commitTransaction();
                 for (final AttendanceList e : attendenceList ) {
                     realm.executeTransaction(new Realm.Transaction() {

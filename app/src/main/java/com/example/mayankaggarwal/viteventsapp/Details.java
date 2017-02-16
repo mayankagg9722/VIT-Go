@@ -18,6 +18,8 @@ public class Details extends AppCompatActivity {
     public int prog=0;
     public int attendedClasses=0;
     public int totalClasses=0;
+    int miss=0;
+    int attend=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,11 @@ public class Details extends AppCompatActivity {
         TextView course_code=(TextView)findViewById(R.id.detail_course_code);
         TextView faculty=(TextView)findViewById(R.id.detail_faculty);
 
+        final TextView misstext=(TextView)findViewById(R.id.miss);
+        final TextView attendtext=(TextView)findViewById(R.id.attend);
+
         ImageButton attend_plus=(ImageButton)findViewById(R.id.attend_plus);
-        ImageButton attend_minus=(ImageButton)findViewById(R.id.attend_minus);
+        final ImageButton attend_minus=(ImageButton)findViewById(R.id.attend_minus);
         ImageButton miss_plus=(ImageButton)findViewById(R.id.miss_plus);
         ImageButton miss_minus=(ImageButton)findViewById(R.id.miss_minus);
 
@@ -58,6 +63,8 @@ public class Details extends AppCompatActivity {
                 int try_prog = (int) calcPercentage(attendedClasses+1 , totalClasses+1 );
 //                Log.d("tagg", String.valueOf(try_prog));
                 if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses)) {
+                    attend=attend+1;
+                    attendtext.setText("Attend "+attend);
                     attendedClasses = attendedClasses + 1;
                     totalClasses = totalClasses + 1;
                     prog = (int) calcPercentage(attendedClasses, totalClasses);
@@ -74,6 +81,8 @@ public class Details extends AppCompatActivity {
                 int try_prog = (int) calcPercentage(attendedClasses-1 , totalClasses-1 );
 //                Log.d("tagg", String.valueOf(try_prog));
                 if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses) && attendedClasses>(Integer.parseInt(getIntent().getStringExtra("attendedclass")))){
+                    attend=attend-1;
+                    attendtext.setText("Attend "+attend);
                     attendedClasses=attendedClasses-1;
                     totalClasses=totalClasses-1;
                     prog= (int) calcPercentage(attendedClasses,totalClasses);
@@ -89,6 +98,8 @@ public class Details extends AppCompatActivity {
                 int try_prog = (int) calcPercentage(attendedClasses , totalClasses+1 );
 //                Log.d("tagg", String.valueOf(try_prog));
                 if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses)) {
+                    miss=miss+1;
+                    misstext.setText("Miss "+miss);
                     totalClasses = totalClasses + 1;
                     prog = (int) calcPercentage(attendedClasses, totalClasses);
                     mCircleView.setValueAnimated(prog, 1000);
@@ -103,6 +114,8 @@ public class Details extends AppCompatActivity {
                 int try_prog = (int) calcPercentage(attendedClasses , totalClasses-1 );
 //                Log.d("tagg", String.valueOf(try_prog));
                 if(try_prog>=0 && try_prog<=100 && (attendedClasses<=totalClasses) && totalClasses>(Integer.parseInt(getIntent().getStringExtra("totalclass")))){
+                    miss=miss-1;
+                    misstext.setText("Miss "+miss);
                     totalClasses=totalClasses-1;
                     prog= (int) calcPercentage(attendedClasses,totalClasses);
                     mCircleView.setValueAnimated(prog, 1000);
