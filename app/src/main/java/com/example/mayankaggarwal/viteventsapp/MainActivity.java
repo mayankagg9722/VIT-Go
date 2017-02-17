@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
                 public void onFailure() {
                     progressDialog.dismiss();
                     swipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                 }
             });

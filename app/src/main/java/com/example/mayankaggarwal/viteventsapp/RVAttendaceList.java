@@ -149,7 +149,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     @Override
     public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position) {
 
-//        Log.d("tagg","pos:"+position);
+        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
@@ -178,8 +178,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
-                //holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
-                //holder.timeView.setText(course_time.get(position));
+                holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
+                holder.timeView.setText(course_time.get(position));
 
         if (attendanceList.getCourseType().contains("Theory")) {
             holder.course_type.setText(course_slot.get(position)+" - Theory");

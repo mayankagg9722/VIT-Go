@@ -98,7 +98,7 @@ public class Data {
                 realm.close();
             }catch (Exception e){e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
-                updateCallback.onFailure();
+//                updateCallback.onFailure();
             }
             return 0;
         }
