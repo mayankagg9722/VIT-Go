@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         progressDialog.create();
         progressDialog.setCancelable(false);
 
-//        Realm.init(this);
+        Realm.init(this);
 
 //        final Realm realm = Realm.getDefaultInstance();
 

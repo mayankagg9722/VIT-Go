@@ -202,6 +202,13 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 intent.putExtra("attendedclass", attendanceList.getAttended().toString());
                 intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
 
+                intent.putExtra("classnbr",attendanceList.getPostParams().getClassnbr().toString());
+                intent.putExtra("semcode",attendanceList.getPostParams().getSemcode().toString());
+                intent.putExtra("crscd",attendanceList.getPostParams().getCrscd().toString());
+                intent.putExtra("crstp",attendanceList.getPostParams().getCrstp().toString());
+                intent.putExtra("from_date",attendanceList.getPostParams().getFromDate().toString());
+                intent.putExtra("to_date",attendanceList.getPostParams().getToDate().toString());
+
                 context.startActivity(intent);
             }
         });

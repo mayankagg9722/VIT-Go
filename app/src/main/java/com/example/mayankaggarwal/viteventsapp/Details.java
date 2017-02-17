@@ -1,11 +1,26 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.app.ProgressDialog;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.models.PostParams;
+import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.InternetConnection;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.annotations.JsonAdapter;
 
 import at.grabner.circleprogress.AnimationState;
 import at.grabner.circleprogress.AnimationStateChangedListener;
@@ -20,13 +35,24 @@ public class Details extends AppCompatActivity {
     public int totalClasses=0;
     int miss=0;
     int attend=0;
+    JsonElement postParams;
+    JsonParser parser;
+    ProgressDialog progressDialog;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
+
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Fetching Attendance");
+        progressDialog.setMessage("Loading..");
+        progressDialog.create();
+        progressDialog.setCancelable(false);
+
 
         TextView course_name=(TextView)findViewById(R.id.detail_course_name);
         TextView course_slot=(TextView)findViewById(R.id.course_slot);
@@ -43,6 +69,9 @@ public class Details extends AppCompatActivity {
         ImageButton miss_minus=(ImageButton)findViewById(R.id.miss_minus);
 
 
+
+        //fetchDetailAttendance
+        fetchDetailAttendance();
 
         course_name.setText(getIntent().getStringExtra("coursename"));
         course_slot.setText(getIntent().getStringExtra("classroom"));
@@ -157,6 +186,33 @@ public class Details extends AppCompatActivity {
 //                }
 //        );
 
+    }
+
+    private void fetchDetailAttendance() {
+        progressDialog.show();
+        if(InternetConnection.isNetworkAvailable()){
+
+            Data.updateDetailAttendance(this, new Data.UpdateCallback() {
+                @Override
+                public void onUpdate() {
+//                    Log.d("tagg","success api");
+                    //recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+                    progressDialog.dismiss();
+                    //swipeRefreshLayout.setRefreshing(false);
+                }
+                @Override
+                public void onFailure() {
+                    progressDialog.dismiss();
+                    //swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+//                    Log.d("tagg","fail api");
+                }
+            });
+        }else{
+            progressDialog.dismiss();
+            //swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public float calcPercentage(int attended,int total){
