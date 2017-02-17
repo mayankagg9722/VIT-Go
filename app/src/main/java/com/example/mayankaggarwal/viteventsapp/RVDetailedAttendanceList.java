@@ -79,20 +79,25 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
         CouresePage couresePage = this.couresePages.get(position);
         holder.detail_date.setText(couresePage.getDate());
 
+
             for(DetailAttendance d:this.detailAttendances){
-                if(d.getDate().toLowerCase().contains(holder.detail_date.getText().toString().toLowerCase())){
-                    if (d.getStatus().contains("Absent")) {
+                if(d.getDate().toString().toLowerCase().equals(holder.detail_date.getText().toString().toLowerCase())){
+                    if (d.getStatus().toString().toLowerCase().equals("absent")) {
                         holder.detail_attendance.setText(d.getStatus());
                         holder.detail_attendance.setTextColor(Color.parseColor("#F44336"));
 
-                    }else if(d.getStatus().contains("Present")){
+                    }else if(d.getStatus().toString().toLowerCase().equals("present")){
                         holder.detail_attendance.setText(d.getStatus());
                         holder.detail_attendance.setTextColor(Color.parseColor("#4CAF50"));
                     }
                     break;
+                }else{
+                    holder.detail_attendance.setText("Not Mentioned");
+                    holder.detail_attendance.setTextColor(Color.parseColor("#000000"));
                 }
             }
-    }
+        }
+
 
     @Override
     public int getItemCount() {
