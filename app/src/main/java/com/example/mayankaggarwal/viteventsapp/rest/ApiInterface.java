@@ -2,6 +2,8 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
@@ -31,5 +33,8 @@ public interface ApiInterface {
 
     @POST("detailAttendance")
     Call<DAResponse> detaialAttendance(@Body DARequest daRequest);
+
+    @POST("getCoursePage")
+    Call<CouresePageResponse> getCoursePage(@Body CoursePageRequest coursePageRequest);
 
 }

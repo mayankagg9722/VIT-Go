@@ -10,6 +10,9 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
+import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
@@ -52,6 +55,11 @@ public class Data {
     public static void updateDetailAttendance(final Activity activity,final UpdateCallback updateCallback) {
         GetDeatilAttendance getDeatilAttendance= new GetDeatilAttendance(updateCallback);
         getDeatilAttendance.execute(activity);
+    }
+
+    public static void updateCoursepage(final Activity activity,final UpdateCallback updateCallback) {
+        GetCoursePage getCoursePage= new GetCoursePage(updateCallback);
+        getCoursePage.execute(activity);
     }
 
 
@@ -139,8 +147,8 @@ public class Data {
                 Prefs.setPrefs("myTimetable",timetable.execute().body().toString(),activity);
 
             }catch (Exception e){e.printStackTrace();
- //               Log.d("tagg", "exceptionthrowm");
-                updateCallback.onFailure();
+//                Log.d("tagg", "exceptionthrowm");
+//                updateCallback.onFailure();
             }
             return 0;
         }
@@ -187,7 +195,7 @@ public class Data {
             daRequest.regno = regno;
             daRequest.password = password;
 
-            Log.d("tagg",classnbr);
+//            Log.d("tagg",classnbr);
 
             final Call<DAResponse> daResponseCall = apiInterface.detaialAttendance(daRequest);
 
@@ -210,7 +218,7 @@ public class Data {
                 realm.close();
             }catch (Exception e){e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
-                updateCallback.onFailure();
+//                updateCallback.onFailure();
             }
             return 0;
         }
@@ -222,6 +230,76 @@ public class Data {
         }
 
     }
+
+    public static class GetCoursePage extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetCoursePage(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity=params[0];
+
+            final String classnbr=activity.getIntent().getStringExtra("classnbr");;
+            final String semcode= activity.getIntent().getStringExtra("semcode");
+            final String crscd=activity.getIntent().getStringExtra("crscd");
+            final String crstp=activity.getIntent().getStringExtra("crstp");
+            final String fromDate=activity.getIntent().getStringExtra("from_date");
+            final String toDate=activity.getIntent().getStringExtra("to_date");
+            final String regno = Prefs.getPrefs("regno", activity);
+            final String password = Prefs.getPrefs("password", activity);
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            CoursePageRequest coursePageRequest = new CoursePageRequest();
+            coursePageRequest.classnbr=classnbr;
+            coursePageRequest.semcode=semcode;
+            coursePageRequest.crscd=crscd;
+            coursePageRequest.crstp=crstp;
+            coursePageRequest.fromDate=fromDate;
+            coursePageRequest.toDate=toDate;
+            coursePageRequest.regno = regno;
+            coursePageRequest.password = password;
+
+//            Log.d("tagg",classnbr);
+
+            final Call<CouresePageResponse> coursePageRequestCall = apiInterface.getCoursePage(coursePageRequest);
+
+            try {
+//                Log.d("tagg", "in async");
+                List<CouresePage> couresePages = coursePageRequestCall.execute().body().data;
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.delete(CouresePage.class);
+                realm.commitTransaction();
+                for (final CouresePage e : couresePages ) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+// //                   Log.d("tagg",e.getCourseCode().toString());
+                }
+                realm.close();
+            }catch (Exception e){e.printStackTrace();
+// //               Log.d("tagg", "exceptionthrowm");
+//                updateCallback.onFailure();
+            }
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+            updateCallback.onUpdate();
+        }
+
+    }
+
+
 
     public interface UpdateCallback {
         void onUpdate();

@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -35,9 +37,8 @@ public class Details extends AppCompatActivity {
     public int totalClasses=0;
     int miss=0;
     int attend=0;
-    JsonElement postParams;
-    JsonParser parser;
     ProgressDialog progressDialog;
+    private RecyclerView recyclerView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -47,12 +48,7 @@ public class Details extends AppCompatActivity {
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
 
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Attendance");
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
-        progressDialog.setCancelable(false);
-
+        recyclerView=(RecyclerView)findViewById(R.id.detail_recycler);
 
         TextView course_name=(TextView)findViewById(R.id.detail_course_name);
         TextView course_slot=(TextView)findViewById(R.id.course_slot);
@@ -69,9 +65,21 @@ public class Details extends AppCompatActivity {
         ImageButton miss_minus=(ImageButton)findViewById(R.id.miss_minus);
 
 
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Fetching Detailed Attendance");
+        progressDialog.setMessage("Loading..");
+        progressDialog.create();
+        progressDialog.setCancelable(false);
 
-        //fetchDetailAttendance
-        fetchDetailAttendance();
+
+        //fetchCoursePage
+        fetchCoursePage();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(this).getCoursePage(),
+                RealmController.with(this).getDetailAttendance(),this, true));
+
+
 
         course_name.setText(getIntent().getStringExtra("coursename"));
         course_slot.setText(getIntent().getStringExtra("classroom"));
@@ -188,15 +196,44 @@ public class Details extends AppCompatActivity {
 
     }
 
-    private void fetchDetailAttendance() {
+    private void fetchCoursePage() {
         progressDialog.show();
+        if(InternetConnection.isNetworkAvailable()){
+
+            Data.updateCoursepage(this, new Data.UpdateCallback() {
+                @Override
+                public void onUpdate() {
+//                    progressDialog.dismiss();
+                    fetchDetailAttendance();
+//                    Log.d("tagg","success api");
+                    //recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+//                    progressDialog.dismiss();
+                    //swipeRefreshLayout.setRefreshing(false);
+                }
+                @Override
+                public void onFailure() {
+                    progressDialog.dismiss();
+                    //swipeRefreshLayout.setRefreshing(false);
+//                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+//                    Log.d("tagg","fail api");
+                }
+            });
+        }else{
+            progressDialog.dismiss();
+            //swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fetchDetailAttendance() {
         if(InternetConnection.isNetworkAvailable()){
 
             Data.updateDetailAttendance(this, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
 //                    Log.d("tagg","success api");
-                    //recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+                    recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(Details.this).getCoursePage(),
+                            RealmController.with(Details.this).getDetailAttendance(),Details.this, true));
                     progressDialog.dismiss();
                     //swipeRefreshLayout.setRefreshing(false);
                 }
@@ -204,7 +241,7 @@ public class Details extends AppCompatActivity {
                 public void onFailure() {
                     progressDialog.dismiss();
                     //swipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                 }
             });

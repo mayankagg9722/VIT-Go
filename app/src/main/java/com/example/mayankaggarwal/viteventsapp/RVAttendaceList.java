@@ -149,7 +149,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     @Override
     public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position) {
 
-        Log.d("tagg","pos:"+position);
+//        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
