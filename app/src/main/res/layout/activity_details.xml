@@ -259,7 +259,8 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/detail_recycler">
+            android:id="@+id/detail_recycler"
+            android:nestedScrollingEnabled="true">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
