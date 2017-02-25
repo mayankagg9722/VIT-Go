@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +39,10 @@ public class Details extends AppCompatActivity {
     public int totalClasses=0;
     int miss=0;
     int attend=0;
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
     private RecyclerView recyclerView;
+    ProgressBar progressBar;
+    LinearLayout detailsLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -65,11 +69,15 @@ public class Details extends AppCompatActivity {
         ImageButton miss_minus=(ImageButton)findViewById(R.id.miss_minus);
 
 
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Detailed Attendance");
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
-        progressDialog.setCancelable(false);
+//        progressDialog=new ProgressDialog(this);
+//        progressDialog.setTitle("Fetching Detailed Attendance");
+//        progressDialog.setMessage("Loading..");
+//        progressDialog.create();
+//        progressDialog.setCancelable(false);
+
+        progressBar=(ProgressBar)findViewById(R.id.progress_bar);
+        detailsLayout=(LinearLayout)findViewById(R.id.detaillistlayout);
+
 
 
         //fetchCoursePage
@@ -197,7 +205,9 @@ public class Details extends AppCompatActivity {
     }
 
     private void fetchCoursePage() {
-        progressDialog.show();
+//        progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
+        detailsLayout.setVisibility(View.GONE);
         if(InternetConnection.isNetworkAvailable()){
 
             Data.updateCoursepage(this, new Data.UpdateCallback() {
@@ -212,14 +222,16 @@ public class Details extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure() {
-                    progressDialog.dismiss();
+//                    progressDialog.dismiss();
+                    progressBar.setVisibility(View.GONE);
                     //swipeRefreshLayout.setRefreshing(false);
 //                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                 }
             });
         }else{
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
             //swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
         }
@@ -234,19 +246,23 @@ public class Details extends AppCompatActivity {
 //                    Log.d("tagg","success api");
                     recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(Details.this).getCoursePage(),
                             RealmController.with(Details.this).getDetailAttendance(),Details.this, true));
-                    progressDialog.dismiss();
+//                    progressDialog.dismiss();
+                    progressBar.setVisibility(View.GONE);
+                    detailsLayout.setVisibility(View.VISIBLE);
                     //swipeRefreshLayout.setRefreshing(false);
                 }
                 @Override
                 public void onFailure() {
-                    progressDialog.dismiss();
+//                    progressDialog.dismiss();
+                    progressBar.setVisibility(View.GONE);
                     //swipeRefreshLayout.setRefreshing(false);
 //                    Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                 }
             });
         }else{
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
             //swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(Details.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
         }
