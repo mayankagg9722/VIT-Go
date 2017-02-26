@@ -28,6 +28,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
     public Activity context;
     Boolean clickable;
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public List<CouresePage> couresePages;
         public List<DetailAttendance> detailAttendances;
@@ -44,6 +45,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
     }
 
     public  RVDetailedAttendanceList(List<CouresePage> couresePages, List<DetailAttendance> detailAttendances, Activity context, boolean clickable){
+
         this.couresePages = new ArrayList<>();
         this.detailAttendances = new ArrayList<>();
 
@@ -54,10 +56,6 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
         for (DetailAttendance a : detailAttendances) {
             this.detailAttendances.add(a);
         }
-
-//        Log.d("tagg",couresePages.toString());
-//        Log.d("tagg",detailAttendances.toString());
-
 
 
         this.context = context;

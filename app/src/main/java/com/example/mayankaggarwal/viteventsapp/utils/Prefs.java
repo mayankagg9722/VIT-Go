@@ -3,6 +3,10 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+
+import java.util.Set;
+
 /**
  * Created by mayankaggarwal on 12/02/17.
  */

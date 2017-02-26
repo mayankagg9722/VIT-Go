@@ -3,7 +3,6 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -17,22 +16,15 @@ import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
-import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSerializer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmModel;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by mayankaggarwal on 12/02/17.
@@ -202,10 +194,21 @@ public class Data {
             try {
 //                Log.d("tagg", "in async");
                 List<DetailAttendance> detailAttendances = daResponseCall.execute().body().data;
+
+
+                List<DetailAttendance> detailedAttendance=new ArrayList<>();
+                for (final DetailAttendance e : detailAttendances ) {
+                    detailedAttendance.add(e);
+                }
+
+                Globals.detailAttendances.add(detailedAttendance);
+
+
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 realm.delete(DetailAttendance.class);
                 realm.commitTransaction();
+
                 for (final DetailAttendance e : detailAttendances ) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
@@ -213,11 +216,10 @@ public class Data {
                             realm.copyToRealm(e);
                         }
                     });
-// //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
             }catch (Exception e){e.printStackTrace();
-// //               Log.d("tagg", "exceptionthrowm");
+//                Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
             return 0;
@@ -270,10 +272,23 @@ public class Data {
             try {
 //                Log.d("tagg", "in async");
                 List<CouresePage> couresePages = coursePageRequestCall.execute().body().data;
+
+
+
+                List<CouresePage> couresePage=new ArrayList<>();
+
+                for (final CouresePage e : couresePages ) {
+                    couresePage.add(e);
+                }
+
+                Globals.couresePages.add(couresePage);
+
+
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 realm.delete(CouresePage.class);
                 realm.commitTransaction();
+
                 for (final CouresePage e : couresePages ) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
@@ -284,6 +299,7 @@ public class Data {
 // //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
+
             }catch (Exception e){e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
