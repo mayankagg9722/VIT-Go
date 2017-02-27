@@ -23,15 +23,21 @@
         <activity
             android:name=".SplashSlider"
             android:label="@string/title_activity_splash_slider"
-            android:theme="@style/Theme.Intro"></activity>
+            android:theme="@style/Theme.Intro" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Details"
+        <activity
+            android:name=".Details"
             android:label="Details"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+
+        <activity android:name=".TimeTable"
+            android:label="TimeTable"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" ></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             recyclerView.getAdapter().notifyDataSetChanged();
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(new Intent(this,TimeTable.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

@@ -69,8 +69,7 @@ public class Details extends AppCompatActivity {
 
         actionBar.setTitle("Detail Attendance");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable( new ColorDrawable(Color.parseColor("#f37051")));
-        
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
