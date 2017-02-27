@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.DeadObjectException;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -73,12 +74,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         public TextView classroom;
         public TextView course_type;
         public CardView cardView;
+        public CardView maincard;
         public TextView timeView;
         public TextView faculty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.percentage_card);
+            maincard = (CardView) itemView.findViewById(R.id.main_card);
             percentage = (TextView) itemView.findViewById(R.id.attendance_percentage);
             course_name = (TextView) itemView.findViewById(R.id.course_name);
             course_type = (TextView) itemView.findViewById(R.id.type);
@@ -147,10 +150,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     }
 
     @Override
-    public void onBindViewHolder(final RVAttendaceList.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
+        }
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
 //        Log.d("tagg", String.valueOf(per));

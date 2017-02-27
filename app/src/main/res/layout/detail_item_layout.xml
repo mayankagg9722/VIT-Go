@@ -2,35 +2,44 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="1">
+    android:stretchColumns="*">
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Not mentioned"
+            android:text="2"
+            android:textColor="#f37051"
+            android:gravity="center_horizontal"
             android:id="@+id/sno"
-            android:layout_margin="10dp"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Not mentioned"
-            android:id="@+id/detail_date"
-            android:layout_margin="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Not mentioned"
             android:layout_margin="10dp"
-            android:id="@+id/detail_attendance"/>
+            android:layout_width="0dp" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="27-jan-2015"
+            android:textColor="#f37051"
+            android:gravity="center_horizontal"
+            android:id="@+id/detail_date"
+            android:layout_margin="10dp"
+            android:layout_width="0dp" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="present"
+            android:gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:id="@+id/detail_attendance"
+            android:layout_width="0dp" />
+
 
     </TableRow>
 

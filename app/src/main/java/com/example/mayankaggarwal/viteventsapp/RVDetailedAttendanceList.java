@@ -27,7 +27,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
     public List<DetailAttendance> detailAttendances;
     public Activity context;
     Boolean clickable;
-    public static  int k=1;
+
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -79,7 +79,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
         CouresePage couresePage = this.couresePages.get(position);
         holder.detail_date.setText(couresePage.getDate());
-        holder.sno.setText(String.valueOf(k));
+        holder.sno.setText(String.valueOf(position+1));
         holder.sno.setTextColor(Color.parseColor("#F44336"));
 
 
@@ -95,11 +95,10 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
                     }
                     break;
                 }else{
-                    holder.detail_attendance.setText("Not Mentioned");
+                    holder.detail_attendance.setText("");
                     holder.detail_attendance.setTextColor(Color.parseColor("#000000"));
                 }
             }
-        k++;
         }
 
 

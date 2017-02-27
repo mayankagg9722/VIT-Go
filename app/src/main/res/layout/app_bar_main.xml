@@ -38,10 +38,11 @@
             android:text="Schedule"
             android:textStyle="bold"
             android:textSize="22dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:textColor="#ffffff"
             android:layout_gravity="center"
-            android:id="@+id/main_day" />
+            android:id="@+id/main_day"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
