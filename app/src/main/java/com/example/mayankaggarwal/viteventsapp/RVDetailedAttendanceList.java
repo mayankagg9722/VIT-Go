@@ -27,6 +27,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
     public List<DetailAttendance> detailAttendances;
     public Activity context;
     Boolean clickable;
+    public static  int k=1;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -34,11 +35,13 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
         public List<DetailAttendance> detailAttendances;
         public TextView detail_attendance;
         public TextView detail_date;
+        public TextView sno;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             detail_date = (TextView) itemView.findViewById(R.id.detail_date);
             detail_attendance = (TextView) itemView.findViewById(R.id.detail_attendance);
+            sno = (TextView) itemView.findViewById(R.id.sno);
 
         }
 
@@ -76,6 +79,8 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
         CouresePage couresePage = this.couresePages.get(position);
         holder.detail_date.setText(couresePage.getDate());
+        holder.sno.setText(String.valueOf(k));
+        holder.sno.setTextColor(Color.parseColor("#F44336"));
 
 
             for(DetailAttendance d:this.detailAttendances){
@@ -94,6 +99,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
                     holder.detail_attendance.setTextColor(Color.parseColor("#000000"));
                 }
             }
+        k++;
         }
 
 

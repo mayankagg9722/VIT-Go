@@ -3,8 +3,11 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +54,8 @@ public class Details extends AppCompatActivity {
     private RecyclerView recyclerView;
     ProgressBar progressBar;
     LinearLayout detailsLayout;
+    ActionBar actionBar;
+    ScrollView scrollView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -59,7 +65,22 @@ public class Details extends AppCompatActivity {
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
 
+        actionBar=getSupportActionBar();
+
+        actionBar.setTitle("Detail Attendance");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable( new ColorDrawable(Color.parseColor("#f37051")));
+        
+
+
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
+
+
+        //scroll to up position
+
+        scrollView=(ScrollView)findViewById(R.id.activity_details);
+
+        scrollView.fullScroll(ScrollView.FOCUS_UP);
 
         TextView course_name = (TextView) findViewById(R.id.detail_course_name);
         TextView course_slot = (TextView) findViewById(R.id.course_slot);

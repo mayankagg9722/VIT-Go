@@ -23,6 +23,4 @@ public class Globals {
 
     public static List<String>  courseType=new ArrayList<>();
 
-//    public static Set<DetailAttendance> setSetDetailAtten=new HashSet<>();
-
 }
