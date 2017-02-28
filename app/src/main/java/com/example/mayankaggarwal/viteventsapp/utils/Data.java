@@ -20,6 +20,7 @@ import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class Data {
     public static void updateCoursepage(final Activity activity,final UpdateCallback updateCallback) {
         GetCoursePage getCoursePage= new GetCoursePage(updateCallback);
         getCoursePage.execute(activity);
+    }
+
+    public static void internetConnection(final UpdateCallback updateCallback) {
+        InternetConnection intenetConnection= new InternetConnection(updateCallback);
+        intenetConnection.execute();
     }
 
 
@@ -311,6 +317,41 @@ public class Data {
         protected void onPostExecute(Integer integer) {
 //            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
+        }
+
+    }
+
+
+    public static class InternetConnection extends AsyncTask<Void, Void, Boolean> {
+
+        UpdateCallback updateCallback;
+
+        InternetConnection(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Runtime runtime = Runtime.getRuntime();
+            try {
+
+                Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+                int     exitValue = ipProcess.waitFor();
+                return (exitValue == 0);
+
+            } catch (IOException e)          { e.printStackTrace(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            if(bool==true){
+                updateCallback.onUpdate();
+            }else{
+                updateCallback.onFailure();
+            }
         }
 
     }

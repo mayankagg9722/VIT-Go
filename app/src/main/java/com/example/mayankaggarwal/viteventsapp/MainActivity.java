@@ -3,10 +3,14 @@ package com.example.mayankaggarwal.viteventsapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +22,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -31,11 +36,13 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.InternetConnection;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,7 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
-    private  SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -56,9 +63,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
 
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Fetching Attendance");
         progressDialog.setMessage("Loading..");
         progressDialog.create();
@@ -84,7 +91,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
 //                progressDialog.show();
-                    fetchAttendance(MainActivity.this);
+                Globals.doneFetching=0;
+                fetchAttendance(MainActivity.this);
             }
         });
 
@@ -106,14 +114,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View header=navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
 
-        TextView name=(TextView)header.findViewById(R.id.nametext);
-        TextView regno=(TextView)header.findViewById(R.id.regtext);
+        TextView name = (TextView) header.findViewById(R.id.nametext);
+        de.hdodenhof.circleimageview.CircleImageView profile=(de.hdodenhof.circleimageview.CircleImageView)header.findViewById(R.id.profile_image);
+        TextView regno = (TextView) header.findViewById(R.id.regtext);
 
-        name.setText(Prefs.getPrefs("name",this));
-        regno.setText(Prefs.getPrefs("regno",this));
+        name.setText(Prefs.getPrefs("name", this));
+        regno.setText(Prefs.getPrefs("regno", this));
+
+        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
+
     }
+
 
     private void updateDayAndDate() {
 
@@ -121,36 +134,77 @@ public class MainActivity extends AppCompatActivity
         Date date = new Date();
         SimpleDateFormat dat = new SimpleDateFormat("dd MMMM,");
         SimpleDateFormat day = new SimpleDateFormat("EEEE");
-        main_date.setText(dat.format(date).toString()+" "+day.format(date).toString());
+        main_date.setText(dat.format(date).toString() + " " + day.format(date).toString());
 
     }
 
     private void fetchAttendance(final Activity activity) {
+
+        if (Globals.doneFetching == 0) {
+            progressDialog.show();
+            Globals.doneFetching = 1;
+        }
 //            Log.d("tagg","attendance");
-        progressDialog.show();
-        if(InternetConnection.isNetworkAvailable()){
-            Data.updateAttendance(this, new Data.UpdateCallback() {
-                @Override
-                public void onUpdate() {
+        Data.internetConnection(new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                    Data.updateAttendance(activity, new Data.UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
 //                    Log.d("tagg","success api");
-                    recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
-                    progressDialog.dismiss();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-                @Override
-                public void onFailure() {
-                    progressDialog.dismiss();
-                    swipeRefreshLayout.setRefreshing(false);
+                            recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+                            swipeRefreshLayout.setRefreshing(false);
+                            if(Globals.doneFetching==1){
+                                progressDialog.dismiss();
+                            }
+                        }
+                        @Override
+                        public void onFailure() {
+                            swipeRefreshLayout.setRefreshing(false);
+                            if(Globals.doneFetching==1){
+                                progressDialog.dismiss();
+                            }
 //                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
-                }
-            });
-        }else{
-            progressDialog.dismiss();
-            swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-        }
+                        }
+                    });
+            }
+
+            @Override
+            public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+//        if (InternetConnection.isNetworkAvailable()) {
+//            if (Globals.doneFetching == 0) {
+//                progressDialog.show();
+//                Globals.doneFetching = 1;
+//                Data.updateAttendance(this, new Data.UpdateCallback() {
+//                    @Override
+//                    public void onUpdate() {
+////                    Log.d("tagg","success api");
+//                        recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+//
+//                        swipeRefreshLayout.setRefreshing(false);
+//                    }
+//
+//                    @Override
+//                    public void onFailure() {
+//                        swipeRefreshLayout.setRefreshing(false);
+////                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
+////                    Log.d("tagg","fail api");
+//                    }
+//                });
+//            }
+//        } else {
+//            swipeRefreshLayout.setRefreshing(false);
+//            Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+//        }
+//        if (Globals.doneFetching == 1) {
+//            progressDialog.dismiss();
+//        }
 
 
     @Override
@@ -171,9 +225,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            startActivity(new Intent(this, ImageGallery.class));
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(this,TimeTable.class));
+            startActivity(new Intent(this, TimeTable.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

@@ -32,11 +32,12 @@
             android:name=".Details"
             android:label="Details"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-
-        <activity android:name=".TimeTable"
+        <activity
+            android:name=".TimeTable"
             android:label="TimeTable"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" ></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".ImageGallery"></activity>
     </application>
 
 </manifest>

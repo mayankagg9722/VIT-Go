@@ -247,62 +247,127 @@ public class Details extends AppCompatActivity {
     private void fetchCoursePage() {
         progressBar.setVisibility(View.VISIBLE);
         detailsLayout.setVisibility(View.GONE);
-        if (InternetConnection.isNetworkAvailable()) {
 
-            Data.updateCoursepage(this, new Data.UpdateCallback() {
-                @Override
-                public void onUpdate() {
-                    fetchDetailAttendance();
+        Data.internetConnection(new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                Data.updateCoursepage(Details.this, new Data.UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        fetchDetailAttendance();
 //                    Log.d("tagg","success api");
 //                    swipeRefreshLayout.setRefreshing(false);
-                }
+                    }
 
-                @Override
-                public void onFailure() {
-                    progressBar.setVisibility(View.GONE);
+                    @Override
+                    public void onFailure() {
+                        progressBar.setVisibility(View.GONE);
 //                    swipeRefreshLayout.setRefreshing(false);
 //                    Log.d("tagg","fail api");
-                }
-            });
-        } else {
-            progressBar.setVisibility(View.GONE);
-            //swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure() {
+                progressBar.setVisibility(View.GONE);
+                //swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+//        if (InternetConnection.isNetworkAvailable()) {
+//
+//            Data.updateCoursepage(this, new Data.UpdateCallback() {
+//                @Override
+//                public void onUpdate() {
+//                    fetchDetailAttendance();
+////                    Log.d("tagg","success api");
+////                    swipeRefreshLayout.setRefreshing(false);
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//                    progressBar.setVisibility(View.GONE);
+////                    swipeRefreshLayout.setRefreshing(false);
+////                    Log.d("tagg","fail api");
+//                }
+//            });
+//        } else {
+//            progressBar.setVisibility(View.GONE);
+//            //swipeRefreshLayout.setRefreshing(false);
+//            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     private void fetchDetailAttendance() {
-        if (InternetConnection.isNetworkAvailable()) {
-
-            Data.updateDetailAttendance(this, new Data.UpdateCallback() {
-                @Override
-                public void onUpdate() {
+        Data.internetConnection(new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                Data.updateDetailAttendance(Details.this, new Data.UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
 //                    Log.d("tagg","success api");
 
-                    progressBar.setVisibility(View.GONE);
-                    detailsLayout.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        detailsLayout.setVisibility(View.VISIBLE);
 
 //                  @@@@@@@@@@@@@@@@@@@ add to globals
-                    addDataToGlobals();
+                        addDataToGlobals();
 
-                    setGlobalAdapter();
+                        setGlobalAdapter();
 
-                    //swipeRefreshLayout.setRefreshing(false);
-                }
+                        //swipeRefreshLayout.setRefreshing(false);
+                    }
 
-                @Override
-                public void onFailure() {
-                    progressBar.setVisibility(View.GONE);
+                    @Override
+                    public void onFailure() {
+                        progressBar.setVisibility(View.GONE);
 //                    swipeRefreshLayout.setRefreshing(false);
 //                    Log.d("tagg","fail api");
-                }
-            });
-        } else {
-            progressBar.setVisibility(View.GONE);
-            //swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure() {
+                progressBar.setVisibility(View.GONE);
+                //swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+//        if (InternetConnection.isNetworkAvailable()) {
+//
+//            Data.updateDetailAttendance(this, new Data.UpdateCallback() {
+//                @Override
+//                public void onUpdate() {
+////                    Log.d("tagg","success api");
+//
+//                    progressBar.setVisibility(View.GONE);
+//                    detailsLayout.setVisibility(View.VISIBLE);
+//
+////                  @@@@@@@@@@@@@@@@@@@ add to globals
+//                    addDataToGlobals();
+//
+//                    setGlobalAdapter();
+//
+//                    //swipeRefreshLayout.setRefreshing(false);
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//                    progressBar.setVisibility(View.GONE);
+////                    swipeRefreshLayout.setRefreshing(false);
+////                    Log.d("tagg","fail api");
+//                }
+//            });
+//        } else {
+//            progressBar.setVisibility(View.GONE);
+//            //swipeRefreshLayout.setRefreshing(false);
+//            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public float calcPercentage(int attended, int total) {
 
