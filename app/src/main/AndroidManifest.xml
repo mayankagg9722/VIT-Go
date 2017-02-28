@@ -31,7 +31,6 @@
         <activity
             android:name=".Details"
             android:label="Details"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
 
         <activity android:name=".TimeTable"

@@ -312,4 +312,10 @@ public class Details extends AppCompatActivity {
         }
         return per;
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

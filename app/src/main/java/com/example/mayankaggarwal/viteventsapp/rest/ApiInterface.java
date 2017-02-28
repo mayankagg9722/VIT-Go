@@ -9,7 +9,7 @@ import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
-import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
+
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;

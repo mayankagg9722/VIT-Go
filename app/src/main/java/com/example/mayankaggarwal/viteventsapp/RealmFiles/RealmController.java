@@ -8,7 +8,6 @@ import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
-import com.example.mayankaggarwal.viteventsapp.models.TimetableResponse;
 
 
 import io.realm.Realm;
@@ -68,9 +67,12 @@ public class RealmController {
     }
 
 
-    public void clearAllAttendance(){
+    public void clearAll(){
         realm.beginTransaction();
         realm.delete(AttendanceList.class);
+        realm.delete(CouresePage.class);
+        realm.delete(DetailAttendance.class);
+        realm.delete(PostParams.class);
         realm.commitTransaction();
     }
 
