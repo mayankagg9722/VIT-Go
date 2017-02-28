@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,6 +107,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header=navigationView.getHeaderView(0);
+
+        TextView name=(TextView)header.findViewById(R.id.nametext);
+        TextView regno=(TextView)header.findViewById(R.id.regtext);
+
+        name.setText(Prefs.getPrefs("name",this));
+        regno.setText(Prefs.getPrefs("regno",this));
     }
 
     private void updateDayAndDate() {

@@ -13,5 +13,5 @@ public class LoginResponse {
     public String code;
     @SerializedName("message")
     @Expose
-    public Boolean message;
+    public String message;
 }
