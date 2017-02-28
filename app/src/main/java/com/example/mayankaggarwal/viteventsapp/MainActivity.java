@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity
 
 //        final Realm realm = Realm.getDefaultInstance();
 
-
-
         //update date and attendance
         updateDayAndDate();
 

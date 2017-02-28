@@ -55,9 +55,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/one"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -109,47 +110,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_margin="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
                 android:orientation="horizontal">
 
                     <at.grabner.circleprogress.CircleProgressView
                         android:id="@+id/circleView"
                         android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_margin="10dp"
-                        CircleProgressView:cpv_autoTextSize="true"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         CircleProgressView:cpv_barColor="#ffffff"
-                        CircleProgressView:cpv_barWidth="5dp"
+                        CircleProgressView:cpv_barWidth="6.5dp"
                         CircleProgressView:cpv_innerContourSize="0dp"
                         CircleProgressView:cpv_outerContourSize="0dp"
                         CircleProgressView:cpv_maxValue="100"
                         CircleProgressView:cpv_rimColor="#50ffffff"
-                        CircleProgressView:cpv_rimWidth="5dp"
+                        CircleProgressView:cpv_rimWidth="6.5dp"
                         CircleProgressView:cpv_startAngle="90"
-                        CircleProgressView:cpv_showUnit="true"
+                        CircleProgressView:cpv_showUnit="false"
                         CircleProgressView:cpv_spinColor="@color/color_accent"
                         CircleProgressView:cpv_textColor="#ffffff"
-                        CircleProgressView:cpv_textScale="1"
-                        CircleProgressView:cpv_unit="%"
-                        CircleProgressView:cpv_unitColor="#fff"
-                        CircleProgressView:cpv_textMode="Value"
-                        CircleProgressView:cpv_unitPosition="right_top"
-                        CircleProgressView:cpv_value="0" />
+                        CircleProgressView:cpv_textSize="20dp"
+                        CircleProgressView:cpv_value="0"
+                        CircleProgressView:cpv_textMode="Value"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8/8"
-                    android:textSize="13dp"
+                    android:textSize="10dp"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:id="@+id/atendnumber"
-                    android:layout_marginTop="80dp"/>
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="8dp"
+                    />
 
             </LinearLayout>
 
@@ -157,44 +162,50 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:orientation="horizontal"
-                android:layout_marginTop="105dp">
+                android:orientation="vertical"
+                android:layout_marginRight="5dp">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="5dp">
+                    android:gravity="bottom">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <ImageButton
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.2"
+                            android:adjustViewBounds="true"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/delete"
                             android:background="#00ffffff"
                             android:id="@+id/miss_minus"
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Miss"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.6"
+                            android:layout_height="match_parent"
+                            android:text="Miss 0"
+                            android:gravity="center_vertical"
                             android:id="@+id/miss"
                             android:textStyle="bold"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginTop="8dp"
+                            android:textAlignment="center"
                             android:textColor="#fff"/>
 
                         <ImageButton
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            android:layout_marginLeft="9dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:layout_weight="0.2"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/add"
                             android:background="#00ffffff"
                             android:id="@+id/miss_plus"
@@ -205,31 +216,37 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="1" >
 
                         <ImageButton
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:layout_weight="0.2"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/delete"
                             android:background="#00ffffff"
                             android:id="@+id/attend_minus"
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Attend"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Attend 0"
+                            android:layout_weight="0.6"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:textColor="#fff"
                             android:id="@+id/attend"/>
 
                         <ImageButton
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:layout_weight="0.2"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/add"
                             android:background="#00ffffff"
                             android:id="@+id/attend_plus"
