@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,9 +14,6 @@ import android.os.Bundle;
 
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
-import android.support.transition.Transition;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.transition.Slide;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
+import android.transition.Explode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -110,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         toggle.setDrawerIndicatorEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.navicon);
+        toolbar.setNavigationIcon(R.drawable.navvv);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,14 +175,13 @@ public class MainActivity extends AppCompatActivity
 
     private void fetchAttendance(final Activity activity) {
 
-        if (Globals.doneFetching == 0) {
-            progressDialog.show();
-            Globals.doneFetching = 1;
-        }
 //            Log.d("tagg","attendance");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
+                if (Globals.doneFetching == 0) {
+                    progressDialog.show();
+                    Globals.doneFetching = 1;
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
@@ -210,6 +202,7 @@ public class MainActivity extends AppCompatActivity
 //                    Log.d("tagg","fail api");
                         }
                     });
+                }
             }
 
             @Override

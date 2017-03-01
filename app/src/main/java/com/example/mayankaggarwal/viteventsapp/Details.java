@@ -1,8 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -12,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,25 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-
-import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
-import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
-import com.example.mayankaggarwal.viteventsapp.utils.InternetConnection;
-import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import at.grabner.circleprogress.CircleProgressView;
-import io.realm.Realm;
+
 
 
 public class Details extends AppCompatActivity {
@@ -62,6 +46,8 @@ public class Details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        getWindow().setAllowEnterTransitionOverlap(false);
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
 

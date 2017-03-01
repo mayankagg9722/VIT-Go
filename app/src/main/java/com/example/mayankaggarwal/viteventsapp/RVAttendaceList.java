@@ -104,8 +104,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         Date date = new Date();
         SimpleDateFormat day = new SimpleDateFormat("E");
 
-//        myday = day.format(date).toString().toUpperCase();
-        myday="THU";
+        myday = day.format(date).toString().toUpperCase();
+//        myday="THU";
 
         //set data according to day
         setDataAccday();
