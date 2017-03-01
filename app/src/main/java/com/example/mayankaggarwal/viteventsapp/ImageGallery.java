@@ -1,6 +1,8 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,14 +10,22 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 
 import java.io.IOException;
@@ -23,8 +33,9 @@ import java.io.IOException;
 public class ImageGallery extends AppCompatActivity {
 
 
+    private static final int REQUEST_PERMISSION =1 ;
     ActionBar actionBar;
-    Button selectimage, setimage;
+    CardView selectimage;
 
     private static final int img=1;
 
@@ -35,35 +46,63 @@ public class ImageGallery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_gallery);
 
-//        actionBar = getSupportActionBar();
-        selectimage = (Button) findViewById(R.id.imageselect);
-        setimage = (Button) findViewById(R.id.setimage);
+        actionBar = getSupportActionBar();
+        selectimage = (CardView) findViewById(R.id.imageselect);
 
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
 
+        if(Prefs.getPrefs("readPermission",this).equals("1")){
+            try {
+                Bitmap photo = null;
+                photo = MediaStore.Images.Media.getBitmap(getContentResolver()
+                        , Uri.parse(Prefs.getPrefs("profileimage",this)));
+//            photo = getResizedBitmap(photo, 400, 400);
+                imageView.setImageBitmap(photo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-//        actionBar.setTitle("Image");
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
+
+        actionBar.setTitle("Image");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
 
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent();
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                        && ContextCompat.checkSelfPermission(ImageGallery.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ImageGallery.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_PERMISSION);
+                    return;
+                }
+                Intent intent=new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Select Picture"),img);
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted.
+                Prefs.setPrefs("readPermission","1",this);
+            } else {
+                // User refused to grant permission.
+                Prefs.setPrefs("readPermission","0",this);
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==img&&resultCode==RESULT_OK && data !=null && data.getData()!=null) {
-            data.getData();
-            //Log.e("uridata",data.getData().toString());
             if (data.getData() != null) {
                 //Log.v("uri",data.getData().toString());
                 Bitmap photo = null;
@@ -71,14 +110,12 @@ public class ImageGallery extends AppCompatActivity {
                     Prefs.setPrefs("profileimage",data.getData().toString(),this);
                     photo = MediaStore.Images.Media.getBitmap(getContentResolver()
                             , data.getData());
-                    photo = getResizedBitmap(photo, 900, 1200);
+//                    photo = getResizedBitmap(photo, 900, 900);
                     imageView.setImageBitmap(photo);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
-
         }
     }
 
@@ -91,7 +128,6 @@ public class ImageGallery extends AppCompatActivity {
         Matrix matrix = new Matrix();
         // RESIZE THE BIT MAP
         matrix.postScale(scaleWidth, scaleHeight);
-
         // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 bm, 0, 0, width, height, matrix, false);

@@ -25,6 +25,4 @@ public class Globals {
 
     public static int doneFetching=0;
 
-    public static String inageURI=null;
-
 }

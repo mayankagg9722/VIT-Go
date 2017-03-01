@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -23,11 +24,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private de.hdodenhof.circleimageview.CircleImageView profile;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -117,14 +121,46 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
 
         TextView name = (TextView) header.findViewById(R.id.nametext);
-        de.hdodenhof.circleimageview.CircleImageView profile=(de.hdodenhof.circleimageview.CircleImageView)header.findViewById(R.id.profile_image);
+        profile=(de.hdodenhof.circleimageview.CircleImageView)header.findViewById(R.id.profile_image);
         TextView regno = (TextView) header.findViewById(R.id.regtext);
 
         name.setText(Prefs.getPrefs("name", this));
         regno.setText(Prefs.getPrefs("regno", this));
 
-        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
+//        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
+        if(Prefs.getPrefs("readPermission",this).equals("1")){
+            setNavImage();
+        }
+    }
 
+    private void setNavImage() {
+        try {
+            Prefs.setPrefs("profileimage",Prefs.getPrefs("profileimage",this),this);
+            Bitmap photo = null;
+            photo = MediaStore.Images.Media.getBitmap(getContentResolver()
+                    , Uri.parse(Prefs.getPrefs("profileimage",this)));
+//            photo = getResizedBitmap(photo, 400, 400);
+            profile.setImageBitmap(photo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 
 
@@ -245,4 +281,13 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onRestart() {
+        if(Prefs.getPrefs("readPermission",this).equals("1")){
+            setNavImage();
+        }
+        super.onRestart();
+    }
+
 }
