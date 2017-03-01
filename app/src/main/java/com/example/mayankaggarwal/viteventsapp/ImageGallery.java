@@ -46,10 +46,14 @@ public class ImageGallery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_gallery);
 
+
+
         actionBar = getSupportActionBar();
         selectimage = (CardView) findViewById(R.id.imageselect);
 
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
+
+
 
         if(Prefs.getPrefs("readPermission",this).equals("1")){
             try {

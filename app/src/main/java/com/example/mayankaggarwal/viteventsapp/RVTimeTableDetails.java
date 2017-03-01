@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
@@ -23,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
+import static com.example.mayankaggarwal.viteventsapp.R.id.view;
 
 /**
  * Created by mayankaggarwal on 28/02/17.
@@ -57,6 +64,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     String day;
 
     int k=0;
+    private int lastPosition = -1;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -151,6 +159,8 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
+        setAnimation(holder.itemView, position);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
@@ -217,6 +227,37 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        Random rn = new Random();
+        int i = rn.nextInt(4);
+        if(i==0){
+            if (position > lastPosition)
+            {
+                int[] anim={android.R.anim.slide_in_left};
+                Animation animation = AnimationUtils.loadAnimation(context, anim[i]);
+                viewToAnimate.startAnimation(animation);
+                lastPosition = position;
+            }
+        }else if(i==1){
+            if (position > lastPosition) {
+                ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim.setDuration(new Random().nextInt(501));//to make duration random number between [0,501)
+                viewToAnimate.startAnimation(anim);
+                lastPosition = position;
+            }
+        }else if(i==3){
+            if (position > lastPosition)
+            {
+                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(500);
+                viewToAnimate.startAnimation(anim);
+                lastPosition = position;
+            }
+        }
     }
 
     private void setDataAccday() {
