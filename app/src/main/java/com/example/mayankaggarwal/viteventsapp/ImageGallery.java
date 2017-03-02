@@ -38,7 +38,7 @@ public class ImageGallery extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION =1 ;
     ActionBar actionBar;
-    CardView selectimage,bluetheme,pinktheme;
+    CardView selectimage,bluetheme,pinktheme,basetheme;
 
     private static final int img=1;
 
@@ -64,6 +64,8 @@ public class ImageGallery extends AppCompatActivity {
 
         pinktheme = (CardView) findViewById(R.id.pinktheme);
 
+        basetheme = (CardView) findViewById(R.id.basetheme);
+
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
 
 
@@ -83,6 +85,16 @@ public class ImageGallery extends AppCompatActivity {
                 Prefs.setPrefs("theme","2", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.PINK);
                 setTheme(R.style.pinktheme);
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+        basetheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","0", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.basetheme);
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
             }
         });

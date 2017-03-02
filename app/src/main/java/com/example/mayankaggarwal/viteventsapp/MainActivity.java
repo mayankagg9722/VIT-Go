@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -140,6 +138,13 @@ public class MainActivity extends AppCompatActivity
 
         name.setText(Prefs.getPrefs("name", this));
         regno.setText(Prefs.getPrefs("regno", this));
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ImageGallery.class));
+            }
+        });
 
 //        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
         if(Prefs.getPrefs("readPermission",this).equals("1")){
@@ -276,7 +281,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            startActivity(new Intent(this, ImageGallery.class));
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(this, TimeTable.class));
