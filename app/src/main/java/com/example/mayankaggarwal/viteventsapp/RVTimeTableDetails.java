@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -119,6 +120,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 //        Log.d("tagg", String.valueOf(course_type));
 //        Log.d("tagg", String.valueOf(course_time));
 //        Log.d("tagg",String.valueOf(course_slot));
+
         this.attendanceList = new ArrayList<>();
 
         int k = 0;
@@ -146,6 +148,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 
     @Override
     public RVTimeTableDetails.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        SetTheme.onActivityCreateSetTheme(context);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_timetable_layout, parent, false);
 

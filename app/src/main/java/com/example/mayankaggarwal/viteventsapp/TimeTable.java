@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 
 public class TimeTable extends AppCompatActivity {
@@ -51,12 +52,13 @@ public class TimeTable extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SetTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_time_table);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Timetable");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         viewPager = (ViewPager) findViewById(R.id.view);
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
     @Override
     public RVDetailedAttendanceList.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        SetTheme.onActivityCreateSetTheme(context);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.detail_item_layout, parent, false);
 
@@ -80,8 +82,6 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
         CouresePage couresePage = this.couresePages.get(position);
         holder.detail_date.setText(couresePage.getDate());
         holder.sno.setText(String.valueOf(position+1));
-        holder.sno.setTextColor(Color.parseColor("#F44336"));
-
 
             for(DetailAttendance d:this.detailAttendances){
                 if(d.getDate().toString().toLowerCase().equals(holder.detail_date.getText().toString().toLowerCase())){

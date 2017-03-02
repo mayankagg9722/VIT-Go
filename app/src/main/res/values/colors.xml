@@ -4,7 +4,7 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
     <color name="color_primary">#E91E63</color>
-    <color name="color_primary_dark">#C2185B</color>
+    <color name="color_primary_dark">#000</color>
     <color name="color_accent">#00E676</color>
 
     <color name="color_material_metaphor">#039BE5</color>
@@ -25,6 +25,6 @@
     <color name="color_dark_custom_fragment_2">#1e2430</color>
     <color name="color_dark_canteen">#ebeef0</color>
 
-    <color name="themeColor">#f37051</color>
+    <!--<color name="themeColor">#f37051</color>-->
 
 </resources>

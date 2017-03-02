@@ -74,7 +74,7 @@
                     android:id="@+id/type"
                     android:textSize="10dp"
                     android:textStyle="bold"
-                    android:textColor="#E47759"/>
+                    android:textColor="?themeColor"/>
 
         </LinearLayout>
 

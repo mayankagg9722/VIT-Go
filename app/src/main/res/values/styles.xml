@@ -16,6 +16,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
@@ -37,5 +38,20 @@
         <item name="colorControlActivated">@color/color_custom_fragment_1</item>
     </style>
 
+
+    <style name="basetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#f37051</item>
+        <item name="color_primary_dark">#f46646</item>
+    </style>
+
+    <style name="bluetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#0b7cec</item>
+        <item name="color_primary_dark">#0D47A1</item>
+    </style>
+
+    <style name="pinktheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#e07aff</item>
+        <item name="color_primary_dark">#9C27B0</item>
+    </style>
 
 </resources>

@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+
 import at.grabner.circleprogress.CircleProgressView;
 
 
@@ -45,6 +47,9 @@ public class Details extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SetTheme.onActivityCreateSetTheme(this);
+
         setContentView(R.layout.activity_details);
 
         getWindow().setAllowEnterTransitionOverlap(false);
@@ -53,9 +58,10 @@ public class Details extends AppCompatActivity {
 
         actionBar=getSupportActionBar();
 
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+
         actionBar.setTitle("Detail Attendance");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);

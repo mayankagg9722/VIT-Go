@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -142,6 +143,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
     @Override
     public RVAttendaceList.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        SetTheme.onActivityCreateSetTheme(context);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_layout, parent, false);
 
@@ -167,7 +169,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //        Log.d("tagg", String.valueOf(per));
         if (per >= 75) {
             holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
-            holder.percentage.setTextColor(Color.parseColor("#E47759"));
+            holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
         }
 
         holder.percentage.setText(String.valueOf((int) per) + "%");

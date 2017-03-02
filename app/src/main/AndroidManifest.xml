@@ -46,6 +46,7 @@
             android:label="ImageGallery"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+
     </application>
 
 

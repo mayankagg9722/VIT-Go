@@ -3,6 +3,7 @@ package com.example.mayankaggarwal.viteventsapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.io.IOException;
 
@@ -35,7 +37,7 @@ public class ImageGallery extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION =1 ;
     ActionBar actionBar;
-    CardView selectimage;
+    CardView selectimage,bluetheme,pinktheme;
 
     private static final int img=1;
 
@@ -44,14 +46,44 @@ public class ImageGallery extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SetTheme.onActivityCreateSetTheme(this);
+
         setContentView(R.layout.activity_image_gallery);
 
 
-
         actionBar = getSupportActionBar();
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        actionBar.setTitle("Image");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         selectimage = (CardView) findViewById(R.id.imageselect);
 
+        bluetheme = (CardView) findViewById(R.id.bluetheme);
+
+        pinktheme = (CardView) findViewById(R.id.pinktheme);
+
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
+
+
+        bluetheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BLUE);
+                setTheme(R.style.bluetheme);
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+        pinktheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.PINK);
+                setTheme(R.style.pinktheme);
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
 
 
 
@@ -67,10 +99,6 @@ public class ImageGallery extends AppCompatActivity {
             }
         }
 
-
-        actionBar.setTitle("Image");
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f37051")));
 
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
