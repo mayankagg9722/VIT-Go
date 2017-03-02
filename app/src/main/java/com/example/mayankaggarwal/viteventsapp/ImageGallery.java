@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -51,7 +52,6 @@ public class ImageGallery extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_gallery);
 
-
         actionBar = getSupportActionBar();
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
@@ -70,6 +70,7 @@ public class ImageGallery extends AppCompatActivity {
         bluetheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Prefs.setPrefs("theme","1", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.BLUE);
                 setTheme(R.style.bluetheme);
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
@@ -79,6 +80,7 @@ public class ImageGallery extends AppCompatActivity {
         pinktheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Prefs.setPrefs("theme","2", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.PINK);
                 setTheme(R.style.pinktheme);
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));

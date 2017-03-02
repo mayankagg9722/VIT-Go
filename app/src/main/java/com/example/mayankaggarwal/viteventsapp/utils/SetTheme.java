@@ -46,6 +46,26 @@ public class SetTheme {
      * Set the theme of the activity, according to the configuration.
      */
     public static void onActivityCreateSetTheme(Activity activity) {
+        String color=Prefs.getPrefs("theme",activity);
+        if(color.equals("notfound")){
+            sTheme=0;
+            colorName="#f37051";
+        }else{
+            sTheme=Integer.parseInt(color);
+            switch (sTheme) {
+                default:
+                    colorName="#f37051";
+                case BASE:
+                    colorName="#f37051";
+                    break;
+                case BLUE:
+                    colorName="#0b7cec";
+                    break;
+                case PINK:
+                    colorName="#e07aff";
+                    break;
+            }
+        }
         switch (sTheme) {
             default:
                 activity.setTheme(R.style.basetheme);
@@ -58,6 +78,29 @@ public class SetTheme {
             case PINK:
                 activity.setTheme(R.style.pinktheme);
                 break;
+        }
+    }
+
+    public static void setThemePref(Activity activity) {
+        String color=Prefs.getPrefs("theme",activity);
+        if(color.equals("notfound")){
+            sTheme=0;
+            colorName="#f37051";
+        }else{
+            sTheme=Integer.parseInt(color);
+            switch (sTheme) {
+                default:
+                    colorName="#f37051";
+                case BASE:
+                    colorName="#f37051";
+                    break;
+                case BLUE:
+                    colorName="#0b7cec";
+                    break;
+                case PINK:
+                    colorName="#e07aff";
+                    break;
+            }
         }
     }
 
