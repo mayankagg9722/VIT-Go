@@ -2,20 +2,16 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.provider.MediaStore;
+import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +22,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,28 +32,21 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
-import com.example.mayankaggarwal.viteventsapp.utils.InternetConnection;
-import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private de.hdodenhof.circleimageview.CircleImageView profile;
+
 
     AppBarLayout appBarLayout;
+    ActionBarDrawerToggle mActionDrawerToggle;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -106,82 +91,118 @@ public class MainActivity extends AppCompatActivity
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                progressDialog.show();
                 Globals.doneFetching=0;
                 fetchAttendance(MainActivity.this);
             }
         });
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//               ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//
+//        toggle.setDrawerIndicatorEnabled(false);
+//        toolbar.setNavigationIcon(R.drawable.navvv);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
 
-        toggle.setDrawerIndicatorEnabled(false);
+
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        View header = navigationView.getHeaderView(0);
+//
+//        TextView name = (TextView) header.findViewById(R.id.nametext);
+//        profile=(de.hdodenhof.circleimageview.CircleImageView)header.findViewById(R.id.profile_image);
+//        TextView regno = (TextView) header.findViewById(R.id.regtext);
+//
+//        name.setText(Prefs.getPrefs("name", this));
+//        regno.setText(Prefs.getPrefs("regno", this));
+//
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this,ImageGallery.class));
+//            }
+//        });
+
+////        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
+//        if(Prefs.getPrefs("readPermission",this).equals("1")){
+//            setNavImage();
+//        }
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        final DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+
+         mActionDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,
+                R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        mActionDrawerToggle.setDrawerIndicatorEnabled(false);
         toolbar.setNavigationIcon(R.drawable.navvv);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        drawerLayout.setDrawerListener(mActionDrawerToggle);
+        mActionDrawerToggle.syncState();
 
-        View header = navigationView.getHeaderView(0);
-
-        TextView name = (TextView) header.findViewById(R.id.nametext);
-        profile=(de.hdodenhof.circleimageview.CircleImageView)header.findViewById(R.id.profile_image);
-        TextView regno = (TextView) header.findViewById(R.id.regtext);
-
-        name.setText(Prefs.getPrefs("name", this));
-        regno.setText(Prefs.getPrefs("regno", this));
-
-        profile.setOnClickListener(new View.OnClickListener() {
+        navigation_drawer.nav_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,ImageGallery.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
 
-//        Log.d("tagg","id:"+Prefs.getPrefs("profileimage",this));
-        if(Prefs.getPrefs("readPermission",this).equals("1")){
-            setNavImage();
-        }
-
     }
 
-    private void setNavImage() {
-        try {
-            Prefs.setPrefs("profileimage",Prefs.getPrefs("profileimage",this),this);
-            Bitmap photo = null;
-            photo = MediaStore.Images.Media.getBitmap(getContentResolver()
-                    , Uri.parse(Prefs.getPrefs("profileimage",this)));
-//            photo = getResizedBitmap(photo, 400, 400);
-            profile.setImageBitmap(photo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
+    //    private void setNavImage() {
+//        try {
+//            Prefs.setPrefs("profileimage",Prefs.getPrefs("profileimage",this),this);
+//            Bitmap photo = null;
+//            photo = MediaStore.Images.Media.getBitmap(getContentResolver()
+//                    , Uri.parse(Prefs.getPrefs("profileimage",this)));
+////            photo = getResizedBitmap(photo, 400, 400);
+//            profile.setImageBitmap(photo);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
-    }
+//    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+//        int width = bm.getWidth();
+//        int height = bm.getHeight();
+//        float scaleWidth = ((float) newWidth) / width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        // CREATE A MATRIX FOR THE MANIPULATION
+//        Matrix matrix = new Matrix();
+//        // RESIZE THE BIT MAP
+//        matrix.postScale(scaleWidth, scaleHeight);
+//
+//        // "RECREATE" THE NEW BITMAP
+//        Bitmap resizedBitmap = Bitmap.createBitmap(
+//                bm, 0, 0, width, height, matrix, false);
+//        bm.recycle();
+//        return resizedBitmap;
+//    }
 
 
     private void updateDayAndDate() {
@@ -274,39 +295,39 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//            startActivity(new Intent(this, TimeTable.class));
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//            RealmController.with(this).clearAll();
+//            Prefs.deletePrefs(this);
+//            finish();
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(this, TimeTable.class));
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-            RealmController.with(this).clearAll();
-            Prefs.deletePrefs(this);
-            finish();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    protected void onRestart() {
-        if(Prefs.getPrefs("readPermission",this).equals("1")){
-            setNavImage();
-        }
-        super.onRestart();
-    }
+//    @Override
+//    protected void onRestart() {
+//        if(Prefs.getPrefs("readPermission",this).equals("1")){
+//            setNavImage();
+//        }
+//        super.onRestart();
+//    }
 
 }
