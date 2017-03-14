@@ -21,8 +21,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/faculty_image"
-        android:layout_width="0dp"
-        android:layout_weight="0.35"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
         android:src="@drawable/unknown" />

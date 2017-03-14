@@ -54,6 +54,9 @@ public class FacultyInformation extends AppCompatActivity {
             }
         });
 
+//        int w=((de.hdodenhof.circleimageview.CircleImageView)findViewById(R.id.faculty_image)).getWidth();
+//        ((de.hdodenhof.circleimageview.CircleImageView)findViewById(R.id.faculty_image)).setHei
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
         progressDialog.create();

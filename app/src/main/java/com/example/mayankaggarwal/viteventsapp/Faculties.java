@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -24,7 +25,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     private ActionBar actionBar;
     private RecyclerView recyclerView;
-    private LinearLayout linearLayout;
+    private RelativeLayout relativeLayout;
     private TextView textview;
     private EditText search;
     RVFaculties adapter;
@@ -47,12 +48,15 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
         textview.setText("Hey "+finalName+", type in the name you are looking for:");
 
-        actionBar.setTitle("Search faculties");
+        actionBar.setTitle("Search Faculties");
+        actionBar.setElevation(0);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
-        linearLayout=(LinearLayout)findViewById(R.id.activity_faculties) ;
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
-        linearLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
+        relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;
+
+        relativeLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
