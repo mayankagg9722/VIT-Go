@@ -8,6 +8,8 @@ import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
+import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
+import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
@@ -42,5 +44,9 @@ public interface ApiInterface {
 
     @GET("faculties.json")
     Call<FacultiesData> getFaculties();
+
+    @POST("getFaculty")
+    Call<FacultyDetails> getFacultyDetails(@Body FacultyDetailsRequest facultyDetailsRequest);
+
 
 }

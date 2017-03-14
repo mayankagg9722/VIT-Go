@@ -25,4 +25,14 @@ public class Globals {
 
     public static int doneFetching=0;
 
+    public static String faculty_email;
+
+    public static String faculty_venue;
+
+    public static String faculty_intercom;
+
+    public static String faculty_designation;
+
+    public static List<String> faculty_openhours=new ArrayList<>();
+
 }

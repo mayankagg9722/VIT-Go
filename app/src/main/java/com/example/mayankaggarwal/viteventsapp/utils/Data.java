@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import com.example.mayankaggarwal.viteventsapp.Faculties;
+import com.example.mayankaggarwal.viteventsapp.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
@@ -18,6 +19,8 @@ import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
+import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
+import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
@@ -29,6 +32,8 @@ import java.util.List;
 
 import io.realm.Realm;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mayankaggarwal on 12/02/17.
@@ -36,35 +41,40 @@ import retrofit2.Call;
 
 public class Data {
 
-    public static void updateAttendance(final Activity activity,final UpdateCallback updateCallback) {
+    public static void updateAttendance(final Activity activity, final UpdateCallback updateCallback) {
         GetAttendance getAttendance = new GetAttendance(updateCallback);
         getAttendance.execute(activity);
     }
 
-    public static void updateTimetable (final Activity activity,final UpdateCallback updateCallback){
+    public static void updateTimetable(final Activity activity, final UpdateCallback updateCallback) {
 
         GetTimetable getTimetable = new GetTimetable(updateCallback);
         getTimetable.execute(activity);
 
     }
 
-    public static void updateFaculty (final Activity activity,final UpdateCallback updateCallback){
+    public static void updateFaculty(final Activity activity, final UpdateCallback updateCallback) {
         GetFaculties getFaculties = new GetFaculties(updateCallback);
         getFaculties.execute(activity);
     }
 
-    public static void updateDetailAttendance(final Activity activity,final UpdateCallback updateCallback) {
-        GetDeatilAttendance getDeatilAttendance= new GetDeatilAttendance(updateCallback);
+    public static void getFacultyDetails(final Activity activity, final UpdateCallback updateCallback) {
+        GetFacultyDetails getFacultyDetails = new GetFacultyDetails(updateCallback);
+        getFacultyDetails.execute(activity);
+    }
+
+    public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
+        GetDeatilAttendance getDeatilAttendance = new GetDeatilAttendance(updateCallback);
         getDeatilAttendance.execute(activity);
     }
 
-    public static void updateCoursepage(final Activity activity,final UpdateCallback updateCallback) {
-        GetCoursePage getCoursePage= new GetCoursePage(updateCallback);
+    public static void updateCoursepage(final Activity activity, final UpdateCallback updateCallback) {
+        GetCoursePage getCoursePage = new GetCoursePage(updateCallback);
         getCoursePage.execute(activity);
     }
 
     public static void internetConnection(final UpdateCallback updateCallback) {
-        InternetConnection intenetConnection= new InternetConnection(updateCallback);
+        InternetConnection intenetConnection = new InternetConnection(updateCallback);
         intenetConnection.execute();
     }
 
@@ -79,7 +89,7 @@ public class Data {
 
         @Override
         protected Integer doInBackground(Activity... params) {
-            final Activity activity=params[0];
+            final Activity activity = params[0];
             final String regno = Prefs.getPrefs("regno", activity);
             final String password = Prefs.getPrefs("password", activity);
 
@@ -100,7 +110,7 @@ public class Data {
                 realm.beginTransaction();
                 realm.delete(AttendanceList.class);
                 realm.commitTransaction();
-                for (final AttendanceList e : attendenceList ) {
+                for (final AttendanceList e : attendenceList) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -110,7 +120,8 @@ public class Data {
 // //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
-            }catch (Exception e){e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
@@ -134,7 +145,7 @@ public class Data {
 
         @Override
         protected Integer doInBackground(Activity... params) {
-            final Activity activity=params[0];
+            final Activity activity = params[0];
 
             final String regno = Prefs.getPrefs("regno", activity);
             final String password = Prefs.getPrefs("password", activity);
@@ -150,9 +161,10 @@ public class Data {
 //                Log.d("tagg", "in timetable async");
 
                 //store time table in shared preferences
-                Prefs.setPrefs("myTimetable",timetable.execute().body().toString(),activity);
+                Prefs.setPrefs("myTimetable", timetable.execute().body().toString(), activity);
 
-            }catch (Exception e){e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 //                Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
@@ -167,7 +179,6 @@ public class Data {
     }
 
 
-
     public static class GetDeatilAttendance extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
@@ -178,26 +189,27 @@ public class Data {
 
         @Override
         protected Integer doInBackground(Activity... params) {
-            final Activity activity=params[0];
+            final Activity activity = params[0];
 
-            final String classnbr=activity.getIntent().getStringExtra("classnbr");;
-            final String semcode= activity.getIntent().getStringExtra("semcode");
-            final String crscd=activity.getIntent().getStringExtra("crscd");
-            final String crstp=activity.getIntent().getStringExtra("crstp");
-            final String fromDate=activity.getIntent().getStringExtra("from_date");
-            final String toDate=activity.getIntent().getStringExtra("to_date");
+            final String classnbr = activity.getIntent().getStringExtra("classnbr");
+            ;
+            final String semcode = activity.getIntent().getStringExtra("semcode");
+            final String crscd = activity.getIntent().getStringExtra("crscd");
+            final String crstp = activity.getIntent().getStringExtra("crstp");
+            final String fromDate = activity.getIntent().getStringExtra("from_date");
+            final String toDate = activity.getIntent().getStringExtra("to_date");
 
             final String regno = Prefs.getPrefs("regno", activity);
             final String password = Prefs.getPrefs("password", activity);
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
             DARequest daRequest = new DARequest();
-            daRequest.classnbr=classnbr;
-            daRequest.semcode=semcode;
-            daRequest.crscd=crscd;
-            daRequest.crstp=crstp;
-            daRequest.fromDate=fromDate;
-            daRequest.toDate=toDate;
+            daRequest.classnbr = classnbr;
+            daRequest.semcode = semcode;
+            daRequest.crscd = crscd;
+            daRequest.crstp = crstp;
+            daRequest.fromDate = fromDate;
+            daRequest.toDate = toDate;
             daRequest.regno = regno;
             daRequest.password = password;
 
@@ -210,8 +222,8 @@ public class Data {
                 List<DetailAttendance> detailAttendances = daResponseCall.execute().body().data;
 
 
-                List<DetailAttendance> detailedAttendance=new ArrayList<>();
-                for (final DetailAttendance e : detailAttendances ) {
+                List<DetailAttendance> detailedAttendance = new ArrayList<>();
+                for (final DetailAttendance e : detailAttendances) {
                     detailedAttendance.add(e);
                 }
 
@@ -223,7 +235,7 @@ public class Data {
                 realm.delete(DetailAttendance.class);
                 realm.commitTransaction();
 
-                for (final DetailAttendance e : detailAttendances ) {
+                for (final DetailAttendance e : detailAttendances) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -232,7 +244,8 @@ public class Data {
                     });
                 }
                 realm.close();
-            }catch (Exception e){e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 //                Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
@@ -257,25 +270,26 @@ public class Data {
 
         @Override
         protected Integer doInBackground(Activity... params) {
-            final Activity activity=params[0];
+            final Activity activity = params[0];
 
-            final String classnbr=activity.getIntent().getStringExtra("classnbr");;
-            final String semcode= activity.getIntent().getStringExtra("semcode");
-            final String crscd=activity.getIntent().getStringExtra("crscd");
-            final String crstp=activity.getIntent().getStringExtra("crstp");
-            final String fromDate=activity.getIntent().getStringExtra("from_date");
-            final String toDate=activity.getIntent().getStringExtra("to_date");
+            final String classnbr = activity.getIntent().getStringExtra("classnbr");
+            ;
+            final String semcode = activity.getIntent().getStringExtra("semcode");
+            final String crscd = activity.getIntent().getStringExtra("crscd");
+            final String crstp = activity.getIntent().getStringExtra("crstp");
+            final String fromDate = activity.getIntent().getStringExtra("from_date");
+            final String toDate = activity.getIntent().getStringExtra("to_date");
             final String regno = Prefs.getPrefs("regno", activity);
             final String password = Prefs.getPrefs("password", activity);
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
             CoursePageRequest coursePageRequest = new CoursePageRequest();
-            coursePageRequest.classnbr=classnbr;
-            coursePageRequest.semcode=semcode;
-            coursePageRequest.crscd=crscd;
-            coursePageRequest.crstp=crstp;
-            coursePageRequest.fromDate=fromDate;
-            coursePageRequest.toDate=toDate;
+            coursePageRequest.classnbr = classnbr;
+            coursePageRequest.semcode = semcode;
+            coursePageRequest.crscd = crscd;
+            coursePageRequest.crstp = crstp;
+            coursePageRequest.fromDate = fromDate;
+            coursePageRequest.toDate = toDate;
             coursePageRequest.regno = regno;
             coursePageRequest.password = password;
 
@@ -288,10 +302,9 @@ public class Data {
                 List<CouresePage> couresePages = coursePageRequestCall.execute().body().data;
 
 
+                List<CouresePage> couresePage = new ArrayList<>();
 
-                List<CouresePage> couresePage=new ArrayList<>();
-
-                for (final CouresePage e : couresePages ) {
+                for (final CouresePage e : couresePages) {
                     couresePage.add(e);
                 }
 
@@ -303,7 +316,7 @@ public class Data {
                 realm.delete(CouresePage.class);
                 realm.commitTransaction();
 
-                for (final CouresePage e : couresePages ) {
+                for (final CouresePage e : couresePages) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -314,7 +327,8 @@ public class Data {
                 }
                 realm.close();
 
-            }catch (Exception e){e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
@@ -339,7 +353,7 @@ public class Data {
 
         @Override
         protected Integer doInBackground(Activity... params) {
-            final Activity activity=params[0];
+            final Activity activity = params[0];
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
@@ -356,7 +370,7 @@ public class Data {
                 realm.delete(FacultiesList.class);
                 realm.commitTransaction();
 
-                for (final FacultiesList e : facultiesDatas ) {
+                for (final FacultiesList e : facultiesDatas) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -367,10 +381,74 @@ public class Data {
                 }
                 realm.close();
 
-            }catch (Exception e){e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 // //               Log.d("tagg", "exceptionthrowm");
 //                updateCallback.onFailure();
             }
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+            updateCallback.onUpdate();
+        }
+
+    }
+
+
+    public static class GetFacultyDetails extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetFacultyDetails(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            final String empid = activity.getIntent().getStringExtra("empid");
+            final String regno = Prefs.getPrefs("regno", activity);
+            final String password = Prefs.getPrefs("password", activity);
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            FacultyDetailsRequest facultyDetailsRequest = new FacultyDetailsRequest();
+            facultyDetailsRequest.empid = empid;
+            facultyDetailsRequest.regno = regno;
+            facultyDetailsRequest.password = password;
+
+//            Log.d("G", "doInBackground: "+facultyDetailsRequest.empid);
+
+
+            final Call<FacultyDetails> facultyDetailsCall = apiInterface.getFacultyDetails(facultyDetailsRequest);
+
+            facultyDetailsCall.enqueue(new Callback<FacultyDetails>() {
+                @Override
+                public void onResponse(Call<FacultyDetails> call, Response<FacultyDetails> response) {
+                    if(response.body().getCode().equals("200")){
+
+                        Globals.faculty_designation = response.body().getDesignation().toString();
+                        Globals.faculty_venue = response.body().getVenue().toString();
+                        Globals.faculty_email = response.body().getEmail().toString();
+                        Globals.faculty_intercom = response.body().getIntercom().toString();
+                        Globals.faculty_openhours = response.body().getOpenHours();
+                        Log.d("TAG", "onResponse: "+"working cool...."+Globals.faculty_email);
+
+                        FacultyInformation.deg.setText(Globals.faculty_designation);
+                        FacultyInformation.venue.setText(Globals.faculty_venue);
+                        FacultyInformation.intercom.setText(Globals.faculty_intercom);
+                        FacultyInformation.mail.setText(Globals.faculty_email);
+                    }
+                }
+                @Override
+                public void onFailure(Call<FacultyDetails> call, Throwable t) {
+
+                }
+            });
+
             return 0;
         }
 
@@ -397,20 +475,23 @@ public class Data {
             try {
 
                 Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-                int     exitValue = ipProcess.waitFor();
+                int exitValue = ipProcess.waitFor();
                 return (exitValue == 0);
 
-            } catch (IOException e)          { e.printStackTrace(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             return false;
         }
 
         @Override
         protected void onPostExecute(Boolean bool) {
-            if(bool==true){
+            if (bool == true) {
                 updateCallback.onUpdate();
-            }else{
+            } else {
                 updateCallback.onFailure();
             }
         }
@@ -418,9 +499,9 @@ public class Data {
     }
 
 
-
     public interface UpdateCallback {
         void onUpdate();
+
         void onFailure();
     }
 }

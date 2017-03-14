@@ -1,6 +1,8 @@
 package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +42,6 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
             this.facultiesListCopy.add(a);
         }
 
-//        facultiesListCopy.addAll(faculties);
-
         this.context = context;
         this.clickable = clickable;
     }
@@ -51,10 +51,15 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
 
         TextView name;
         TextView school;
+        TextView empid;
+        CardView card;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             name=(TextView)itemView.findViewById(R.id.faculty_name);
             school=(TextView)itemView.findViewById(R.id.school_name);
+            card=(CardView)itemView.findViewById(R.id.faculty_card);
+            empid=(TextView)itemView.findViewById(R.id.empid);
         }
     }
 
@@ -70,9 +75,7 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
                 }
             }
         }
-
         notifyDataSetChanged();
-
     }
 
 
@@ -85,10 +88,22 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RVFaculties.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final RVFaculties.MyViewHolder holder, int position) {
         FacultiesList faculties=this.faculties.get(position);
         holder.name.setText(faculties.getName());
         holder.school.setText(faculties.getSchool());
+        holder.empid.setText(faculties.getEmpid());
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,FacultyInformation.class);
+                intent.putExtra("profname",holder.name.getText().toString());
+                intent.putExtra("profschool",holder.school.getText().toString());
+                intent.putExtra("empid",holder.empid.getText());
+                context.startActivity(intent);
+            }
+        });
 
     }
 

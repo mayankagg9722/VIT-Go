@@ -45,9 +45,11 @@
             android:label="ImageGallery"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".Faculties"
+        <activity
+            android:name=".Faculties"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".FacultyInformation"></activity>
     </application>
 
 </manifest>
