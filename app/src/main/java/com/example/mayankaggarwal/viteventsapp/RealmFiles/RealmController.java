@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 
 
@@ -79,6 +80,10 @@ public class RealmController {
 ////    find all objects
     public RealmResults<AttendanceList> getAtendance() {
         return realm.where(AttendanceList.class).findAll();
+    }
+
+    public RealmResults<FacultiesList> getFaculty() {
+        return realm.where(FacultiesList.class).findAll();
     }
 
     public RealmResults<CouresePage> getCoursePage() {

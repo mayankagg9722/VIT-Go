@@ -30,11 +30,9 @@ import java.io.IOException;
  */
 public class navigation_drawer extends Fragment {
 
-    de.hdodenhof.circleimageview.CircleImageView profile;
     static  LinearLayout nav_layout;
 
     View v;
-
 
     public navigation_drawer() {
         // Required empty public constructor
@@ -82,12 +80,23 @@ public class navigation_drawer extends Fragment {
             ((CardView)v.findViewById(card_id[i])).setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
         }
         CardView timetableCard=(CardView)v.findViewById(card_id[0]);
+        CardView facultycard=(CardView)v.findViewById(card_id[5]);
+
         timetableCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),TimeTable.class));
             }
         });
+
+        facultycard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Faculties.class));
+            }
+        });
+
+
     }
 
     private void setNavImage(View v) {

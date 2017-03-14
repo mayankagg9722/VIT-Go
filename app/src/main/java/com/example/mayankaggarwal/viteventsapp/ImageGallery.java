@@ -37,7 +37,9 @@ public class ImageGallery extends AppCompatActivity {
 
 
     private static final int REQUEST_PERMISSION =1 ;
+
     ActionBar actionBar;
+
     CardView selectimage,bluetheme,pinktheme,basetheme;
 
     private static final int img=1;
@@ -117,7 +119,6 @@ public class ImageGallery extends AppCompatActivity {
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                         && ContextCompat.checkSelfPermission(ImageGallery.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ImageGallery.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -186,4 +187,5 @@ public class ImageGallery extends AppCompatActivity {
         super.onBackPressed();
         return super.onSupportNavigateUp();
     }
+
 }

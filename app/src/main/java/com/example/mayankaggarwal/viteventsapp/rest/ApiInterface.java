@@ -6,6 +6,8 @@ import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
+import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
+import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
@@ -14,6 +16,7 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -36,5 +39,8 @@ public interface ApiInterface {
 
     @POST("getCoursePage")
     Call<CouresePageResponse> getCoursePage(@Body CoursePageRequest coursePageRequest);
+
+    @GET("faculties.json")
+    Call<FacultiesData> getFaculties();
 
 }

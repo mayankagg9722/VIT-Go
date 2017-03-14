@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         //fetch attendance
         fetchAttendance(this);
 
+        updateFaculties(this);
+
+
         getSupportActionBar().setTitle("");
 
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
@@ -174,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //    private void setNavImage() {
+//    private void setNavImage() {
 //        try {
 //            Prefs.setPrefs("profileimage",Prefs.getPrefs("profileimage",this),this);
 //            Bitmap photo = null;
@@ -229,10 +232,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onUpdate() {
 //                    Log.d("tagg","success api");
                             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
-                            swipeRefreshLayout.setRefreshing(false);
-                            if(Globals.doneFetching==1){
-                                progressDialog.dismiss();
-                            }
+                            updateFaculties(activity);
                         }
                         @Override
                         public void onFailure() {
@@ -254,6 +254,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void updateFaculties(final Activity activity) {
+
+        Data.internetConnection(new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                Data.updateFaculty(activity, new Data.UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+//                    Log.d("tagg","success api");
+                        swipeRefreshLayout.setRefreshing(false);
+                        if(Globals.doneFetching==1){
+                            progressDialog.dismiss();
+                        }
+
+                    }
+                    @Override
+                    public void onFailure() {
+                            swipeRefreshLayout.setRefreshing(false);
+                        if(Globals.doneFetching==1){
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 //        if (InternetConnection.isNetworkAvailable()) {
 //            if (Globals.doneFetching == 0) {
 //                progressDialog.show();
@@ -293,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 
 
 //    @SuppressWarnings("StatementWithEmptyBody")
