@@ -47,8 +47,6 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
         textview.setText("Hey "+finalName+", type in the name you are looking for:");
 
-        Realm.init(this);
-
         actionBar.setTitle("Search faculties");
         actionBar.setDisplayHomeAsUpEnabled(true);
         recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);

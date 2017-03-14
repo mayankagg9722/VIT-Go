@@ -82,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
         //fetch attendance
         fetchAttendance(this);
 
-        updateFaculties(this);
-
-
         getSupportActionBar().setTitle("");
 
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
