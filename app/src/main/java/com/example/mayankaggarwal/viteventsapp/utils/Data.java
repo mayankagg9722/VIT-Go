@@ -441,6 +441,7 @@ public class Data {
                         FacultyInformation.venue.setText(Globals.faculty_venue);
                         FacultyInformation.intercom.setText(Globals.faculty_intercom);
                         FacultyInformation.mail.setText(Globals.faculty_email);
+                        FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," "));
                     }
                 }
                 @Override

@@ -29,7 +29,7 @@ import java.util.Iterator;
 
 public class FacultyInformation extends AppCompatActivity {
 
-    public static TextView name,deg,school,venue,intercom,mail,division;
+    public static TextView name,deg,school,venue,intercom,mail,freehour;
     private ProgressDialog progressDialog;
     CardView backcard;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -45,6 +45,7 @@ public class FacultyInformation extends AppCompatActivity {
         venue=(TextView)findViewById(R.id.venue);
         intercom=(TextView)findViewById(R.id.intercom);
         mail=(TextView)findViewById(R.id.email);
+        freehour=(TextView)findViewById(R.id.freehour);
         backcard=(CardView)findViewById(R.id.backcard);
 
         backcard.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +55,6 @@ public class FacultyInformation extends AppCompatActivity {
             }
         });
 
-//        int w=((de.hdodenhof.circleimageview.CircleImageView)findViewById(R.id.faculty_image)).getWidth();
-//        ((de.hdodenhof.circleimageview.CircleImageView)findViewById(R.id.faculty_image)).setHei
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
@@ -63,10 +62,6 @@ public class FacultyInformation extends AppCompatActivity {
         progressDialog.setCancelable(false);
 
         getFacultyData(this);
-
-//        division=(TextView)findViewById(R.id.division);
-
-
 
     }
 
@@ -120,7 +115,22 @@ public class FacultyInformation extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+
+            float aspectRatio = result.getWidth() /
+                    (float) result.getHeight();
+            int width = 300;
+            int height = Math.round(width / aspectRatio);
+
+            result = Bitmap.createScaledBitmap(
+                    result, width, height, false);
+
+            if(result==null){
+                bmImage.setImageResource(R.drawable.unknown);
+            }else{
+                bmImage.setImageBitmap(result);
+            }
+
+
             progressDialog.dismiss();
         }
     }

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -31,6 +32,10 @@ public class AverageAttendance extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private  RecyclerView recyclerView;
     private ProgressDialog progressDialog;
+
+    public static int avg_per=0;
+
+    public static TextView avgnumber;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -54,6 +59,8 @@ public class AverageAttendance extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.avg_swipe);
 
+        avgnumber=(TextView)findViewById(R.id.avgnumber);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Fetching Attendance");
         progressDialog.setMessage("Loading..");
@@ -66,8 +73,10 @@ public class AverageAttendance extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        fetchAverageAttendance(this);
+        recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(this).getAtendance(),
+                AverageAttendance.this, true));
 
+        fetchAverageAttendance(this);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -81,7 +90,6 @@ public class AverageAttendance extends AppCompatActivity {
 
 
     private void fetchAverageAttendance(final Activity activity) {
-//            Log.d("tagg","attendance");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
@@ -89,17 +97,15 @@ public class AverageAttendance extends AppCompatActivity {
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-//                    Log.d("tagg","success api");
                             recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(activity).getAtendance(),
                                     AverageAttendance.this, true));
                             progressDialog.dismiss();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                         @Override
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
                                 progressDialog.dismiss();
-//                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-//                    Log.d("tagg","fail api");
                         }
                     });
                 }
