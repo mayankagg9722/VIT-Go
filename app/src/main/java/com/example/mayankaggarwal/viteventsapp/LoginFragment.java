@@ -31,7 +31,6 @@ public class LoginFragment extends SlideFragment {
     private ImageButton login;
     private boolean loggedIn = false;
     private ProgressBar progressBar;
-    private ProgressDialog progressDialog;
 
 
     public LoginFragment() {
@@ -59,10 +58,6 @@ public class LoginFragment extends SlideFragment {
         progressBar = (ProgressBar) root.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        progressDialog=new ProgressDialog(getActivity());
-        progressDialog.setTitle("Fetching Timetable And Attendance");
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
 
         username.setEnabled(!loggedIn);
         password.setEnabled(!loggedIn);
@@ -77,7 +72,7 @@ public class LoginFragment extends SlideFragment {
                     @Override
                     public void onSuccess() {
                         progressBar.setVisibility(View.INVISIBLE);
-                        progressDialog.show();
+                        CustomProgressDialog.showProgress(getActivity(),"Fetching Attendance and Timetable..." );
 
                         //fetch timetable
                         fetchTimetable(getActivity());
@@ -120,7 +115,7 @@ public class LoginFragment extends SlideFragment {
                 @Override
                 public void onUpdate() {
 //                    Log.d("tagg", "success api");
-                    progressDialog.dismiss();
+                    CustomProgressDialog.hideProgress();
                     startActivity(new Intent(activity, MainActivity.class));
                     getActivity().finish();
                 }
@@ -130,11 +125,11 @@ public class LoginFragment extends SlideFragment {
 
 //                    Log.d("tagg", "fail api");
                     //agin try to fetch attendance
-                    progressDialog.dismiss();
+                    CustomProgressDialog.hideProgress();
                 }
             });
         }else{
-            progressDialog.dismiss();
+            CustomProgressDialog.hideProgress();
         }
     }
 
@@ -150,7 +145,7 @@ public class LoginFragment extends SlideFragment {
             @Override
             public void onFailure() {
 //              Log.d("tagg","fail api");
-                progressDialog.dismiss();
+                CustomProgressDialog.hideProgress();
             }
         });
     }

@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -13,6 +14,8 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -24,6 +27,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +47,13 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
     AppBarLayout appBarLayout;
     ActionBarDrawerToggle mActionDrawerToggle;
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -66,11 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Attendance");
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
-        progressDialog.setCancelable(false);
 
         Realm.init(this);
 
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         //fetch attendance
         fetchAttendance(this);
+
+//        updateFaculties(this);
 
         getSupportActionBar().setTitle("");
 
@@ -133,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void updateDayAndDate() {
 
         TextView main_date = (TextView) findViewById(R.id.main_date);
@@ -144,27 +150,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchAttendance(final Activity activity) {
-
 //            Log.d("tagg","attendance");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
                 if (Globals.doneFetching == 0) {
-                    progressDialog.show();
+//                    progressDialog.show();
+                    CustomProgressDialog.showProgress(MainActivity.this,"Fetching Attendance...");
                     Globals.doneFetching = 1;
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
 //                    Log.d("tagg","success api");
                             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
-                            updateFaculties(activity);
+                            swipeRefreshLayout.setRefreshing(false);
+                            if(Globals.doneFetching==1){
+//                                progressDialog.dismiss();
+                                CustomProgressDialog.hideProgress();
+                            }
                         }
                         @Override
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
                             if(Globals.doneFetching==1){
-                                progressDialog.dismiss();
+//                                progressDialog.dismiss();
+                                CustomProgressDialog.hideProgress();
                             }
+
 //                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
 //                    Log.d("tagg","fail api");
                         }
@@ -180,38 +192,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateFaculties(final Activity activity) {
 
-        Data.internetConnection(new Data.UpdateCallback() {
-            @Override
-            public void onUpdate() {
-                Data.updateFaculty(activity, new Data.UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
-//                    Log.d("tagg","success api");
-                        swipeRefreshLayout.setRefreshing(false);
-                        if(Globals.doneFetching==1){
-                            progressDialog.dismiss();
-                        }
-
-                    }
-                    @Override
-                    public void onFailure() {
-                            swipeRefreshLayout.setRefreshing(false);
-                        if(Globals.doneFetching==1){
-                            progressDialog.dismiss();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure() {
-                swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
     @Override

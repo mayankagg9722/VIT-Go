@@ -105,6 +105,10 @@ public class RealmController {
         return !realm.where(AttendanceList.class).findAll().isEmpty();
     }
 
+    public boolean hasFaculty() {
+        return !realm.where(FacultiesList.class).findAll().isEmpty();
+    }
+
 //    public boolean hasTimetable() {
 //        return !realm.where(TimetableResponse.class).findAll().isEmpty();
 //    }

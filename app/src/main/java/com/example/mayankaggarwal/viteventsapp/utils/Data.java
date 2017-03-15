@@ -360,23 +360,22 @@ public class Data {
 //            Log.d("tagg",classnbr);
 
             final Call<FacultiesData> facultiesListCall = apiInterface.getFaculties();
-
             try {
 //                Log.d("tagg", "in async");
                 List<FacultiesList> facultiesDatas = facultiesListCall.execute().body().data;
 
                 Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.delete(FacultiesList.class);
-                realm.commitTransaction();
+                    realm.beginTransaction();
+                    realm.delete(FacultiesList.class);
+                    realm.commitTransaction();
 
-                for (final FacultiesList e : facultiesDatas) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
+                    for (final FacultiesList e : facultiesDatas) {
+                        realm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.copyToRealm(e);
+                            }
+                        });
 // //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
@@ -441,7 +440,8 @@ public class Data {
                         FacultyInformation.venue.setText(Globals.faculty_venue);
                         FacultyInformation.intercom.setText(Globals.faculty_intercom);
                         FacultyInformation.mail.setText(Globals.faculty_email);
-                        FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," "));
+                        FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," ")
+                                .replace(",","and "));
                     }
                 }
                 @Override

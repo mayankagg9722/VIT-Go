@@ -31,7 +31,6 @@ public class AverageAttendance extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private  RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
 
     public static int avg_per=0;
 
@@ -61,12 +60,6 @@ public class AverageAttendance extends AppCompatActivity {
 
         avgnumber=(TextView)findViewById(R.id.avgnumber);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Attendance");
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
-        progressDialog.setCancelable(false);
-
         recyclerView=(RecyclerView)findViewById(R.id.avgrecylerview);
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
@@ -76,7 +69,7 @@ public class AverageAttendance extends AppCompatActivity {
         recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(this).getAtendance(),
                 AverageAttendance.this, true));
 
-        fetchAverageAttendance(this);
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -85,27 +78,25 @@ public class AverageAttendance extends AppCompatActivity {
             }
         });
 
-
     }
-
 
     private void fetchAverageAttendance(final Activity activity) {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                    progressDialog.show();
+                CustomProgressDialog.showProgress(AverageAttendance.this,"Fetching Attendance...");
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
                             recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(activity).getAtendance(),
                                     AverageAttendance.this, true));
-                            progressDialog.dismiss();
+                            CustomProgressDialog.hideProgress();
                             swipeRefreshLayout.setRefreshing(false);
                         }
                         @Override
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
-                                progressDialog.dismiss();
+                            CustomProgressDialog.hideProgress();
                         }
                     });
                 }

@@ -237,6 +237,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
         // If the bound view wasn't previously displayed on screen, it's animated
         Random rn = new Random();
         int i = rn.nextInt(4);
+
         if(i==0){
             if (position > lastPosition)
             {

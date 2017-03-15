@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Hey Mayank, type in the name you are looking for:"
         android:textColor="#fff"
-        android:textSize="30dp"
+        android:textSize="15dp"
         android:textStyle="italic|bold"
         android:id="@+id/namelongtext"
         />
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/search_faculties"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:hint="Search.."
         android:backgroundTint="#fff"
         android:foregroundTint="#fff"
@@ -38,6 +38,13 @@
         android:layout_below="@+id/namelongtext"
         />
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/facultyrefresh"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +52,8 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/search_faculties"
         ></android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 

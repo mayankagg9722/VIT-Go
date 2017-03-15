@@ -64,7 +64,7 @@ public class Auth {
                                     ok.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            Log.d("click", "ckicking ckicking ckicking ckicking");
+//                                            Log.d("click", "ckicking ckicking ckicking ckicking");
                                             alertDialog.dismiss();
                                         }
                                     });

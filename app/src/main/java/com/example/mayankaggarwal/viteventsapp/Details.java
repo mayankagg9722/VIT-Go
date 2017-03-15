@@ -41,7 +41,7 @@ public class Details extends AppCompatActivity {
     ProgressBar progressBar;
     LinearLayout detailsLayout;
     ActionBar actionBar;
-    ScrollView scrollView;
+//    ScrollView scrollView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -69,9 +69,9 @@ public class Details extends AppCompatActivity {
 
         //scroll to up position
 
-        scrollView=(ScrollView)findViewById(R.id.activity_details);
-
-        scrollView.fullScroll(ScrollView.FOCUS_UP);
+//        scrollView=(ScrollView)findViewById(R.id.activity_details);
+//
+//        scrollView.fullScroll(ScrollView.FOCUS_UP);
 
         TextView course_name = (TextView) findViewById(R.id.detail_course_name);
         TextView course_slot = (TextView) findViewById(R.id.course_slot);
