@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.mayankaggarwal.viteventsapp.AverageAttendance">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/avgappbar"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/spinimage"
+            android:id="@+id/spinimage"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Attendance"
+            android:textColor="#fff"
+            android:layout_below="@+id/spinimage"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+                android:id="@+id/textView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="83"
+                android:textColor="#fff"
+                android:textSize="30dp"
+                android:id="@+id/avgnumber"
+                android:layout_above="@+id/textView2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="19dp" />
+
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_average_attendance" />
+
+
+</android.support.design.widget.CoordinatorLayout>

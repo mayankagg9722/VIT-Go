@@ -62,14 +62,10 @@ public class FacultyInformation extends AppCompatActivity {
         progressDialog.create();
         progressDialog.setCancelable(false);
 
-
-        name.setText(getIntent().getStringExtra("profname"));
-        school.setText(getIntent().getStringExtra("profschool"));
+        getFacultyData(this);
 
 //        division=(TextView)findViewById(R.id.division);
 
-
-        getFacultyData(this);
 
 
     }
@@ -83,6 +79,8 @@ public class FacultyInformation extends AppCompatActivity {
                 Data.getFacultyDetails(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
+                        name.setText(getIntent().getStringExtra("profname"));
+                        school.setText(getIntent().getStringExtra("profschool"));
                         DownloadImageTask download=new DownloadImageTask((ImageView) findViewById(R.id.faculty_image));
                         download.execute("https://vitmantra.feedveed.com/facultyimages/"+getIntent().getStringExtra("empid")+".jpeg");
                     }

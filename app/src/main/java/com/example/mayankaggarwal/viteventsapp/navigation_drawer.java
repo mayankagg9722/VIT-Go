@@ -81,6 +81,7 @@ public class navigation_drawer extends Fragment {
         }
         CardView timetableCard=(CardView)v.findViewById(card_id[0]);
         CardView facultycard=(CardView)v.findViewById(card_id[5]);
+        CardView attendanceCard=(CardView)v.findViewById(card_id[1]);
 
         timetableCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,13 @@ public class navigation_drawer extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),Faculties.class));
+            }
+        });
+
+        attendanceCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),AverageAttendance.class));
             }
         });
 

@@ -52,6 +52,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         actionBar.setElevation(0);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+//        actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
 
         recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
         relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;
