@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+import com.example.mayankaggarwal.viteventsapp.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.Faculties;
 import com.example.mayankaggarwal.viteventsapp.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -442,11 +443,13 @@ public class Data {
                         FacultyInformation.mail.setText(Globals.faculty_email);
                         FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," ")
                                 .replace(",","and "));
+
+                        CustomProgressDialog.hideProgress();
                     }
                 }
                 @Override
                 public void onFailure(Call<FacultyDetails> call, Throwable t) {
-
+                    updateCallback.onFailure();
                 }
             });
 

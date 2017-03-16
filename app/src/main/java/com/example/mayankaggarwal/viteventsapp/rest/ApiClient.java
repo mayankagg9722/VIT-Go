@@ -36,7 +36,7 @@ public class ApiClient {
 
         String url=BASE_URLS[i];
 
-        Log.d("tagg","random:"+url);
+//        Log.d("tagg","random:"+url);
 
 //        if (retrofit == null) {
             OkHttpClient ok = new OkHttpClient.Builder()

@@ -30,7 +30,6 @@ import java.util.Iterator;
 public class FacultyInformation extends AppCompatActivity {
 
     public static TextView name,deg,school,venue,intercom,mail,freehour;
-    private ProgressDialog progressDialog;
     CardView backcard;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -55,12 +54,6 @@ public class FacultyInformation extends AppCompatActivity {
             }
         });
 
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.create();
-        progressDialog.setCancelable(false);
-
         getFacultyData(this);
 
     }
@@ -70,7 +63,7 @@ public class FacultyInformation extends AppCompatActivity {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                progressDialog.show();
+                CustomProgressDialog.showProgress(FacultyInformation.this,"Fetching...");
                 Data.getFacultyDetails(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
@@ -81,7 +74,7 @@ public class FacultyInformation extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure() {
-                        progressDialog.dismiss();
+                        CustomProgressDialog.hideProgress();
                     }
                 });
             }
@@ -126,12 +119,11 @@ public class FacultyInformation extends AppCompatActivity {
 
             if(result==null){
                 bmImage.setImageResource(R.drawable.unknown);
+//                CustomProgressDialog.hideProgress();
             }else{
                 bmImage.setImageBitmap(result);
+//                CustomProgressDialog.hideProgress();
             }
-
-
-            progressDialog.dismiss();
         }
     }
 
