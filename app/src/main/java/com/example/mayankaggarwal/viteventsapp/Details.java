@@ -137,7 +137,8 @@ public class Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int try_prog = (int) calcPercentage(attendedClasses - 1, totalClasses - 1);
-                if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && attendedClasses > (Integer.parseInt(getIntent().getStringExtra("attendedclass")))) {
+                if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && attendedClasses > (Integer.parseInt(getIntent().getStringExtra("attendedclass")))
+                        && (attend>0)) {
                     attend = attend - 1;
                     attendtext.setText("Attend " + attend);
                     attendedClasses = attendedClasses - 1;
@@ -168,7 +169,8 @@ public class Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int try_prog = (int) calcPercentage(attendedClasses, totalClasses - 1);
-                if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && totalClasses > (Integer.parseInt(getIntent().getStringExtra("totalclass")))) {
+                if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && totalClasses > (Integer.parseInt(getIntent().getStringExtra("totalclass")))
+                        && (miss>0) ) {
                     miss = miss - 1;
                     misstext.setText("Miss " + miss);
                     totalClasses = totalClasses - 1;
