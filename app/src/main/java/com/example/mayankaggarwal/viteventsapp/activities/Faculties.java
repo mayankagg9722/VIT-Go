@@ -1,7 +1,6 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -15,23 +14,17 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
+import com.example.mayankaggarwal.viteventsapp.adapter.RVFaculties;
+import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
-import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.realm.Realm;
 
 public class Faculties extends AppCompatActivity implements TextWatcher {
 

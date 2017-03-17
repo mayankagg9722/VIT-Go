@@ -32,28 +32,28 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Details"
+            android:name=".activities.Details"
             android:label="Details"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".TimeTable"
+            android:name=".activities.TimeTable"
             android:label="TimeTable"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".ImageGallery"
+            android:name=".activities.ImageGallery"
             android:label="ImageGallery"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".Faculties"
+            android:name=".activities.Faculties"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".FacultyInformation"
-            android:parentActivityName=".Faculties"
+        <activity android:name=".activities.FacultyInformation"
+            android:parentActivityName=".activities.Faculties"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
         <activity
-            android:name=".AverageAttendance"
+            android:name=".activities.AverageAttendance"
             android:label="@string/title_activity_average_attendance"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity"></activity>

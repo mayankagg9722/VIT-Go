@@ -5,10 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-import com.example.mayankaggarwal.viteventsapp.CustomProgressDialog;
-import com.example.mayankaggarwal.viteventsapp.Faculties;
-import com.example.mayankaggarwal.viteventsapp.FacultyInformation;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;

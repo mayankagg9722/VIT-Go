@@ -1,20 +1,20 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.adapter;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import com.example.mayankaggarwal.viteventsapp.activities.Details;
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -28,15 +28,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
-import static com.example.mayankaggarwal.viteventsapp.R.id.view;
 
 /**
- * Created by mayankaggarwal on 28/02/17.
+ * Created by mayankaggarwal on 13/02/17.
  */
 
-public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.MyViewHolder>  {
+public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyViewHolder> {
+
     public List<AttendanceList> attendanceList;
     public Activity context;
     Boolean clickable;
@@ -62,10 +61,8 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     String slot;
     String type;
     String slotTime;
-    String day;
 
     int k=0;
-    private int lastPosition = -1;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -79,12 +76,10 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
         public CardView maincard;
         public TextView timeView;
         public TextView faculty;
-        public TextView timebegin;
-        public  TextView timeend;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-//            cardView = (CardView) itemView.findViewById(R.id.percentage_card);
+            cardView = (CardView) itemView.findViewById(R.id.percentage_card);
             maincard = (CardView) itemView.findViewById(R.id.main_card);
             percentage = (TextView) itemView.findViewById(R.id.attendance_percentage);
             course_name = (TextView) itemView.findViewById(R.id.course_name);
@@ -92,25 +87,24 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
             classroom = (TextView) itemView.findViewById(R.id.classroom);
             timeView = (TextView) itemView.findViewById(R.id.slottime);
             faculty = (TextView) itemView.findViewById(R.id.faculty);
-            timebegin=(TextView) itemView.findViewById(R.id.timebegin);
-            timeend=(TextView) itemView.findViewById(R.id.timeend);
         }
 
     }
 
-    public RVTimeTableDetails(List<AttendanceList> atendance, Activity context, boolean clickable,String daygiven) {
+    public RVAttendaceList(List<AttendanceList> atendance, Activity context, boolean clickable) {
 
         parser = new JsonParser();
         json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
         main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
         main_faculty= json.getAsJsonArray("faculties");
+
 //        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
 
-//        Date date = new Date();
-//        SimpleDateFormat day = new SimpleDateFormat("E");
+        Date date = new Date();
+        SimpleDateFormat day = new SimpleDateFormat("E");
 
-//        myday = day.format(date).toString().toUpperCase();
-        myday=daygiven;
+        myday = day.format(date).toString().toUpperCase();
+//        myday="THU";
 
         //set data according to day
         setDataAccday();
@@ -120,7 +114,6 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 //        Log.d("tagg", String.valueOf(course_type));
 //        Log.d("tagg", String.valueOf(course_time));
 //        Log.d("tagg",String.valueOf(course_slot));
-
         this.attendanceList = new ArrayList<>();
 
         int k = 0;
@@ -147,22 +140,20 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     }
 
     @Override
-    public RVTimeTableDetails.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RVAttendaceList.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         SetTheme.onActivityCreateSetTheme(context);
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_timetable_layout, parent, false);
+                .inflate(R.layout.item_layout, parent, false);
 
-        return new RVTimeTableDetails.MyViewHolder(itemView);
+        return new RVAttendaceList.MyViewHolder(itemView);
 
     }
 
     @Override
-    public void onBindViewHolder(final RVTimeTableDetails.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
-
-        setAnimation(holder.itemView, position);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
@@ -175,8 +166,8 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
         }
 //        Log.d("tagg", String.valueOf(per));
         if (per >= 75) {
-//            holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
-            holder.percentage.setTextColor(Color.parseColor("#E47759"));
+            holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
+            holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
         }
 
         holder.percentage.setText(String.valueOf((int) per) + "%");
@@ -194,10 +185,8 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 //                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
-        holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
-        holder.timeView.setText(course_time.get(position));
-        holder.timebegin.setText(course_time.get(position).split("-")[0]);
-        holder.timeend.setText(course_time.get(position).split("-")[1]);
+                holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
+                holder.timeView.setText(course_time.get(position));
 
         if (attendanceList.getCourseType().contains("Theory")) {
             holder.course_type.setText(course_slot.get(position)+" - Theory");
@@ -230,38 +219,6 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
                 context.startActivity(intent);
             }
         });
-    }
-
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        Random rn = new Random();
-        int i = rn.nextInt(4);
-
-        if(i==0){
-            if (position > lastPosition)
-            {
-                int[] anim={android.R.anim.slide_in_left};
-                Animation animation = AnimationUtils.loadAnimation(context, anim[i]);
-                viewToAnimate.startAnimation(animation);
-                lastPosition = position;
-            }
-        }else if(i==1){
-            if (position > lastPosition) {
-                ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                anim.setDuration(new Random().nextInt(501));//to make duration random number between [0,501)
-                viewToAnimate.startAnimation(anim);
-                lastPosition = position;
-            }
-        }else if(i==3){
-            if (position > lastPosition)
-            {
-                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-                anim.setDuration(500);
-                viewToAnimate.startAnimation(anim);
-                lastPosition = position;
-            }
-        }
     }
 
     private void setDataAccday() {

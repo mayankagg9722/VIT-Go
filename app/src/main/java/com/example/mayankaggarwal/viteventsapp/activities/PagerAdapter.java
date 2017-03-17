@@ -1,17 +1,10 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.activities;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import java.sql.Time;
 
 /**
  * Created by mayankaggarwal on 28/02/17.

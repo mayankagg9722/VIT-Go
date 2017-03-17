@@ -1,4 +1,4 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.util.Random;
@@ -36,7 +37,7 @@ public class CustomProgressDialog {
 
         int i=r.nextInt(s.length);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity,R.style.CustomDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.CustomDialog);
         View view = activity.getLayoutInflater().inflate(R.layout.custom_progress, null);
         avi = (com.wang.avi.AVLoadingIndicatorView) view.findViewById(R.id.avv);
         TextView textView = (TextView) view.findViewById(R.id.alertextview);

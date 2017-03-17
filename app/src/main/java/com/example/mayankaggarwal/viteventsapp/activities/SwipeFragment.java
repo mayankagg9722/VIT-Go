@@ -1,4 +1,4 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.activities;
 
 
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.mayankaggarwal.viteventsapp.R;
 
 
 public class SwipeFragment extends android.support.v4.app.Fragment {
