@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         //fetch attendance
         fetchAttendance(this);
 
-//        updateFaculties(this);
 
         getSupportActionBar().setTitle("");
 
@@ -150,22 +149,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchAttendance(final Activity activity) {
-//            Log.d("tagg","attendance");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
                 if (Globals.doneFetching == 0) {
-//                    progressDialog.show();
                     CustomProgressDialog.showProgress(MainActivity.this,"Fetching Attendance...");
                     Globals.doneFetching = 1;
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-//                    Log.d("tagg","success api");
                             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
                             swipeRefreshLayout.setRefreshing(false);
                             if(Globals.doneFetching==1){
-//                                progressDialog.dismiss();
                                 CustomProgressDialog.hideProgress();
                             }
                         }
@@ -173,12 +168,9 @@ public class MainActivity extends AppCompatActivity {
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
                             if(Globals.doneFetching==1){
-//                                progressDialog.dismiss();
                                 CustomProgressDialog.hideProgress();
                             }
 
-//                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-//                    Log.d("tagg","fail api");
                         }
                     });
                 }

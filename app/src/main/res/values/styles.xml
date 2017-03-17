@@ -38,6 +38,11 @@
         <item name="colorControlActivated">@color/color_custom_fragment_1</item>
     </style>
 
+    <style name="CustomDialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 
     <style name="basetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="themeColor">#f37051</item>

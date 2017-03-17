@@ -61,7 +61,6 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
             timeView = (TextView) itemView.findViewById(R.id.slottime);
             faculty = (TextView) itemView.findViewById(R.id.faculty);
         }
-
     }
 
     public RVAverageAttendace(List<AttendanceList> atendance, Activity context, boolean clickable) {

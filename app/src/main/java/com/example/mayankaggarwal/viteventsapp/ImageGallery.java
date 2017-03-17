@@ -77,6 +77,7 @@ public class ImageGallery extends AppCompatActivity {
                 Prefs.setPrefs("theme","1", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.BLUE);
                 setTheme(R.style.bluetheme);
+                finish();
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
             }
         });
@@ -87,6 +88,7 @@ public class ImageGallery extends AppCompatActivity {
                 Prefs.setPrefs("theme","2", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.PINK);
                 setTheme(R.style.pinktheme);
+                finish();
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
             }
         });
@@ -97,6 +99,7 @@ public class ImageGallery extends AppCompatActivity {
                 Prefs.setPrefs("theme","0", ImageGallery.this);
                 SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
                 setTheme(R.style.basetheme);
+                finish();
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
             }
         });

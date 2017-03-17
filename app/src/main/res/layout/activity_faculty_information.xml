@@ -1,262 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_faculty_information"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.example.mayankaggarwal.viteventsapp.FacultyInformation"
-    android:background="#523c87">
+    tools:context="com.example.mayankaggarwal.viteventsapp.FacultyInformation">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp">
+        android:layout_height="match_parent"
+        android:background="#40000000">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/faculty_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/unknown" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/faculty_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:elevation="100dp"
+            android:src="@drawable/unknown"/>
+
+        <LinearLayout
+            android:id="@+id/fac_appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="45dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="SIVAKUMAR A. "
+                    android:textColor="#fff"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/profdeg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Professor "
+                    android:textColor="#fff"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom"
-            android:layout_marginLeft="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:id="@+id/profname"
-            android:text="SIVAKUMAR A. "
-            android:textSize="20dp"
-            android:gravity="bottom"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#9881CF"
-                android:id="@+id/profdeg"
-                android:text="Professor "
-                android:textSize="15dp"
-                android:gravity="bottom"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_below="@id/faculty_image"
+            android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="School"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:id="@+id/school"
-                android:textColor="#9881CF"
-                android:textSize="15dp"
-                android:layout_marginLeft="15dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Venue"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/venue"
-                android:textColor="#9881CF"
-                android:textSize="15dp"
-                android:layout_marginLeft="15dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Intercom \nNo"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/intercom"
-                android:textColor="#9881CF"
-                android:textSize="15dp"
-                android:layout_marginLeft="15dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Email Id"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/email"
-                android:textColor="#9881CF"
-                android:textSize="15dp"
-                android:layout_marginLeft="15dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Free Hour"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:id="@+id/freehour"
-                android:textColor="#9881CF"
-                android:textSize="15dp"
-                android:layout_marginLeft="15dp"
-                />
-
-        </LinearLayout>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="20dp"
-            app:cardBackgroundColor="#E32797"
-            android:layout_gravity="bottom|center"
-            android:id="@+id/backcard"
-            android:layout_marginTop="30dp">
-
-            <TextView
+            <android.support.v7.widget.CardView
+                android:id="@+id/fac_card"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="BACK"
-                android:textColor="#fff"
-                android:gravity="center"
-                android:id="@+id/textView" />
-        </android.support.v7.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                app:cardCornerRadius="8dp">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/faculty_image"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="School"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text=":"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/school"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1.5"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Venue"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text=":"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/venue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1.5"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Intercom \nNo"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text=":"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/intercom"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1.5"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Email Id"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text=":"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1.5"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Free Hour"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text=":"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/freehour"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1.5"
+                            android:textColor="#fff"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/backcard"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_margin="5dp"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="#E32797"
+                        app:cardCornerRadius="20dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="BACK"
+                            android:textColor="#fff" />
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

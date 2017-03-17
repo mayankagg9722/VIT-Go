@@ -49,7 +49,9 @@
             android:name=".Faculties"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".FacultyInformation" />
+        <activity android:name=".FacultyInformation"
+            android:parentActivityName=".Faculties"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
         <activity
             android:name=".AverageAttendance"
             android:label="@string/title_activity_average_attendance"

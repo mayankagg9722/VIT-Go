@@ -4,21 +4,29 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -31,11 +39,35 @@ public class FacultyInformation extends AppCompatActivity {
 
     public static TextView name,deg,school,venue,intercom,mail,freehour;
     CardView backcard;
+    ActionBar actionBar;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_information);
+
+        actionBar=getSupportActionBar();
+
+        actionBar.setElevation(0);
+        actionBar.setTitle("");
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        LinearLayout appBarLayout=(LinearLayout)findViewById(R.id.fac_appBarLayout);
+
+        appBarLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        appBarLayout.setElevation(50);
+
+
+        CardView cardView=(CardView)findViewById(R.id.fac_card);
+        cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
+        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
 
         name=(TextView)findViewById(R.id.profname);
@@ -69,7 +101,7 @@ public class FacultyInformation extends AppCompatActivity {
                     public void onUpdate() {
                         name.setText(getIntent().getStringExtra("profname"));
                         school.setText(getIntent().getStringExtra("profschool"));
-                        DownloadImageTask download=new DownloadImageTask((ImageView) findViewById(R.id.faculty_image));
+                        DownloadImageTask download=new DownloadImageTask((de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.faculty_image));
                         download.execute("https://vitmantra.feedveed.com/facultyimages/"+getIntent().getStringExtra("empid")+".jpeg");
                     }
                     @Override
@@ -108,10 +140,9 @@ public class FacultyInformation extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
-
             float aspectRatio = result.getWidth() /
                     (float) result.getHeight();
-            int width = 300;
+            int width = 500;
             int height = Math.round(width / aspectRatio);
 
             result = Bitmap.createScaledBitmap(
@@ -119,10 +150,8 @@ public class FacultyInformation extends AppCompatActivity {
 
             if(result==null){
                 bmImage.setImageResource(R.drawable.unknown);
-//                CustomProgressDialog.hideProgress();
             }else{
                 bmImage.setImageBitmap(result);
-//                CustomProgressDialog.hideProgress();
             }
         }
     }

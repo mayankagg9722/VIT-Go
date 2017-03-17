@@ -25,6 +25,8 @@ import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
+import java.util.Random;
+
 import at.grabner.circleprogress.CircleProgressView;
 
 
@@ -38,10 +40,9 @@ public class Details extends AppCompatActivity {
     int miss = 0;
     int attend = 0;
     private RecyclerView recyclerView;
-    ProgressBar progressBar;
     LinearLayout detailsLayout;
     ActionBar actionBar;
-//    ScrollView scrollView;
+    com.wang.avi.AVLoadingIndicatorView avi;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -67,11 +68,15 @@ public class Details extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
 
 
-        //scroll to up position
+        String[] s={"BallClipRotateIndicator","BallClipRotatePulseIndicator","SquareSpinIndicator","BallClipRotateMultipleIndicator"
+                ,"BallTrianglePathIndicator","LineScaleIndicator","BallBeatIndicator","BallScaleRippleMultipleIndicator"
+                ,"TriangleSkewSpinIndicator"};
 
-//        scrollView=(ScrollView)findViewById(R.id.activity_details);
-//
-//        scrollView.fullScroll(ScrollView.FOCUS_UP);
+        Random r=new Random();
+        int i=r.nextInt(s.length);
+        avi = (com.wang.avi.AVLoadingIndicatorView)findViewById(R.id.detailavv);
+        avi.setIndicator(s[i]);
+        avi.setIndicatorColor(Color.parseColor(SetTheme.colorName));
 
         TextView course_name = (TextView) findViewById(R.id.detail_course_name);
         TextView course_slot = (TextView) findViewById(R.id.course_slot);
@@ -88,7 +93,6 @@ public class Details extends AppCompatActivity {
         ImageButton miss_minus = (ImageButton) findViewById(R.id.miss_minus);
 
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         detailsLayout = (LinearLayout) findViewById(R.id.detaillistlayout);
 
 
@@ -198,7 +202,9 @@ public class Details extends AppCompatActivity {
             }
             if(flag==1){
 
-                progressBar.setVisibility(View.GONE);
+
+                avi.hide();
+
 
                 recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
                         Globals.detailAttendances.get(p), this, true));
@@ -237,7 +243,8 @@ public class Details extends AppCompatActivity {
 
 
     private void fetchCoursePage() {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        avi.show();
         detailsLayout.setVisibility(View.GONE);
 
         Data.internetConnection(new Data.UpdateCallback() {
@@ -247,50 +254,22 @@ public class Details extends AppCompatActivity {
                     @Override
                     public void onUpdate() {
                         fetchDetailAttendance();
-//                    Log.d("tagg","success api");
-//                    swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onFailure() {
-                        progressBar.setVisibility(View.GONE);
-//                    swipeRefreshLayout.setRefreshing(false);
-//                    Log.d("tagg","fail api");
+                        avi.hide();
                     }
                 });
             }
 
             @Override
             public void onFailure() {
-                progressBar.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
+                avi.hide();
                 Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
-//        if (InternetConnection.isNetworkAvailable()) {
-//
-//            Data.updateCoursepage(this, new Data.UpdateCallback() {
-//                @Override
-//                public void onUpdate() {
-//                    fetchDetailAttendance();
-////                    Log.d("tagg","success api");
-////                    swipeRefreshLayout.setRefreshing(false);
-//                }
-//
-//                @Override
-//                public void onFailure() {
-//                    progressBar.setVisibility(View.GONE);
-////                    swipeRefreshLayout.setRefreshing(false);
-////                    Log.d("tagg","fail api");
-//                }
-//            });
-//        } else {
-//            progressBar.setVisibility(View.GONE);
-//            //swipeRefreshLayout.setRefreshing(false);
-//            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     private void fetchDetailAttendance() {
         Data.internetConnection(new Data.UpdateCallback() {
@@ -300,66 +279,30 @@ public class Details extends AppCompatActivity {
                     @Override
                     public void onUpdate() {
 //                    Log.d("tagg","success api");
-
-                        progressBar.setVisibility(View.GONE);
+                        avi.hide();
                         detailsLayout.setVisibility(View.VISIBLE);
 
 //                  @@@@@@@@@@@@@@@@@@@ add to globals
                         addDataToGlobals();
 
                         setGlobalAdapter();
-
-                        //swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onFailure() {
-                        progressBar.setVisibility(View.GONE);
-//                    swipeRefreshLayout.setRefreshing(false);
-//                    Log.d("tagg","fail api");
+                        avi.hide();
                     }
                 });
             }
 
             @Override
             public void onFailure() {
-                progressBar.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
+                avi.hide();
                 Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
-//        if (InternetConnection.isNetworkAvailable()) {
-//
-//            Data.updateDetailAttendance(this, new Data.UpdateCallback() {
-//                @Override
-//                public void onUpdate() {
-////                    Log.d("tagg","success api");
-//
-//                    progressBar.setVisibility(View.GONE);
-//                    detailsLayout.setVisibility(View.VISIBLE);
-//
-////                  @@@@@@@@@@@@@@@@@@@ add to globals
-//                    addDataToGlobals();
-//
-//                    setGlobalAdapter();
-//
-//                    //swipeRefreshLayout.setRefreshing(false);
-//                }
-//
-//                @Override
-//                public void onFailure() {
-//                    progressBar.setVisibility(View.GONE);
-////                    swipeRefreshLayout.setRefreshing(false);
-////                    Log.d("tagg","fail api");
-//                }
-//            });
-//        } else {
-//            progressBar.setVisibility(View.GONE);
-//            //swipeRefreshLayout.setRefreshing(false);
-//            Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+
 
     public float calcPercentage(int attended, int total) {
 

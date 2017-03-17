@@ -442,7 +442,7 @@ public class Data {
                         FacultyInformation.intercom.setText(Globals.faculty_intercom);
                         FacultyInformation.mail.setText(Globals.faculty_email);
                         FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," ")
-                                .replace(",","and "));
+                                .replace(","," and "));
 
                         CustomProgressDialog.hideProgress();
                     }
