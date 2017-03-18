@@ -60,7 +60,10 @@
         <activity
             android:name=".activities.Events"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".activities.EventDetails"></activity>
+
+        <activity android:name=".activities.EventDetails"
+            android:parentActivityName=".activities.Events"></activity>
+
     </application>
 
 </manifest>

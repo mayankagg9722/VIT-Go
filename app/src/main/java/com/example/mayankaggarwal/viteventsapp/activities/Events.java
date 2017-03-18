@@ -34,8 +34,6 @@ public class Events extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        Realm.init(this);
-
         Toolbar toolbar=(Toolbar)findViewById(R.id.event_toolbar);
 
         setSupportActionBar(toolbar);
@@ -46,13 +44,17 @@ public class Events extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         recyclerView=(RecyclerView)findViewById(R.id.event_recycler);
+        recyclerView.setHasFixedSize(true);
         relativeLayout=(RelativeLayout)findViewById(R.id.activity_events);
 
         relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
+        fetchEvents(this);
+
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        fetchEvents(this);
+        recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), Events.this));
+
     }
 
 

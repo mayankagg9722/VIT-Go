@@ -1,10 +1,14 @@
 package com.example.mayankaggarwal.viteventsapp.utils;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
@@ -25,8 +29,11 @@ import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +41,7 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Url;
 
 /**
  * Created by mayankaggarwal on 12/02/17.
@@ -526,6 +534,48 @@ public class Data {
         }
 
     }
+
+
+//    public static class DownloadImageTask extends AsyncTask<String, Void, Integer> {
+//        ImageView bmImage;
+//        Activity activity;
+//        Picasso picasso;
+//
+//        public DownloadImageTask(ImageView bmImage,Activity activity) {
+//            this.bmImage = bmImage;
+//            this.activity=activity;
+//        }
+//
+//        protected Integer doInBackground(String... urls) {
+//
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return 0;
+//        }
+//
+//        protected void onPostExecute(int result) {
+//            Log.d("tagg", "onPostExecute: "+result);
+//            if(result!=null){
+//                float aspectRatio = result.getWidth() /
+//                        (float) result.getHeight();
+//                int width = 500;
+//                int height = Math.round(width / aspectRatio);
+//
+//                result = Bitmap.createScaledBitmap(
+//                        result, width, height, false);
+//                bmImage.setImageBitmap(result);
+//            }else{
+//                bmImage.setImageResource(R.drawable.unknown);
+//            }
+//        }
+//    }
 
 
 

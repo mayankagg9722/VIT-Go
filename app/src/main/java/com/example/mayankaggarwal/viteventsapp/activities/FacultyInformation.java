@@ -24,6 +24,7 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -94,8 +95,12 @@ public class FacultyInformation extends AppCompatActivity {
                     public void onUpdate() {
                         name.setText(getIntent().getStringExtra("profname"));
                         school.setText(getIntent().getStringExtra("profschool"));
-                        DownloadImageTask download=new DownloadImageTask((de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.faculty_image));
-                        download.execute("https://vitmantra.feedveed.com/facultyimages/"+getIntent().getStringExtra("empid")+".jpeg");
+                        Picasso.with(FacultyInformation.this).load("https://vitmantra.feedveed.com/facultyimages/"+
+                                getIntent().getStringExtra("empid")+".jpeg").into((de.hdodenhof.circleimageview.CircleImageView)
+                                findViewById(R.id.faculty_image));
+//                        Data.DownloadImageTask download=new Data.DownloadImageTask((de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.faculty_image)
+//                                ,FacultyInformation.this);
+//                        download.execute("https://vitmantra.feedveed.com/facultyimages/"+getIntent().getStringExtra("empid")+".jpeg");
                     }
                     @Override
                     public void onFailure() {
@@ -112,42 +117,7 @@ public class FacultyInformation extends AppCompatActivity {
     }
 
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            float aspectRatio = result.getWidth() /
-                    (float) result.getHeight();
-            int width = 500;
-            int height = Math.round(width / aspectRatio);
-
-            result = Bitmap.createScaledBitmap(
-                    result, width, height, false);
-
-            if(result==null){
-                bmImage.setImageResource(R.drawable.unknown);
-            }else{
-                bmImage.setImageBitmap(result);
-            }
-        }
-    }
 
     @Override
     public void onBackPressed() {

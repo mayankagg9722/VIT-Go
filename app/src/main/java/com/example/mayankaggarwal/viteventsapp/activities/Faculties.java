@@ -104,7 +104,6 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
                 Data.updateFaculty(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-//                    Log.d("tagg","success api");
                         if(Prefs.getPrefs("firstFacultyFetch",Faculties.this).equals("1")){
                             CustomProgressDialog.hideProgress();
                         }

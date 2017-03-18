@@ -41,6 +41,9 @@ public class EventList extends RealmObject {
     @SerializedName("__v")
     @Expose
     private Integer v;
+    @SerializedName("going")
+    @Expose
+    private String going;
 
     public String getId() {
         return id;
@@ -120,6 +123,14 @@ public class EventList extends RealmObject {
 
     public void setV(Integer v) {
         this.v = v;
+    }
+
+    public String getGoing() {
+        return going;
+    }
+
+    public void setGoing(String going) {
+        this.going = going;
     }
 
 }

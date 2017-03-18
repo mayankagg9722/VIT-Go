@@ -51,10 +51,12 @@ public class SetTheme {
     /**
      * Set the theme of the activity, according to the configuration.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public static void onActivityCreateSetTheme(Activity activity) {
         String color=Prefs.getPrefs("theme",activity);
-        activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
+        }
         if(color.equals("notfound")){
             sTheme=0;
             colorName="#f37051";

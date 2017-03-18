@@ -44,7 +44,7 @@ public class TimeTable extends AppCompatActivity {
     public static int pagerHieght = 0;
     public static int cardwidth = 0;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +87,9 @@ public class TimeTable extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Fetching Attendance");
         progressDialog.setMessage("Loading..");
-        progressDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            progressDialog.create();
+        }
         progressDialog.setCancelable(false);
 
         mycard = (CardView) findViewById(R.id.mycard);

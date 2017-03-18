@@ -22,6 +22,7 @@ import com.example.mayankaggarwal.viteventsapp.adapter.RVDetailedAttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Random;
 
@@ -42,7 +43,7 @@ public class Details extends AppCompatActivity {
     ActionBar actionBar;
     com.wang.avi.AVLoadingIndicatorView avi;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,9 @@ public class Details extends AppCompatActivity {
 
         setContentView(R.layout.activity_details);
 
-        getWindow().setAllowEnterTransitionOverlap(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowEnterTransitionOverlap(false);
+        }
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
 
@@ -72,7 +75,7 @@ public class Details extends AppCompatActivity {
 
         Random r=new Random();
         int i=r.nextInt(s.length);
-        avi = (com.wang.avi.AVLoadingIndicatorView)findViewById(R.id.detailavv);
+        avi = (AVLoadingIndicatorView)findViewById(R.id.detailavv);
         avi.setIndicator(s[i]);
         avi.setIndicatorColor(Color.parseColor(SetTheme.colorName));
 
@@ -97,7 +100,7 @@ public class Details extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //$$$$$$$$$$$$$$$$$ setting adapter
+        //$$ setting adapter
         setGlobalAdapter();
 
 
