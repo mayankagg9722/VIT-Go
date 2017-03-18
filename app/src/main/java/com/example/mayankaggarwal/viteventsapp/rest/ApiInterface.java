@@ -6,6 +6,7 @@ import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
+import com.example.mayankaggarwal.viteventsapp.models.EventData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
@@ -47,6 +48,9 @@ public interface ApiInterface {
 
     @POST("getFaculty")
     Call<FacultyDetails> getFacultyDetails(@Body FacultyDetailsRequest facultyDetailsRequest);
+
+    @GET("getEvents")
+    Call<EventData> getEvent();
 
 
 }

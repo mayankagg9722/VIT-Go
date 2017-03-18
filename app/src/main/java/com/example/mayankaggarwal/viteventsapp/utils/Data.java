@@ -15,6 +15,8 @@ import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.EventData;
+import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
@@ -59,6 +61,11 @@ public class Data {
     public static void getFacultyDetails(final Activity activity, final UpdateCallback updateCallback) {
         GetFacultyDetails getFacultyDetails = new GetFacultyDetails(updateCallback);
         getFacultyDetails.execute(activity);
+    }
+
+    public static void getEvent(final Activity activity, final UpdateCallback updateCallback) {
+        GetEvent getEvent = new GetEvent(updateCallback);
+        getEvent.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -460,6 +467,67 @@ public class Data {
         }
 
     }
+
+
+
+
+    public static class GetEvent extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetEvent(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            final Call<EventData> eventDataCall = apiInterface.getEvent();
+
+            try {
+                List<EventList> eventLists = eventDataCall.execute().body().data;
+
+
+                List<EventList> events = new ArrayList<>();
+
+                for (final EventList e : eventLists) {
+                    events.add(e);
+                }
+
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.delete(EventList.class);
+                realm.commitTransaction();
+
+                for (final EventList e : events) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+                realm.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+            updateCallback.onUpdate();
+        }
+
+    }
+
+
 
 
     public static class InternetConnection extends AsyncTask<Void, Void, Boolean> {

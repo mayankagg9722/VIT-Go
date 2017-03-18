@@ -47,16 +47,20 @@
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".activities.Faculties"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".activities.FacultyInformation"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activities.FacultyInformation"
             android:parentActivityName=".activities.Faculties"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".activities.AverageAttendance"
             android:label="@string/title_activity_average_attendance"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.Events"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activities.EventDetails"></activity>
     </application>
 
 </manifest>

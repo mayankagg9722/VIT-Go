@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.AverageAttendance;
+import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.activities.Faculties;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
 import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
@@ -84,6 +85,7 @@ public class navigation_drawer extends Fragment {
         CardView timetableCard=(CardView)v.findViewById(card_id[0]);
         CardView facultycard=(CardView)v.findViewById(card_id[5]);
         CardView attendanceCard=(CardView)v.findViewById(card_id[1]);
+        CardView eventCard=(CardView)v.findViewById(card_id[4]);
 
         timetableCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +105,13 @@ public class navigation_drawer extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),AverageAttendance.class));
+            }
+        });
+
+        eventCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Events.class));
             }
         });
 

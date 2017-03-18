@@ -1,6 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.CardView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.activities.AverageAttendance;
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.Details;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -33,6 +35,7 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
     Boolean clickable;
 
     JsonArray main_timetable;
+    JsonArray main_faculty;
 
     JsonParser parser;
     JsonObject json;
@@ -69,6 +72,7 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
         parser = new JsonParser();
         json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
         main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
+        main_faculty= json.getAsJsonArray("faculties");
 
           this.attendanceList = new ArrayList<>();
 
@@ -162,6 +166,46 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
         } else {
             holder.timeView.setText(attendanceList.getCourseCode()+" - Lab");
         }
+
+        for(JsonElement a:main_faculty){
+            if(attendanceList.getCourseName().toLowerCase().contains(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())){
+                if((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))){
+                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                }else if(attendanceList.getCourseType().toLowerCase().contains("lab")){
+                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                }
+            }
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.d("tagg",holder.faculty.getText().toString());
+                Intent intent = new Intent(context, Details.class);
+                intent.putExtra("percentage", holder.percentage.getText().toString());
+
+                intent.putExtra("coursename", holder.course_name.getText().toString());
+
+                intent.putExtra("classroom", holder.classroom.getText());
+
+                intent.putExtra("code", attendanceList.getCourseCode());
+
+                intent.putExtra("faculty", holder.faculty.getText());
+
+
+                intent.putExtra("attendedclass", attendanceList.getAttended().toString());
+                intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
+
+                intent.putExtra("classnbr",attendanceList.getPostParams().getClassnbr().toString());
+                intent.putExtra("semcode",attendanceList.getPostParams().getSemcode().toString());
+                intent.putExtra("crscd",attendanceList.getPostParams().getCrscd().toString());
+                intent.putExtra("crstp",attendanceList.getPostParams().getCrstp().toString());
+                intent.putExtra("from_date",attendanceList.getPostParams().getFromDate().toString());
+                intent.putExtra("to_date",attendanceList.getPostParams().getToDate().toString());
+
+                context.startActivity(intent);
+            }
+        });
 
     }
 

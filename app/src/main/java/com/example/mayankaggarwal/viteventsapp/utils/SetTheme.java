@@ -1,9 +1,15 @@
 package com.example.mayankaggarwal.viteventsapp.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+
+import java.util.Set;
 
 /**
  * Created by mayankaggarwal on 02/03/17.
@@ -45,8 +51,10 @@ public class SetTheme {
     /**
      * Set the theme of the activity, according to the configuration.
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void onActivityCreateSetTheme(Activity activity) {
         String color=Prefs.getPrefs("theme",activity);
+        activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
         if(color.equals("notfound")){
             sTheme=0;
             colorName="#f37051";

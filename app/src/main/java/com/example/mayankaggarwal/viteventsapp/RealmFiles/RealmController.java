@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 
@@ -94,6 +95,10 @@ public class RealmController {
         return realm.where(DetailAttendance.class).findAll();
     }
 
+    public RealmResults<EventList> getEvents() {
+        return realm.where(EventList.class).findAll();
+    }
+
 
    //// query a single item with the given id
 //    public AttendanceList getAttendance(String id) {
@@ -109,9 +114,7 @@ public class RealmController {
         return !realm.where(FacultiesList.class).findAll().isEmpty();
     }
 
-//    public boolean hasTimetable() {
-//        return !realm.where(TimetableResponse.class).findAll().isEmpty();
-//    }
+
 
 
 }

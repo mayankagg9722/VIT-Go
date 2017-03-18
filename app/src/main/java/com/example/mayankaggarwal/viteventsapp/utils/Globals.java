@@ -3,6 +3,7 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.EventList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,5 +35,7 @@ public class Globals {
     public static String faculty_designation;
 
     public static List<String> faculty_openhours=new ArrayList<>();
+
+    public static EventList register_event=null;
 
 }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -40,8 +41,14 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        SetTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_faculties);
-        actionBar=getSupportActionBar();
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.fac_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Search Faculties");
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         search=(EditText)findViewById(R.id.search_faculties);
 
@@ -54,11 +61,11 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         String finalName=str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
 
         textview.setText("Hey "+finalName+", type in the name you are looking for:");
-
-        actionBar.setTitle("Search Faculties");
-        actionBar.setElevation(0);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+//        actionBar=getSupportActionBar();
+//        actionBar.setTitle("Search Faculties");
+//        actionBar.setElevation(0);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
         relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;

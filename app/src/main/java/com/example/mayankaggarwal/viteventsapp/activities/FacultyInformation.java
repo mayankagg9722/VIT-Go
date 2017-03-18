@@ -37,6 +37,7 @@ public class FacultyInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SetTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_faculty_information);
 
         actionBar=getSupportActionBar();

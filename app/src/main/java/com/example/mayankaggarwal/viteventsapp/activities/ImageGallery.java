@@ -183,4 +183,8 @@ public class ImageGallery extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
 }
