@@ -1,9 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.Point;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -18,23 +16,19 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
-import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
-import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.AttributedCharacterIterator;
 
 public class EventDetails extends AppCompatActivity {
 
     ProgressBar prog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
-
-        Log.d("tagg", Globals.register_event.getEventName().toString());
 
         EventList e=Globals.register_event;
         prog=(ProgressBar)findViewById(R.id.progress);
@@ -87,7 +81,6 @@ public class EventDetails extends AppCompatActivity {
 
         int heightImage= (int) (height/2.5);
 
-
         RelativeLayout.LayoutParams r=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
 
         r.setMargins(70,heightImage-60,70,10);
@@ -97,6 +90,13 @@ public class EventDetails extends AppCompatActivity {
         relativeLayout.setLayoutParams(r);
 
         eventImage.getLayoutParams().height=heightImage;
+
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EventDetails.this,EventRegister.class));
+            }
+        });
 
     }
 }

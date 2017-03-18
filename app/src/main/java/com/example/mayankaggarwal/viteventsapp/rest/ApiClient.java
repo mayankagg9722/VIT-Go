@@ -38,7 +38,6 @@ public class ApiClient {
 
 //        Log.d("tagg","random:"+url);
 
-//        if (retrofit == null) {
             OkHttpClient ok = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .addInterceptor(new Interceptor() {
@@ -57,7 +56,6 @@ public class ApiClient {
                     .client(ok.newBuilder().connectTimeout(30, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS)
                             .writeTimeout(10, TimeUnit.SECONDS).build())
                     .build();
-//        }
 
         return retrofit;
     }

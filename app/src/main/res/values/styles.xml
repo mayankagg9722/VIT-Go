@@ -20,7 +20,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorAccent">#d3d1d1</item>
         <item name="colorButtonNormal">@color/color_accent</item>
     </style>
 
@@ -32,7 +32,6 @@
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorAccent">@color/color_custom_fragment_1</item>
         <item name="colorControlNormal">@color/color_custom_fragment_1</item>
         <item name="colorControlActivated">@color/color_custom_fragment_1</item>

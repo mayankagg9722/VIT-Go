@@ -2,7 +2,6 @@ package com.example.mayankaggarwal.viteventsapp.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 
 /**
@@ -14,6 +13,9 @@ public class EventList extends RealmObject {
     @SerializedName("_id")
     @Expose
     private String id;
+    @SerializedName("going")
+    @Expose
+    private String going;
     @SerializedName("fees")
     @Expose
     private String fees;
@@ -41,9 +43,9 @@ public class EventList extends RealmObject {
     @SerializedName("__v")
     @Expose
     private Integer v;
-    @SerializedName("going")
+    @SerializedName("fieldsAndroid")
     @Expose
-    private String going;
+    private String fieldsAndroid = null;
 
     public String getId() {
         return id;
@@ -51,6 +53,14 @@ public class EventList extends RealmObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getGoing() {
+        return going;
+    }
+
+    public void setGoing(String going) {
+        this.going = going;
     }
 
     public String getFees() {
@@ -125,12 +135,12 @@ public class EventList extends RealmObject {
         this.v = v;
     }
 
-    public String getGoing() {
-        return going;
+    public String getFields() {
+        return fieldsAndroid;
     }
 
-    public void setGoing(String going) {
-        this.going = going;
+    public void setFields(String fieldsAndroid) {
+        this.fieldsAndroid = fieldsAndroid;
     }
 
 }

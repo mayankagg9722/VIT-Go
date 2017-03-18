@@ -49,7 +49,7 @@ public interface ApiInterface {
     @POST("getFaculty")
     Call<FacultyDetails> getFacultyDetails(@Body FacultyDetailsRequest facultyDetailsRequest);
 
-    @GET("getEvents")
+    @GET("getEventsAndroid")
     Call<EventData> getEvent();
 
 

@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -27,12 +29,15 @@ import io.realm.Realm;
 public class Events extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RelativeLayout relativeLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+
+        LinearLayout linearLayout=(LinearLayout)findViewById(R.id.event_layout);
+        linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.event_toolbar);
 
@@ -45,15 +50,21 @@ public class Events extends AppCompatActivity {
 
         recyclerView=(RecyclerView)findViewById(R.id.event_recycler);
         recyclerView.setHasFixedSize(true);
-        relativeLayout=(RelativeLayout)findViewById(R.id.activity_events);
 
-        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipe_event);
 
         fetchEvents(this);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), Events.this));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchEvents(Events.this);
+            }
+        });
 
     }
 
@@ -68,10 +79,12 @@ public class Events extends AppCompatActivity {
                         public void onUpdate() {
                             recyclerView.setAdapter(new RVEvent(RealmController.with(activity).getEvents(), Events.this));
                             CustomProgressDialog.hideProgress();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                         @Override
                         public void onFailure() {
                                 CustomProgressDialog.hideProgress();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     });
                 }
@@ -81,6 +94,8 @@ public class Events extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }

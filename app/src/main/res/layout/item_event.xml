@@ -10,7 +10,7 @@
         android:id="@+id/event_item_card"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:cardBackgroundColor="#9D81E1"
+        app:cardBackgroundColor="#40ffffff"
         app:cardCornerRadius="8dp"
         >
         <LinearLayout

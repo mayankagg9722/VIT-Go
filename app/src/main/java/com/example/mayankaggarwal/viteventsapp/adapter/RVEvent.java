@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.EventDetails;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,9 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     private Context context;
     private List<EventList> eventList=new ArrayList<>();
+
+    JsonParser parser;
+    JsonObject jsonObject;
 
     public RVEvent(List<EventList> eventLists, Activity context) {
         this.context=context;
@@ -74,7 +81,6 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView card;
         CardView regcard;
         TextView eventname;
         TextView chapname;
@@ -83,9 +89,7 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            card=(CardView)itemView.findViewById(R.id.event_item_card);
             regcard=(CardView)itemView.findViewById(R.id.regcard);
-            card.setBackgroundColor(Color.parseColor(SetTheme.colorName));
             eventname=(TextView)itemView.findViewById(R.id.event_name);
             chapname=(TextView)itemView.findViewById(R.id.chapter_name);
             date=(TextView)itemView.findViewById(R.id.date_event);

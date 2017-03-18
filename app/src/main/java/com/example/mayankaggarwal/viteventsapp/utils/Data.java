@@ -499,6 +499,7 @@ public class Data {
             try {
                 List<EventList> eventLists = eventDataCall.execute().body().data;
 
+                Prefs.setPrefs("eventslist",eventLists.toString(),activity);
 
                 List<EventList> events = new ArrayList<>();
 

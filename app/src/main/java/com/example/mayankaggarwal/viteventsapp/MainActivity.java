@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
 
-
         Realm.init(this);
-
-//        final Realm realm = Realm.getDefaultInstance();
 
         //update date and attendance
         updateDayAndDate();
