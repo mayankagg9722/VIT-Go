@@ -1,36 +1,24 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
-import android.animation.Animator;
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVAttendaceList;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
-import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import io.realm.Realm;
@@ -81,7 +69,6 @@ public class Events extends AppCompatActivity {
 
         setGradientAnimation();
 
-
     }
 
     private void setGradientAnimation() {
@@ -100,11 +87,11 @@ public class Events extends AppCompatActivity {
             @Override
             public void run() {
                 if (flag) {
-                    Log.d("tagg", "straight");
+//                    Log.d("tagg", "straight");
                     trans.startTransition(3000);
                     flag = false;
                 } else {
-                    Log.d("tagg", "reverse");
+//                    Log.d("tagg", "reverse");
                     trans.reverseTransition(3000);
                     flag = true;
                 }
@@ -127,8 +114,8 @@ public class Events extends AppCompatActivity {
         return c;
     }
 
-    //    ##########  Value Animator Animation For Gradient   ###############
-
+//    ##########  Value Animator Animation For Gradient   ###############
+//
 //    private void changeBackground(final int light, final int dark) {
 //        ValueAnimator anim = new ValueAnimator();
 //        anim.setIntValues(light, dark);
@@ -145,9 +132,9 @@ public class Events extends AppCompatActivity {
 //        anim.setRepeatCount(ValueAnimator.INFINITE);
 //        anim.start();
 //    }
-
-    //#############  (HSV color model change)  #################
-
+//
+//    #############  (HSV color model change)  #################
+//
 //    public int manipulateHSVColor(int color, float factor) {
 //        float[] hsv = new float[3];
 //        int color = Color.parseColor(SetTheme.colorName);
@@ -163,7 +150,7 @@ public class Events extends AppCompatActivity {
 ////        hsv1[2] = 1.0f - 0.8f * (1.0f - hsv1[2]);
 //        hsv[2] =1.5f * hsv[2];
 //        int light = Color.HSVToColor(hsv1);
-
+//
 //        changeBackground(light, dark);
 //    }
 

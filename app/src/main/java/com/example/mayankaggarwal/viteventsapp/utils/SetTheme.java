@@ -41,7 +41,7 @@ public class SetTheme {
                 break;
             case PINK:
                 activity.setTheme(R.style.pinktheme);
-                colorName="#e07aff";
+                colorName="#8057E1";
                 break;
         }
         activity.finish();
@@ -72,7 +72,7 @@ public class SetTheme {
                     colorName="#0b7cec";
                     break;
                 case PINK:
-                    colorName="#e07aff";
+                    colorName="#8057E1";
                     break;
             }
         }
@@ -108,7 +108,7 @@ public class SetTheme {
                     colorName="#0b7cec";
                     break;
                 case PINK:
-                    colorName="#e07aff";
+                    colorName="#8057E1";
                     break;
             }
         }

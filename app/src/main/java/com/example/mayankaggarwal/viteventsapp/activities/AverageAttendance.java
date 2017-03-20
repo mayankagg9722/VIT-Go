@@ -34,7 +34,6 @@ public class AverageAttendance extends AppCompatActivity {
 
     public static TextView avgnumber;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

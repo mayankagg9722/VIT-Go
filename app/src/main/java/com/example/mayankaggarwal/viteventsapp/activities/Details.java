@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -39,7 +40,7 @@ public class Details extends AppCompatActivity {
     int miss = 0;
     int attend = 0;
     private RecyclerView recyclerView;
-    LinearLayout detailsLayout;
+    CardView detailsLayout;
     ActionBar actionBar;
     com.wang.avi.AVLoadingIndicatorView avi;
 
@@ -94,7 +95,7 @@ public class Details extends AppCompatActivity {
         ImageButton miss_minus = (ImageButton) findViewById(R.id.miss_minus);
 
 
-        detailsLayout = (LinearLayout) findViewById(R.id.detaillistlayout);
+        detailsLayout = (CardView) findViewById(R.id.detaillistlayout);
 
 
 
@@ -204,14 +205,9 @@ public class Details extends AppCompatActivity {
                         RealmController.with(this).getDetailAttendance(), this, true));
             }
             if(flag==1){
-
-
                 avi.hide();
-
-
                 recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
                         Globals.detailAttendances.get(p), this, true));
-
             }
 
         }
@@ -285,7 +281,7 @@ public class Details extends AppCompatActivity {
                         avi.hide();
                         detailsLayout.setVisibility(View.VISIBLE);
 
-//                  @@@@@@@@@@@@@@@@@@@ add to globals
+//                  @@@@ add to globals
                         addDataToGlobals();
 
                         setGlobalAdapter();

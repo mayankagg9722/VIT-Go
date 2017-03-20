@@ -25,8 +25,8 @@
             android:id="@+id/fac_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="0dp"
             android:gravity="center">
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

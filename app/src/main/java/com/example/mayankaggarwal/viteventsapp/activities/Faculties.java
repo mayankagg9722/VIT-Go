@@ -37,7 +37,6 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
     private SwipeRefreshLayout swipeRefreshLayout;
     RVFaculties adapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

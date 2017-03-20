@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -154,17 +155,20 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 
     }
 
+
     @Override
-    public void onBindViewHolder(final RVTimeTableDetails.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
         setAnimation(holder.itemView, position);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
+
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
 //        Log.d("tagg", String.valueOf(per));

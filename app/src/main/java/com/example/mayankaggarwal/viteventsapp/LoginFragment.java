@@ -40,7 +40,6 @@ public class LoginFragment extends SlideFragment {
         return new LoginFragment();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {

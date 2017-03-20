@@ -34,7 +34,6 @@ public class FacultyInformation extends AppCompatActivity {
     CardView backcard;
     ActionBar actionBar;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +53,9 @@ public class FacultyInformation extends AppCompatActivity {
 
         appBarLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
-        appBarLayout.setElevation(50);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBarLayout.setElevation(50);
+        }
 
         CardView cardView=(CardView)findViewById(R.id.fac_card);
         cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));

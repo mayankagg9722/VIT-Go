@@ -17,7 +17,8 @@
        android:layout_height="wrap_content"
        android:id="@+id/rrv_swipe_refresh_layout"
        android:layout_alignParentStart="true"
-       android:layout_alignParentTop="true">
+       android:layout_alignParentTop="true"
+       android:layout_marginTop="10dp">
 
       <android.support.v7.widget.RecyclerView
           android:layout_width="match_parent"
