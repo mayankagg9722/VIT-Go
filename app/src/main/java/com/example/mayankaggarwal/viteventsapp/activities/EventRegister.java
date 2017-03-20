@@ -30,26 +30,49 @@ import java.util.Set;
 
 public class EventRegister extends AppCompatActivity {
 
+    private EventList e;
+    private int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_register);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Upcoming Events");
+        getSupportActionBar().setTitle("Register Events");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        CardView b=(CardView)findViewById(R.id.postreg);
 
-        EventList e= Globals.register_event;
+        e = Globals.register_event;
+
+        Log.d("tagg", String.valueOf(e.getFields().length()));
+
+
+        if(e.getFields().length()!=0){
+            addFloatEditText();
+        }else{
+            //redirect directly
+        }
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //redirect
+//                Log.d("tagg",((EditText)findViewById(Integer.parseInt("2"))).getText().toString());
+            }
+        });
+
+    }
+
+    private void addFloatEditText() {
 
         String f=e.getFields();
 
+        i=0;
+
         String[] orgF=f.replace("*","").split("//");
 
-        CardView b=(CardView)findViewById(R.id.postreg);
-
         LinearLayout linearLayout=(LinearLayout)findViewById(R.id.boxes);
-
-        int i=0;
 
         for(String s:orgF){
             TextInputLayout textInputLayout=new TextInputLayout(this);
@@ -61,14 +84,6 @@ public class EventRegister extends AppCompatActivity {
             linearLayout.addView(textInputLayout);
             i++;
         }
-
-
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("tagg",((EditText)findViewById(Integer.parseInt("2"))).getText().toString());
-            }
-        });
 
     }
 }

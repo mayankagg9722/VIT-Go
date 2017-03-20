@@ -91,6 +91,9 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
                     }else if(d.getStatus().toString().toLowerCase().equals("present")){
                         holder.detail_attendance.setText(d.getStatus());
                         holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
+                    }else{
+                        holder.detail_attendance.setText(d.getStatus());
+                        holder.detail_attendance.setTextColor(Color.parseColor("#f37051"));
                     }
                     break;
                 }else{
