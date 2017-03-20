@@ -37,4 +37,22 @@
             android:textColor="#fff" />
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/oneclick"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        app:cardBackgroundColor="#8057E1"
+        app:cardCornerRadius="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Click to confirm"
+            android:textColor="#fff" />
+    </android.support.v7.widget.CardView>
+
+
 </RelativeLayout>

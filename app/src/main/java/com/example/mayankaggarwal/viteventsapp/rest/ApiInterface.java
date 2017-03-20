@@ -13,6 +13,7 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
+import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 
 import com.google.gson.JsonObject;
@@ -51,6 +52,9 @@ public interface ApiInterface {
 
     @GET("getEventsAndroid")
     Call<EventData> getEvent();
+
+    @POST("registerEvent")
+    Call<JsonObject> getEventRegister(@Body RegisterEventRequest registerEventRequest);
 
 
 }

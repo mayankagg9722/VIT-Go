@@ -17,8 +17,10 @@ import android.widget.Toast;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
+import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import io.realm.Realm;
@@ -36,6 +38,16 @@ public class Events extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+
+        if(getIntent().getStringExtra("eventid")!=null){
+            EventList ev=RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            ev.setGoing(ev.getGoing()+1);
+            realm.commitTransaction();
+            realm.close();
+            Log.d("tagg","event:"+ev.getEventName());
+        }
 
         linearLayout = (LinearLayout) findViewById(R.id.event_layout);
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));

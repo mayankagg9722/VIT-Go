@@ -1,6 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.utils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
@@ -25,6 +27,7 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
+import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
@@ -71,9 +74,14 @@ public class Data {
         getFacultyDetails.execute(activity);
     }
 
-    public static void getEvent(final Activity activity, final UpdateCallback updateCallback) {
+    public static void getEvent(final Activity activity ,final UpdateCallback updateCallback) {
         GetEvent getEvent = new GetEvent(updateCallback);
         getEvent.execute(activity);
+    }
+
+    public static void getEventRegister(final Activity activity,String id, List<String> field, final UpdateCallback updateCallback) {
+        GetEventRegister getEventRegister = new GetEventRegister(updateCallback,id,field);
+        getEventRegister.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -115,10 +123,7 @@ public class Data {
 
 
             try {
-// //               Log.d("tagg", "in async");
                 List<AttendanceList> attendenceList = attendance.execute().body().data;
-// //             Log.d("tagg",String.valueOf(attendenceList));
-//                Realm realm=RealmController.getInstance().getRealm();
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 realm.delete(AttendanceList.class);
@@ -130,20 +135,16 @@ public class Data {
                             realm.copyToRealm(e);
                         }
                     });
-// //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
             } catch (Exception e) {
                 e.printStackTrace();
-// //               Log.d("tagg", "exceptionthrowm");
-//                updateCallback.onFailure();
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of async");
             updateCallback.onUpdate();
         }
     }
@@ -171,22 +172,17 @@ public class Data {
             final Call<JsonObject> timetable = apiInterface.timetable(timetableRequest);
 
             try {
-//                Log.d("tagg", "in timetable async");
-
-                //store time table in shared preferences
                 Prefs.setPrefs("myTimetable", timetable.execute().body().toString(), activity);
 
             } catch (Exception e) {
                 e.printStackTrace();
-//                Log.d("tagg", "exceptionthrowm");
-//                updateCallback.onFailure();
+
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
     }
@@ -226,12 +222,10 @@ public class Data {
             daRequest.regno = regno;
             daRequest.password = password;
 
-//            Log.d("tagg",classnbr);
 
             final Call<DAResponse> daResponseCall = apiInterface.detaialAttendance(daRequest);
 
             try {
-//                Log.d("tagg", "in async");
                 List<DetailAttendance> detailAttendances = daResponseCall.execute().body().data;
 
 
@@ -259,15 +253,12 @@ public class Data {
                 realm.close();
             } catch (Exception e) {
                 e.printStackTrace();
-//                Log.d("tagg", "exceptionthrowm");
-//                updateCallback.onFailure();
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
 
@@ -306,12 +297,10 @@ public class Data {
             coursePageRequest.regno = regno;
             coursePageRequest.password = password;
 
-//            Log.d("tagg",classnbr);
 
             final Call<CouresePageResponse> coursePageRequestCall = apiInterface.getCoursePage(coursePageRequest);
 
             try {
-//                Log.d("tagg", "in async");
                 List<CouresePage> couresePages = coursePageRequestCall.execute().body().data;
 
 
@@ -336,21 +325,17 @@ public class Data {
                             realm.copyToRealm(e);
                         }
                     });
-// //                   Log.d("tagg",e.getCourseCode().toString());
                 }
                 realm.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
-// //               Log.d("tagg", "exceptionthrowm");
-//                updateCallback.onFailure();
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
 
@@ -370,40 +355,34 @@ public class Data {
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
-//            Log.d("tagg",classnbr);
 
             final Call<FacultiesData> facultiesListCall = apiInterface.getFaculties();
             try {
-//                Log.d("tagg", "in async");
                 List<FacultiesList> facultiesDatas = facultiesListCall.execute().body().data;
 
                 Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    realm.delete(FacultiesList.class);
-                    realm.commitTransaction();
+                realm.beginTransaction();
+                realm.delete(FacultiesList.class);
+                realm.commitTransaction();
 
-                    for (final FacultiesList e : facultiesDatas) {
-                        realm.executeTransaction(new Realm.Transaction() {
-                            @Override
-                            public void execute(Realm realm) {
-                                realm.copyToRealm(e);
-                            }
-                        });
-// //                   Log.d("tagg",e.getCourseCode().toString());
+                for (final FacultiesList e : facultiesDatas) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
                 }
                 realm.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
-// //               Log.d("tagg", "exceptionthrowm");
-//                updateCallback.onFailure();
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
 
@@ -432,33 +411,31 @@ public class Data {
             facultyDetailsRequest.regno = regno;
             facultyDetailsRequest.password = password;
 
-//            Log.d("G", "doInBackground: "+facultyDetailsRequest.empid);
-
-
             final Call<FacultyDetails> facultyDetailsCall = apiInterface.getFacultyDetails(facultyDetailsRequest);
 
             facultyDetailsCall.enqueue(new Callback<FacultyDetails>() {
                 @Override
                 public void onResponse(Call<FacultyDetails> call, Response<FacultyDetails> response) {
-                    if(response.body().getCode().equals("200")){
+                    if (response.body().getCode().equals("200")) {
 
                         Globals.faculty_designation = response.body().getDesignation().toString();
                         Globals.faculty_venue = response.body().getVenue().toString();
                         Globals.faculty_email = response.body().getEmail().toString();
                         Globals.faculty_intercom = response.body().getIntercom().toString();
                         Globals.faculty_openhours = response.body().getOpenHours();
-                        Log.d("TAG", "onResponse: "+"working cool...."+Globals.faculty_email);
+                        Log.d("TAG", "onResponse: " + "working cool...." + Globals.faculty_email);
 
                         FacultyInformation.deg.setText(Globals.faculty_designation);
                         FacultyInformation.venue.setText(Globals.faculty_venue);
                         FacultyInformation.intercom.setText(Globals.faculty_intercom);
                         FacultyInformation.mail.setText(Globals.faculty_email);
-                        FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("["," ").replace("]"," ")
-                                .replace(","," and "));
+                        FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("[", " ").replace("]", " ")
+                                .replace(",", " and "));
 
                         CustomProgressDialog.hideProgress();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<FacultyDetails> call, Throwable t) {
                     updateCallback.onFailure();
@@ -475,8 +452,6 @@ public class Data {
         }
 
     }
-
-
 
 
     public static class GetEvent extends AsyncTask<Activity, Void, Integer> {
@@ -499,7 +474,7 @@ public class Data {
             try {
                 List<EventList> eventLists = eventDataCall.execute().body().data;
 
-                Prefs.setPrefs("eventslist",eventLists.toString(),activity);
+                Prefs.setPrefs("eventslist", eventLists.toString(), activity);
 
                 List<EventList> events = new ArrayList<>();
 
@@ -536,50 +511,63 @@ public class Data {
 
     }
 
+    public static class GetEventRegister extends AsyncTask<Activity, Void, Integer> {
 
-//    public static class DownloadImageTask extends AsyncTask<String, Void, Integer> {
-//        ImageView bmImage;
-//        Activity activity;
-//        Picasso picasso;
-//
-//        public DownloadImageTask(ImageView bmImage,Activity activity) {
-//            this.bmImage = bmImage;
-//            this.activity=activity;
-//        }
-//
-//        protected Integer doInBackground(String... urls) {
-//
-//            String urldisplay = urls[0];
-//            Bitmap mIcon11 = null;
-//            try {
-//                InputStream in = new java.net.URL(urldisplay).openStream();
-//                mIcon11 = BitmapFactory.decodeStream(in);
-//            } catch (Exception e) {
-//                Log.e("Error", e.getMessage());
-//                e.printStackTrace();
-//            }
-//            return 0;
-//        }
-//
-//        protected void onPostExecute(int result) {
-//            Log.d("tagg", "onPostExecute: "+result);
-//            if(result!=null){
-//                float aspectRatio = result.getWidth() /
-//                        (float) result.getHeight();
-//                int width = 500;
-//                int height = Math.round(width / aspectRatio);
-//
-//                result = Bitmap.createScaledBitmap(
-//                        result, width, height, false);
-//                bmImage.setImageBitmap(result);
-//            }else{
-//                bmImage.setImageResource(R.drawable.unknown);
-//            }
-//        }
-//    }
+        UpdateCallback updateCallback;
+        String id;
+        List<String> fields;
+
+        GetEventRegister(UpdateCallback updateCallback,String id, final List<String> field) {
+            this.updateCallback = updateCallback;
+            this.id=id;
+            this.fields=field;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
 
 
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
+            final RegisterEventRequest registerEventRequest=new RegisterEventRequest();
+
+            registerEventRequest.regno=Prefs.getPrefs("regno",activity);
+            registerEventRequest.password=Prefs.getPrefs("password",activity);;
+            registerEventRequest.name=Prefs.getPrefs("name",activity);;
+            registerEventRequest.eventId=id;
+            registerEventRequest.fields=fields;
+
+
+            final Call<JsonObject> jsonObjectCall = apiInterface.getEventRegister(registerEventRequest);
+
+            jsonObjectCall.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("tagg",response.body().getAsJsonObject().get("data").toString());
+                    if(response.body().get("data").toString().contains("success")){
+                        Intent intent=new Intent(activity, Events.class);
+                        intent.putExtra("eventid",id);
+                        activity.startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+            updateCallback.onUpdate();
+        }
+
+    }
 
     public static class InternetConnection extends AsyncTask<Void, Void, Boolean> {
 
@@ -624,4 +612,46 @@ public class Data {
 
         void onFailure();
     }
+
+
+//    public static class DownloadImageTask extends AsyncTask<String, Void, Integer> {
+//        ImageView bmImage;
+//        Activity activity;
+//        Picasso picasso;
+//
+//        public DownloadImageTask(ImageView bmImage,Activity activity) {
+//            this.bmImage = bmImage;
+//            this.activity=activity;
+//        }
+//
+//        protected Integer doInBackground(String... urls) {
+//
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return 0;
+//        }
+//
+//        protected void onPostExecute(int result) {
+//            Log.d("tagg", "onPostExecute: "+result);
+//            if(result!=null){
+//                float aspectRatio = result.getWidth() /
+//                        (float) result.getHeight();
+//                int width = 500;
+//                int height = Math.round(width / aspectRatio);
+//
+//                result = Bitmap.createScaledBitmap(
+//                        result, width, height, false);
+//                bmImage.setImageBitmap(result);
+//            }else{
+//                bmImage.setImageResource(R.drawable.unknown);
+//            }
+//        }
+//    }
 }

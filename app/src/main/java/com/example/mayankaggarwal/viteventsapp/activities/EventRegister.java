@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -18,9 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
+import com.example.mayankaggarwal.viteventsapp.utils.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -32,6 +37,7 @@ public class EventRegister extends AppCompatActivity {
 
     private EventList e;
     private int i;
+    private List<String> fields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +48,60 @@ public class EventRegister extends AppCompatActivity {
         getSupportActionBar().setTitle("Register Events");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
         CardView b=(CardView)findViewById(R.id.postreg);
+        CardView oneclick=(CardView)findViewById(R.id.oneclick);
+        oneclick.setVisibility(View.GONE);
+        b.setVisibility(View.GONE);
 
         e = Globals.register_event;
-
-        Log.d("tagg", String.valueOf(e.getFields().length()));
 
 
         if(e.getFields().length()!=0){
             addFloatEditText();
+            b.setVisibility(View.VISIBLE);
+
         }else{
-            //redirect directly
+            oneclick.setVisibility(View.VISIBLE);
         }
+
+        fields=new ArrayList<>();
+
+        oneclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerEvent(e.getId(),fields, EventRegister.this);
+            }
+        });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //redirect
-//                Log.d("tagg",((EditText)findViewById(Integer.parseInt("2"))).getText().toString());
+                for(int k=0;k<i;k++){
+                    fields.add(((EditText)findViewById(k)).getText().toString());
+                    registerEvent(e.getId(),fields,EventRegister.this);
+                }
+            }
+        });
+    }
+
+    private void registerEvent(final String id, final List<String> field, final Activity activity) {
+        Data.internetConnection(new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                Data.getEventRegister(activity,id,field, new Data.UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+            }
+            @Override
+            public void onFailure() {
+                Toast.makeText(activity,"No Internet",Toast.LENGTH_LONG).show();
             }
         });
 

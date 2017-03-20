@@ -101,9 +101,9 @@ public class RealmController {
 
 
    //// query a single item with the given id
-//    public AttendanceList getAttendance(String id) {
-//        return realm.where(AttendanceList.class).equalTo("id", id).findFirst();
-//    }
+    public EventList getEvent(String id) {
+        return realm.where(EventList.class).equalTo("id", id).findFirst();
+    }
 
 
     public boolean hasAttendance() {
