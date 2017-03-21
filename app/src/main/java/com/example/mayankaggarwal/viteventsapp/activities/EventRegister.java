@@ -47,6 +47,9 @@ public class EventRegister extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Register Events");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
+        }
         CardView b=(CardView)findViewById(R.id.postreg);
         CardView oneclick=(CardView)findViewById(R.id.oneclick);
         oneclick.setVisibility(View.GONE);

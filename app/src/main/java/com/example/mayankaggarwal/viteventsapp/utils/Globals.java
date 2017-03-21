@@ -38,4 +38,8 @@ public class Globals {
 
     public static EventList register_event=null;
 
+    public static int fetchEvent=0;
+
+    public static int fetchMessage=0;
+
 }

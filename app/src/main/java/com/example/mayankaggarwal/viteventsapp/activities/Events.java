@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -39,16 +40,6 @@ public class Events extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        if(getIntent().getStringExtra("eventid")!=null){
-            EventList ev=RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
-            Realm realm = Realm.getDefaultInstance();
-            realm.beginTransaction();
-            ev.setGoing(ev.getGoing()+1);
-            realm.commitTransaction();
-            realm.close();
-            Log.d("tagg","event:"+ev.getEventName());
-        }
-
         linearLayout = (LinearLayout) findViewById(R.id.event_layout);
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
@@ -61,12 +52,28 @@ public class Events extends AppCompatActivity {
 
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
+        }
+
         recyclerView = (RecyclerView) findViewById(R.id.event_recycler);
         recyclerView.setHasFixedSize(true);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_event);
 
-        fetchEvents(this);
+        if(getIntent().getStringExtra("eventid")!=null){
+            EventList ev=RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            ev.setGoing(String.valueOf((Integer.parseInt(ev.getGoing())+1)));
+            realm.commitTransaction();
+            realm.close();
+        }
+
+        if(Globals.fetchEvent==0){
+            fetchEvents(this);
+            Globals.fetchEvent=1;
+        }
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);

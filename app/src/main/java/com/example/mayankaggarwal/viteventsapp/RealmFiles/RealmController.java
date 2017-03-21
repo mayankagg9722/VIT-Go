@@ -95,6 +95,7 @@ public class RealmController {
         return realm.where(DetailAttendance.class).findAll();
     }
 
+
     public RealmResults<EventList> getEvents() {
         return realm.where(EventList.class).findAll();
     }

@@ -27,6 +27,7 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
+import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
@@ -82,6 +83,11 @@ public class Data {
     public static void getEventRegister(final Activity activity,String id, List<String> field, final UpdateCallback updateCallback) {
         GetEventRegister getEventRegister = new GetEventRegister(updateCallback,id,field);
         getEventRegister.execute(activity);
+    }
+
+    public static void getMessages(final Activity activity ,final UpdateCallback updateCallback) {
+        GetMessages getMessages = new GetMessages(updateCallback);
+        getMessages.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -533,7 +539,7 @@ public class Data {
             final RegisterEventRequest registerEventRequest=new RegisterEventRequest();
 
             registerEventRequest.regno=Prefs.getPrefs("regno",activity);
-            registerEventRequest.password=Prefs.getPrefs("password",activity);;
+            registerEventRequest.password=Prefs.getPrefs("password",activity);
             registerEventRequest.name=Prefs.getPrefs("name",activity);;
             registerEventRequest.eventId=id;
             registerEventRequest.fields=fields;
@@ -548,6 +554,7 @@ public class Data {
                     if(response.body().get("data").toString().contains("success")){
                         Intent intent=new Intent(activity, Events.class);
                         intent.putExtra("eventid",id);
+                        activity.finish();
                         activity.startActivity(intent);
                     }
                 }
@@ -568,6 +575,55 @@ public class Data {
         }
 
     }
+
+
+
+    public static class GetMessages extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetMessages(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            LoginRequest loginRequest=new LoginRequest();
+            loginRequest.regno=Prefs.getPrefs("regno",activity);
+            loginRequest.password=Prefs.getPrefs("password",activity);
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.getMessages(loginRequest);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("tagg",response.body().toString());
+                    Prefs.setPrefs("messages",response.body().toString(),activity);
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+        }
+
+    }
+
+
 
     public static class InternetConnection extends AsyncTask<Void, Void, Boolean> {
 
@@ -654,4 +710,5 @@ public class Data {
 //            }
 //        }
 //    }
+
 }

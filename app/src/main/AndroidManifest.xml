@@ -63,10 +63,15 @@
         <activity
             android:name=".activities.EventDetails"
             android:parentActivityName=".activities.Events" />
-
-        <activity android:name=".activities.EventRegister"
+        <activity
+            android:name=".activities.EventRegister"
             android:parentActivityName=".activities.EventDetails"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".activities.Messages"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".activities.ImageFull"></activity>
     </application>
 
 </manifest>

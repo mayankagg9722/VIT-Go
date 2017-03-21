@@ -1,7 +1,9 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +41,10 @@ public class EventDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
+        }
 
         RelativeLayout relativeLayout=(RelativeLayout) findViewById(R.id.eventcontent);
         ImageView eventImage=(ImageView)findViewById(R.id.eventimage);
@@ -62,6 +69,13 @@ public class EventDetails extends AppCompatActivity {
             @Override
             public void onError() {
                 prog.setVisibility(View.GONE);
+            }
+        });
+
+        eventImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EventDetails.this,ImageFull.class));
             }
         });
 

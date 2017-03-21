@@ -56,5 +56,10 @@ public interface ApiInterface {
     @POST("registerEvent")
     Call<JsonObject> getEventRegister(@Body RegisterEventRequest registerEventRequest);
 
+    @POST("getMessages")
+    Call<JsonObject> getMessages(@Body LoginRequest loginRequest);
+
+
+
 
 }
