@@ -3,9 +3,7 @@ package com.example.mayankaggarwal.viteventsapp.activities;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,7 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVAverageAttendace;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
-import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 public class AverageAttendance extends AppCompatActivity {

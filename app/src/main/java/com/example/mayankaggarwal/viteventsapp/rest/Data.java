@@ -1,15 +1,11 @@
-package com.example.mayankaggarwal.viteventsapp.utils;
+package com.example.mayankaggarwal.viteventsapp.rest;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ImageView;
 
 
-import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
@@ -30,14 +26,12 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
-import com.example.mayankaggarwal.viteventsapp.rest.ApiClient;
-import com.example.mayankaggarwal.viteventsapp.rest.ApiInterface;
+import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +39,6 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Url;
 
 /**
  * Created by mayankaggarwal on 12/02/17.
@@ -88,6 +81,11 @@ public class Data {
     public static void getMessages(final Activity activity ,final UpdateCallback updateCallback) {
         GetMessages getMessages = new GetMessages(updateCallback);
         getMessages.execute(activity);
+    }
+
+    public static void getLeaves(final Activity activity ,final UpdateCallback updateCallback) {
+        GetLeaves getLeaves = new GetLeaves(updateCallback);
+        getLeaves.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -429,7 +427,7 @@ public class Data {
                         Globals.faculty_email = response.body().getEmail().toString();
                         Globals.faculty_intercom = response.body().getIntercom().toString();
                         Globals.faculty_openhours = response.body().getOpenHours();
-                        Log.d("TAG", "onResponse: " + "working cool...." + Globals.faculty_email);
+//                        Log.d("TAG", "onResponse: " + "working cool...." + Globals.faculty_email);
 
                         FacultyInformation.deg.setText(Globals.faculty_designation);
                         FacultyInformation.venue.setText(Globals.faculty_venue);
@@ -550,7 +548,7 @@ public class Data {
             jsonObjectCall.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg",response.body().getAsJsonObject().get("data").toString());
+//                    Log.d("tagg",response.body().getAsJsonObject().get("data").toString());
                     if(response.body().get("data").toString().contains("success")){
                         Intent intent=new Intent(activity, Events.class);
                         intent.putExtra("eventid",id);
@@ -570,7 +568,6 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
 
@@ -602,7 +599,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg",response.body().toString());
+//                    Log.d("tagg",response.body().toString());
                     Prefs.setPrefs("messages",response.body().toString(),activity);
                     updateCallback.onUpdate();
                 }
@@ -623,6 +620,52 @@ public class Data {
 
     }
 
+    public static class GetLeaves extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetLeaves(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            LoginRequest loginRequest=new LoginRequest();
+            loginRequest.regno=Prefs.getPrefs("regno",activity);
+            loginRequest.password=Prefs.getPrefs("password",activity);
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.getLeaves(loginRequest);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    String[] names=response.body().get("approvingAuthorities").toString()
+                            .replace("[\"","").replace("\"]","").replace("\"","").split(",");
+                    for(String str:names){
+                        LeaveRequest.fac_name.add(str);
+                    }
+//                    Prefs.setPrefs("leaves",response.body().get("approvingAuthorities").toString(),activity);
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+        }
+
+    }
 
 
     public static class InternetConnection extends AsyncTask<Void, Void, Boolean> {

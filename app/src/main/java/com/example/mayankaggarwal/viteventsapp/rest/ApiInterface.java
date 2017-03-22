@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CancelRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
@@ -11,6 +12,7 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
+import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
@@ -59,7 +61,14 @@ public interface ApiInterface {
     @POST("getMessages")
     Call<JsonObject> getMessages(@Body LoginRequest loginRequest);
 
+    @POST("getLeaves")
+    Call<JsonObject> getLeaves(@Body LoginRequest loginRequest);
 
+    @POST("cancelLeave")
+    Call<JsonObject> cancelLeave(@Body CancelRequest cancelRequest);
+
+    @POST("applyHometownLeave")
+    Call<JsonObject> applyHomeTown(@Body HomeTownRequest homeTownRequest);
 
 
 }

@@ -23,7 +23,7 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 
 import com.example.mayankaggarwal.viteventsapp.adapter.RVAttendaceList;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
-import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.rest.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -78,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
+
+        if(RealmController.with(this).hasAttendance()){
+            recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

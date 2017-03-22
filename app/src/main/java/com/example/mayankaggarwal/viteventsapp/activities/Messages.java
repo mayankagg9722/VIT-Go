@@ -2,22 +2,19 @@ package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.RelativeLayout;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVMessages;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
-import com.example.mayankaggarwal.viteventsapp.utils.Data;
+import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -35,10 +32,15 @@ public class Messages extends AppCompatActivity {
 
         (findViewById(R.id.activity_messages)).setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.message_toolbar);
+
+        setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
         getSupportActionBar().setTitle("Faculty Messages");
-        getSupportActionBar().setElevation(0);
+
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
@@ -52,10 +54,11 @@ public class Messages extends AppCompatActivity {
 
         if(Globals.fetchMessage==0){
             fetchMessages(this);
-            Globals.fetchMessage=1;
         }
 
-        recyclerView.setAdapter(new RVMessages(Prefs.getPrefs("messages",this), Messages.this));
+        if(!(Prefs.getPrefs("messages",this).equals("notfound"))){
+            recyclerView.setAdapter(new RVMessages(Prefs.getPrefs("messages",this), Messages.this));
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -77,6 +80,7 @@ public class Messages extends AppCompatActivity {
                         recyclerView.setAdapter(new RVMessages(Prefs.getPrefs("messages",activity), Messages.this));
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
+                        Globals.fetchMessage=1;
                     }
 
                     @Override

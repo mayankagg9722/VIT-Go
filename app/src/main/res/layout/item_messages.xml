@@ -7,9 +7,9 @@
     android:layout_margin="8dp">
     
     <android.support.v7.widget.CardView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:cardCornerRadius="20dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:cardCornerRadius="24dp"
         app:cardBackgroundColor="#000"
         app:cardElevation="0dp"
         android:layout_marginRight="7dp"
@@ -22,7 +22,8 @@
             android:gravity="center"
             android:textColor="#fff"
             android:layout_gravity="center"
-            android:textSize="20dp"
+            android:textSize="22dp"
+            android:textStyle="bold"
             android:id="@+id/customletter"/>
         
     </android.support.v7.widget.CardView>
@@ -31,14 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#000"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         android:id="@+id/contentcard">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:layout_margin="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,6 +49,7 @@
                 android:textSize="15dp"
                 android:textColor="#fff"
                 android:id="@+id/facultyname"
+                android:layout_margin="4dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -57,10 +59,12 @@
                 android:textSize="15dp"
                 android:textColor="#fff"
                 android:id="@+id/coursename"
+                android:layout_margin="4dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:text="Good Evening Students, Wish You all A Very Happy New Year!!!!! As the new semester has started i would like to intimate that all of you should check the mail or messages send to you both in students login and whatsup. Any change in the whatsup number should be informed to me.  All are supposed to meet me when called. With prior mail from the parents the leave will not be approved. Meet you all in person very soon. P V NISHA"
                 android:textColor="#fff"
                 android:id="@+id/message"
@@ -71,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:text="17/03/2017 11:09:57"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:id="@+id/datemessage"
                 android:layout_gravity="right"/>
 

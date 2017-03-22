@@ -131,8 +131,6 @@ public class TimeTable extends AppCompatActivity {
 
         setCardAndText(this);
 
-        //fetch attendance
-//        fetchAttendance(this,"MON");
 
         recyclerView = (RecyclerView) findViewById(R.id.timetablerecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -166,7 +164,6 @@ public class TimeTable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setCardAndTextColor(TimeTable.this, 0);
-//                fetchAttendance(activity,"MON");
             }
         });
 
@@ -174,14 +171,12 @@ public class TimeTable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setCardAndTextColor(TimeTable.this, 1);
-//                fetchAttendance(activity,"TUE");
             }
         });
 
         mycard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fetchAttendance(activity,"WED");
                 setCardAndTextColor(TimeTable.this, 2);
             }
         });
@@ -189,7 +184,6 @@ public class TimeTable extends AppCompatActivity {
         mycard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fetchAttendance(activity,"THU");
                 setCardAndTextColor(TimeTable.this, 3);
             }
         });
@@ -197,7 +191,6 @@ public class TimeTable extends AppCompatActivity {
         mycard4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fetchAttendance(activity,"FRi");
                 setCardAndTextColor(TimeTable.this, 4);
             }
         });
@@ -205,7 +198,6 @@ public class TimeTable extends AppCompatActivity {
         mycard5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fetchAttendance(activity,"SAT");
                 setCardAndTextColor(TimeTable.this, 5);
             }
         });
@@ -213,7 +205,6 @@ public class TimeTable extends AppCompatActivity {
         mycard6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fetchAttendance(activity,"SUN");
                 setCardAndTextColor(TimeTable.this, 6);
             }
         });
@@ -239,32 +230,5 @@ public class TimeTable extends AppCompatActivity {
             }
         }
     }
-
-//    private void fetchAttendance(final Activity activity, final String day) {
-////            Log.d("tagg","attendance");
-//        progressDialog.show();
-//        if(InternetConnection.isNetworkAvailable()){
-//            Data.updateAttendance(this, new Data.UpdateCallback() {
-//                @Override
-//                public void onUpdate() {
-////                    Log.d("tagg","success api");
-//                    recyclerView.setAdapter(new RVTimeTableDetails(RealmController.with(activity).getAtendance(), TimeTable.this, true,day));
-//                    progressDialog.dismiss();
-////                    swipeRefreshLayout.setRefreshing(false);
-//                }
-//                @Override
-//                public void onFailure() {
-//                    progressDialog.dismiss();
-////                    swipeRefreshLayout.setRefreshing(false);
-////                    Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-////                    Log.d("tagg","fail api");
-//                }
-//            });
-//        }else{
-//            progressDialog.dismiss();
-////            swipeRefreshLayout.setRefreshing(false);
-//            Toast.makeText(TimeTable.this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
 }

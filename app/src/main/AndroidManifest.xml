@@ -69,9 +69,15 @@
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".activities.Messages"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".activities.ImageFull"></activity>
+            android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".activities.ImageFull" />
+
+        <activity android:name=".activities.Hosteller"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".activities.LeaveRequest"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

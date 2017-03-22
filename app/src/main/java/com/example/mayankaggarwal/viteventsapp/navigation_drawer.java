@@ -20,6 +20,7 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.AverageAttendance;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.activities.Faculties;
+import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
 import com.example.mayankaggarwal.viteventsapp.activities.Messages;
 import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
@@ -88,6 +89,7 @@ public class navigation_drawer extends Fragment {
         CardView attendanceCard=(CardView)v.findViewById(card_id[1]);
         CardView eventCard=(CardView)v.findViewById(card_id[4]);
         CardView message=(CardView)v.findViewById(card_id[7]);
+        CardView hoteller=(CardView)v.findViewById(card_id[10]);
 
         timetableCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +123,13 @@ public class navigation_drawer extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),Messages.class));
+            }
+        });
+
+        hoteller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Hosteller.class));
             }
         });
 

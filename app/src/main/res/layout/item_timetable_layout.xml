@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1.2">
+        android:weightSum="1.2"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -40,16 +41,15 @@
                 android:id="@+id/timebegin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:paddingTop="4dp"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:text="8:00 AM"
                 android:textColor="#BDBDBD"
-                android:textSize="15dp"/>
+                android:textSize="12dp"/>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="2dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:background="#BDBDBD"></View>
@@ -58,13 +58,12 @@
                 android:id="@+id/timeend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:paddingTop="4dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="8:00 AM"
                 android:textColor="#BDBDBD"
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </LinearLayout>
 
 
