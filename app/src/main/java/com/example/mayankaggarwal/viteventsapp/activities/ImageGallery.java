@@ -46,23 +46,13 @@ public class ImageGallery extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_gallery);
 
-        actionBar = getSupportActionBar();
+        init();
 
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
-        actionBar.setTitle("Image");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        setClickListener();
 
-        selectimage = (CardView) findViewById(R.id.imageselect);
+    }
 
-        bluetheme = (CardView) findViewById(R.id.bluetheme);
-
-        pinktheme = (CardView) findViewById(R.id.pinktheme);
-
-        basetheme = (CardView) findViewById(R.id.basetheme);
-
-        imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
-
-
+    private void setClickListener() {
         bluetheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,21 +86,6 @@ public class ImageGallery extends AppCompatActivity {
             }
         });
 
-
-
-        if(Prefs.getPrefs("readPermission",this).equals("1")){
-            try {
-                Bitmap photo = null;
-                photo = MediaStore.Images.Media.getBitmap(getContentResolver()
-                        , Uri.parse(Prefs.getPrefs("profileimage",this)));
-//            photo = getResizedBitmap(photo, 400, 400);
-                imageView.setImageBitmap(photo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +100,36 @@ public class ImageGallery extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Select Picture"),img);
             }
         });
+    }
+
+    private void init() {
+        actionBar = getSupportActionBar();
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        actionBar.setTitle("Image");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        selectimage = (CardView) findViewById(R.id.imageselect);
+
+        bluetheme = (CardView) findViewById(R.id.bluetheme);
+
+        pinktheme = (CardView) findViewById(R.id.pinktheme);
+
+        basetheme = (CardView) findViewById(R.id.basetheme);
+
+        imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
+
+        if(Prefs.getPrefs("readPermission",this).equals("1")){
+            try {
+                Bitmap photo = null;
+                photo = MediaStore.Images.Media.getBitmap(getContentResolver()
+                        , Uri.parse(Prefs.getPrefs("profileimage",this)));
+//            photo = getResizedBitmap(photo, 400, 400);
+                imageView.setImageBitmap(photo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

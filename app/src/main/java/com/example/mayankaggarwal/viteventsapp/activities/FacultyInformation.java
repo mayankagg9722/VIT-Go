@@ -32,6 +32,27 @@ public class FacultyInformation extends AppCompatActivity {
         SetTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_faculty_information);
 
+        init();
+
+        CardView cardView=(CardView)findViewById(R.id.fac_card);
+        cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
+        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        backcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        getFacultyData(this);
+
+    }
+
+    private void init() {
+
         actionBar=getSupportActionBar();
 
         actionBar.setElevation(0);
@@ -49,13 +70,6 @@ public class FacultyInformation extends AppCompatActivity {
             appBarLayout.setElevation(50);
         }
 
-        CardView cardView=(CardView)findViewById(R.id.fac_card);
-        cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
-
-        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
-        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
-
-
         name=(TextView)findViewById(R.id.profname);
         deg=(TextView)findViewById(R.id.profdeg);
         school=(TextView)findViewById(R.id.school);
@@ -64,15 +78,6 @@ public class FacultyInformation extends AppCompatActivity {
         mail=(TextView)findViewById(R.id.email);
         freehour=(TextView)findViewById(R.id.freehour);
         backcard=(CardView)findViewById(R.id.backcard);
-
-        backcard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        getFacultyData(this);
 
     }
 

@@ -39,6 +39,26 @@ public class Events extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
+        init();
+        setGradientAnimation();
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), Events.this));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchEvents(Events.this);
+            }
+        });
+
+
+
+    }
+
+    private void init() {
         linearLayout = (LinearLayout) findViewById(R.id.event_layout);
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
@@ -73,19 +93,6 @@ public class Events extends AppCompatActivity {
             fetchEvents(this);
             Globals.fetchEvent=1;
         }
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), Events.this));
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchEvents(Events.this);
-            }
-        });
-
-        setGradientAnimation();
 
     }
 

@@ -3,11 +3,14 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 
+import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
+import com.example.mayankaggarwal.viteventsapp.activities.OutingRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
@@ -23,12 +26,15 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
+import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -68,24 +74,29 @@ public class Data {
         getFacultyDetails.execute(activity);
     }
 
-    public static void getEvent(final Activity activity ,final UpdateCallback updateCallback) {
+    public static void getEvent(final Activity activity, final UpdateCallback updateCallback) {
         GetEvent getEvent = new GetEvent(updateCallback);
         getEvent.execute(activity);
     }
 
-    public static void getEventRegister(final Activity activity,String id, List<String> field, final UpdateCallback updateCallback) {
-        GetEventRegister getEventRegister = new GetEventRegister(updateCallback,id,field);
+    public static void getEventRegister(final Activity activity, String id, List<String> field, final UpdateCallback updateCallback) {
+        GetEventRegister getEventRegister = new GetEventRegister(updateCallback, id, field);
         getEventRegister.execute(activity);
     }
 
-    public static void getMessages(final Activity activity ,final UpdateCallback updateCallback) {
+    public static void getMessages(final Activity activity, final UpdateCallback updateCallback) {
         GetMessages getMessages = new GetMessages(updateCallback);
         getMessages.execute(activity);
     }
 
-    public static void getLeaves(final Activity activity ,final UpdateCallback updateCallback) {
+    public static void getLeaves(final Activity activity, final UpdateCallback updateCallback) {
         GetLeaves getLeaves = new GetLeaves(updateCallback);
         getLeaves.execute(activity);
+    }
+
+    public static void submitHometownLeave(final Activity activity,final HomeTownRequest homeTownRequest, final UpdateCallback updateCallback) {
+        SubmitHomeTownLeave submitHomeTownLeave = new SubmitHomeTownLeave(updateCallback,homeTownRequest);
+        submitHomeTownLeave.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -521,10 +532,10 @@ public class Data {
         String id;
         List<String> fields;
 
-        GetEventRegister(UpdateCallback updateCallback,String id, final List<String> field) {
+        GetEventRegister(UpdateCallback updateCallback, String id, final List<String> field) {
             this.updateCallback = updateCallback;
-            this.id=id;
-            this.fields=field;
+            this.id = id;
+            this.fields = field;
         }
 
         @Override
@@ -534,13 +545,14 @@ public class Data {
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
-            final RegisterEventRequest registerEventRequest=new RegisterEventRequest();
+            final RegisterEventRequest registerEventRequest = new RegisterEventRequest();
 
-            registerEventRequest.regno=Prefs.getPrefs("regno",activity);
-            registerEventRequest.password=Prefs.getPrefs("password",activity);
-            registerEventRequest.name=Prefs.getPrefs("name",activity);;
-            registerEventRequest.eventId=id;
-            registerEventRequest.fields=fields;
+            registerEventRequest.regno = Prefs.getPrefs("regno", activity);
+            registerEventRequest.password = Prefs.getPrefs("password", activity);
+            registerEventRequest.name = Prefs.getPrefs("name", activity);
+            ;
+            registerEventRequest.eventId = id;
+            registerEventRequest.fields = fields;
 
 
             final Call<JsonObject> jsonObjectCall = apiInterface.getEventRegister(registerEventRequest);
@@ -549,9 +561,9 @@ public class Data {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 //                    Log.d("tagg",response.body().getAsJsonObject().get("data").toString());
-                    if(response.body().get("data").toString().contains("success")){
-                        Intent intent=new Intent(activity, Events.class);
-                        intent.putExtra("eventid",id);
+                    if (response.body().get("data").toString().contains("success")) {
+                        Intent intent = new Intent(activity, Events.class);
+                        intent.putExtra("eventid", id);
                         activity.finish();
                         activity.startActivity(intent);
                     }
@@ -574,7 +586,6 @@ public class Data {
     }
 
 
-
     public static class GetMessages extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
@@ -590,9 +601,9 @@ public class Data {
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
-            LoginRequest loginRequest=new LoginRequest();
-            loginRequest.regno=Prefs.getPrefs("regno",activity);
-            loginRequest.password=Prefs.getPrefs("password",activity);
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
 
             final Call<JsonObject> apiInterfaceMessages = apiInterface.getMessages(loginRequest);
 
@@ -600,7 +611,7 @@ public class Data {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 //                    Log.d("tagg",response.body().toString());
-                    Prefs.setPrefs("messages",response.body().toString(),activity);
+                    Prefs.setPrefs("messages", response.body().toString(), activity);
                     updateCallback.onUpdate();
                 }
 
@@ -634,21 +645,77 @@ public class Data {
 
             ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
 
-            LoginRequest loginRequest=new LoginRequest();
-            loginRequest.regno=Prefs.getPrefs("regno",activity);
-            loginRequest.password=Prefs.getPrefs("password",activity);
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
 
             final Call<JsonObject> apiInterfaceMessages = apiInterface.getLeaves(loginRequest);
 
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    String[] names=response.body().get("approvingAuthorities").toString()
-                            .replace("[\"","").replace("\"]","").replace("\"","").split(",");
-                    for(String str:names){
-                        LeaveRequest.fac_name.add(str);
+                    JsonArray names = response.body().get("approvingAuthorities").getAsJsonArray();
+
+                    Prefs.setPrefs("leaves",response.body().get("leaves").toString(),activity);
+
+                    for (JsonElement str : names) {
+                        LeaveRequest.fac_name.add(str.getAsString());
+                        OutingRequest.fac_name.add(str.getAsString());
                     }
-//                    Prefs.setPrefs("leaves",response.body().get("approvingAuthorities").toString(),activity);
+
+                    JsonArray ids = response.body().get("approvingAuthoritiesPostValues").getAsJsonArray();
+
+                    for (JsonElement st : ids) {
+                        LeaveRequest.fac_id.add(st.getAsString());
+                        OutingRequest.fac_id.add(st.getAsString());
+                    }
+
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+        }
+
+    }
+
+    public static class SubmitHomeTownLeave extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+        HomeTownRequest homeTownRequest;
+
+        SubmitHomeTownLeave(UpdateCallback updateCallback,HomeTownRequest homeTownRequest) {
+            this.updateCallback = updateCallback;
+            this.homeTownRequest=homeTownRequest;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            homeTownRequest.regno = Prefs.getPrefs("regno", activity);
+            homeTownRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.applyHomeTown(homeTownRequest);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("tagg", response.body().toString());
+                    if(response.body().get("code").getAsString().equals("200")){
+                        activity.finish();
+                        activity.startActivity(new Intent(activity, Hosteller.class));
+                    }
                     updateCallback.onUpdate();
                 }
 

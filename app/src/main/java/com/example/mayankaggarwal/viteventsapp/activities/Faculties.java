@@ -38,40 +38,9 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SetTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_faculties);
 
-        Toolbar toolbar=(Toolbar)findViewById(R.id.fac_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Search Faculties");
-        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
-
-        search=(EditText)findViewById(R.id.search_faculties);
-
-        textview=(TextView)findViewById(R.id.namelongtext);
-
-        search.addTextChangedListener(this);
-
-        String name=Prefs.getPrefs("name",this);
-        String str=name.split(" ")[0];
-        String finalName=str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-
-        textview.setText("Hey "+finalName+", type in the name you are looking for:");
-//        actionBar=getSupportActionBar();
-//        actionBar.setTitle("Search Faculties");
-//        actionBar.setElevation(0);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
-
-        recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
-        relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;
-
-        relativeLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.facultyrefresh);
-
+        init();
 
         if(!RealmController.with(this).hasFaculty()){
             Prefs.setPrefs("firstFacultyFetch","1",this);
@@ -93,11 +62,40 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     }
 
+    private void init() {
+        Toolbar toolbar=(Toolbar)findViewById(R.id.fac_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Search Faculties");
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        search=(EditText)findViewById(R.id.search_faculties);
+
+        textview=(TextView)findViewById(R.id.namelongtext);
+
+        search.addTextChangedListener(this);
+
+        String name=Prefs.getPrefs("name",this);
+        String str=name.split(" ")[0];
+        String finalName=str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+
+        textview.setText("Hey "+finalName+", type in the name you are looking for:");
+
+        recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
+        relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;
+
+        relativeLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.facultyrefresh);
+    }
+
     private void updateFaculties(final Activity activity) {
 
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
+                CustomProgressDialog.showProgress(activity,"Fetching faculties...");
                 Data.updateFaculty(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {

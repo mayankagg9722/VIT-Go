@@ -28,59 +28,63 @@ public class EventRegister extends AppCompatActivity {
     private EventList e;
     private int i;
     private List<String> fields;
+    CardView oneclick, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_register);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Register Events");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
-        }
-        CardView b=(CardView)findViewById(R.id.postreg);
-        CardView oneclick=(CardView)findViewById(R.id.oneclick);
-        oneclick.setVisibility(View.GONE);
-        b.setVisibility(View.GONE);
+        init();
 
         e = Globals.register_event;
 
-
-        if(e.getFields().length()!=0){
+        if (e.getFields().length() != 0) {
             addFloatEditText();
             b.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             oneclick.setVisibility(View.VISIBLE);
         }
 
-        fields=new ArrayList<>();
+        fields = new ArrayList<>();
 
         oneclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerEvent(e.getId(),fields, EventRegister.this);
+                registerEvent(e.getId(), fields, EventRegister.this);
             }
         });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int k=0;k<i;k++){
-                    fields.add(((EditText)findViewById(k)).getText().toString());
-                    registerEvent(e.getId(),fields,EventRegister.this);
+                for (int k = 0; k < i; k++) {
+                    fields.add(((EditText) findViewById(k)).getText().toString());
+                    registerEvent(e.getId(), fields, EventRegister.this);
                 }
             }
         });
+    }
+
+    private void init() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Register Events");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
+        }
+        b = (CardView) findViewById(R.id.postreg);
+        oneclick = (CardView) findViewById(R.id.oneclick);
+        oneclick.setVisibility(View.GONE);
+        b.setVisibility(View.GONE);
     }
 
     private void registerEvent(final String id, final List<String> field, final Activity activity) {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                Data.getEventRegister(activity,id,field, new Data.UpdateCallback() {
+                Data.getEventRegister(activity, id, field, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
 
@@ -92,27 +96,25 @@ public class EventRegister extends AppCompatActivity {
                     }
                 });
             }
+
             @Override
             public void onFailure() {
-                Toast.makeText(activity,"No Internet",Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "No Internet", Toast.LENGTH_LONG).show();
             }
         });
 
     }
 
     private void addFloatEditText() {
+        String f = e.getFields();
+        i = 0;
+        String[] orgF = f.replace("*", "").split("//");
 
-        String f=e.getFields();
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.boxes);
 
-        i=0;
-
-        String[] orgF=f.replace("*","").split("//");
-
-        LinearLayout linearLayout=(LinearLayout)findViewById(R.id.boxes);
-
-        for(String s:orgF){
-            TextInputLayout textInputLayout=new TextInputLayout(this);
-            EditText name=new EditText(this);
+        for (String s : orgF) {
+            TextInputLayout textInputLayout = new TextInputLayout(this);
+            EditText name = new EditText(this);
             name.getBackground().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
             name.setHint(s);
             name.setId(i);

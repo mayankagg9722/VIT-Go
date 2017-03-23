@@ -85,7 +85,7 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             String customtext=message.get("0").toString().replace("\"","");
 
             holder.facname.setText(facultyname);
-            holder.subj.setText("");
+            holder.subj.setVisibility(View.GONE);
             holder.content.setText(content);
             holder.date.setText(date);
             holder.customtext.setText(customtext.substring(0,1).toUpperCase());
@@ -95,8 +95,8 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             //hide triangle image
             String content=message.get("0").toString().replace("\"","");
             String date=message.get("1").toString().replace("\"","");
-            holder.facname.setText("");
-            holder.subj.setText("");
+            holder.facname.setVisibility(View.GONE);
+            holder.subj.setVisibility(View.GONE);
             holder.content.setText(content);
             holder.date.setText(date);
             holder.custom.setVisibility(View.INVISIBLE);

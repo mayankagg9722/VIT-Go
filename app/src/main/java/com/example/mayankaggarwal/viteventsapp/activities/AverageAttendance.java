@@ -36,6 +36,28 @@ public class AverageAttendance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_average_attendance);
+
+        init();
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(this).getAtendance(),
+                AverageAttendance.this, true));
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchAverageAttendance(AverageAttendance.this);
+            }
+        });
+
+    }
+
+    private void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Attendance");
@@ -56,23 +78,6 @@ public class AverageAttendance extends AppCompatActivity {
         avgnumber=(TextView)findViewById(R.id.avgnumber);
 
         recyclerView=(RecyclerView)findViewById(R.id.avgrecylerview);
-
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(this).getAtendance(),
-                AverageAttendance.this, true));
-
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchAverageAttendance(AverageAttendance.this);
-            }
-        });
-
     }
 
     private void fetchAverageAttendance(final Activity activity) {

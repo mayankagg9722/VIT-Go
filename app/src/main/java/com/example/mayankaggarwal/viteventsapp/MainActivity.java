@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         updateDayAndDate();
 
         //fetch attendance
-        fetchAttendance(this);
+//        fetchAttendance(this);
 
 
         getSupportActionBar().setTitle("");

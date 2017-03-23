@@ -76,7 +76,8 @@
                     android:layout_weight="1"
                     app:cardBackgroundColor="#F5F5F5"
                     app:cardCornerRadius="4dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    android:id="@+id/outing">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -7,9 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
@@ -30,9 +27,9 @@ import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeaveRequest extends AppCompatActivity {
+public class OutingRequest extends AppCompatActivity {
 
-    public static TextView fromdate, toDate, fromtime, totime;
+    public static TextView fromdate, fromtime, totime;
     private EditText place, reason;
     public static List<String> fac_name = new ArrayList<>();
     public static List<String> fac_id = new ArrayList<>();
@@ -46,7 +43,7 @@ public class LeaveRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leave_request);
+        setContentView(R.layout.activity_outing_request);
 
         init();
 
@@ -70,7 +67,6 @@ public class LeaveRequest extends AppCompatActivity {
         }
 
         fromdate = (TextView) findViewById(R.id.fromdate);
-        toDate = (TextView) findViewById(R.id.todate);
         fromtime = (TextView) findViewById(R.id.fromtime);
         totime = (TextView) findViewById(R.id.totime);
         authority = (Spinner) findViewById(R.id.authority);
@@ -81,6 +77,7 @@ public class LeaveRequest extends AppCompatActivity {
 
         fac_name.clear();
         fac_id.clear();
+
         fac_name.add("--Select--");
         fac_id.add("--Select--");
 
@@ -111,28 +108,22 @@ public class LeaveRequest extends AppCompatActivity {
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CalenderSetting.setCalendar(LeaveRequest.this, fromdate);
+                CalenderSetting.setCalendar(OutingRequest.this, fromdate);
             }
         });
 
-        toDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CalenderSetting.setCalendar(LeaveRequest.this, toDate);
-            }
-        });
 
         fromtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CalenderTime.setTime(LeaveRequest.this, fromtime);
+                CalenderTime.setTime(OutingRequest.this, fromtime);
             }
         });
 
         totime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CalenderTime.setTime(LeaveRequest.this, totime);
+                CalenderTime.setTime(OutingRequest.this, totime);
             }
         });
 
@@ -143,18 +134,17 @@ public class LeaveRequest extends AppCompatActivity {
                     setFieldsText();
                     Log.d("tagg", String.valueOf(homeTownRequest.sttimeHh + " " + homeTownRequest.sttimeMm + " " + homeTownRequest.frmTimetype
                             + " " + homeTownRequest.apply));
-                    submitHomeTownLeave(LeaveRequest.this, homeTownRequest);
+                    submitHomeTownLeave(OutingRequest.this, homeTownRequest);
                 } else {
-                    Toast.makeText(LeaveRequest.this, "Fill all fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OutingRequest.this, "Fill all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void setFieldsText() {
-        homeTownRequest.lvtype = "HT";
+        homeTownRequest.lvtype = "OG";
         homeTownRequest.exitdate = fromdate.getText().toString();
-        homeTownRequest.reentryDate = toDate.getText().toString();
         homeTownRequest.place = place.getText().toString();
         homeTownRequest.reason = reason.getText().toString();
         homeTownRequest.sttimeHh = fromtime.getText().toString().trim().substring(0, 2).trim();
@@ -170,8 +160,6 @@ public class LeaveRequest extends AppCompatActivity {
         if (wrongSpinnerItem == 1) {
             flag = 1;
         } else if (isEmpty(fromdate)) {
-            flag = 1;
-        } else if (isEmpty(toDate)) {
             flag = 1;
         } else if (isEmpty(fromtime)) {
             flag = 1;
@@ -207,7 +195,7 @@ public class LeaveRequest extends AppCompatActivity {
                 Data.getLeaves(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        name = new ArrayAdapter<String>(LeaveRequest.this, R.layout.support_simple_spinner_dropdown_item, fac_name);
+                        name = new ArrayAdapter<String>(OutingRequest.this, R.layout.support_simple_spinner_dropdown_item, fac_name);
                         authority.setAdapter(name);
                         CustomProgressDialog.hideProgress();
                     }
@@ -234,7 +222,7 @@ public class LeaveRequest extends AppCompatActivity {
                 Data.submitHometownLeave(activity, homeTownRequest, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        name = new ArrayAdapter<String>(LeaveRequest.this, R.layout.support_simple_spinner_dropdown_item, fac_name);
+                        name = new ArrayAdapter<String>(OutingRequest.this, R.layout.support_simple_spinner_dropdown_item, fac_name);
                         authority.setAdapter(name);
                         CustomProgressDialog.hideProgress();
                     }
@@ -254,4 +242,3 @@ public class LeaveRequest extends AppCompatActivity {
     }
 
 }
-
