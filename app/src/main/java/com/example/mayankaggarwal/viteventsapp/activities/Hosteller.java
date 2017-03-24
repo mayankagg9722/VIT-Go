@@ -191,8 +191,6 @@ public class Hosteller extends AppCompatActivity {
                 if (!expanded) {
                     Intent intent = new Intent(Hosteller.this, LeaveRequest.class);
                     startActivity(intent);
-                } else {
-
                 }
 
             }
@@ -204,8 +202,15 @@ public class Hosteller extends AppCompatActivity {
                 if (!expanded) {
                     Intent intent = new Intent(Hosteller.this, OutingRequest.class);
                     startActivity(intent);
-                } else {
-//                    Log.d("tagg","working");
+                }
+            }
+        });
+        outing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!expanded) {
+                    Intent intent = new Intent(Hosteller.this, OutingRequest.class);
+                    startActivity(intent);
                 }
             }
         });

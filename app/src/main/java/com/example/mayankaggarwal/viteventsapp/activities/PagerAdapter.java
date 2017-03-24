@@ -21,9 +21,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment=new SwipeFragment();
+        Fragment fragment = new SwipeFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("count",position);
+        bundle.putInt("count", position);
         fragment.setArguments(bundle);
         return fragment;
     }

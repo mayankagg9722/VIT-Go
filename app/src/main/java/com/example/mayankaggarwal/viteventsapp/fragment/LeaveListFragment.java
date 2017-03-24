@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.fragment;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
@@ -186,7 +188,9 @@ public class LeaveListFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         jsonArray.remove(position);
-                        getLeave(activity);
+//                        getLeave(activity);
+                        activity.finish();
+                        activity.startActivity(new Intent(getActivity(), Hosteller.class));
                         avi.hide();
                     }
                     @Override
