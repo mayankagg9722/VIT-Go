@@ -52,7 +52,7 @@ public class ExamSchedule extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#ffffff"));
-        viewPager = (ViewPager) findViewById(R.id.leaveviewpager);
+        viewPager = (ViewPager) findViewById(R.id.exampager);
         viewpageradapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewpageradapter.addfragment(new ExamFragment(), "CAT 1");
         viewpageradapter.addfragment(new ExamCatTwo(), "CAT 2");

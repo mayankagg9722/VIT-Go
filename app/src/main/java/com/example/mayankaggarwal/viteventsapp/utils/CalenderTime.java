@@ -37,7 +37,7 @@ public class CalenderTime {
                     e.printStackTrace();
                 }
                 textView.setText(_12HourSDF.format(_24HourDt));
-                Log.d("tagg",_12HourSDF.format(_24HourDt));
+//                Log.d("tagg",_12HourSDF.format(_24HourDt));
             }
         }, hour, minute, true);
         mTimePicker.show();

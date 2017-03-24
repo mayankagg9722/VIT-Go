@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.fragment;
 
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -14,22 +15,24 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
+import com.example.mayankaggarwal.viteventsapp.adapter.RVOuting;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class OutingFragment extends Fragment {
 
-public class LeaveListFragment extends Fragment {
 
 
     private RecyclerView recyclerView;
@@ -40,7 +43,7 @@ public class LeaveListFragment extends Fragment {
     String leave_id;
 
 
-    public LeaveListFragment() {
+    public OutingFragment() {
         // Required empty public constructor
     }
 
@@ -54,9 +57,9 @@ public class LeaveListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=null;
-        view=inflater.inflate(R.layout.fragment_leave_list, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.bottom_recyclerview);
-        avi=(com.wang.avi.AVLoadingIndicatorView)view.findViewById(R.id.loader);
+        view=inflater.inflate(R.layout.fragment_outing, container, false);
+        recyclerView = (RecyclerView)view.findViewById(R.id.outingrecyclerview);
+        avi=(com.wang.avi.AVLoadingIndicatorView)view.findViewById(R.id.outingoader);
         avi.setIndicatorColor(Color.parseColor(SetTheme.colorName));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -83,6 +86,7 @@ public class LeaveListFragment extends Fragment {
                 jsonArray= (JsonArray) parser.parse(Prefs.getPrefs("leaves", getContext()));
                 leave_id=jsonArray.get(position).getAsJsonObject().get("leaveId").getAsString();
                 setAlert();
+//                cancelLeave(getActivity(),leave_id);
             }
 
             @Override
@@ -159,7 +163,7 @@ public class LeaveListFragment extends Fragment {
                 Data.getLeaves(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        recyclerView.setAdapter(new RVLeave(Prefs.getPrefs("leaves", activity), activity));
+                        recyclerView.setAdapter(new RVOuting(Prefs.getPrefs("leaves", activity), activity));
                         recyclerView.setVisibility(View.VISIBLE);
                         avi.hide();
                     }

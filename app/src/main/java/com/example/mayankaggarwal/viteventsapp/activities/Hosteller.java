@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
+import com.example.mayankaggarwal.viteventsapp.fragment.OutingFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
@@ -56,7 +57,8 @@ public class Hosteller extends AppCompatActivity {
     private boolean expanded = false;
     private LinearLayout expandLayoutText;
     private TabLayout tabLayout;
-    private ViewPagerAdapter viewpageradapter;
+    private static ViewPagerAdapter viewpageradapter;
+    public static ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +121,11 @@ public class Hosteller extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.leaveviewpager);
         viewpageradapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewpageradapter.addfragment(new LeaveListFragment(), "Leave Request");
-        viewpageradapter.addfragment(new LeaveListFragment(), "Outing Request");
+        viewpageradapter.addfragment(new OutingFragment(), "Outing Request");
         viewpageradapter.addfragment(new LeaveListFragment(), "Late Request");
         viewPager.setAdapter(viewpageradapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
-
     }
 
 
@@ -206,7 +207,6 @@ public class Hosteller extends AppCompatActivity {
                 } else {
 //                    Log.d("tagg","working");
                 }
-
             }
         });
 
@@ -244,7 +244,7 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeOutAnimation(final ImageView imageView, final TextView textView, final int visible) {
         Animation fadeout = new AlphaAnimation(1f, 0f);
-        fadeout.setInterpolator(new AccelerateInterpolator());
+//        fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(300);
 
         imageView.startAnimation(fadeout);
@@ -278,7 +278,7 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeOutAnimation(final TabLayout textView, final ViewPager viewPager, final int visible) {
         final Animation fadeout = new AlphaAnimation(1f, 0f);
-        fadeout.setInterpolator(new AccelerateInterpolator());
+//        fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(600);
 
         textView.startAnimation(fadeout);
@@ -307,7 +307,7 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeAnimation(final TabLayout textview, final ViewPager viewPager, final int visible) {
         Animation fadeout = new AlphaAnimation(0f, 1f);
-        fadeout.setInterpolator(new DecelerateInterpolator());
+//        fadeout.setInterpolator(new DecelerateInterpolator());
         fadeout.setDuration(100);
 
         textview.startAnimation(fadeout);
@@ -339,7 +339,7 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeAnimation(final TextView textview, final ImageView imageView, final int visible) {
         Animation fadeout = new AlphaAnimation(0f, 1f);
-        fadeout.setInterpolator(new DecelerateInterpolator());
+//        fadeout.setInterpolator(new DecelerateInterpolator());
         fadeout.setDuration(200);
 
         imageView.startAnimation(fadeout);

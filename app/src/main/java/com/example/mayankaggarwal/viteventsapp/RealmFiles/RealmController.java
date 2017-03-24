@@ -5,13 +5,10 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
-import com.example.mayankaggarwal.viteventsapp.models.CAT1;
-import com.example.mayankaggarwal.viteventsapp.models.CAT2;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
-import com.example.mayankaggarwal.viteventsapp.models.Fat;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 
 
@@ -98,17 +95,6 @@ public class RealmController {
         return realm.where(DetailAttendance.class).findAll();
     }
 
-    public RealmResults<CAT1> getCatone() {
-        return realm.where(CAT1.class).findAll();
-    }
-
-    public RealmResults<CAT2> getCattwo() {
-        return realm.where(CAT2.class).findAll();
-    }
-
-    public RealmResults<Fat> getFat() {
-        return realm.where(Fat.class).findAll();
-    }
 
 
     public RealmResults<EventList> getEvents() {

@@ -8,9 +8,7 @@ import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
-import com.example.mayankaggarwal.viteventsapp.models.ExamScheduleResponse;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
-import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
@@ -73,8 +71,6 @@ public interface ApiInterface {
 
     @POST("getExamSchedule")
     Call<JsonObject> getExamSchedule(@Body LoginRequest loginRequest);
-
-
 
 
 }

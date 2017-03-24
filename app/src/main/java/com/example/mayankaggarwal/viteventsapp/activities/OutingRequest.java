@@ -22,6 +22,7 @@ import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CalenderSetting;
 import com.example.mayankaggarwal.viteventsapp.utils.CalenderTime;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.util.ArrayList;
@@ -130,13 +131,16 @@ public class OutingRequest extends AppCompatActivity {
         submitLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkEmptyFields() == 0) {
+                int p=checkEmptyFields();
+                if (p== 0) {
                     setFieldsText();
-                    Log.d("tagg", String.valueOf(homeTownRequest.sttimeHh + " " + homeTownRequest.sttimeMm + " " + homeTownRequest.frmTimetype
-                            + " " + homeTownRequest.apply));
                     submitHomeTownLeave(OutingRequest.this, homeTownRequest);
-                } else {
+                } else if(p==1) {
                     Toast.makeText(OutingRequest.this, "Fill all fields.", Toast.LENGTH_SHORT).show();
+                } else if(p==2) {
+                    Toast.makeText(OutingRequest.this, "Check Date or time.", Toast.LENGTH_SHORT).show();
+                } else if(p==3) {
+                    Toast.makeText(OutingRequest.this, "Select only weekands.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -157,6 +161,11 @@ public class OutingRequest extends AppCompatActivity {
 
     private int checkEmptyFields() {
         flag = 0;
+        int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
+        int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
+        String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
+        String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
+        Log.d("tagg",Globals.dayName);
         if (wrongSpinnerItem == 1) {
             flag = 1;
         } else if (isEmpty(fromdate)) {
@@ -169,6 +178,14 @@ public class OutingRequest extends AppCompatActivity {
             flag = 1;
         } else if (isEmpty(reason)) {
             flag = 1;
+        } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
+            flag=2;
+        }
+        else if (entry_hour >=6 && entry_am_pm.equals("PM")) {
+            flag=2;
+        }
+        else if(!(Globals.dayName.equals("Saturday") || Globals.dayName.equals("Sunday"))){
+            flag=3;
         }
         return flag;
     }

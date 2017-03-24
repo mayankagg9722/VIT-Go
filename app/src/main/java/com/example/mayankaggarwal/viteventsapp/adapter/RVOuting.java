@@ -15,24 +15,23 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
 /**
- * Created by mayankaggarwal on 23/03/17.
+ * Created by mayankaggarwal on 25/03/17.
  */
 
-public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder>  {
+public class RVOuting extends RecyclerView.Adapter<RVOuting.MyViewHolder>  {
 
     private Context context;
     JsonParser parser;
     JsonArray jsonArray;
     int count=0;
 
-    public RVLeave(String leaves, Activity context) {
+    public RVOuting(String leaves, Activity context) {
 
         parser=new JsonParser();
         jsonArray= (JsonArray) parser.parse(leaves);
         for(JsonElement j:jsonArray){
-            if(!(j.getAsJsonObject().get("type").getAsString().toLowerCase().contains("outing"))){
+            if(j.getAsJsonObject().get("type").getAsString().toLowerCase().contains("outing")){
                 count++;
             }
         }
@@ -41,27 +40,26 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder>  {
     }
 
     @Override
-    public RVLeave.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RVOuting.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_leave, parent, false);
 
-        return new RVLeave.MyViewHolder(itemView);
+        return new RVOuting.MyViewHolder(itemView);
 
     }
 
     @Override
-    public void onBindViewHolder(RVLeave.MyViewHolder holder, int position) {
+    public void onBindViewHolder(RVOuting.MyViewHolder holder, int position) {
 
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
+        if(obj.get("type").getAsString().toLowerCase().contains("outing")){
+        holder.applyid.setText(obj.get("leaveId").getAsString());
+        holder.type.setText(obj.get("type").getAsString());
+        holder.from.setText(obj.get("from").getAsString());
+        holder.to.setText(obj.get("to").getAsString());
+        holder.status.setText(obj.get("status").getAsString());
+    }
 
-        if(!(obj.get("type").getAsString().toLowerCase().contains("outing"))){
-            Log.d("tagg","workkkk");
-            holder.applyid.setText(obj.get("leaveId").getAsString());
-            holder.type.setText(obj.get("type").getAsString());
-            holder.from.setText(obj.get("from").getAsString());
-            holder.to.setText(obj.get("to").getAsString());
-            holder.status.setText(obj.get("status").getAsString());
-        }
 
     }
 

@@ -45,4 +45,6 @@ public class Globals {
 
     public static int fetchMessage=0;
 
+    public static String dayName=null;
+
 }

@@ -1,17 +1,25 @@
 package com.example.mayankaggarwal.viteventsapp.utils;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by mayankaggarwal on 22/03/17.
  */
 
-public class DateListener implements DatePickerDialog.OnDateSetListener  {
+public class DateListener implements DatePickerDialog.OnDateSetListener {
     TextView textView;
+
     public DateListener(TextView textView) {
-        this.textView=textView;
+        this.textView = textView;
     }
 
     @Override
@@ -19,7 +27,10 @@ public class DateListener implements DatePickerDialog.OnDateSetListener  {
         int mYear = year;
         int mMonth = month;
         int mDay = dayOfMonth;
-        String monthName=getMonthName(mMonth);
+
+        String monthName = getMonthName(mMonth);
+
+        Globals.dayName=getDayName(mYear,mMonth,mDay);
 
         textView.setText(new StringBuilder().append(mDay).append("-")
                 .append(monthName).append("-")
@@ -27,8 +38,8 @@ public class DateListener implements DatePickerDialog.OnDateSetListener  {
 
     }
 
-    public static String getMonthName(int month){
-        switch(month+1){
+    public static String getMonthName(int month) {
+        switch (month + 1) {
             case 1:
                 return "Jan";
 
@@ -67,5 +78,18 @@ public class DateListener implements DatePickerDialog.OnDateSetListener  {
         }
 
         return "";
+    }
+
+    public static String getDayName(int year, int month, int dayOfMonth) {
+        String dateString = String.format("%d-%d-%d", year, month, dayOfMonth);
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
+        return dayOfWeek;
     }
 }
