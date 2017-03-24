@@ -114,8 +114,8 @@ public class LoginFragment extends SlideFragment {
                 public void onUpdate() {
 //                    Log.d("tagg", "success api");
                     CustomProgressDialog.hideProgress();
-                    startActivity(new Intent(activity, MainActivity.class));
                     getActivity().finish();
+                    startActivity(new Intent(activity, MainActivity.class));
                 }
 
                 @Override

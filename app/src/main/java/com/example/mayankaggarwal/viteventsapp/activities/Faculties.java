@@ -22,12 +22,12 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVFaculties;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 public class Faculties extends AppCompatActivity implements TextWatcher {
 
-    private ActionBar actionBar;
     private RecyclerView recyclerView;
     private RelativeLayout relativeLayout;
     private TextView textview;
@@ -43,6 +43,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         init();
 
         if(!RealmController.with(this).hasFaculty()){
+            Globals.firstCallFaculty=1;
             Prefs.setPrefs("firstFacultyFetch","1",this);
             updateFaculties(this);
         }
@@ -100,6 +101,11 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
                     public void onUpdate() {
                         if(Prefs.getPrefs("firstFacultyFetch",Faculties.this).equals("1")){
                             CustomProgressDialog.hideProgress();
+                            if(Globals.firstCallFaculty==1){
+                                finish();
+                                startActivity(getIntent());
+                                Globals.firstCallFaculty=0;
+                            }
                         }
                         swipeRefreshLayout.setRefreshing(false);
                         search.addTextChangedListener(Faculties.this);

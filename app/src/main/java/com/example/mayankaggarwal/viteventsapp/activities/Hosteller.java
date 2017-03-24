@@ -136,7 +136,6 @@ public class Hosteller extends AppCompatActivity {
                 switch (newState) {
 
                     case BottomSheetBehavior.STATE_COLLAPSED:
-//                        Log.d("tagg", "collapsed");
 
                         expanded = false;
 
@@ -150,11 +149,9 @@ public class Hosteller extends AppCompatActivity {
                         break;
 
                     case BottomSheetBehavior.STATE_DRAGGING:
-//                        Log.d("tagg", "dragging");
                         break;
 
                     case BottomSheetBehavior.STATE_EXPANDED:
-//                        Log.d("tagg", "expanding");
 
 
                         expanded = true;
@@ -169,11 +166,9 @@ public class Hosteller extends AppCompatActivity {
                         break;
 
                     case BottomSheetBehavior.STATE_HIDDEN:
-//                        Log.d("tagg", "hidden");
                         break;
 
                     case BottomSheetBehavior.STATE_SETTLING:
-//                        Log.d("tagg", "settling");
                         break;
                 }
             }

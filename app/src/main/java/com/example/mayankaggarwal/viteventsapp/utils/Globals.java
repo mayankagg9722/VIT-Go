@@ -47,4 +47,6 @@ public class Globals {
 
     public static String dayName=null;
 
+    public static int firstCallFaculty=0;
+
 }
