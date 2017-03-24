@@ -1,6 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
@@ -13,12 +14,16 @@ import android.view.View;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVExamShedule;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamCatTwo;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamFat;
 import com.example.mayankaggarwal.viteventsapp.fragment.ExamFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+
+import io.realm.Realm;
 
 import static com.example.mayankaggarwal.viteventsapp.activities.TimeTable.viewPager;
 
@@ -31,6 +36,8 @@ public class ExamSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_schedule);
+
+        Realm.init(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.exam_toolbar);
         setSupportActionBar(toolbar);
@@ -48,8 +55,8 @@ public class ExamSchedule extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.leaveviewpager);
         viewpageradapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewpageradapter.addfragment(new ExamFragment(), "CAT 1");
-        viewpageradapter.addfragment(new ExamFragment(), "CAT 2");
-        viewpageradapter.addfragment(new ExamFragment(), "FAT");
+        viewpageradapter.addfragment(new ExamCatTwo(), "CAT 2");
+        viewpageradapter.addfragment(new ExamFat(), "FAT");
         viewPager.setAdapter(viewpageradapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
@@ -67,6 +74,7 @@ public class ExamSchedule extends AppCompatActivity {
                     @Override
                     public void onUpdate() {
                         CustomProgressDialog.hideProgress();
+                        viewPager.setAdapter(viewpageradapter);
                     }
 
                     @Override
@@ -82,9 +90,5 @@ public class ExamSchedule extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 
 }

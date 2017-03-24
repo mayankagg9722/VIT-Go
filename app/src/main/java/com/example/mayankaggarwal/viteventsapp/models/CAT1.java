@@ -10,6 +10,7 @@ import io.realm.RealmObject;
  */
 
 public class CAT1 extends RealmObject {
+
     @SerializedName("courseCode")
     @Expose
     private String courseCode;

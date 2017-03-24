@@ -98,7 +98,8 @@ public class Hosteller extends AppCompatActivity {
         outingsectext = (TextView) findViewById(R.id.outingsectext);
         expandLayoutText = (LinearLayout) findViewById(R.id.expandlayout);
 
-        ((TextView) findViewById(R.id.hostellername)).setText(" SO WHAT'S \n " + Prefs.getPrefs("name", this).split(" ")[0] + " \n UPTO ?");
+        ((TextView) findViewById(R.id.name)).setText(Prefs.getPrefs("name", this).split(" ")[0].substring(0,1).toUpperCase()
+                +Prefs.getPrefs("name", this).split(" ")[0].substring(1).toLowerCase());
 
         bottomSheetBehavior = (BottomSheetBehavior.from(findViewById(R.id.bottom_sheet_item)));
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);

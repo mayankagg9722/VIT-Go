@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+import com.example.mayankaggarwal.viteventsapp.activities.ExamSchedule;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
@@ -815,48 +816,14 @@ public class Data {
             loginRequest.password = Prefs.getPrefs("password", activity);
 
 
-            final Call<ExamScheduleResponse> eventDataCall = apiInterface.getExamSchedule(loginRequest);
+            final Call<JsonObject> eventDataCall = apiInterface.getExamSchedule(loginRequest);
 
             try {
-                List<CAT1> cat1s = eventDataCall.execute().body().cAT1;
-                List<CAT2> cat2s = eventDataCall.execute().body().cAT2;
-                List<Fat> fats = eventDataCall.execute().body().fat;
 
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.delete(CAT1.class);
-                realm.delete(CAT1.class);
-                realm.delete(Fat.class);
-                realm.commitTransaction();
+                JsonObject jsonObject=eventDataCall.execute().body();
 
-                for (final CAT1 e : cat1s) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
+                Prefs.setPrefs("examschedule",jsonObject.toString(),activity);
 
-                for (final CAT2 e : cat2s) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
-
-                for (final Fat e : fats) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
-
-                realm.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.models.CAT1;
 import com.example.mayankaggarwal.viteventsapp.models.CAT2;
+import com.example.mayankaggarwal.viteventsapp.models.Fat;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by mayankaggarwal on 24/03/17.
  */
 
-public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHolder> {
+public class RVExamFat extends RecyclerView.Adapter<RVExamFat.MyViewHolder> {
 
     private Context context;
 //    private List<Fat> fatArrayList=new ArrayList<>();
@@ -31,25 +31,27 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
     JsonParser parser;
     JsonArray jsonArray;
 
-    public RVExamShedule(String examSchedule, Activity context) {
+    public RVExamFat(String examSchedule, Activity context) {
         this.context=context;
+
         parser=new JsonParser();
 
-        jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT1").getAsJsonArray();
+        jsonArray=parser.parse(examSchedule).getAsJsonObject().get("fat").getAsJsonArray();
         Log.d("tagg",jsonArray.toString());
+
     }
 
     @Override
-    public RVExamShedule.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RVExamFat.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_exam_schedule, parent, false);
 
-        return new RVExamShedule.MyViewHolder(itemView);
+        return new RVExamFat.MyViewHolder(itemView);
 
     }
 
     @Override
-    public void onBindViewHolder(RVExamShedule.MyViewHolder holder, int position) {
+    public void onBindViewHolder(RVExamFat.MyViewHolder holder, int position) {
 
 
         JsonObject object=jsonArray.get(position).getAsJsonObject();
@@ -61,7 +63,6 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
         holder.tableno.setText(object.get("tableNumber").getAsString());
         holder.slottime.setText(object.get("time").getAsString());
         holder.type.setText(object.get("subjectName").getAsString());
-
     }
 
     @Override

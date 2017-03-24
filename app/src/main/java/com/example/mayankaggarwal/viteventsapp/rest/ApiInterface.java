@@ -72,7 +72,7 @@ public interface ApiInterface {
     Call<JsonObject> applyHomeTown(@Body HomeTownRequest homeTownRequest);
 
     @POST("getExamSchedule")
-    Call<ExamScheduleResponse> getExamSchedule(@Body LoginRequest loginRequest);
+    Call<JsonObject> getExamSchedule(@Body LoginRequest loginRequest);
 
 
 
