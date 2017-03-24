@@ -2,31 +2,23 @@ package com.example.mayankaggarwal.viteventsapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.activities.EventDetails;
-import com.example.mayankaggarwal.viteventsapp.models.EventList;
-import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mayankaggarwal on 23/03/17.
  */
 
-public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
+public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder>  {
 
     private Context context;
     JsonParser parser;
@@ -55,10 +47,10 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
 
         holder.applyid.setText(obj.get("leaveId").getAsString());
-//        holder.type.setText(obj.get("type").getAsString());
+        holder.type.setText(obj.get("type").getAsString());
         holder.from.setText(obj.get("from").getAsString());
         holder.to.setText(obj.get("to").getAsString());
-//        holder.status.setText(obj.get("status").getAsString());
+        holder.status.setText(obj.get("status").getAsString());
 
     }
 
@@ -77,9 +69,9 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
             applyid=(TextView)itemView.findViewById(R.id.leaveid);
-            type=(TextView)itemView.findViewById(R.id.from);
-            from=(TextView)itemView.findViewById(R.id.to);
-            to=(TextView)itemView.findViewById(R.id.type);
+            type=(TextView)itemView.findViewById(R.id.type);
+            from=(TextView)itemView.findViewById(R.id.from);
+            to=(TextView)itemView.findViewById(R.id.to);
             status=(TextView)itemView.findViewById(R.id.status);
         }
     }

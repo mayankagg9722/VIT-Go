@@ -34,8 +34,6 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
     private Context context;
     private List<EventList> eventList=new ArrayList<>();
 
-    JsonParser parser;
-    JsonObject jsonObject;
 
     public RVEvent(List<EventList> eventLists, Activity context) {
         this.context=context;

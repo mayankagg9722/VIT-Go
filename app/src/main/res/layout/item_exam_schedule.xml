@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/faculty"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        android:elevation="0dp"
+        android:id="@+id/main_card"
+        app:cardBackgroundColor="#ECEFF1"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/faculty">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/one"
+            android:background="#00ffffff"
+            android:layout_height= "match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Operating System"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:id="@+id/course_name"
+                    android:textSize="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="27-07-1017"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/date"
+                    android:paddingTop="4dp"
+                    android:textSize="10dp"
+                    android:textColor="#607D8B"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SJT-402"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/classroom"
+                    android:paddingTop="4dp"
+                    android:textSize="10dp"
+                    android:textColor="#607D8B"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8AM-9Am"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/slottime"
+                    android:paddingTop="4dp"
+                    android:textSize="10dp"
+                    android:textColor="#607D8B"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A1+TA1 - Embedded Theory"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp"
+                    android:id="@+id/type"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#ECEFF1"
+                    app:cardCornerRadius="8dp"
+                    android:id="@+id/percentage_card"
+                    app:cardElevation="0dp">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="#FF8382"
+                        app:cardCornerRadius="5dp">
+
+                        <TextView
+                            android:id="@+id/tableno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="R4-C7"
+                            android:textColor="#fff"
+                            android:textStyle="bold" />
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SUN"
+                        android:textSize="20dp"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="10dp"
+                        android:textColor="#C1C1C1"
+                        android:textStyle="bold" />
+
+
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

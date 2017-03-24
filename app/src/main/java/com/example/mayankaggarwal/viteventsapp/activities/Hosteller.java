@@ -122,6 +122,7 @@ public class Hosteller extends AppCompatActivity {
         viewpageradapter.addfragment(new LeaveListFragment(), "Late Request");
         viewPager.setAdapter(viewpageradapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(0);
 
     }
 
@@ -133,44 +134,44 @@ public class Hosteller extends AppCompatActivity {
                 switch (newState) {
 
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        Log.d("tagg", "collapsed");
+//                        Log.d("tagg", "collapsed");
 
                         expanded = false;
 
-                        setFadeAnimation(latetext,leaveImage, 1);
-                        setFadeAnimation(leavetext,lateImage, 1);
-                        setFadeAnimation(outingtext,outingImage, 1);
+                        setFadeAnimation(latetext, leaveImage, 1);
+                        setFadeAnimation(leavetext, lateImage, 1);
+                        setFadeAnimation(outingtext, outingImage, 1);
 
-                        setFadeAnimation(tabLayout,viewPager, 0);
+                        setFadeAnimation(tabLayout, viewPager, 0);
 
 
                         break;
 
                     case BottomSheetBehavior.STATE_DRAGGING:
-                        Log.d("tagg", "dragging");
+//                        Log.d("tagg", "dragging");
                         break;
 
                     case BottomSheetBehavior.STATE_EXPANDED:
-                        Log.d("tagg", "expanding");
+//                        Log.d("tagg", "expanding");
+
 
                         expanded = true;
 
-                        setFadeOutAnimation(leaveImage,leavetext, 0);
-                        setFadeOutAnimation(lateImage,latetext, 0);
-                        setFadeOutAnimation(outingImage,outingtext, 0);
+                        setFadeOutAnimation(leaveImage, leavetext, 0);
+                        setFadeOutAnimation(lateImage, latetext, 0);
+                        setFadeOutAnimation(outingImage, outingtext, 0);
 
-                        setFadeOutAnimation(tabLayout,viewPager, 1);
+                        setFadeOutAnimation(tabLayout, viewPager, 1);
 
-//                        recyclerView.setVisibility(View.VISIBLE);
 
                         break;
 
                     case BottomSheetBehavior.STATE_HIDDEN:
-                        Log.d("tagg", "hidden");
+//                        Log.d("tagg", "hidden");
                         break;
 
                     case BottomSheetBehavior.STATE_SETTLING:
-                        Log.d("tagg", "settling");
+//                        Log.d("tagg", "settling");
                         break;
                 }
             }
@@ -240,7 +241,7 @@ public class Hosteller extends AppCompatActivity {
         animator.start();
     }
 
-    private void setFadeOutAnimation(final ImageView imageView,final TextView textView, final int visible) {
+    private void setFadeOutAnimation(final ImageView imageView, final TextView textView, final int visible) {
         Animation fadeout = new AlphaAnimation(1f, 0f);
         fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(300);
@@ -335,7 +336,7 @@ public class Hosteller extends AppCompatActivity {
     }
 
 
-    private void setFadeAnimation(final TextView textview,final ImageView imageView, final int visible) {
+    private void setFadeAnimation(final TextView textview, final ImageView imageView, final int visible) {
         Animation fadeout = new AlphaAnimation(0f, 1f);
         fadeout.setInterpolator(new DecelerateInterpolator());
         fadeout.setDuration(200);

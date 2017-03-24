@@ -14,6 +14,9 @@ import com.example.mayankaggarwal.viteventsapp.activities.OutingRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CAT1;
+import com.example.mayankaggarwal.viteventsapp.models.CAT2;
+import com.example.mayankaggarwal.viteventsapp.models.CancelRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
@@ -22,10 +25,12 @@ import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
+import com.example.mayankaggarwal.viteventsapp.models.ExamScheduleResponse;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
+import com.example.mayankaggarwal.viteventsapp.models.Fat;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
@@ -97,6 +102,16 @@ public class Data {
     public static void submitHometownLeave(final Activity activity,final HomeTownRequest homeTownRequest, final UpdateCallback updateCallback) {
         SubmitHomeTownLeave submitHomeTownLeave = new SubmitHomeTownLeave(updateCallback,homeTownRequest);
         submitHomeTownLeave.execute(activity);
+    }
+
+    public static void cancelLeave(final Activity activity,String leave_id, final UpdateCallback updateCallback) {
+        CancelLeave cancelLeave = new CancelLeave(updateCallback,leave_id);
+        cancelLeave.execute(activity);
+    }
+
+    public static void getExamShedule(final Activity activity, final UpdateCallback updateCallback) {
+        GetExamShedule getExamShedule = new GetExamShedule(updateCallback);
+        getExamShedule.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -631,6 +646,52 @@ public class Data {
 
     }
 
+    public static class CancelLeave extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+        String leave_id;
+
+        CancelLeave(UpdateCallback updateCallback,String leave_id) {
+            this.updateCallback = updateCallback;
+            this.leave_id=leave_id;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            CancelRequest cancelRequest = new CancelRequest();
+            cancelRequest.regno = Prefs.getPrefs("regno", activity);
+            cancelRequest.password = Prefs.getPrefs("password", activity);
+            cancelRequest.leave_id=leave_id;
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.cancelLeave(cancelRequest);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("tagg",response.body().toString());
+
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+        }
+
+    }
+
     public static class GetLeaves extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
@@ -730,6 +791,83 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
+        }
+
+    }
+
+    public static class GetExamShedule extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetExamShedule(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
+
+
+            final Call<ExamScheduleResponse> eventDataCall = apiInterface.getExamSchedule(loginRequest);
+
+            try {
+                List<CAT1> cat1s = eventDataCall.execute().body().cAT1;
+                List<CAT2> cat2s = eventDataCall.execute().body().cAT2;
+                List<Fat> fats = eventDataCall.execute().body().fat;
+
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.delete(CAT1.class);
+                realm.delete(CAT1.class);
+                realm.delete(Fat.class);
+                realm.commitTransaction();
+
+                for (final CAT1 e : cat1s) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+
+                for (final CAT2 e : cat2s) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+
+                for (final Fat e : fats) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+
+                realm.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
+            updateCallback.onUpdate();
         }
 
     }

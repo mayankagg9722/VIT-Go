@@ -8,6 +8,7 @@ import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
+import com.example.mayankaggarwal.viteventsapp.models.ExamScheduleResponse;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
@@ -69,6 +70,11 @@ public interface ApiInterface {
 
     @POST("applyHometownLeave")
     Call<JsonObject> applyHomeTown(@Body HomeTownRequest homeTownRequest);
+
+    @POST("getExamSchedule")
+    Call<ExamScheduleResponse> getExamSchedule(@Body LoginRequest loginRequest);
+
+
 
 
 }
