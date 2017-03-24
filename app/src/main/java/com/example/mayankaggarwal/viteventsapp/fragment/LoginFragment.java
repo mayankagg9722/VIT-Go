@@ -1,4 +1,4 @@
-package com.example.mayankaggarwal.viteventsapp;
+package com.example.mayankaggarwal.viteventsapp.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 
+import com.example.mayankaggarwal.viteventsapp.MainActivity;
+import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.rest.Auth;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;

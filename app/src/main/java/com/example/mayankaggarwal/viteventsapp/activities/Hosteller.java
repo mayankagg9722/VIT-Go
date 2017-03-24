@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,35 +8,55 @@ import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
+import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
+import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
-import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+
+import static com.example.mayankaggarwal.viteventsapp.activities.TimeTable.viewPager;
 
 public class Hosteller extends AppCompatActivity {
 
     private BottomSheetBehavior bottomSheetBehavior;
     LinearLayout bottom_layout;
     RelativeLayout relativeLayout;
-    CardView leaveRequest,outing;
-    private RecyclerView recyclerView;
+    CardView leaveRequest, outing, lateCard;
+    private ImageView leaveImage, outingImage, lateImage;
+    private TextView leavetext, outingtext, latetext;
+    private TextView leavesectext, outingsectext, latesectext;
+    CoordinatorLayout coordinatorLayout;
+    private ValueAnimator animator;
+    private int cardInitialHeight = 210;
+    private boolean expanded = false;
+    private LinearLayout expandLayoutText;
+    private TabLayout tabLayout;
+    private ViewPagerAdapter viewpageradapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +64,10 @@ public class Hosteller extends AppCompatActivity {
         setContentView(R.layout.activity_hosteller);
 
         init();
-
-        getLeave(this);
-
         setClickListener();
     }
 
-    private void init(){
+    private void init() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.hostel_toolbar);
         setSupportActionBar(toolbar);
@@ -61,84 +79,98 @@ public class Hosteller extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
 
-        relativeLayout=(RelativeLayout)findViewById(R.id.activity_hosteller);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_hosteller);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.hotelcoordinate);
 
         relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
-        leaveRequest=(CardView)findViewById(R.id.leaverequest);
-        outing=(CardView)findViewById(R.id.outing);
+        leaveRequest = (CardView) findViewById(R.id.leaverequest);
+        outing = (CardView) findViewById(R.id.outing);
+        lateCard = (CardView) findViewById(R.id.lateCard);
+        leaveImage = (ImageView) findViewById(R.id.leaveImage);
+        lateImage = (ImageView) findViewById(R.id.lateimage);
+        outingImage = (ImageView) findViewById(R.id.outingImage);
+        leavetext = (TextView) findViewById(R.id.leavetext);
+        latetext = (TextView) findViewById(R.id.latetext);
+        outingtext = (TextView) findViewById(R.id.outingtext);
+        leavesectext = (TextView) findViewById(R.id.leavesectext);
+        latesectext = (TextView) findViewById(R.id.latesectext);
+        outingsectext = (TextView) findViewById(R.id.outingsectext);
+        expandLayoutText = (LinearLayout) findViewById(R.id.expandlayout);
 
-        ((TextView)findViewById(R.id.hostellername)).setText(" SO WHAT'S \n "+ Prefs.getPrefs("name",this).split(" ")[0]+" \n UPTO ?");
+        ((TextView) findViewById(R.id.hostellername)).setText(" SO WHAT'S \n " + Prefs.getPrefs("name", this).split(" ")[0] + " \n UPTO ?");
 
-        recyclerView=(RecyclerView)findViewById(R.id.bottom_recyclerview);
-
-        bottomSheetBehavior=(BottomSheetBehavior.from(findViewById(R.id.bottom_sheet_item)));
-
-        recyclerView=(RecyclerView)findViewById(R.id.bottom_recyclerview);
-
+        bottomSheetBehavior = (BottomSheetBehavior.from(findViewById(R.id.bottom_sheet_item)));
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-        bottom_layout=(LinearLayout)findViewById(R.id.bottom_sheet_item);
-
-
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
+        bottom_layout = (LinearLayout) findViewById(R.id.bottom_sheet_item);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int height = size.y;
+        bottom_layout.getLayoutParams().height = height - toolbar.getHeight();
+        bottom_layout.requestLayout();
+        bottomSheetBehavior.onLayoutChild(coordinatorLayout, bottom_layout, ViewCompat.LAYOUT_DIRECTION_LTR);
 
-        bottom_layout.getLayoutParams().height=height-120;
+
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setVisibility(View.GONE);
+        viewPager = (ViewPager) findViewById(R.id.leaveviewpager);
+        viewpageradapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewpageradapter.addfragment(new LeaveListFragment(), "Leave Request");
+        viewpageradapter.addfragment(new LeaveListFragment(), "Outing Request");
+        viewpageradapter.addfragment(new LeaveListFragment(), "Late Request");
+        viewPager.setAdapter(viewpageradapter);
+        tabLayout.setupWithViewPager(viewPager);
 
     }
 
-
-    private void getLeave(final Activity activity) {
-        Data.internetConnection(new Data.UpdateCallback() {
-            @Override
-            public void onUpdate() {
-                CustomProgressDialog.showProgress(activity, "Fetching Leaves...");
-                Data.getLeaves(activity, new Data.UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
-                        CustomProgressDialog.hideProgress();
-                        recyclerView.setAdapter(new RVLeave(Prefs.getPrefs("leaves",activity), activity));
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        CustomProgressDialog.hideProgress();
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
-    }
 
     private void setClickListener() {
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
+
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        recyclerView.setVisibility(View.GONE);
+                        Log.d("tagg", "collapsed");
+
+                        expanded = false;
+
+                        setFadeAnimation(latetext,leaveImage, 1);
+                        setFadeAnimation(leavetext,lateImage, 1);
+                        setFadeAnimation(outingtext,outingImage, 1);
+
+                        setFadeAnimation(tabLayout,viewPager, 0);
+
+
                         break;
+
                     case BottomSheetBehavior.STATE_DRAGGING:
-                        recyclerView.setVisibility(View.GONE);
+                        Log.d("tagg", "dragging");
                         break;
+
                     case BottomSheetBehavior.STATE_EXPANDED:
-                        recyclerView.setVisibility(View.VISIBLE);
+                        Log.d("tagg", "expanding");
+
+                        expanded = true;
+
+                        setFadeOutAnimation(leaveImage,leavetext, 0);
+                        setFadeOutAnimation(lateImage,latetext, 0);
+                        setFadeOutAnimation(outingImage,outingtext, 0);
+
+                        setFadeOutAnimation(tabLayout,viewPager, 1);
+
+//                        recyclerView.setVisibility(View.VISIBLE);
+
                         break;
+
                     case BottomSheetBehavior.STATE_HIDDEN:
-                        recyclerView.setVisibility(View.GONE);
+                        Log.d("tagg", "hidden");
                         break;
+
                     case BottomSheetBehavior.STATE_SETTLING:
-                        recyclerView.setVisibility(View.GONE);
+                        Log.d("tagg", "settling");
                         break;
                 }
             }
@@ -149,20 +181,186 @@ public class Hosteller extends AppCompatActivity {
             }
         });
 
+
         leaveRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Hosteller.this, LeaveRequest.class);
-                startActivity(intent);
+                if (!expanded) {
+                    Intent intent = new Intent(Hosteller.this, LeaveRequest.class);
+                    startActivity(intent);
+                } else {
+
+                }
+
             }
         });
 
         outing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Hosteller.this, OutingRequest.class);
-                startActivity(intent);
+                if (!expanded) {
+                    Intent intent = new Intent(Hosteller.this, OutingRequest.class);
+                    startActivity(intent);
+                } else {
+//                    Log.d("tagg","working");
+                }
+
+            }
+        });
+
+    }
+
+    private void setLayoutExpandAnimation(final CardView cardview) {
+        animator = ValueAnimator.ofInt(cardview.getLayoutParams().height, cardInitialHeight);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = cardview.getLayoutParams();
+                layoutParams.height = val;
+                cardview.setLayoutParams(layoutParams);
+            }
+        });
+        animator.setDuration(300);
+        animator.start();
+    }
+
+    private void setLayoutCompressAnimation(final CardView cardview) {
+        animator = ValueAnimator.ofInt(cardview.getLayoutParams().height, 0);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = cardview.getLayoutParams();
+                layoutParams.height = val;
+                cardview.setLayoutParams(layoutParams);
+            }
+        });
+        animator.setDuration(300);
+        animator.start();
+    }
+
+    private void setFadeOutAnimation(final ImageView imageView,final TextView textView, final int visible) {
+        Animation fadeout = new AlphaAnimation(1f, 0f);
+        fadeout.setInterpolator(new AccelerateInterpolator());
+        fadeout.setDuration(300);
+
+        imageView.startAnimation(fadeout);
+        textView.startAnimation(fadeout);
+
+        fadeout.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationEnd(Animation animation) {
+                if (visible == 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    imageView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                }
+
+                setLayoutCompressAnimation(lateCard);
+                setLayoutCompressAnimation(leaveRequest);
+                setLayoutCompressAnimation(outing);
+
+
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            public void onAnimationStart(Animation animation) {
+            }
+
+        });
+    }
+
+    private void setFadeOutAnimation(final TabLayout textView, final ViewPager viewPager, final int visible) {
+        final Animation fadeout = new AlphaAnimation(1f, 0f);
+        fadeout.setInterpolator(new AccelerateInterpolator());
+        fadeout.setDuration(600);
+
+        textView.startAnimation(fadeout);
+        viewPager.startAnimation(fadeout);
+
+        fadeout.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationEnd(Animation animation) {
+                if (visible == 1) {
+                    textView.setVisibility(View.VISIBLE);
+                    viewPager.setVisibility(View.VISIBLE);
+                    textView.setSelectedTabIndicatorColor(Color.parseColor("#000000"));
+
+                } else {
+                    textView.setVisibility(View.GONE);
+                    viewPager.setVisibility(View.GONE);
+                }
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            public void onAnimationStart(Animation animation) {
             }
         });
     }
+
+    private void setFadeAnimation(final TabLayout textview, final ViewPager viewPager, final int visible) {
+        Animation fadeout = new AlphaAnimation(0f, 1f);
+        fadeout.setInterpolator(new DecelerateInterpolator());
+        fadeout.setDuration(100);
+
+        textview.startAnimation(fadeout);
+        textview.setSelectedTabIndicatorColor(Color.parseColor("#F5F5F5"));
+        viewPager.startAnimation(fadeout);
+
+        fadeout.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationEnd(Animation animation) {
+                if (visible == 1) {
+                    textview.setVisibility(View.VISIBLE);
+                    viewPager.setVisibility(View.VISIBLE);
+                } else {
+                    textview.setVisibility(View.GONE);
+                    viewPager.setVisibility(View.GONE);
+                }
+                setLayoutExpandAnimation(lateCard);
+                setLayoutExpandAnimation(leaveRequest);
+                setLayoutExpandAnimation(outing);
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            public void onAnimationStart(Animation animation) {
+            }
+        });
+    }
+
+
+    private void setFadeAnimation(final TextView textview,final ImageView imageView, final int visible) {
+        Animation fadeout = new AlphaAnimation(0f, 1f);
+        fadeout.setInterpolator(new DecelerateInterpolator());
+        fadeout.setDuration(200);
+
+        imageView.startAnimation(fadeout);
+        textview.startAnimation(fadeout);
+
+        fadeout.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationEnd(Animation animation) {
+                if (visible == 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    textview.setVisibility(View.VISIBLE);
+                } else {
+                    imageView.setVisibility(View.GONE);
+                    textview.setVisibility(View.GONE);
+                }
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            public void onAnimationStart(Animation animation) {
+            }
+        });
+    }
+
+
 }

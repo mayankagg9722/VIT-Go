@@ -44,7 +44,6 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
         if(!RealmController.with(this).hasFaculty()){
             Prefs.setPrefs("firstFacultyFetch","1",this);
-            CustomProgressDialog.showProgress(this,"Fetching Faculties...");
             updateFaculties(this);
         }
 
@@ -103,6 +102,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
                             CustomProgressDialog.hideProgress();
                         }
                         swipeRefreshLayout.setRefreshing(false);
+                        search.addTextChangedListener(Faculties.this);
                         recyclerView.setAdapter(new RVFaculties(RealmController.with(activity).getFaculty(), Faculties.this, true));
                     }
                     @Override

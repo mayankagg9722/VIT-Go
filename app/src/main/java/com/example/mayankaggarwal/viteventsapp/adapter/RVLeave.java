@@ -55,10 +55,10 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
 
         holder.applyid.setText(obj.get("leaveId").getAsString());
-        holder.type.setText(obj.get("type").getAsString());
+//        holder.type.setText(obj.get("type").getAsString());
         holder.from.setText(obj.get("from").getAsString());
         holder.to.setText(obj.get("to").getAsString());
-        holder.status.setText(obj.get("status").getAsString());
+//        holder.status.setText(obj.get("status").getAsString());
 
     }
 
@@ -68,7 +68,6 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-//        CardView regcard;
         TextView applyid;
         TextView from;
         TextView to;
@@ -77,7 +76,6 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder> {
 
         public MyViewHolder(View itemView) {
             super(itemView);
-//            regcard=(CardView)itemView.findViewById(R.id.regcard);
             applyid=(TextView)itemView.findViewById(R.id.leaveid);
             type=(TextView)itemView.findViewById(R.id.from);
             from=(TextView)itemView.findViewById(R.id.to);
