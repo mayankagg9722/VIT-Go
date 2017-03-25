@@ -9,6 +9,7 @@ import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
+import com.example.mayankaggarwal.viteventsapp.models.LateNightData;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 
 
@@ -93,6 +94,10 @@ public class RealmController {
 
     public RealmResults<DetailAttendance> getDetailAttendance() {
         return realm.where(DetailAttendance.class).findAll();
+    }
+
+    public RealmResults<LateNightData> getLateNight() {
+        return realm.where(LateNightData.class).findAll();
     }
 
 

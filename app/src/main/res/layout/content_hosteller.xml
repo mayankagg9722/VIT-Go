@@ -3,11 +3,23 @@
     android:id="@+id/activity_hosteller"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#8057e1">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/hostel_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@id/hostel_toolbar">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,9 +27,10 @@
         android:textColor="#fff"
         android:text="So What's "
         android:textSize="40dp"
+        android:typeface="serif"
         android:textStyle="bold"
         android:id="@+id/hostellername"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,6 +38,7 @@
         android:textColor="#fff"
         android:text="Mayank"
         android:textSize="40dp"
+        android:typeface="serif"
         android:textStyle="bold"
         android:id="@+id/name"
         android:layout_below="@+id/hostellername"/>
@@ -34,8 +48,11 @@
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:text=" Upto ?"
+        android:typeface="serif"
         android:layout_below="@+id/name"
         android:textSize="40dp"
         android:textStyle="bold"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

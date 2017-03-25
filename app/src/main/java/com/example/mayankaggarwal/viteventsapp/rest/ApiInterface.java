@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CancelNightRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CancelRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
@@ -12,6 +13,8 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
+import com.example.mayankaggarwal.viteventsapp.models.LateNightResponse;
+import com.example.mayankaggarwal.viteventsapp.models.LateRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
@@ -63,14 +66,23 @@ public interface ApiInterface {
     @POST("getLeaves")
     Call<JsonObject> getLeaves(@Body LoginRequest loginRequest);
 
+    @POST("getLateHourPermission")
+    Call<LateNightResponse> getLateNight(@Body LoginRequest loginRequest);
+
     @POST("cancelLeave")
     Call<JsonObject> cancelLeave(@Body CancelRequest cancelRequest);
+
+    @POST("cancelLateHour")
+    Call<JsonObject> cancelLateNight(@Body CancelNightRequest cancelNightRequest);
 
     @POST("applyHometownLeave")
     Call<JsonObject> applyHomeTown(@Body HomeTownRequest homeTownRequest);
 
     @POST("getExamSchedule")
     Call<JsonObject> getExamSchedule(@Body LoginRequest loginRequest);
+
+    @POST("applyLateHour")
+    Call<JsonObject> applyLateNight(@Body LateRequest lateRequest);
 
 
 }

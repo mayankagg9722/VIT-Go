@@ -54,7 +54,7 @@ public class RVOuting extends RecyclerView.Adapter<RVOuting.MyViewHolder>  {
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
         if(obj.get("type").getAsString().toLowerCase().contains("outing")){
         holder.applyid.setText(obj.get("leaveId").getAsString());
-        holder.type.setText(obj.get("type").getAsString());
+        holder.type.setText("Outing");
         holder.from.setText(obj.get("from").getAsString());
         holder.to.setText(obj.get("to").getAsString());
         holder.status.setText(obj.get("status").getAsString());

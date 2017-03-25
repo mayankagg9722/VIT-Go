@@ -61,7 +61,7 @@ public class LeaveRequest extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.leave_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Hosteller");
+        getSupportActionBar().setTitle("Home Town");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         toolbar.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 

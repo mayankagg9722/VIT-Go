@@ -44,6 +44,7 @@
         android:id="@+id/search_faculties"
         android:layout_marginTop="10dp"
         android:hint="Search.."
+        android:maxLines="1"
         android:backgroundTint="#fff"
         android:foregroundTint="#fff"
         android:textColorHint="#fff"

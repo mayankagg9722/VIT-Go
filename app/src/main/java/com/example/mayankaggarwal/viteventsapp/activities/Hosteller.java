@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.fragment.LateNightFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.OutingFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
@@ -64,7 +65,6 @@ public class Hosteller extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hosteller);
-
         init();
         setClickListener();
     }
@@ -122,7 +122,7 @@ public class Hosteller extends AppCompatActivity {
         viewpageradapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewpageradapter.addfragment(new LeaveListFragment(), "Leave Request");
         viewpageradapter.addfragment(new OutingFragment(), "Outing Request");
-        viewpageradapter.addfragment(new LeaveListFragment(), "Late Request");
+        viewpageradapter.addfragment(new LateNightFragment(), "Late Request");
         viewPager.setAdapter(viewpageradapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
@@ -179,7 +179,6 @@ public class Hosteller extends AppCompatActivity {
             }
         });
 
-
         leaveRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,15 +199,17 @@ public class Hosteller extends AppCompatActivity {
                 }
             }
         });
-        outing.setOnClickListener(new View.OnClickListener() {
+
+        lateCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!expanded) {
-                    Intent intent = new Intent(Hosteller.this, OutingRequest.class);
+                    Intent intent = new Intent(Hosteller.this, LateNightRequest.class);
                     startActivity(intent);
                 }
             }
         });
+
 
     }
 
@@ -244,7 +245,6 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeOutAnimation(final ImageView imageView, final TextView textView, final int visible) {
         Animation fadeout = new AlphaAnimation(1f, 0f);
-//        fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(300);
 
         imageView.startAnimation(fadeout);
@@ -278,7 +278,6 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeOutAnimation(final TabLayout textView, final ViewPager viewPager, final int visible) {
         final Animation fadeout = new AlphaAnimation(1f, 0f);
-//        fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(600);
 
         textView.startAnimation(fadeout);
@@ -307,7 +306,6 @@ public class Hosteller extends AppCompatActivity {
 
     private void setFadeAnimation(final TabLayout textview, final ViewPager viewPager, final int visible) {
         Animation fadeout = new AlphaAnimation(0f, 1f);
-//        fadeout.setInterpolator(new DecelerateInterpolator());
         fadeout.setDuration(100);
 
         textview.startAnimation(fadeout);

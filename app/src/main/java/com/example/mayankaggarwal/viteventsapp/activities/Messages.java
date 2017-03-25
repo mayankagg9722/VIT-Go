@@ -77,7 +77,9 @@ public class Messages extends AppCompatActivity {
                 Data.getMessages(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        recyclerView.setAdapter(new RVMessages(Prefs.getPrefs("messages",activity), Messages.this));
+                        if(!(Prefs.getPrefs("messages",activity).equals("notfound"))){
+                            recyclerView.setAdapter(new RVMessages(Prefs.getPrefs("messages",activity), Messages.this));
+                        }
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
                         Globals.fetchMessage=1;

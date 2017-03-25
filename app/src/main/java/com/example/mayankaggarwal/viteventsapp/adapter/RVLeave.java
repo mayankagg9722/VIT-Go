@@ -55,9 +55,8 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder>  {
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
 
         if(!(obj.get("type").getAsString().toLowerCase().contains("outing"))){
-            Log.d("tagg","workkkk");
             holder.applyid.setText(obj.get("leaveId").getAsString());
-            holder.type.setText(obj.get("type").getAsString());
+            holder.type.setText("Home Town");
             holder.from.setText(obj.get("from").getAsString());
             holder.to.setText(obj.get("to").getAsString());
             holder.status.setText(obj.get("status").getAsString());

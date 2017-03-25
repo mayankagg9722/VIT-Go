@@ -80,9 +80,10 @@
         <activity
             android:name=".activities.OutingRequest"
             android:parentActivityName=".activities.Hosteller" />
-
-        <activity android:name=".activities.ExamSchedule"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".activities.ExamSchedule"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activities.LateNightRequest"></activity>
     </application>
 
 </manifest>

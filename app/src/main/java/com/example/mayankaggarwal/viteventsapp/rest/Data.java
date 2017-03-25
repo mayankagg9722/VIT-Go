@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
-
-import com.example.mayankaggarwal.viteventsapp.activities.ExamSchedule;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
@@ -15,6 +12,7 @@ import com.example.mayankaggarwal.viteventsapp.activities.OutingRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceRequest;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceResponse;
+import com.example.mayankaggarwal.viteventsapp.models.CancelNightRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CancelRequest;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
@@ -29,6 +27,9 @@ import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
+import com.example.mayankaggarwal.viteventsapp.models.LateNightData;
+import com.example.mayankaggarwal.viteventsapp.models.LateNightResponse;
+import com.example.mayankaggarwal.viteventsapp.models.LateRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.RegisterEventRequest;
 import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
@@ -96,15 +97,31 @@ public class Data {
         getLeaves.execute(activity);
     }
 
+    public static void getLateNight(final Activity activity, final UpdateCallback updateCallback) {
+        GetLateNight getLateNight = new GetLateNight(updateCallback);
+        getLateNight.execute(activity);
+    }
+
     public static void submitHometownLeave(final Activity activity,final HomeTownRequest homeTownRequest, final UpdateCallback updateCallback) {
         SubmitHomeTownLeave submitHomeTownLeave = new SubmitHomeTownLeave(updateCallback,homeTownRequest);
         submitHomeTownLeave.execute(activity);
+    }
+
+    public static void submitLateNight(final Activity activity, final LateRequest lateRequest, final UpdateCallback updateCallback) {
+        SubmitLateNight submitLateNight = new SubmitLateNight(updateCallback,lateRequest);
+        submitLateNight.execute(activity);
     }
 
     public static void cancelLeave(final Activity activity,String leave_id, final UpdateCallback updateCallback) {
         CancelLeave cancelLeave = new CancelLeave(updateCallback,leave_id);
         cancelLeave.execute(activity);
     }
+
+    public static void cancelLateHour(final Activity activity,String leave_id, final UpdateCallback updateCallback) {
+        CancelLateNight cancleLateNight = new CancelLateNight(updateCallback,leave_id);
+        cancleLateNight.execute(activity);
+    }
+
 
     public static void getExamShedule(final Activity activity, final UpdateCallback updateCallback) {
         GetExamShedule getExamShedule = new GetExamShedule(updateCallback);
@@ -670,7 +687,6 @@ public class Data {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.d("tagg",response.body().toString());
-
                     updateCallback.onUpdate();
                 }
 
@@ -685,9 +701,58 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
+
         }
 
     }
+
+    public static class CancelLateNight extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+        String permit_id;
+
+        CancelLateNight(UpdateCallback updateCallback,String leave_id) {
+            this.updateCallback = updateCallback;
+            this.permit_id=leave_id;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            CancelNightRequest cancelLateNight = new CancelNightRequest();
+            cancelLateNight.regno = Prefs.getPrefs("regno", activity);
+            cancelLateNight.password = Prefs.getPrefs("password", activity);
+            cancelLateNight.pvPermitID=permit_id;
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.cancelLateNight(cancelLateNight);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("tagg",response.body().toString());
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+
+        }
+
+    }
+
+
 
     public static class GetLeaves extends AsyncTask<Activity, Void, Integer> {
 
@@ -742,6 +807,59 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
+
+        }
+
+    }
+
+    public static class GetLateNight extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetLateNight(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<LateNightResponse> apiInterfaceMessages = apiInterface.getLateNight(loginRequest);
+
+            try {
+                List<LateNightData> lateNightData = apiInterfaceMessages.execute().body().data;
+
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.delete(LateNightData.class);
+                realm.commitTransaction();
+
+                for (final LateNightData e : lateNightData) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+                realm.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            updateCallback.onUpdate();
         }
 
     }
@@ -769,6 +887,53 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                    Log.d("tagg", response.body().toString());
+                    if(response.body().get("code").getAsString().equals("200")){
+                        activity.finish();
+                        activity.startActivity(new Intent(activity, Hosteller.class));
+                    }
+                    updateCallback.onUpdate();
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    updateCallback.onFailure();
+                }
+            });
+            return 0;
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+
+        }
+
+    }
+
+    public static class SubmitLateNight extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+        LateRequest lateRequest;
+
+        SubmitLateNight(UpdateCallback updateCallback,LateRequest lateRequest) {
+            this.updateCallback = updateCallback;
+            this.lateRequest=lateRequest;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            lateRequest.regno = Prefs.getPrefs("regno", activity);
+            lateRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<JsonObject> apiInterfaceMessages = apiInterface.applyLateNight(lateRequest);
+
+            apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.d("tagg", response.body().toString());
                     if(response.body().get("code").getAsString().equals("200")){
                         activity.finish();
@@ -788,9 +953,13 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
+
         }
 
     }
+
+
+
 
     public static class GetExamShedule extends AsyncTask<Activity, Void, Integer> {
 

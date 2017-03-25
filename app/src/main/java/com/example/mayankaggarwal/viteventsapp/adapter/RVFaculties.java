@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.LateNightRequest;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -99,11 +100,22 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,FacultyInformation.class);
-                intent.putExtra("profname",holder.name.getText().toString());
-                intent.putExtra("profschool",holder.school.getText().toString());
-                intent.putExtra("empid",holder.empid.getText());
-                context.startActivity(intent);
+
+                if(context.getIntent().getStringExtra("comefrom")!=null){
+                    if(context.getIntent().getStringExtra("comefrom").equals("latenight")){
+                        Intent intent=new Intent(context,LateNightRequest.class);
+                        intent.putExtra("empid",holder.empid.getText());
+                        intent.putExtra("profname",holder.name.getText().toString());
+                        context.startActivity(intent);
+                    }
+                }else{
+                    Intent intent=new Intent(context,FacultyInformation.class);
+                    intent.putExtra("profname",holder.name.getText().toString());
+                    intent.putExtra("profschool",holder.school.getText().toString());
+                    intent.putExtra("empid",holder.empid.getText());
+                    context.startActivity(intent);
+                }
+
             }
         });
 
@@ -113,6 +125,5 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
     public int getItemCount() {
         return this.faculties.size();
     }
-
 
 }
