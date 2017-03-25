@@ -36,9 +36,6 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
         this.context=context;
         parser=new JsonParser();
         jsonArray=parser.parse(digitalAssignment).getAsJsonObject().get("data").getAsJsonArray();
-        Log.d("tagg",jsonArray.toString());
-        Log.d("tagg","pos:"+jsonArray.size());
-        Log.d("tagg",jsonArray.get(0).getAsJsonObject().get("Course Title").getAsString());
     }
 
     @Override
@@ -46,16 +43,12 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_digital_assignment, parent, false);
 
-        Log.d("tagg","workingff");
-
         return new RVDigitalAssignment.MyViewHolder(itemView);
 
     }
 
     @Override
     public void onBindViewHolder(RVDigitalAssignment.MyViewHolder holder, final int position) {
-
-        Log.d("tagg","workingff");
 
         final JsonObject object=jsonArray.get(position).getAsJsonObject();
         final JsonArray postParam=object.get("post_parameters").getAsJsonArray();
@@ -80,7 +73,6 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
 
     @Override
     public int getItemCount() {
-        Log.d("tagg","workingff");
         return this.jsonArray.size();
     }
 
@@ -90,7 +82,6 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            Log.d("tagg","workingff");
 
             cardView=(CardView)itemView.findViewById(R.id.main_card_digital);
             course_name=(TextView)itemView.findViewById(R.id.course_name_digital);

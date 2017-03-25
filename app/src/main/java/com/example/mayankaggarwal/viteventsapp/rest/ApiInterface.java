@@ -92,4 +92,8 @@ public interface ApiInterface {
     @POST("getDigitalAssignmentMarks")
     Call<DigitalMarksResponse> getDigitalAssignmentMarks(@Body DigitalMarksRequest digitalMarksRequest);
 
+    @POST("getMarks")
+    Call<JsonObject> getMarks(@Body LoginRequest loginRequest);
+
+
 }

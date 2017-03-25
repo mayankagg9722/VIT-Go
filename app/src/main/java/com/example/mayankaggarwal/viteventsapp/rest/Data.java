@@ -141,6 +141,11 @@ public class Data {
         getDigitalMarks.execute(activity);
     }
 
+    public static void getMarks(final Activity activity, final UpdateCallback updateCallback) {
+        GetMarks getMarks = new GetMarks(updateCallback);
+        getMarks.execute(activity);
+    }
+
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
         GetDeatilAttendance getDeatilAttendance = new GetDeatilAttendance(updateCallback);
         getDeatilAttendance.execute(activity);
@@ -1092,6 +1097,44 @@ public class Data {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            updateCallback.onUpdate();
+        }
+    }
+
+    public static class GetMarks extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetMarks(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<JsonObject> marks = apiInterface.getMarks(loginRequest);
+
+            try {
+
+                JsonObject jsonObject=marks.execute().body();
+
+                Prefs.setPrefs("marksjson",jsonObject.toString(),activity);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return 0;
         }
 

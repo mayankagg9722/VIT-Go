@@ -92,7 +92,7 @@ public class DigitalMarks extends AppCompatActivity {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity, "Fetching Marks..");
+                CustomProgressDialog.showProgress(activity, "Fetching Data..");
                 Data.getDigitalAssignmentMarsk(activity,digitalMarksRequest, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {

@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Poster Making"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:ellipsize="end"
                     android:id="@+id/titledigital"
                     android:textSize="15dp"
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:text=""
                     android:layout_marginLeft="10dp"
                     android:id="@+id/duedate"
                     android:paddingTop="4dp"
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="status"
+                        android:text=""
                         android:layout_marginLeft="10dp"
                         android:id="@+id/status"
                         android:paddingTop="4dp"
@@ -107,7 +107,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="score"
+                        android:text=""
                         android:layout_marginLeft="10dp"
                         android:id="@+id/score"
                         android:paddingTop="4dp"
@@ -131,7 +131,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date"
+                        android:text=""
                         android:layout_marginLeft="10dp"
                         android:id="@+id/comments"
                         android:paddingTop="4dp"

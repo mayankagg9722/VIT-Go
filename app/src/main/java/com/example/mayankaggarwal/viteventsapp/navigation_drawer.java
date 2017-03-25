@@ -23,6 +23,7 @@ import com.example.mayankaggarwal.viteventsapp.activities.ExamSchedule;
 import com.example.mayankaggarwal.viteventsapp.activities.Faculties;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
+import com.example.mayankaggarwal.viteventsapp.activities.Marks;
 import com.example.mayankaggarwal.viteventsapp.activities.Messages;
 import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
@@ -93,6 +94,7 @@ public class navigation_drawer extends Fragment {
         CardView hoteller=(CardView)v.findViewById(card_id[10]);
         CardView exam=(CardView)v.findViewById(card_id[8]);
         CardView digitalAssignment=(CardView)v.findViewById(card_id[6]);
+        CardView marks=(CardView)v.findViewById(card_id[3]);
 
         timetableCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +149,13 @@ public class navigation_drawer extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),DigitalAssignment.class));
+            }
+        });
+
+        marks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Marks.class));
             }
         });
 
