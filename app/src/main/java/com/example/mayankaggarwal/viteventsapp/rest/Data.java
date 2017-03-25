@@ -20,6 +20,9 @@ import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
@@ -126,6 +129,16 @@ public class Data {
     public static void getExamShedule(final Activity activity, final UpdateCallback updateCallback) {
         GetExamShedule getExamShedule = new GetExamShedule(updateCallback);
         getExamShedule.execute(activity);
+    }
+
+    public static void getDigitalAssignment(final Activity activity, final UpdateCallback updateCallback) {
+        GetDigitalAssignment getDigitalAssignment = new GetDigitalAssignment(updateCallback);
+        getDigitalAssignment.execute(activity);
+    }
+
+    public static void getDigitalAssignmentMarsk(final Activity activity,final DigitalMarksRequest digitalMarksRequest, final UpdateCallback updateCallback) {
+        GetDigitalMarks getDigitalMarks = new GetDigitalMarks(updateCallback,digitalMarksRequest);
+        getDigitalMarks.execute(activity);
     }
 
     public static void updateDetailAttendance(final Activity activity, final UpdateCallback updateCallback) {
@@ -959,8 +972,6 @@ public class Data {
     }
 
 
-
-
     public static class GetExamShedule extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
@@ -1002,6 +1013,92 @@ public class Data {
             updateCallback.onUpdate();
         }
 
+    }
+
+    public static class GetDigitalAssignment extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+
+        GetDigitalAssignment(UpdateCallback updateCallback) {
+            this.updateCallback = updateCallback;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.regno = Prefs.getPrefs("regno", activity);
+            loginRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<JsonObject> attendance = apiInterface.getDigitalAssignment(loginRequest);
+
+            try {
+
+                JsonObject jsonObject=attendance.execute().body();
+
+                Prefs.setPrefs("digitalassignment",jsonObject.toString(),activity);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            updateCallback.onUpdate();
+        }
+    }
+
+    public static class GetDigitalMarks extends AsyncTask<Activity, Void, Integer> {
+
+        UpdateCallback updateCallback;
+        DigitalMarksRequest digitalMarksRequest;
+
+        GetDigitalMarks(UpdateCallback updateCallback,DigitalMarksRequest digitalMarksRequest) {
+            this.updateCallback = updateCallback;
+            this.digitalMarksRequest=digitalMarksRequest;
+        }
+
+        @Override
+        protected Integer doInBackground(Activity... params) {
+            final Activity activity = params[0];
+
+            ApiInterface apiInterface = new ApiClient().getClient(activity).create(ApiInterface.class);
+            this.digitalMarksRequest.regno = Prefs.getPrefs("regno", activity);
+            this.digitalMarksRequest.password = Prefs.getPrefs("password", activity);
+
+            final Call<DigitalMarksResponse> digitalAssignmentMarks = apiInterface.getDigitalAssignmentMarks(digitalMarksRequest);
+
+            try {
+                List<DigitalMarksData> digitalMarksResponses = digitalAssignmentMarks.execute().body().data;
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.delete(DigitalMarksData.class);
+                realm.commitTransaction();
+
+                for (final DigitalMarksData e : digitalMarksResponses) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(e);
+                        }
+                    });
+                }
+                realm.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            updateCallback.onUpdate();
+        }
     }
 
 

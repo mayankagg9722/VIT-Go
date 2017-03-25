@@ -8,6 +8,8 @@ import com.example.mayankaggarwal.viteventsapp.models.CouresePageResponse;
 import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
@@ -84,5 +86,10 @@ public interface ApiInterface {
     @POST("applyLateHour")
     Call<JsonObject> applyLateNight(@Body LateRequest lateRequest);
 
+    @POST("getDigitalAssignments")
+    Call<JsonObject> getDigitalAssignment(@Body LoginRequest loginRequest);
+
+    @POST("getDigitalAssignmentMarks")
+    Call<DigitalMarksResponse> getDigitalAssignmentMarks(@Body DigitalMarksRequest digitalMarksRequest);
 
 }

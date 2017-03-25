@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
+import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.LateNightData;
@@ -100,7 +102,9 @@ public class RealmController {
         return realm.where(LateNightData.class).findAll();
     }
 
-
+    public RealmResults<DigitalMarksData> getDigitalMarks() {
+        return realm.where(DigitalMarksData.class).findAll();
+    }
 
     public RealmResults<EventList> getEvents() {
         return realm.where(EventList.class).findAll();

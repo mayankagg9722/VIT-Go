@@ -20,7 +20,7 @@
         android:id="@+id/main_card"
         app:cardBackgroundColor="#ECEFF1"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/faculty">
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"

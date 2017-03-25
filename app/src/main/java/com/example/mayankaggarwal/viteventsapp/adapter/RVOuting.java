@@ -50,7 +50,6 @@ public class RVOuting extends RecyclerView.Adapter<RVOuting.MyViewHolder>  {
 
     @Override
     public void onBindViewHolder(RVOuting.MyViewHolder holder, int position) {
-
         JsonObject obj=jsonArray.get(position).getAsJsonObject();
         if(obj.get("type").getAsString().toLowerCase().contains("outing")){
         holder.applyid.setText(obj.get("leaveId").getAsString());

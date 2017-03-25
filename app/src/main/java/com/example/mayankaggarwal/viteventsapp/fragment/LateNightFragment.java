@@ -16,23 +16,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVAttendaceList;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVLateNight;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
-import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
 /**
  * A simple {@link Fragment} subclass.

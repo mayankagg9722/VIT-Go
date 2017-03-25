@@ -43,6 +43,8 @@ public class Globals {
 
     public static int fetchEvent=0;
 
+    public static int fetchAssignment=0;
+
     public static int fetchMessage=0;
 
     public static String dayName=null;

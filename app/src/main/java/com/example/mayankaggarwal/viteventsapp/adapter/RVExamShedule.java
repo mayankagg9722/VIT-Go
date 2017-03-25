@@ -33,7 +33,6 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
     public RVExamShedule(String examSchedule, Activity context) {
         this.context=context;
         parser=new JsonParser();
-
         jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT1").getAsJsonArray();
         Log.d("tagg",jsonArray.toString());
     }
@@ -52,6 +51,8 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
 
 
         JsonObject object=jsonArray.get(position).getAsJsonObject();
+
+        Log.d("tagg","working");
 
         holder.course_name.setText(object.get("subjectName").getAsString());
         holder.date.setText(object.get("date").getAsString());
