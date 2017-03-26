@@ -22,6 +22,13 @@ public class SetTheme {
     public final static int BLUE = 1;
     public final static int PINK = 2;
 
+    public final static int GREEN = 3;
+    public final static int RED= 4;
+    public final static int NEWPINK = 5;
+    public final static int DARKGREEN = 6;
+    public final static int DARKBLUE = 7;
+
+
     /**
      * Set the theme of the Activity, and restart it by creating a new Activity of the same type.
      */
@@ -42,6 +49,31 @@ public class SetTheme {
             case PINK:
                 activity.setTheme(R.style.pinktheme);
                 colorName="#8057E1";
+                break;
+
+            case GREEN:
+                activity.setTheme(R.style.greentheme);
+                colorName="#37cf97";
+                break;
+
+            case RED:
+                activity.setTheme(R.style.redtheme);
+                colorName="#f44336";
+                break;
+
+            case NEWPINK:
+                activity.setTheme(R.style.newpinktheme);
+                colorName="#e91e63";
+                break;
+
+            case DARKGREEN:
+                activity.setTheme(R.style.darkgreentheme);
+                colorName="#009688";
+                break;
+
+            case DARKBLUE:
+                activity.setTheme(R.style.darkbluetheme);
+                colorName="#3f51b5";
                 break;
         }
         activity.finish();
@@ -74,19 +106,68 @@ public class SetTheme {
                 case PINK:
                     colorName="#8057E1";
                     break;
+
+                case GREEN:
+                    colorName="#37cf97";
+                    break;
+
+                case RED:
+                    colorName="#f44336";
+                    break;
+
+                case NEWPINK:
+                    colorName="#e91e63";
+                    break;
+
+                case DARKGREEN:
+                    colorName="#009688";
+                    break;
+
+                case DARKBLUE:
+                    colorName="#3f51b5";
+                    break;
             }
         }
         switch (sTheme) {
             default:
                 activity.setTheme(R.style.basetheme);
+                colorName="#f37051";
             case BASE:
                 activity.setTheme(R.style.basetheme);
+                colorName="#f37051";
                 break;
             case BLUE:
                 activity.setTheme(R.style.bluetheme);
+                colorName="#0b7cec";
                 break;
             case PINK:
                 activity.setTheme(R.style.pinktheme);
+                colorName="#8057E1";
+                break;
+
+            case GREEN:
+                activity.setTheme(R.style.greentheme);
+                colorName="#37cf97";
+                break;
+
+            case RED:
+                activity.setTheme(R.style.redtheme);
+                colorName="#f44336";
+                break;
+
+            case NEWPINK:
+                activity.setTheme(R.style.newpinktheme);
+                colorName="#e91e63";
+                break;
+
+            case DARKGREEN:
+                activity.setTheme(R.style.darkgreentheme);
+                colorName="#009688";
+                break;
+
+            case DARKBLUE:
+                activity.setTheme(R.style.darkbluetheme);
+                colorName="#3f51b5";
                 break;
         }
     }
@@ -109,6 +190,26 @@ public class SetTheme {
                     break;
                 case PINK:
                     colorName="#8057E1";
+                    break;
+
+                case GREEN:
+                    colorName="#37cf97";
+                    break;
+
+                case RED:
+                    colorName="#f44336";
+                    break;
+
+                case NEWPINK:
+                    colorName="#e91e63";
+                    break;
+
+                case DARKGREEN:
+                    colorName="#009688";
+                    break;
+
+                case DARKBLUE:
+                    colorName="#3f51b5";
                     break;
             }
         }

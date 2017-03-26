@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -105,5 +107,66 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="#37cf97"
+            app:cardCornerRadius="15dp"
+            android:padding="20dp"
+            android:id="@+id/greentheme"
+            android:layout_margin="20dp">
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="#f44336"
+            android:layout_margin="20dp"
+            android:id="@+id/redtheme"
+            app:cardCornerRadius="15dp">
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="#e91e63"
+            android:layout_margin="20dp"
+            android:id="@+id/newpinktheme"
+            app:cardCornerRadius="15dp">
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="#009688"
+            android:layout_margin="20dp"
+            android:id="@+id/darkgreentheme"
+            app:cardCornerRadius="15dp">
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="#3f51b5"
+            android:layout_margin="20dp"
+            android:id="@+id/darkbluetheme"
+            app:cardCornerRadius="15dp">
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

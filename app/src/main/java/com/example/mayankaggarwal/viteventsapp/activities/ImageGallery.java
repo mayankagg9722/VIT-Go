@@ -34,6 +34,8 @@ public class ImageGallery extends AppCompatActivity {
 
     CardView selectimage,bluetheme,pinktheme,basetheme;
 
+    CardView greentheme,redtheme,newpink,darkgreen,darkblue;
+
     private static final int img=1;
 
     de.hdodenhof.circleimageview.CircleImageView imageView;
@@ -85,7 +87,72 @@ public class ImageGallery extends AppCompatActivity {
                 startActivity(new Intent(ImageGallery.this,ImageGallery.class));
             }
         });
+////////////////////
 
+        greentheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","3", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.greentheme);
+                finish();
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+
+        redtheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","4", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.redtheme);
+                finish();
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+
+
+
+        newpink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","5", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.newpinktheme);
+                finish();
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+
+        darkgreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","6", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.darkgreentheme);
+                finish();
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+
+
+        darkblue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.setPrefs("theme","7", ImageGallery.this);
+                SetTheme.changeToTheme(ImageGallery.this,SetTheme.BASE);
+                setTheme(R.style.darkbluetheme);
+                finish();
+                startActivity(new Intent(ImageGallery.this,ImageGallery.class));
+            }
+        });
+
+
+//////////////////
         selectimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +183,14 @@ public class ImageGallery extends AppCompatActivity {
         pinktheme = (CardView) findViewById(R.id.pinktheme);
 
         basetheme = (CardView) findViewById(R.id.basetheme);
+
+////
+
+        greentheme = (CardView) findViewById(R.id.greentheme);
+        redtheme = (CardView) findViewById(R.id.redtheme);
+        newpink = (CardView) findViewById(R.id.newpinktheme);
+        darkgreen = (CardView) findViewById(R.id.darkgreentheme);
+        darkblue = (CardView) findViewById(R.id.darkbluetheme);
 
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
 

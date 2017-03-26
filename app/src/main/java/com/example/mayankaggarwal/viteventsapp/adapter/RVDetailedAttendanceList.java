@@ -93,7 +93,7 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
                         holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
                     }else{
                         holder.detail_attendance.setText(d.getStatus());
-                        holder.detail_attendance.setTextColor(Color.parseColor("#f37051"));
+                        holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
                     }
                     break;
                 }else{

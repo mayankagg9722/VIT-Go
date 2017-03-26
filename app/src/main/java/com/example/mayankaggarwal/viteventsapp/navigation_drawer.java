@@ -29,6 +29,7 @@ import com.example.mayankaggarwal.viteventsapp.activities.ExamSchedule;
 import com.example.mayankaggarwal.viteventsapp.activities.Faculties;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
+import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Marks;
 import com.example.mayankaggarwal.viteventsapp.activities.Messages;
 import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
@@ -95,7 +96,7 @@ public class navigation_drawer extends Fragment {
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         linearLayouttop.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         ListView listView=(ListView)v.findViewById(R.id.listview);
-        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Message","Digital Assignments","Exam Schedule","Marks"
+        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Message","Digital Assignments","Exam Schedule","Marks","Leave"
                 ,"Grades","Course Page","Default Password"};
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),R.layout.item_list_nav,R.id.mytextcustom,names);
         listView.setSelector(R.drawable.custom_selector);
@@ -122,6 +123,8 @@ public class navigation_drawer extends Fragment {
                     startActivity(new Intent(getActivity(),ExamSchedule.class));
                 }else if(position==8){
                     startActivity(new Intent(getActivity(),Marks.class));
+                }else if(position==9){
+                    startActivity(new Intent(getActivity(),Hosteller.class));
                 }
             }
         });
@@ -220,5 +223,7 @@ public class navigation_drawer extends Fragment {
             e.printStackTrace();
         }
     }
+
+
 
 }

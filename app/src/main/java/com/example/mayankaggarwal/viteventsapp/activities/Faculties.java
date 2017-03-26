@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,6 +89,15 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.facultyrefresh);
+
+        hideSoftKeyboard();
+    }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     private void updateFaculties(final Activity activity) {

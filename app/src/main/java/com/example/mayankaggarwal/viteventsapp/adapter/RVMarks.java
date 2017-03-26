@@ -66,15 +66,17 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
         holder.course_name.setText(object.get("Course Title").getAsString());
         holder.coursecode.setText(object.get("Course Code").getAsString()+" - "+object.get("Faculty").getAsString());
         holder.facultyname.setText(object.get("Faculty").getAsString());
-        addTextFields(marks,holder,holder.customMarksLayout);
+//        Log.d("tagg","position");
+        addTextFields(marks,holder.customMarksLayout);
     }
 
-    private void addTextFields(JsonObject marks,RVMarks.MyViewHolder holder,LinearLayout customMarksLayout) {
+    private void addTextFields(JsonObject marks,LinearLayout customMarksLayout) {
+
+        customMarksLayout.removeAllViews();
 
         Set<Map.Entry<String, JsonElement>> entrySet = marks.entrySet();
-        for(Map.Entry<String,JsonElement> entry : entrySet){
 
-            Log.d("tagg",entry.getKey()+": "+entry.getValue());
+        for(Map.Entry<String,JsonElement> entry : entrySet){
             TextInputLayout textInputLayout = new TextInputLayout(context);
             TextView name = new TextView(context);
 //            name.getBackground().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
@@ -84,7 +86,7 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
             textInputLayout.addView(name);
             name.setTextColor(Color.parseColor("#ffffff"));
             name.setTextSize(15f);
-            holder.customMarksLayout.addView(textInputLayout);
+            customMarksLayout.addView(textInputLayout);
         }
 
     }

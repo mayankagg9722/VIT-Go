@@ -73,7 +73,6 @@ public class LateNightFragment extends Fragment {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 position = viewHolder.getAdapterPosition();
                 permit_id = RealmController.with(getActivity()).getLateNight().get(position).getPvPermitID();
-                cancelLateHour(getActivity(), permit_id);
                 setAlert();
             }
 

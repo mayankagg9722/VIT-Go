@@ -58,6 +58,40 @@
         <item name="color_primary_dark">#9C27B0</item>
     </style>
 
+<!---->
+
+
+    <style name="greentheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#37cf97</item>
+        <item name="color_primary_dark">#37cf97</item>
+    </style>
+
+    <style name="redtheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#f44336</item>
+        <item name="color_primary_dark">#f44336</item>
+    </style>
+
+
+    <style name="newpinktheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#e91e63</item>
+        <item name="color_primary_dark">#e91e63</item>
+    </style>
+
+
+    <style name="darkgreentheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#009688</item>
+        <item name="color_primary_dark">#009688</item>
+    </style>
+
+
+    <style name="darkbluetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#3f51b5</item>
+        <item name="color_primary_dark">#3f51b5</item>
+    </style>
+
+
+
+<!---->
 
 
 </resources>

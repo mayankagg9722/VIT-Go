@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
@@ -22,14 +23,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
@@ -57,6 +61,7 @@ public class Events extends AppCompatActivity {
     MenuItem gridView;
     Menu menu;
     public static ViewPager viewPager;
+    public static TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,49 +103,61 @@ public class Events extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpagerevents);
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+
+
         viewPager.setClipToPadding(false);
         // set padding manually, the more you set the padding the more you see of prev & next page
         viewPager.setPadding(90, 0, 90, 0);
         // sets a margin b/w individual pages to ensure that there is a gap b/w them
         viewPager.setPageMargin(40);
 
-//        tabLayout = (TabLayout) findViewById(R.id.tabDots);
-//        tabLayout.setupWithViewPager(viewPager, true);
-
         FragmentManager fm = getSupportFragmentManager();
         PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(Globals.eventList.size()/2);
+        viewPager.setCurrentItem(Globals.eventList.size() / 2);
+        tabLayout = (TabLayout) findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(viewPager, true);
+
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height-height/4));
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_event);
 
 
-        if(getIntent().getStringExtra("eventid")!=null){
-            EventList ev=RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
+        if (getIntent().getStringExtra("eventid") != null) {
+            EventList ev = RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
             Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
-            ev.setGoing(String.valueOf((Integer.parseInt(ev.getGoing())+1)));
+            ev.setGoing(String.valueOf((Integer.parseInt(ev.getGoing()) + 1)));
             realm.commitTransaction();
             realm.close();
         }
 
-        if(Globals.fetchEvent==0){
+        if (Globals.fetchEvent == 0) {
             recyclerView.setVisibility(View.VISIBLE);
             viewPager.setVisibility(View.GONE);
+            tabLayout.setVisibility(View.GONE);
             fetchEvents(this);
-            Globals.fetchEvent=1;
-        }else{
-            if(Globals.gridorliner==0){
-                Globals.gridorliner=1;
+            Globals.fetchEvent = 1;
+        } else {
+            if (Globals.gridorliner == 0) {
+                Globals.gridorliner = 1;
                 viewPager.setVisibility(View.VISIBLE);
+                tabLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
-            }else {
+            } else {
 
                 //setting grid again
-                Globals.gridorliner=0;
+                Globals.gridorliner = 0;
                 viewPager.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(),R.layout.item_event, Events.this));
+                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
             }
         }
 
@@ -239,12 +256,12 @@ public class Events extends AppCompatActivity {
                     @Override
                     public void onUpdate() {
 
-                        recyclerView.setAdapter(new RVEvent(RealmController.with(activity).getEvents(),R.layout.item_event,activity));
+                        recyclerView.setAdapter(new RVEvent(RealmController.with(activity).getEvents(), R.layout.item_event, activity));
 
                         FragmentManager fm = getSupportFragmentManager();
                         PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
                         viewPager.setAdapter(pagerAdapter);
-                        viewPager.setCurrentItem(Globals.eventList.size()/2);
+                        viewPager.setCurrentItem(Globals.eventList.size() / 2);
 
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
@@ -271,7 +288,7 @@ public class Events extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_drawer, menu);
-        this.menu=menu;
+        this.menu = menu;
         gridView = (MenuItem) MenuItemCompat.getActionView(menu.findItem(R.id.action_grid));
         return true;
     }
@@ -281,20 +298,22 @@ public class Events extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_grid) {
             //setting linear layout
-            if(Globals.gridorliner==0){
-                Globals.gridorliner=1;
+            if (Globals.gridorliner == 0) {
+                Globals.gridorliner = 1;
                 this.menu.getItem(0).setIcon(R.drawable.ic_dashboard_white_24dp);
                 viewPager.setVisibility(View.VISIBLE);
+                tabLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
-            }else {
+            } else {
 
                 //setting grid again
-                Globals.gridorliner=0;
+                Globals.gridorliner = 0;
                 this.menu.getItem(0).setIcon(R.drawable.ic_dns_white_24dp);
                 viewPager.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(),R.layout.item_event, Events.this));
+                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
             }
             return true;
         }
