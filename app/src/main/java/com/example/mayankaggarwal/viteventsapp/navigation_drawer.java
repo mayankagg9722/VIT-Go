@@ -3,7 +3,10 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,7 +16,10 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.activities.AverageAttendance;
@@ -30,6 +36,7 @@ import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 
 /**
@@ -66,6 +73,8 @@ public class navigation_drawer extends Fragment {
 
         name.setText(Prefs.getPrefs("name", getContext()));
         regno.setText(Prefs.getPrefs("regno", getContext()));
+        name.setTextColor(Color.parseColor("#ffffff"));
+//        regno.setTextColor(Color.parseColor("#10ffffff"));
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,83 +90,119 @@ public class navigation_drawer extends Fragment {
     }
 
     private void setCards(View v) {
-        int card_id[]={R.id.timetable,R.id.attendance,R.id.course_page,R.id.marks,R.id.event,
-                R.id.search_faculty,R.id.assignment,R.id.fac_message,R.id.exam_schedule,R.id.grades,R.id.request,R.id.def_password};
-        for(int i=0;i<card_id.length;i++){
-            ((CardView)v.findViewById(card_id[i])).setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
-        }
-        CardView timetableCard=(CardView)v.findViewById(card_id[0]);
-        CardView facultycard=(CardView)v.findViewById(card_id[5]);
-        CardView attendanceCard=(CardView)v.findViewById(card_id[1]);
-        CardView eventCard=(CardView)v.findViewById(card_id[4]);
-        CardView message=(CardView)v.findViewById(card_id[7]);
-        CardView hoteller=(CardView)v.findViewById(card_id[10]);
-        CardView exam=(CardView)v.findViewById(card_id[8]);
-        CardView digitalAssignment=(CardView)v.findViewById(card_id[6]);
-        CardView marks=(CardView)v.findViewById(card_id[3]);
-
-        timetableCard.setOnClickListener(new View.OnClickListener() {
+        LinearLayout linearLayout=(LinearLayout)v.findViewById(R.id.listlinearlayout);
+        LinearLayout linearLayouttop=(LinearLayout)v.findViewById(R.id.mycustomlinear);
+        linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+        linearLayouttop.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+        ListView listView=(ListView)v.findViewById(R.id.listview);
+        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Message","Digital Assignments","Exam Schedule","Marks"
+                ,"Grades","Course Page","Default Password"};
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),R.layout.item_list_nav,R.id.mytextcustom,names);
+        listView.setSelector(R.drawable.custom_selector);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),TimeTable.class));
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    startActivity(new Intent(getActivity(),Events.class));
+                }else if(position==1){
+                    startActivity(new Intent(getActivity(),MainActivity.class));
+                }
+                else if(position==2){
+                    startActivity(new Intent(getActivity(),TimeTable.class));
+                }else if(position==3){
+                    startActivity(new Intent(getActivity(),AverageAttendance.class));
+                }else if(position==4){
+                    startActivity(new Intent(getActivity(),Faculties.class));
+                }else if(position==5){
+                    startActivity(new Intent(getActivity(),Messages.class));
+                }else if(position==6){
+                    startActivity(new Intent(getActivity(),DigitalAssignment.class));
+                }else if(position==7){
+                    startActivity(new Intent(getActivity(),ExamSchedule.class));
+                }else if(position==8){
+                    startActivity(new Intent(getActivity(),Marks.class));
+                }
             }
         });
 
-        facultycard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),Faculties.class));
-            }
-        });
-
-        attendanceCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),AverageAttendance.class));
-            }
-        });
-
-        eventCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),Events.class));
-            }
-        });
-
-        message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),Messages.class));
-            }
-        });
-
-        hoteller.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),Hosteller.class));
-            }
-        });
-
-        exam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ExamSchedule.class));
-            }
-        });
-
-        digitalAssignment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),DigitalAssignment.class));
-            }
-        });
-
-        marks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),Marks.class));
-            }
-        });
+//        int card_id[]={R.id.timetable,R.id.attendance,R.id.course_page,R.id.marks,R.id.event,
+//                R.id.search_faculty,R.id.assignment,R.id.fac_message,R.id.exam_schedule,R.id.grades,R.id.request,R.id.def_password};
+//        for(int i=0;i<card_id.length;i++){
+//            ((CardView)v.findViewById(card_id[i])).setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
+//        }
+//        CardView timetableCard=(CardView)v.findViewById(card_id[0]);
+//        CardView facultycard=(CardView)v.findViewById(card_id[5]);
+//        CardView attendanceCard=(CardView)v.findViewById(card_id[1]);
+//        CardView eventCard=(CardView)v.findViewById(card_id[4]);
+//        CardView message=(CardView)v.findViewById(card_id[7]);
+//        CardView hoteller=(CardView)v.findViewById(card_id[10]);
+//        CardView exam=(CardView)v.findViewById(card_id[8]);
+//        CardView digitalAssignment=(CardView)v.findViewById(card_id[6]);
+//        CardView marks=(CardView)v.findViewById(card_id[3]);
+//
+//        timetableCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),TimeTable.class));
+//            }
+//        });
+//
+//        facultycard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),Faculties.class));
+//            }
+//        });
+//
+//        attendanceCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),AverageAttendance.class));
+//            }
+//        });
+//
+//        eventCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),Events.class));
+//            }
+//        });
+//
+//        message.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),Messages.class));
+//            }
+//        });
+//
+//        hoteller.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),Hosteller.class));
+//            }
+//        });
+//
+//        exam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),ExamSchedule.class));
+//            }
+//        });
+//
+//        digitalAssignment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),DigitalAssignment.class));
+//            }
+//        });
+//
+//        marks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),Marks.class));
+//            }
+//        });
 
     }
 

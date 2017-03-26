@@ -8,10 +8,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include
-    layout="@layout/app_bar_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
 
     <!--<android.support.design.widget.NavigationView-->
     <!--android:id="@+id/nav_view"-->
@@ -28,6 +24,12 @@
         android:layout_gravity="start"
         app:layout="@layout/fragment_navigation_drawer"
         android:name="com.example.mayankaggarwal.viteventsapp.navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer"></fragment>
+        tools:layout="@layout/fragment_navigation_drawer"/>
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </android.support.v4.widget.DrawerLayout>

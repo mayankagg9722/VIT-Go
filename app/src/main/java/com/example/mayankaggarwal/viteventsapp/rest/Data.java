@@ -540,8 +540,11 @@ public class Data {
 
                 List<EventList> events = new ArrayList<>();
 
+                Globals.eventList.clear();
+
                 for (final EventList e : eventLists) {
                     events.add(e);
+                    Globals.eventList.add(e);
                 }
 
                 Realm realm = Realm.getDefaultInstance();

@@ -50,17 +50,12 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
 
 
         final JsonObject object=jsonArray.get(position).getAsJsonObject();
-        final JsonArray marks=object.get("marks").getAsJsonArray();
-//
+        final JsonObject marks=object.get("marks").getAsJsonObject();
+
         holder.course_name.setText(object.get("Course Title").getAsString());
         holder.coursecode.setText(object.get("Course Code").getAsString()+" - "+object.get("Faculty").getAsString());
         holder.facultyname.setText(object.get("Faculty").getAsString());
-        holder.marks.setText("Marks: "+marks.get(0).getAsString());
-//        for (int i=0;i<marks.size();i++){
-//            holder.marks.setText("Mark "+i+": "+marks.get(i)+"\n");
-//            i++;
-//        }
-
+//        holder.layoutMarks.setJsonData(marks);
     }
 
     @Override
@@ -69,8 +64,10 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView course_name,coursecode,facultyname,marks;
+        TextView course_name,coursecode,facultyname;
         CardView cardView;
+
+//        public CustomLayoutMarks layoutMarks=new CustomLayoutMarks(context);
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -79,8 +76,7 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
             course_name=(TextView)itemView.findViewById(R.id.course_name_marks);
             coursecode=(TextView)itemView.findViewById(R.id.coursecodeandtype);
             facultyname=(TextView)itemView.findViewById(R.id.facultynamemarks);
-            marks=(TextView)itemView.findViewById(R.id.marks);
-
+//            layoutMarks=(com.example.mayankaggarwal.viteventsapp.activities.CustomLayoutMarks)itemView.findViewById(R.id.customMarks);
             cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
 
         }

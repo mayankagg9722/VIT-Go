@@ -53,4 +53,9 @@ public class Globals {
 
     public static int firstCallFaculty=0;
 
+    public static int gridorliner=0;
+
+    public static List<EventList> eventList=new ArrayList<>();
+
+
 }

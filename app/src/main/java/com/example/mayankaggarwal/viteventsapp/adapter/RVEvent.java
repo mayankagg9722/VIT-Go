@@ -25,6 +25,8 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmResults;
+
 /**
  * Created by mayankaggarwal on 18/03/17.
  */
@@ -33,10 +35,12 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     private Context context;
     private List<EventList> eventList=new ArrayList<>();
+    int item;
 
 
-    public RVEvent(List<EventList> eventLists, Activity context) {
+    public RVEvent(List<EventList> eventLists,int item_event, Activity context) {
         this.context=context;
+        this.item=item_event;
 
         for(EventList e:eventLists){
             this.eventList.add(e);
@@ -47,7 +51,7 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
     @Override
     public RVEvent.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_event, parent, false);
+                .inflate(item, parent, false);
 
         return new RVEvent.MyViewHolder(itemView);
 

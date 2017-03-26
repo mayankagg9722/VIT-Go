@@ -62,17 +62,10 @@
                     android:textSize="10dp"
                     android:textColor="#fff"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="marks"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="8dp"
-                    android:textColor="#fff"
-                    android:id="@+id/marks"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
+               <!--<com.example.mayankaggarwal.viteventsapp.activities.CustomLayoutMarks-->
+                   <!--android:layout_width="wrap_content"-->
+                   <!--android:id="@+id/customMarks"-->
+                   <!--android:layout_height="wrap_content"/>-->
 
             </LinearLayout>
 

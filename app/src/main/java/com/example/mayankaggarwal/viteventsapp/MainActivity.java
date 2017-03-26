@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         updateDayAndDate();
 
         //fetch attendance
+
 //        fetchAttendance(this);
 
 
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
         final DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 
+        final CoordinatorLayout mainView=(CoordinatorLayout)findViewById(R.id.main_coordinate);
+
          mActionDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close){
             @Override
@@ -106,7 +111,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
             }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mainView.setTranslationX(slideOffset * drawerView.getWidth());
+                drawerLayout.bringChildToFront(drawerView);
+                drawerLayout.requestLayout();
+            }
         };
+
         mActionDrawerToggle.setDrawerIndicatorEnabled(false);
         toolbar.setNavigationIcon(R.drawable.navvv);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
