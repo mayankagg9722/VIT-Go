@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,10 +68,18 @@ public class navigation_drawer extends Fragment {
         setCards(v);
 
         nav_layout=(LinearLayout)v.findViewById(R.id.nav_layout);
+        nav_layout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
         TextView name = (TextView) v.findViewById(R.id.nametext);
         de.hdodenhof.circleimageview.CircleImageView profile=(de.hdodenhof.circleimageview.CircleImageView)v.findViewById(R.id.profile_image);
         TextView regno = (TextView) v.findViewById(R.id.regtext);
+        ImageButton imageButton=(ImageButton)v.findViewById(R.id.settings);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),Settings.class));
+            }
+        });
 
         name.setText(Prefs.getPrefs("name", getContext()));
         regno.setText(Prefs.getPrefs("regno", getContext()));

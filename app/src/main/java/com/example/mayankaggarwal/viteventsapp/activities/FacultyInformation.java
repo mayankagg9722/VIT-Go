@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,21 +25,19 @@ public class FacultyInformation extends AppCompatActivity {
 
     public static TextView name,deg,school,venue,intercom,mail,freehour;
     CardView backcard;
-    ActionBar actionBar;
+//    ActionBar actionBar;
+    public static de.hdodenhof.circleimageview.CircleImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SetTheme.onActivityCreateSetTheme(this);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_faculty_information);
 
         init();
 
-        CardView cardView=(CardView)findViewById(R.id.fac_card);
-        cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
-
-        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
-        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
         backcard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,22 +52,12 @@ public class FacultyInformation extends AppCompatActivity {
 
     private void init() {
 
-        actionBar=getSupportActionBar();
+//        actionBar=getSupportActionBar();
 
-        actionBar.setElevation(0);
-        actionBar.setTitle("");
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
+        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
+        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-        LinearLayout appBarLayout=(LinearLayout)findViewById(R.id.fac_appBarLayout);
-
-        appBarLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            appBarLayout.setElevation(50);
-        }
+        imageView=(de.hdodenhof.circleimageview.CircleImageView)findViewById(R.id.faculty_image);
 
         name=(TextView)findViewById(R.id.profname);
         deg=(TextView)findViewById(R.id.profdeg);
@@ -95,9 +84,6 @@ public class FacultyInformation extends AppCompatActivity {
                         Picasso.with(FacultyInformation.this).load("https://vitmantra.feedveed.com/facultyimages/"+
                                 getIntent().getStringExtra("empid")+".jpeg").into((de.hdodenhof.circleimageview.CircleImageView)
                                 findViewById(R.id.faculty_image));
-//                        Data.DownloadImageTask download=new Data.DownloadImageTask((de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.faculty_image)
-//                                ,FacultyInformation.this);
-//                        download.execute("https://vitmantra.feedveed.com/facultyimages/"+getIntent().getStringExtra("empid")+".jpeg");
                     }
                     @Override
                     public void onFailure() {

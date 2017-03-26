@@ -106,9 +106,7 @@ public class Events extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
         int height = size.y;
-
 
 
         viewPager.setClipToPadding(false);
@@ -120,7 +118,6 @@ public class Events extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(Globals.eventList.size() / 2);
         tabLayout = (TabLayout) findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(viewPager, true);
 
@@ -139,9 +136,9 @@ public class Events extends AppCompatActivity {
         }
 
         if (Globals.fetchEvent == 0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.GONE);
-            tabLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+            viewPager.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
             fetchEvents(this);
             Globals.fetchEvent = 1;
         } else {
@@ -151,7 +148,6 @@ public class Events extends AppCompatActivity {
                 tabLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             } else {
-
                 //setting grid again
                 Globals.gridorliner = 0;
                 viewPager.setVisibility(View.GONE);
@@ -261,7 +257,6 @@ public class Events extends AppCompatActivity {
                         FragmentManager fm = getSupportFragmentManager();
                         PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
                         viewPager.setAdapter(pagerAdapter);
-                        viewPager.setCurrentItem(Globals.eventList.size() / 2);
 
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
@@ -300,18 +295,19 @@ public class Events extends AppCompatActivity {
             //setting linear layout
             if (Globals.gridorliner == 0) {
                 Globals.gridorliner = 1;
-                this.menu.getItem(0).setIcon(R.drawable.ic_dashboard_white_24dp);
-                viewPager.setVisibility(View.VISIBLE);
-                tabLayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-            } else {
-
-                //setting grid again
-                Globals.gridorliner = 0;
                 this.menu.getItem(0).setIcon(R.drawable.ic_dns_white_24dp);
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
+            } else {
+                //setting grid again
+                Globals.gridorliner = 0;
+                this.menu.getItem(0).setIcon(R.drawable.ic_dashboard_white_24dp);
+                viewPager.setVisibility(View.VISIBLE);
+                tabLayout.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
             }

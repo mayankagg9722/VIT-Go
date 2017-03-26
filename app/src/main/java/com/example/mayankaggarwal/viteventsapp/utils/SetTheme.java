@@ -86,12 +86,12 @@ public class SetTheme {
 
     public static void onActivityCreateSetTheme(Activity activity) {
         String color=Prefs.getPrefs("theme",activity);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
-        }
         if(color.equals("notfound")){
             sTheme=0;
             colorName="#f37051";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
+            }
         }else{
             sTheme=Integer.parseInt(color);
             switch (sTheme) {
@@ -126,6 +126,9 @@ public class SetTheme {
                 case DARKBLUE:
                     colorName="#3f51b5";
                     break;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
             }
         }
         switch (sTheme) {

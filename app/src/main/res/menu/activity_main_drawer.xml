@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_grid"
-        android:icon="@drawable/ic_dns_white_24dp"
+        android:icon="@drawable/ic_dashboard_white_24dp"
         android:title="grid"
         app:showAsAction="ifRoom|collapseActionView" />
 

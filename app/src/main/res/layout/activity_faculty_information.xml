@@ -5,36 +5,38 @@
     android:id="@+id/activity_faculty_information"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation">
-
+    tools:context="com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation"
+    android:background="#fff">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#40000000">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/faculty_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:elevation="100dp"
-            android:src="@drawable/unknown"/>
+        <com.example.mayankaggarwal.viteventsapp.CustomFacultyLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loda"/>
 
         <LinearLayout
-            android:id="@+id/fac_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="0dp"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:id="@+id/photolayout">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/faculty_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/unknown"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="45dp"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="bottom|center"
+                android:layout_marginLeft="20dp">
 
                 <TextView
                     android:id="@+id/profname"
@@ -54,22 +56,17 @@
                     android:textColor="#fff"
                     android:textSize="12dp" />
             </LinearLayout>
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/faculty_image"
-            android:padding="16dp">
+            android:layout_below="@id/photolayout"
+            android:padding="16dp"
+            android:layout_marginTop="20dp">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/fac_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -277,7 +274,6 @@
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 

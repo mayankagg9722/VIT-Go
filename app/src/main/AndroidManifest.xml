@@ -48,11 +48,8 @@
         <activity
             android:name=".activities.Faculties"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity
-            android:name=".activities.FacultyInformation"
-            android:parentActivityName=".activities.Faculties"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activities.FacultyInformation" />
         <activity
             android:name=".activities.AverageAttendance"
             android:label="@string/title_activity_average_attendance"
@@ -81,20 +78,22 @@
         <activity
             android:name=".activities.OutingRequest"
             android:parentActivityName=".activities.Hosteller" />
-
         <activity
             android:name=".activities.ExamSchedule"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".activities.LateNightRequest" />
-
+        <activity
+            android:name=".activities.LateNightRequest"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.DigitalAssignment"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.DigitalMarks"
             android:parentActivityName=".activities.DigitalAssignment" />
-
-        <activity android:name=".activities.Marks"
+        <activity
+            android:name=".activities.Marks"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Settings"
             android:parentActivityName=".MainActivity"></activity>
     </application>
 

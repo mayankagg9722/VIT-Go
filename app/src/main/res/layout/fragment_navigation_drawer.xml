@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:id="@+id/nav_fragment"
     android:layout_height="match_parent"
-    tools:context="com.example.mayankaggarwal.viteventsapp.navigation_drawer">
+    tools:context="com.example.mayankaggarwal.viteventsapp.navigation_drawer"
+    android:background="#8057E1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,10 +13,17 @@
         android:orientation="vertical"
         android:id="@+id/nav_layout">
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_settings_white_24dp"
+                android:background="#00ffffff"
+                android:padding="5dp"
+                android:id="@+id/settings"
+                android:layout_gravity="end"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/nav_header_height"
-            android:background="#8057E1"
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -54,12 +62,13 @@
 
         <!--android:id="@+id/myfloat"-->
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8057E1"
             android:orientation="horizontal"
             android:id="@+id/listlinearlayout">
+
 
             <View
                 android:layout_width="5dp"
@@ -74,6 +83,7 @@
                 android:listSelector="@color/transparent">
             </ListView>
 
+        </LinearLayout>
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
@@ -461,7 +471,7 @@
 
             <!--</LinearLayout>-->
 
-        </LinearLayout>
+
 
     </LinearLayout>
 

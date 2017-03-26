@@ -66,7 +66,17 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
         holder.chapname.setText(event.getChapterName());
         holder.date.setText(event.getDate());
         holder.going.setText(event.getGoing()+" Going");
+
         holder.regcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, EventDetails.class);
+                Globals.register_event=event;
+                context.startActivity(intent);
+            }
+        });
+
+        holder.event_item_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, EventDetails.class);
@@ -84,6 +94,7 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView regcard;
+        CardView event_item_card;
         TextView eventname;
         TextView chapname;
         TextView date;
@@ -92,10 +103,12 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
             regcard=(CardView)itemView.findViewById(R.id.regcard);
+            event_item_card=(CardView)itemView.findViewById(R.id.event_item_card);
             eventname=(TextView)itemView.findViewById(R.id.event_name);
             chapname=(TextView)itemView.findViewById(R.id.chapter_name);
             date=(TextView)itemView.findViewById(R.id.date_event);
             going=(TextView)itemView.findViewById(R.id.event_going);
+
         }
     }
 }
