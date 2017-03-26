@@ -62,6 +62,17 @@
                     android:textSize="10dp"
                     android:textColor="#fff"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/marskcustomlayout"
+                    android:orientation="vertical"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"/>
+
+
                <!--<com.example.mayankaggarwal.viteventsapp.activities.CustomLayoutMarks-->
                    <!--android:layout_width="wrap_content"-->
                    <!--android:id="@+id/customMarks"-->
