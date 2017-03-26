@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.activities.AverageAttendance;
@@ -49,14 +50,14 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
         public TextView course_name;
         public TextView classroom;
         public TextView course_type;
-        public CardView cardView;
+        public LinearLayout cardView;
         public CardView maincard;
         public TextView timeView;
         public TextView faculty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.percentage_card);
+            cardView = (LinearLayout) itemView.findViewById(R.id.debaredlayout);
             maincard = (CardView) itemView.findViewById(R.id.main_card);
             percentage = (TextView) itemView.findViewById(R.id.attendance_percentage);
             course_name = (TextView) itemView.findViewById(R.id.course_name);
@@ -149,7 +150,7 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
         }
 
         if (per >= 75) {
-            holder.cardView.setBackgroundColor(Color.parseColor("#ECEFF1"));
+            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
             holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
         }
 
