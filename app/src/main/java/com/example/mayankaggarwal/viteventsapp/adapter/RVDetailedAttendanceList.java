@@ -43,6 +43,9 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
             detail_attendance = (TextView) itemView.findViewById(R.id.detail_attendance);
             sno = (TextView) itemView.findViewById(R.id.sno);
 
+            sno.setTextColor(Color.parseColor(SetTheme.colorName));
+            detail_date.setTextColor(Color.parseColor(SetTheme.colorName));
+
         }
 
     }

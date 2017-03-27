@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVDigitalAssignment;
@@ -98,12 +99,15 @@ public class Marks extends AppCompatActivity {
                     public void onFailure() {
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
 
             @Override
             public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

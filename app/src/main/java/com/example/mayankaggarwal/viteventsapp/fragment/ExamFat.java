@@ -37,11 +37,11 @@ public class ExamFat extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         if(!(Prefs.getPrefs("examschedule",getActivity()).equals("notfound"))){
-            Log.d("tagg","ggg");
+//            Log.d("tagg","ggg");
             recyclerView.setAdapter(new RVExamFat(Prefs.getPrefs("examschedule",getActivity()),getActivity()));
         }
         else {
-            Log.d("tagg","kkk");
+//            Log.d("tagg","kkk");
         }
         return view;
     }

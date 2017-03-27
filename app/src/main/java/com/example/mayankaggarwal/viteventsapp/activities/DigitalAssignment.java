@@ -11,7 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVDigitalAssignment;
@@ -68,11 +70,15 @@ public class DigitalAssignment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-
         if (Globals.fetchAssignment == 0) {
             fetchAssignment(this);
             Globals.fetchAssignment = 1;
         }
+
+        if(!(Prefs.getPrefs("digitalassignment",this).equals("notfound"))){
+            recyclerView.setAdapter(new RVDigitalAssignment(Prefs.getPrefs("digitalassignment",this),this));
+        }
+
 
     }
 
@@ -95,7 +101,8 @@ public class DigitalAssignment extends AppCompatActivity {
 
                     @Override
                     public void onFailure() {
-                            CustomProgressDialog.hideProgress();
+                        Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
@@ -103,6 +110,8 @@ public class DigitalAssignment extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

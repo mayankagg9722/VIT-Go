@@ -2,6 +2,7 @@ package com.example.mayankaggarwal.viteventsapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -63,6 +64,7 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
             school=(TextView)itemView.findViewById(R.id.school_name);
             card=(CardView)itemView.findViewById(R.id.faculty_card);
             empid=(TextView)itemView.findViewById(R.id.empid);
+             card.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
         }
     }
 

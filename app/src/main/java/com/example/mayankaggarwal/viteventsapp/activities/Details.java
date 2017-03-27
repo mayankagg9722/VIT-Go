@@ -4,6 +4,7 @@ package com.example.mayankaggarwal.viteventsapp.activities;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,8 +40,10 @@ public class Details extends AppCompatActivity {
     int attend = 0;
     private RecyclerView recyclerView;
     CardView detailsLayout;
+    CardView cardView;
     ActionBar actionBar;
     com.wang.avi.AVLoadingIndicatorView avi;
+    TextView textView;
 
 
     @Override
@@ -57,12 +60,20 @@ public class Details extends AppCompatActivity {
 
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
 
+        mCircleView.setBarColor(Color.parseColor(SetTheme.colorName));
+
         actionBar=getSupportActionBar();
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         actionBar.setTitle("Detail Attendance");
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        cardView=(CardView)findViewById(R.id.percentage_card);
+        cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        textView=(TextView)findViewById(R.id.detail_course_name);
+        textView.setTextColor(Color.parseColor(SetTheme.colorName));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
@@ -91,6 +102,9 @@ public class Details extends AppCompatActivity {
         final ImageButton attend_minus = (ImageButton) findViewById(R.id.attend_minus);
         ImageButton miss_plus = (ImageButton) findViewById(R.id.miss_plus);
         ImageButton miss_minus = (ImageButton) findViewById(R.id.miss_minus);
+
+
+//        attend_minus.setColorFilter(ContextCompat.getColor(this));
 
 
         detailsLayout = (CardView) findViewById(R.id.detaillistlayout);

@@ -43,55 +43,63 @@
     </style>
 
 
-    <style name="basetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#f37051</item>
-        <item name="color_primary_dark">#f46646</item>
+
+
+
+    <!--CUSTOM THEMES FOR APP-->  <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->
+
+<style name="one" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#37CE97</item>
+        <item name="color_primary_dark">#37CE97</item>
     </style>
 
-    <style name="bluetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#0b7cec</item>
-        <item name="color_primary_dark">#0D47A1</item>
-    </style>
-
-    <style name="pinktheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#8057E1</item>
-        <item name="color_primary_dark">#9C27B0</item>
-    </style>
-
-<!---->
-
-
-    <style name="greentheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#37cf97</item>
-        <item name="color_primary_dark">#37cf97</item>
-    </style>
-
-    <style name="redtheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#f44336</item>
-        <item name="color_primary_dark">#f44336</item>
-    </style>
-
-
-    <style name="newpinktheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#e91e63</item>
-        <item name="color_primary_dark">#e91e63</item>
-    </style>
-
-
-    <style name="darkgreentheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="two" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="themeColor">#009688</item>
         <item name="color_primary_dark">#009688</item>
     </style>
 
-
-    <style name="darkbluetheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="themeColor">#3f51b5</item>
-        <item name="color_primary_dark">#3f51b5</item>
+    <style name="three" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#4CB050</item>
+        <item name="color_primary_dark">#4CB050</item>
     </style>
 
 
+    <style name="four" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#3F51B5</item>
+        <item name="color_primary_dark">#3F51B5</item>
+    </style>
 
-<!---->
+    <style name="five" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#2196F3</item>
+        <item name="color_primary_dark">#2196F3</item>
+    </style>
+
+
+    <style name="six" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#673BB7</item>
+        <item name="color_primary_dark">#673BB7</item>
+    </style>
+
+
+    <style name="seven" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#EA1E63</item>
+        <item name="color_primary_dark">#EA1E63</item>
+    </style>
+
+
+    <style name="eight" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="themeColor">#F44236</item>
+        <item name="color_primary_dark">#F44236</item>
+    </style>
+
+    <style name="nine" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+    <item name="themeColor">#FF9700</item>
+    <item name="color_primary_dark">#FF9700</item>
+</style>
+
+
+
+<!--CUSTOM THEMES FOR APP-->  <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->
 
 
 </resources>

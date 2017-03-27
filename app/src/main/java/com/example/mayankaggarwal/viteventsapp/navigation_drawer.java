@@ -116,6 +116,7 @@ public class navigation_drawer extends Fragment {
                 if(position==0){
                     startActivity(new Intent(getActivity(),Events.class));
                 }else if(position==1){
+                    getActivity().finish();
                     startActivity(new Intent(getActivity(),MainActivity.class));
                 }
                 else if(position==2){

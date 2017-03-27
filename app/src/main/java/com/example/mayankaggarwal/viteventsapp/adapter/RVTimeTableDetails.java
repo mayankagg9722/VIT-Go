@@ -93,6 +93,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
             faculty = (TextView) itemView.findViewById(R.id.faculty);
             timebegin=(TextView) itemView.findViewById(R.id.timebegin);
             timeend=(TextView) itemView.findViewById(R.id.timeend);
+            course_type.setTextColor(Color.parseColor(SetTheme.colorName));
         }
 
     }

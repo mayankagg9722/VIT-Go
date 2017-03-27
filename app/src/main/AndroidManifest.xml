@@ -83,7 +83,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.LateNightRequest"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.Hosteller" />
         <activity
             android:name=".activities.DigitalAssignment"
             android:parentActivityName=".MainActivity" />

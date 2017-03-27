@@ -19,6 +19,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
@@ -199,13 +200,14 @@ public class OutingFragment extends Fragment {
                     }
                     @Override
                     public void onFailure() {
+                        Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
 
             @Override
             public void onFailure() {
-
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

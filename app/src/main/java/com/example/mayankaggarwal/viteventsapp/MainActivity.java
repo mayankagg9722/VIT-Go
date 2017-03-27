@@ -37,14 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-
     AppBarLayout appBarLayout;
     ActionBarDrawerToggle mActionDrawerToggle;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

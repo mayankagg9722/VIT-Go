@@ -90,6 +90,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             classroom = (TextView) itemView.findViewById(R.id.classroom);
             timeView = (TextView) itemView.findViewById(R.id.slottime);
             faculty = (TextView) itemView.findViewById(R.id.faculty);
+            course_type.setTextColor(Color.parseColor(SetTheme.colorName));
         }
 
     }

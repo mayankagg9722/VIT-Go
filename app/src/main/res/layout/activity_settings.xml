@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:id="@+id/activity_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical"
-    tools:context="com.example.mayankaggarwal.viteventsapp.Settings">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,75 +52,85 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/bluetheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#007bff"
-            app:cardCornerRadius="15dp">
+            app:backgroundTint="#37CE97"
+            app:elevation="0dp"
+            android:id="@+id/one" />
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/pinktheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#8057E1"
-            app:cardCornerRadius="15dp">
+            app:backgroundTint="#009688"
+            app:elevation="0dp"
+            android:id="@+id/two" />
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/basetheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#f46646"
-            app:cardCornerRadius="15dp" />
+            app:backgroundTint="#4CB050"
+            app:elevation="0dp"
+            android:id="@+id/three" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/greentheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#37cf97"
-            app:cardCornerRadius="15dp" />
+            app:backgroundTint="#3F51B5"
+            app:elevation="0dp"
+            android:id="@+id/four" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/redtheme"
+
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#f44336"
-            app:cardCornerRadius="15dp">
+            app:backgroundTint="#2196F3"
+            app:elevation="0dp"
+            android:id="@+id/five" />
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/newpinktheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#e91e63"
-            app:cardCornerRadius="15dp" />
+            app:backgroundTint="#673BB7"
+            app:elevation="0dp"
+            android:id="@+id/six" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/darkgreentheme"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#009688"
-            app:cardCornerRadius="15dp" />
+            app:backgroundTint="#EA1E63"
+            app:elevation="0dp"
+            android:id="@+id/seven"/>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/darkbluetheme"
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#3f51b5"
-            app:cardCornerRadius="15dp" />
+            app:backgroundTint="#F44236"
+            app:elevation="0dp"
+            android:id="@+id/eight" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            app:backgroundTint="#FF9700"
+            app:elevation="0dp"
+            android:id="@+id/nine"/>
 
     </LinearLayout>
 
@@ -237,5 +248,5 @@
         android:layout_height="0.2dp"
         android:background="#c4c4c4"/>
 
-
 </LinearLayout>
+</ScrollView>

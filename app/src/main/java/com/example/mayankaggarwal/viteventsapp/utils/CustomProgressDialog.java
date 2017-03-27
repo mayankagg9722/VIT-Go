@@ -50,7 +50,7 @@ public class CustomProgressDialog {
         alert = builder.create();
         alert.setCancelable(false);
         alert.show();
-        alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
 
 
     }

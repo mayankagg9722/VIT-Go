@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,7 +41,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_margin="10dp"
-                    app:cardBackgroundColor="?themeColor"
                     app:cardCornerRadius="8dp">
 
                     <TextView
@@ -73,7 +72,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Operating System"
-                            android:textColor="?themeColor"
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
@@ -133,7 +131,6 @@
                         android:layout_height="80dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="20dp"
-                        CircleProgressView:cpv_barColor="?themeColor"
                         CircleProgressView:cpv_barWidth="6.5dp"
                         CircleProgressView:cpv_innerContourSize="0dp"
                         CircleProgressView:cpv_maxValue="100"
@@ -191,7 +188,7 @@
                                 android:background="#00ffffff"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/delete"
-                                android:tint="?themeColor" />
+                                android:tint="#000"/>
 
                             <TextView
                                 android:id="@+id/miss"
@@ -213,7 +210,7 @@
                                 android:background="#00ffffff"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add"
-                                android:tint="?themeColor" />
+                                android:tint="#000" />
 
                         </LinearLayout>
 
@@ -232,7 +229,7 @@
                                 android:background="#00ffffff"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/delete"
-                                android:tint="?themeColor" />
+                                android:tint="#000" />
 
                             <TextView
                                 android:id="@+id/attend"
@@ -254,7 +251,7 @@
                                 android:background="#00ffffff"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/add"
-                                android:tint="?themeColor" />
+                                android:tint="#000" />
 
                         </LinearLayout>
                     </LinearLayout>

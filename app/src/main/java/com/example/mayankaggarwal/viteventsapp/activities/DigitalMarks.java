@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -46,7 +47,7 @@ public class DigitalMarks extends AppCompatActivity {
             }
         });
 
-            recyclerView.setAdapter(new RVDigitalMarks(RealmController.with(this).getDigitalMarks(), this));
+        recyclerView.setAdapter(new RVDigitalMarks(RealmController.with(this).getDigitalMarks(), this));
     }
 
     private void init() {
@@ -62,9 +63,9 @@ public class DigitalMarks extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
 
-        digitalMarksRequest=new DigitalMarksRequest();
+        digitalMarksRequest = new DigitalMarksRequest();
 
-        relativeLayout=(RelativeLayout)findViewById(R.id.activity_digital_marks);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_digital_marks);
 
         relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
 
@@ -75,15 +76,16 @@ public class DigitalMarks extends AppCompatActivity {
 
         fetchDigitalMarks(this);
 
-        String sem=getIntent().getStringExtra("sem");
-        String classnbr=getIntent().getStringExtra("classnbr");
-        String crscd=getIntent().getStringExtra("crscd");
-        String crstp=getIntent().getStringExtra("crstp");
 
-        digitalMarksRequest.sem=sem;
-        digitalMarksRequest.classnbr=classnbr;
-        digitalMarksRequest.crscd=crscd;
-        digitalMarksRequest.crstp=crstp;
+        String sem = getIntent().getStringExtra("sem");
+        String classnbr = getIntent().getStringExtra("classnbr");
+        String crscd = getIntent().getStringExtra("crscd");
+        String crstp = getIntent().getStringExtra("crstp");
+
+        digitalMarksRequest.sem = sem;
+        digitalMarksRequest.classnbr = classnbr;
+        digitalMarksRequest.crscd = crscd;
+        digitalMarksRequest.crstp = crstp;
 
     }
 
@@ -93,7 +95,7 @@ public class DigitalMarks extends AppCompatActivity {
             @Override
             public void onUpdate() {
                 CustomProgressDialog.showProgress(activity, "Fetching Data..");
-                Data.getDigitalAssignmentMarsk(activity,digitalMarksRequest, new Data.UpdateCallback() {
+                Data.getDigitalAssignmentMarsk(activity, digitalMarksRequest, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
                         CustomProgressDialog.hideProgress();
@@ -103,6 +105,7 @@ public class DigitalMarks extends AppCompatActivity {
 
                     @Override
                     public void onFailure() {
+                        Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -111,6 +114,8 @@ public class DigitalMarks extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

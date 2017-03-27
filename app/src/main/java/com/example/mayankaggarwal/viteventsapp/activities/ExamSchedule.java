@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVExamShedule;
@@ -36,8 +38,6 @@ public class ExamSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_schedule);
-
-        Realm.init(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.exam_toolbar);
         setSupportActionBar(toolbar);
@@ -79,6 +79,7 @@ public class ExamSchedule extends AppCompatActivity {
 
                     @Override
                     public void onFailure() {
+                        Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                         CustomProgressDialog.hideProgress();
                     }
                 });
@@ -86,7 +87,7 @@ public class ExamSchedule extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

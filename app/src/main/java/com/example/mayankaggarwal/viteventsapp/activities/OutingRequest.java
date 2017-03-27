@@ -253,7 +253,7 @@ public class OutingRequest extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

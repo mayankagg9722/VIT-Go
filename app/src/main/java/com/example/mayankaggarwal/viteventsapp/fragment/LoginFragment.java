@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.example.mayankaggarwal.viteventsapp.MainActivity;
@@ -143,6 +144,7 @@ public class LoginFragment extends SlideFragment {
             @Override
             public void onFailure() {
 //              Log.d("tagg","fail api");
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 CustomProgressDialog.hideProgress();
             }
         });

@@ -32,8 +32,6 @@ public class FacultyInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SetTheme.onActivityCreateSetTheme(this);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_faculty_information);
 
         init();
@@ -52,7 +50,6 @@ public class FacultyInformation extends AppCompatActivity {
 
     private void init() {
 
-//        actionBar=getSupportActionBar();
 
         RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.activity_faculty_information);
         relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
