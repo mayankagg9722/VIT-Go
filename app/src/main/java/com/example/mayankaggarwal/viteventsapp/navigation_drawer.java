@@ -3,12 +3,15 @@ package com.example.mayankaggarwal.viteventsapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,7 @@ import com.example.mayankaggarwal.viteventsapp.activities.Marks;
 import com.example.mayankaggarwal.viteventsapp.activities.Messages;
 import com.example.mayankaggarwal.viteventsapp.activities.Settings;
 import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
+import com.example.mayankaggarwal.viteventsapp.utils.ImagePath;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -42,6 +46,8 @@ import java.io.IOException;
 public class navigation_drawer extends Fragment {
 
     static  LinearLayout nav_layout;
+
+    de.hdodenhof.circleimageview.CircleImageView profile;
 
     View v;
 
@@ -59,6 +65,7 @@ public class navigation_drawer extends Fragment {
                              Bundle savedInstanceState) {
 //         Inflate the layout for this fragment
          v=inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        profile=(de.hdodenhof.circleimageview.CircleImageView)v.findViewById(R.id.profile_image);
 
         setCards(v);
 
@@ -88,9 +95,13 @@ public class navigation_drawer extends Fragment {
             }
         });
 
-        if(Prefs.getPrefs("readPermission",getContext()).equals("1")){
-            setNavImage(v);
+        if(!(Prefs.getPrefs("profileimage",getContext()).equals("notfound"))){
+                setNavImage(v);
+
+        }else {
+            profile.setImageResource(R.drawable.unknown);
         }
+
         return v;
     }
 
@@ -216,18 +227,32 @@ public class navigation_drawer extends Fragment {
 
     private void setNavImage(View v) {
 
-        try {
-            de.hdodenhof.circleimageview.CircleImageView profile=(de.hdodenhof.circleimageview.CircleImageView)v.findViewById(R.id.profile_image);
-            Prefs.setPrefs("profileimage",Prefs.getPrefs("profileimage",getContext()),getContext());
-            Bitmap photo = null;
-            photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver()
-                    , Uri.parse(Prefs.getPrefs("profileimage",getActivity())));
-//            photo = getResizedBitmap(photo, 400, 400);
-            profile.setImageBitmap(photo);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                String path=ImagePath.getPath(getContext(),Uri.parse(Prefs.getPrefs("profileimage",getContext())));
+                Log.d("tagg","path:"+path);
+                Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                profile.setImageBitmap(myBitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
+
 
 
 

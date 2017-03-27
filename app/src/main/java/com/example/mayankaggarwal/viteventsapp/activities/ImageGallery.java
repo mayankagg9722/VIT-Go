@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
@@ -17,9 +18,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.utils.ImagePath;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -63,7 +66,7 @@ public class ImageGallery extends AppCompatActivity {
                             REQUEST_PERMISSION);
                     return;
                 }
-                Intent intent=new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent,"Select Picture"),img);
             }
@@ -86,16 +89,27 @@ public class ImageGallery extends AppCompatActivity {
 
         imageView = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.myimage);
 
-        if(Prefs.getPrefs("readPermission",this).equals("1")){
-            try {
-                Bitmap photo = null;
-                photo = MediaStore.Images.Media.getBitmap(getContentResolver()
-                        , Uri.parse(Prefs.getPrefs("profileimage",this)));
-//            photo = getResizedBitmap(photo, 400, 400);
-                imageView.setImageBitmap(photo);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!(Prefs.getPrefs("profileimage",this).equals("notfound"))){
+            if(Prefs.getPrefs("readPermission",this).equals("1")){
+                try {
+                    String path=ImagePath.getPath(this,Uri.parse(Prefs.getPrefs("profileimage",this)));
+                    Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                    imageView.setImageBitmap(myBitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                try {
+                    String path=ImagePath.getPath(this,Uri.parse(Prefs.getPrefs("profileimage",this)));
+                    Log.d("tagg","path:"+path);
+                    Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                    imageView.setImageBitmap(myBitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }else {
+            imageView.setImageResource(R.drawable.unknown);
         }
     }
 
@@ -124,7 +138,7 @@ public class ImageGallery extends AppCompatActivity {
                     Prefs.setPrefs("profileimage",data.getData().toString(),this);
                     photo = MediaStore.Images.Media.getBitmap(getContentResolver()
                             , data.getData());
-//                    photo = getResizedBitmap(photo, 900, 900);
+//                  photo = getResizedBitmap(photo, 900, 900);
                     imageView.setImageBitmap(photo);
                 } catch (IOException e) {
                     e.printStackTrace();
