@@ -1,4 +1,4 @@
-package com.example.mayankaggarwal.viteventsapp.activities;
+package com.example.mayankaggarwal.viteventsapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.activities.EventDetails;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;

@@ -1,4 +1,4 @@
-package com.example.mayankaggarwal.viteventsapp.activities;
+package com.example.mayankaggarwal.viteventsapp.fragment;
 
 
 import android.content.Intent;
@@ -20,7 +20,6 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
 
 
     ImageView imageView;
-//    TextView textView;
     private int count=0;
 
     @Override
@@ -33,15 +32,11 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         int [] drawables={R.drawable.monday,R.drawable.tuesday,R.drawable.wednesday,R.drawable.thursday,
                 R.drawable.friday,R.drawable.saturday,R.drawable.saturday};
         View view;
         view=inflater.inflate(R.layout.fragment_swipe,container,false);
-//        imageView=(ImageView)view.findViewById(R.id.swipeimage);
-//        imageView.setImageResource("This is "+Integer.toString(bundle.getInt("count"))+" swipe screen..");
-//        textView=(TextView)view.findViewById(R.id.textswipe);
-//        textView.setText(Integer.toString(count));
         imageView=(ImageView)view.findViewById(R.id.dayimage);
         imageView.setImageResource(drawables[count]);
         return view;

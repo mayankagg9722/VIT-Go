@@ -1,12 +1,12 @@
-package com.example.mayankaggarwal.viteventsapp.activities;
+package com.example.mayankaggarwal.viteventsapp.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
+import com.example.mayankaggarwal.viteventsapp.fragment.SwipeEventFragment;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 
 /**
