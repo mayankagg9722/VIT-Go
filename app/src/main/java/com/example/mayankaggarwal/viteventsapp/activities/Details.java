@@ -288,7 +288,7 @@ public class Details extends AppCompatActivity {
                 Data.updateDetailAttendance(Details.this, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-//                    Log.d("tagg","success api");
+//                    Log.d("tagg","success api")
                         avi.hide();
                         detailsLayout.setVisibility(View.VISIBLE);
 

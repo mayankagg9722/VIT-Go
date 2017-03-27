@@ -84,8 +84,7 @@ public class RealmController {
         realm.delete(LateNightData.class);
         realm.commitTransaction();
     }
-
-////    find all objects
+    
     public RealmResults<AttendanceList> getAtendance() {
         return realm.where(AttendanceList.class).findAll();
     }
@@ -115,7 +114,6 @@ public class RealmController {
     }
 
 
-   //// query a single item with the given id
     public EventList getEvent(String id) {
         return realm.where(EventList.class).equalTo("id", id).findFirst();
     }

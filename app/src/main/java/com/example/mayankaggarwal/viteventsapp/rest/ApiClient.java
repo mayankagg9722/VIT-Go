@@ -36,8 +36,6 @@ public class ApiClient {
 
         String url=BASE_URLS[i];
 
-//        Log.d("tagg","random:"+url);
-
             OkHttpClient ok = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .addInterceptor(new Interceptor() {

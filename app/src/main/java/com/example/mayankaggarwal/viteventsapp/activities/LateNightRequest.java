@@ -194,7 +194,7 @@ public class LateNightRequest extends AppCompatActivity {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity, "Submitting Leave...");
+                CustomProgressDialog.showProgress(activity, "Submitting Late Night...");
                 Data.submitLateNight(activity, lateRequest, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         //fetch attendance
 
-//        fetchAttendance(this);
+        fetchAttendance(this);
 
 
         getSupportActionBar().setTitle("");
@@ -154,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
             public void onUpdate() {
                 if (Globals.doneFetching == 0) {
                     CustomProgressDialog.showProgress(MainActivity.this,"Fetching Attendance...");
-                    Globals.doneFetching = 1;
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
                             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
                             swipeRefreshLayout.setRefreshing(false);
+                            Globals.doneFetching = 1;
                             if(Globals.doneFetching==1){
                                 CustomProgressDialog.hideProgress();
                             }

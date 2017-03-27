@@ -72,7 +72,6 @@ public class DigitalAssignment extends AppCompatActivity {
 
         if (Globals.fetchAssignment == 0) {
             fetchAssignment(this);
-            Globals.fetchAssignment = 1;
         }
 
         if(!(Prefs.getPrefs("digitalassignment",this).equals("notfound"))){
@@ -97,6 +96,7 @@ public class DigitalAssignment extends AppCompatActivity {
                         if(!(Prefs.getPrefs("digitalassignment",activity).equals("notfound"))){
                             recyclerView.setAdapter(new RVDigitalAssignment(Prefs.getPrefs("digitalassignment",activity),activity));
                         }
+                        Globals.fetchAssignment = 1;
                     }
 
                     @Override

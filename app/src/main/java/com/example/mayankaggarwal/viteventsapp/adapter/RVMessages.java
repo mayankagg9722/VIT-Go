@@ -40,8 +40,11 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
 
         if(messages.length()>0){
             parser=new JsonParser();
-            jsonObject=parser.parse(messages).getAsJsonObject();
-            messagesList=jsonObject.get("messages").getAsJsonArray();
+            if(messages!=null){
+                jsonObject=parser.parse(messages).getAsJsonObject();
+                messagesList=jsonObject.get("messages").getAsJsonArray();
+            }
+
         }
 
     }
@@ -91,8 +94,6 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             holder.customtext.setText(customtext.substring(0,1).toUpperCase());
 
         }else if(message.size()==2){
-
-            //hide triangle image
             String content=message.get("0").toString().replace("\"","");
             String date=message.get("1").toString().replace("\"","");
             holder.facname.setVisibility(View.GONE);

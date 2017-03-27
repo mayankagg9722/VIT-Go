@@ -107,22 +107,11 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
             json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
             main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
             main_faculty= json.getAsJsonArray("faculties");
-//        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
-
-//        Date date = new Date();
-//        SimpleDateFormat day = new SimpleDateFormat("E");
-
-//        myday = day.format(date).toString().toUpperCase();
             myday=daygiven;
 
             //set data according to day
             setDataAccday();
 
-//        Log.d("tagg", String.valueOf(course_code_day));
-//        Log.d("tagg", String.valueOf(course_classroom));
-//        Log.d("tagg", String.valueOf(course_type));
-//        Log.d("tagg", String.valueOf(course_time));
-//        Log.d("tagg",String.valueOf(course_slot));
 
             int k = 0;
             for (String code : course_code_day) {
@@ -135,7 +124,6 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
                             this.attendanceList.add(a);
                         } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
                             this.attendanceList.add(a);
-//                            Log.d("tagg", String.valueOf(attendanceList));
                         }
                     }
                 }
@@ -161,7 +149,6 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-//        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
         setAnimation(holder.itemView, position);

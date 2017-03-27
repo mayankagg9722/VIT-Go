@@ -109,11 +109,9 @@ public class LoginFragment extends SlideFragment {
 
     private void fetchAttendance(final Activity activity) {
         if (!(RealmController.with(activity).hasAttendance())) {
-//            Log.d("tagg", "skip already has attendance");
             Data.updateAttendance(activity, new Data.UpdateCallback() {
                 @Override
                 public void onUpdate() {
-//                    Log.d("tagg", "success api");
                     CustomProgressDialog.hideProgress();
                     getActivity().finish();
                     startActivity(new Intent(activity, MainActivity.class));
@@ -121,9 +119,6 @@ public class LoginFragment extends SlideFragment {
 
                 @Override
                 public void onFailure() {
-
-//                    Log.d("tagg", "fail api");
-                    //agin try to fetch attendance
                     CustomProgressDialog.hideProgress();
                 }
             });
@@ -137,13 +132,10 @@ public class LoginFragment extends SlideFragment {
         Data.updateTimetable(activity, new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                //Log.d("tagg","success api");
-                //fetching attendance
                 fetchAttendance(activity);
             }
             @Override
             public void onFailure() {
-//              Log.d("tagg","fail api");
                 Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 CustomProgressDialog.hideProgress();
             }

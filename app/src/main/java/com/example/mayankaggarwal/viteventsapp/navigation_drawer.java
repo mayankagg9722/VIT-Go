@@ -63,7 +63,7 @@ public class navigation_drawer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-//         Inflate the layout for this fragment
+
          v=inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         profile=(de.hdodenhof.circleimageview.CircleImageView)v.findViewById(R.id.profile_image);
 
@@ -86,7 +86,6 @@ public class navigation_drawer extends Fragment {
         name.setText(Prefs.getPrefs("name", getContext()));
         regno.setText(Prefs.getPrefs("regno", getContext()));
         name.setTextColor(Color.parseColor("#ffffff"));
-//        regno.setTextColor(Color.parseColor("#10ffffff"));
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +225,6 @@ public class navigation_drawer extends Fragment {
     }
 
     private void setNavImage(View v) {
-
             try {
                 String path=ImagePath.getPath(getContext(),Uri.parse(Prefs.getPrefs("profileimage",getContext())));
                 Log.d("tagg","path:"+path);
@@ -236,24 +234,5 @@ public class navigation_drawer extends Fragment {
                 e.printStackTrace();
             }
         }
-
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
-    }
-
-
-
 
 }

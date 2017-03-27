@@ -86,10 +86,11 @@ public class OutingFragment extends Fragment {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 position = viewHolder.getAdapterPosition();
                 parser=new JsonParser();
-                jsonArray= (JsonArray) parser.parse(Prefs.getPrefs("leaves", getContext()));
-                leave_id=jsonArray.get(position).getAsJsonObject().get("leaveId").getAsString();
+                if(!(Prefs.getPrefs("leaves", getContext()).equals("notfound"))){
+                    jsonArray= (JsonArray) parser.parse(Prefs.getPrefs("leaves", getContext()));
+                    leave_id=jsonArray.get(position).getAsJsonObject().get("leaveId").getAsString();
+                }
                 setAlert();
-//                cancelLeave(getActivity(),leave_id);
             }
 
             @Override
@@ -166,8 +167,10 @@ public class OutingFragment extends Fragment {
                 Data.getLeaves(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        recyclerView.setAdapter(new RVOuting(Prefs.getPrefs("leaves", activity), activity));
-                        recyclerView.setVisibility(View.VISIBLE);
+                        if(!(Prefs.getPrefs("leaves", activity).equals("notfound"))){
+                            recyclerView.setAdapter(new RVOuting(Prefs.getPrefs("leaves", activity), activity));
+                            recyclerView.setVisibility(View.VISIBLE);
+                        }
                         avi.hide();
                     }
                     @Override
@@ -194,13 +197,13 @@ public class OutingFragment extends Fragment {
                     public void onUpdate() {
                         jsonArray.remove(position);
                         avi.hide();
-//                        getLeave(activity);
                         activity.finish();
                         activity.startActivity(new Intent(getActivity(), Hosteller.class));
                     }
                     @Override
                     public void onFailure() {
                         Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        avi.hide();
                     }
                 });
             }

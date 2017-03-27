@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVTimeTableDetails;
+import com.example.mayankaggarwal.viteventsapp.fragment.PagerAdapter;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 
@@ -116,9 +116,6 @@ public class TimeTable extends AppCompatActivity {
         int height = size.y;
         pagerHieght = height / 4;
         cardwidth = width / 7;
-
-//        Log.d("tagg", String.valueOf("width:"+width+"height:"+height));
-//        Log.d("tagg", String.valueOf("cardwidth:"+cardwidth));
 
 
         viewPager.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, pagerHieght));

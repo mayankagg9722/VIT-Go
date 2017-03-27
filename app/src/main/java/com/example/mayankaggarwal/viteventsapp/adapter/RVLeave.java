@@ -30,13 +30,14 @@ public class RVLeave extends RecyclerView.Adapter<RVLeave.MyViewHolder>  {
     public RVLeave(String leaves, Activity context) {
 
         parser=new JsonParser();
-        jsonArray= (JsonArray) parser.parse(leaves);
-        for(JsonElement j:jsonArray){
-            if(!(j.getAsJsonObject().get("type").getAsString().toLowerCase().contains("outing"))){
-                count++;
+        if(leaves!=null){
+            jsonArray= (JsonArray) parser.parse(leaves);
+            for(JsonElement j:jsonArray){
+                if(!(j.getAsJsonObject().get("type").getAsString().toLowerCase().contains("outing"))){
+                    count++;
+                }
             }
         }
-//        Log.d("tagg",jsonArray.get(0).getAsJsonObject().get("leaveId").getAsString());
         this.context=context;
     }
 

@@ -33,8 +33,9 @@ public class RVExamSceduleTwo extends RecyclerView.Adapter<RVExamSceduleTwo.MyVi
 
         parser=new JsonParser();
 
-        jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT2").getAsJsonArray();
-        Log.d("tagg",jsonArray.toString());
+        if(examSchedule!=null){
+            jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT2").getAsJsonArray();
+        }
     }
 
     @Override

@@ -165,7 +165,7 @@ public class OutingRequest extends AppCompatActivity {
         int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
         String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
         String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
-        Log.d("tagg",Globals.dayName);
+//        Log.d("tagg",Globals.dayName);
         if (wrongSpinnerItem == 1) {
             flag = 1;
         } else if (isEmpty(fromdate)) {

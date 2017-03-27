@@ -660,7 +660,6 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                    Log.d("tagg",response.body().toString());
                     Prefs.setPrefs("messages", response.body().toString(), activity);
                     updateCallback.onUpdate();
                 }
@@ -676,7 +675,6 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
         }
 
     }

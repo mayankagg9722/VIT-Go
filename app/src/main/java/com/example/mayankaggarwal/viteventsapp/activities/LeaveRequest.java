@@ -145,8 +145,6 @@ public class LeaveRequest extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkEmptyFields() == 0) {
                     setFieldsText();
-                    Log.d("tagg", String.valueOf(homeTownRequest.sttimeHh + " " + homeTownRequest.sttimeMm + " " + homeTownRequest.frmTimetype
-                            + " " + homeTownRequest.apply));
                     submitHomeTownLeave(LeaveRequest.this, homeTownRequest);
                 } else {
                     Toast.makeText(LeaveRequest.this, "Fill all fields.", Toast.LENGTH_SHORT).show();
@@ -231,7 +229,7 @@ public class LeaveRequest extends AppCompatActivity {
         });
     }
 
-    private void submitHomeTownLeave(final Activity activity, HomeTownRequest hoomeTownRequest) {
+    private void submitHomeTownLeave(final Activity activity, final HomeTownRequest homeTownRequest) {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {

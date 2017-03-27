@@ -35,7 +35,9 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
     public RVDigitalAssignment(String digitalAssignment, Activity context) {
         this.context=context;
         parser=new JsonParser();
-        jsonArray=parser.parse(digitalAssignment).getAsJsonObject().get("data").getAsJsonArray();
+        if(digitalAssignment!=null){
+            jsonArray=parser.parse(digitalAssignment).getAsJsonObject().get("data").getAsJsonArray();
+        }
     }
 
     @Override

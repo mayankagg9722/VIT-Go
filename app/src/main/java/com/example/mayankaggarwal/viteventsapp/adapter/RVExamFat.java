@@ -34,8 +34,9 @@ public class RVExamFat extends RecyclerView.Adapter<RVExamFat.MyViewHolder> {
 
         parser=new JsonParser();
 
-        jsonArray=parser.parse(examSchedule).getAsJsonObject().get("fat").getAsJsonArray();
-        Log.d("tagg",jsonArray.toString());
+        if(examSchedule!=null){
+            jsonArray=parser.parse(examSchedule).getAsJsonObject().get("fat").getAsJsonArray();
+        }
 
     }
 

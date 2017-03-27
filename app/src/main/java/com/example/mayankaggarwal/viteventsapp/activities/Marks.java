@@ -76,7 +76,6 @@ public class Marks extends AppCompatActivity {
 
         if (Globals.fetchMarks == 0) {
             fetchMarks(this);
-            Globals.fetchMarks = 1;
         }
 
 
@@ -97,6 +96,7 @@ public class Marks extends AppCompatActivity {
                         if(!(Prefs.getPrefs("marksjson",activity).equals("notfound"))){
                             recyclerView.setAdapter(new RVMarks(Prefs.getPrefs("marksjson",activity),activity));
                         }
+                        Globals.fetchMarks = 1;
                     }
 
                     @Override

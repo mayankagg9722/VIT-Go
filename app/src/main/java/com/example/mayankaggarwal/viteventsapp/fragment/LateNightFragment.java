@@ -195,6 +195,7 @@ public class LateNightFragment extends Fragment {
                     @Override
                     public void onFailure() {
                         Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        avi.hide();
                     }
                 });
             }
