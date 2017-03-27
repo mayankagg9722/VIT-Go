@@ -25,7 +25,6 @@ public class CustomFacultyLayout extends View {
 
     public CustomFacultyLayout(Context context) {
         super(context);
-
     }
 
     public CustomFacultyLayout(Context context, AttributeSet attrs) {
@@ -39,6 +38,8 @@ public class CustomFacultyLayout extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        Log.d("tagg","custom working");
 
         myLayout=new Paint();
         myLayout.setColor(Color.parseColor(SetTheme.colorName));
@@ -65,7 +66,7 @@ public class CustomFacultyLayout extends View {
 
 
         path.moveTo(0,0);
-        path.lineTo(0, 360);
+        path.lineTo(0, FacultyInformation.imageView.getLayoutParams().height);
         path.lineTo(getWidth(),180);
         path.lineTo(getWidth(), 0);
         path.lineTo(0, 0);

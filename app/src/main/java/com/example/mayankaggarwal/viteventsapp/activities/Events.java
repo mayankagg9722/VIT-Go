@@ -108,15 +108,16 @@ public class Events extends AppCompatActivity {
         display.getSize(size);
         int height = size.y;
 
-
         viewPager.setClipToPadding(false);
         // set padding manually, the more you set the padding the more you see of prev & next page
         viewPager.setPadding(90, 0, 90, 0);
         // sets a margin b/w individual pages to ensure that there is a gap b/w them
         viewPager.setPageMargin(40);
 
+        Globals.getEventList(this);
+
         FragmentManager fm = getSupportFragmentManager();
-        PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
+        PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,this);
         viewPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(viewPager, true);
@@ -255,7 +256,7 @@ public class Events extends AppCompatActivity {
                         recyclerView.setAdapter(new RVEvent(RealmController.with(activity).getEvents(), R.layout.item_event, activity));
 
                         FragmentManager fm = getSupportFragmentManager();
-                        PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm);
+                        PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,activity);
                         viewPager.setAdapter(pagerAdapter);
 
                         CustomProgressDialog.hideProgress();
@@ -307,9 +308,10 @@ public class Events extends AppCompatActivity {
                 this.menu.getItem(0).setIcon(R.drawable.ic_dashboard_white_24dp);
                 viewPager.setVisibility(View.VISIBLE);
                 tabLayout.setVisibility(View.VISIBLE);
+                FragmentManager fm = getSupportFragmentManager();
+                PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,this);
+                viewPager.setAdapter(pagerAdapter);
                 recyclerView.setVisibility(View.GONE);
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
             }
             return true;
         }

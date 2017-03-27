@@ -78,6 +78,10 @@ public class RealmController {
         realm.delete(CouresePage.class);
         realm.delete(DetailAttendance.class);
         realm.delete(PostParams.class);
+        realm.delete(DigitalMarksData.class);
+        realm.delete(EventList.class);
+        realm.delete(FacultiesList.class);
+        realm.delete(LateNightData.class);
         realm.commitTransaction();
     }
 

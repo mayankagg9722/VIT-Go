@@ -54,9 +54,8 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
 
         holder.title.setText(digitalMarks.getTitle());
         holder.duedate.setText(digitalMarks.getDueDate());
-//        holder.status.setText(digitalMarks.get);
+        holder.status.setText(digitalMarks.getStatus());
         holder.score.setText(digitalMarks.getScore());
-//        holder.comment.setText();
 
 
     }
@@ -67,7 +66,7 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title,status,duedate,comment,score;
+        TextView title,status,duedate,score;
         CardView cardView;
 
         public MyViewHolder(View itemView) {
@@ -76,7 +75,6 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
             title=(TextView)itemView.findViewById(R.id.titledigital);
             duedate=(TextView)itemView.findViewById(R.id.duedate);
             status=(TextView)itemView.findViewById(R.id.status);
-            comment=(TextView)itemView.findViewById(R.id.comments);
             score=(TextView)itemView.findViewById(R.id.score);
             cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
         }

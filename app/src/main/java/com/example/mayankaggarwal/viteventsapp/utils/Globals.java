@@ -1,8 +1,11 @@
 package com.example.mayankaggarwal.viteventsapp.utils;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
+import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
@@ -56,6 +59,21 @@ public class Globals {
     public static int gridorliner=0;
 
     public static List<EventList> eventList=new ArrayList<>();
+
+
+    public  static  List<EventList> getEventList (Activity activity){
+        List<EventList> eventLists= RealmController.with(activity).getEvents();
+
+        List<EventList> eventList=new ArrayList<>();
+
+        for(EventList e:eventLists){
+            eventList.add(e);
+        }
+
+        return eventList;
+    }
+
+
 
 
 }

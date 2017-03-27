@@ -16,7 +16,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,75 +27,98 @@
         <activity
             android:name=".SplashSlider"
             android:label="@string/title_activity_splash_slider"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/Theme.Intro"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Details"
             android:label="Details"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.TimeTable"
             android:label="TimeTable"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ImageGallery"
             android:label="ImageGallery"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Faculties"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activities.FacultyInformation" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.FacultyInformation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.AverageAttendance"
             android:label="@string/title_activity_average_attendance"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Events"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.EventDetails"
-            android:parentActivityName=".activities.Events" />
+            android:parentActivityName=".activities.Events"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.EventRegister"
             android:parentActivityName=".activities.EventDetails"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Messages"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".activities.ImageFull" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ImageFull"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Hosteller"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.LeaveRequest"
-            android:parentActivityName=".activities.Hosteller" />
+            android:parentActivityName=".activities.Hosteller"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.OutingRequest"
-            android:parentActivityName=".activities.Hosteller" />
+            android:parentActivityName=".activities.Hosteller"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ExamSchedule"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.LateNightRequest"
-            android:parentActivityName=".activities.Hosteller" />
+            android:parentActivityName=".activities.Hosteller"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.DigitalAssignment"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.DigitalMarks"
-            android:parentActivityName=".activities.DigitalAssignment" />
+            android:parentActivityName=".activities.DigitalAssignment"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Marks"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Settings"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

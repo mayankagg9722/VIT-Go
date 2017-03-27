@@ -81,6 +81,7 @@ public class Hosteller extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
 
+
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_hosteller);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.hotelcoordinate);
 
@@ -99,6 +100,10 @@ public class Hosteller extends AppCompatActivity {
         latesectext = (TextView) findViewById(R.id.latesectext);
         outingsectext = (TextView) findViewById(R.id.outingsectext);
         expandLayoutText = (LinearLayout) findViewById(R.id.expandlayout);
+
+        leaveRequest.getLayoutParams().height=210;
+        outing.getLayoutParams().height=210;
+        lateCard.getLayoutParams().height=210;
 
         ((TextView) findViewById(R.id.name)).setText(Prefs.getPrefs("name", this).split(" ")[0].substring(0,1).toUpperCase()
                 +Prefs.getPrefs("name", this).split(" ")[0].substring(1).toLowerCase());
@@ -277,6 +282,7 @@ public class Hosteller extends AppCompatActivity {
     }
 
     private void setFadeOutAnimation(final TabLayout textView, final ViewPager viewPager, final int visible) {
+
         final Animation fadeout = new AlphaAnimation(1f, 0f);
         fadeout.setDuration(600);
 
@@ -302,9 +308,11 @@ public class Hosteller extends AppCompatActivity {
             public void onAnimationStart(Animation animation) {
             }
         });
+
     }
 
     private void setFadeAnimation(final TabLayout textview, final ViewPager viewPager, final int visible) {
+
         Animation fadeout = new AlphaAnimation(0f, 1f);
         fadeout.setDuration(100);
 

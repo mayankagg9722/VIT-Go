@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -35,7 +36,7 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
     TextView date;
     TextView going;
     ImageView imageView;
-//    private List<EventList> eventList=new ArrayList<>();
+    private List<EventList> eventList=new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
         imageView=(ImageView)view.findViewById(R.id.bigeventimage);
 
 
-        final EventList event=Globals.eventList.get(count);
+        final EventList event=Globals.getEventList(getActivity()).get(count);
 
         Picasso.with(getContext()).load("https://vitmantra.feedveed.com/posters/"+event.getId()).into(imageView);
 

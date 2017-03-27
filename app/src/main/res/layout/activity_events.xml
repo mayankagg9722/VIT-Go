@@ -23,7 +23,7 @@
         android:id="@+id/tabDots"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:tabBackground="@drawable/teb_selector"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp" />
@@ -32,7 +32,10 @@
         android:id="@+id/swipe_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="14dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler"

@@ -3,6 +3,9 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,6 +15,7 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.LoginRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LoginResponse;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,20 +54,32 @@ public class Auth {
                                     Prefs.setPrefs("password", password, activity);
                                     onLoginCallback.onSuccess();
                                 } else {
-                                    final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
-                                    LayoutInflater inflater = activity.getLayoutInflater();
-                                    final View dialogView = inflater.inflate(R.layout.error_window, null);
-                                    ImageButton ok = (ImageButton) dialogView.findViewById(R.id.errorImageOkButton);
-                                    alert.setView(dialogView);
-                                    final AlertDialog alertDialog = alert.create();
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-                                    ok.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            alertDialog.dismiss();
-                                        }
-                                    });
-                                    alertDialog.show();
+                                        final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                                        LayoutInflater inflater = activity.getLayoutInflater();
+                                        final View dialogView = inflater.inflate(R.layout.error_window, null);
+                                        ImageButton ok = (ImageButton) dialogView.findViewById(R.id.errorImageOkButton);
+                                        alert.setView(dialogView);
+                                        final AlertDialog alertDialog = alert.create();
+
+                                        ok.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                alertDialog.dismiss();
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                        builder.setMessage("Invalid Credentials").setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
                                     onLoginCallback.onFailure();
                                 }
                             } else {
@@ -85,25 +101,36 @@ public class Auth {
 
             @Override
             public void onFailure() {
-//                Log.d("called", "callde callde callde callde ");
-                final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
-                LayoutInflater inflater = activity.getLayoutInflater();
-                final View dialogView = inflater.inflate(R.layout.error_window, null);
-                ImageView internetimage = (ImageView) dialogView.findViewById(R.id.errorImage);
-                internetimage.setImageResource(R.drawable.nointerneterrorbackground);
-                ImageButton ok = (ImageButton) dialogView.findViewById(R.id.errorImageOkButton);
-                alert.setView(dialogView);
-                final AlertDialog alertDialog = alert.create();
-
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                    LayoutInflater inflater = activity.getLayoutInflater();
+                    final View dialogView = inflater.inflate(R.layout.error_window, null);
+                    alert.setView(dialogView);
+                    ImageView internetimage = (ImageView) dialogView.findViewById(R.id.errorImage);
+                    internetimage.setImageResource(R.drawable.nointerneterrorbackground);
+                    ImageButton ok = (ImageButton) dialogView.findViewById(R.id.errorImageOkButton);
+                    ok.setImageResource(R.drawable.errorsubmitbutton);
+                    final AlertDialog alertDialog = alert.create();
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("No Internet Connection").setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
                 onLoginCallback.onFailure();
             }
+
         });
     }
 

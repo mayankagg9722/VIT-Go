@@ -65,7 +65,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     String type;
     String slotTime;
 
-    int k=0;
+    int k = 0;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -98,44 +98,44 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     public RVAttendaceList(List<AttendanceList> atendance, Activity context, boolean clickable) {
 
         parser = new JsonParser();
-        json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
-        main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
-        main_faculty= json.getAsJsonArray("faculties");
-
-//        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
-
+        this.attendanceList = new ArrayList<>();
         Date date = new Date();
         SimpleDateFormat day = new SimpleDateFormat("E");
-
         myday = day.format(date).toString().toUpperCase();
+
+        if (!(Prefs.getPrefs("myTimetable", context).equals("notfound"))) {
+            json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
+            main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
+            main_faculty = json.getAsJsonArray("faculties");
+//        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
+
 //        myday="THU";
 
-        //set data according to day
-        setDataAccday();
+            //set data according to day
+            setDataAccday();
 
 //        Log.d("tagg", String.valueOf(course_code_day));
 //        Log.d("tagg", String.valueOf(course_classroom));
 //        Log.d("tagg", String.valueOf(course_type));
 //        Log.d("tagg", String.valueOf(course_time));
 //        Log.d("tagg",String.valueOf(course_slot));
-        this.attendanceList = new ArrayList<>();
 
-        int k = 0;
-        for (String code : course_code_day) {
-
-            for (AttendanceList a : atendance) {
-                if (code.toString().contains(a.getCourseCode().toString())) {
-                    if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
-                        this.attendanceList.add(a);
-                    } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
-                        this.attendanceList.add(a);
-                    } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
-                        this.attendanceList.add(a);
+            int k = 0;
+            for (String code : course_code_day) {
+                for (AttendanceList a : atendance) {
+                    if (code.toString().contains(a.getCourseCode().toString())) {
+                        if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
+                            this.attendanceList.add(a);
+                        } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
+                            this.attendanceList.add(a);
+                        } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
+                            this.attendanceList.add(a);
 //                            Log.d("tagg", String.valueOf(attendanceList));
+                        }
                     }
                 }
+                k++;
             }
-            k++;
         }
 
         this.context = context;
@@ -182,25 +182,25 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //        holder.course_code.setText(attendanceList.getCourseCode());
 
 
-        for(JsonElement a:main_faculty){
-            if(attendanceList.getCourseName().toLowerCase().contains(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())){
-                if((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))){
+        for (JsonElement a : main_faculty) {
+            if (attendanceList.getCourseName().toLowerCase().contains(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())) {
+                if ((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))) {
                     holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
-                }else if(attendanceList.getCourseType().toLowerCase().contains("lab")){
+                } else if (attendanceList.getCourseType().toLowerCase().contains("lab")) {
                     holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
                 }
 //                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
-                holder.classroom.setText(attendanceList.getCourseCode()+" - "+course_classroom.get(position));
-                holder.timeView.setText(course_time.get(position));
+        holder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(position));
+        holder.timeView.setText(course_time.get(position));
 
         if (attendanceList.getCourseType().contains("Theory")) {
-            holder.course_type.setText(course_slot.get(position)+" - Theory");
+            holder.course_type.setText(course_slot.get(position) + " - Theory");
         } else if (attendanceList.getCourseType().equals("Soft Skill")) {
-            holder.course_type.setText(course_slot.get(position)+" - Soft Skills");
+            holder.course_type.setText(course_slot.get(position) + " - Soft Skills");
         } else {
-            holder.course_type.setText(course_slot.get(position)+" - Lab");
+            holder.course_type.setText(course_slot.get(position) + " - Lab");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -216,12 +216,12 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 intent.putExtra("attendedclass", attendanceList.getAttended().toString());
                 intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
 
-                intent.putExtra("classnbr",attendanceList.getPostParams().getClassnbr().toString());
-                intent.putExtra("semcode",attendanceList.getPostParams().getSemcode().toString());
-                intent.putExtra("crscd",attendanceList.getPostParams().getCrscd().toString());
-                intent.putExtra("crstp",attendanceList.getPostParams().getCrstp().toString());
-                intent.putExtra("from_date",attendanceList.getPostParams().getFromDate().toString());
-                intent.putExtra("to_date",attendanceList.getPostParams().getToDate().toString());
+                intent.putExtra("classnbr", attendanceList.getPostParams().getClassnbr().toString());
+                intent.putExtra("semcode", attendanceList.getPostParams().getSemcode().toString());
+                intent.putExtra("crscd", attendanceList.getPostParams().getCrscd().toString());
+                intent.putExtra("crstp", attendanceList.getPostParams().getCrstp().toString());
+                intent.putExtra("from_date", attendanceList.getPostParams().getFromDate().toString());
+                intent.putExtra("to_date", attendanceList.getPostParams().getToDate().toString());
 
                 context.startActivity(intent);
             }
@@ -271,7 +271,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 code = sub_day_array[0].replace("\"", "");
                 type = sub_day_array[1];
                 classroom = sub_day_array[2];
-                slot = sub_day_array[3].replace("\"","");
+                slot = sub_day_array[3].replace("\"", "");
 
                 //finding slot time in which are having class
                 setSlotTime(type, i);
@@ -321,6 +321,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
     @Override
     public int getItemCount() {
+
         return attendanceList.size();
     }
 

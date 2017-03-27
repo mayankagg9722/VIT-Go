@@ -27,6 +27,7 @@
             android:id="@+id/faculty_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:scaleType="centerCrop"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/unknown"/>
@@ -64,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/photolayout"
-            android:padding="16dp"
+            android:padding="10dp"
             android:layout_marginTop="20dp">
 
 
@@ -72,13 +73,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/faculty_image"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="7dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -88,7 +89,7 @@
                             android:layout_weight="1"
                             android:text="School"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -97,7 +98,7 @@
                             android:gravity="center"
                             android:text=":"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/school"
@@ -106,14 +107,14 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1.5"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="7dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -123,7 +124,7 @@
                             android:layout_weight="1"
                             android:text="Venue"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -132,7 +133,7 @@
                             android:gravity="center"
                             android:text=":"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/venue"
@@ -142,14 +143,14 @@
                             android:layout_weight="1.5"
                             android:text=""
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="7dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -159,7 +160,7 @@
                             android:layout_weight="1"
                             android:text="Intercom \nNo"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -168,7 +169,7 @@
                             android:gravity="center"
                             android:text=":"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/intercom"
@@ -178,14 +179,14 @@
                             android:layout_weight="1.5"
                             android:text=""
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="7dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -195,7 +196,7 @@
                             android:layout_weight="1"
                             android:text="Email Id"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -204,7 +205,7 @@
                             android:gravity="center"
                             android:text=":"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/email"
@@ -214,14 +215,14 @@
                             android:layout_weight="1.5"
                             android:text=""
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="7dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -231,7 +232,7 @@
                             android:layout_weight="1"
                             android:text="Free Hour"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -240,7 +241,7 @@
                             android:gravity="center"
                             android:text=":"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/freehour"
@@ -249,33 +250,34 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1.5"
                             android:textColor="#fff"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/backcard"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom|center"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="30dp"
-                        app:cardBackgroundColor="#E32797"
-                        app:cardCornerRadius="20dp"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="BACK"
-                            android:textColor="#fff" />
-                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
 
         </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/backcard"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:cardBackgroundColor="#000"
+            app:cardCornerRadius="20dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="BACK"
+                android:textColor="#fff" />
+        </android.support.v7.widget.CardView>
+
 
     </RelativeLayout>
 

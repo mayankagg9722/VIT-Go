@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -25,7 +26,6 @@ public class FacultyInformation extends AppCompatActivity {
 
     public static TextView name,deg,school,venue,intercom,mail,freehour;
     CardView backcard;
-//    ActionBar actionBar;
     public static de.hdodenhof.circleimageview.CircleImageView imageView;
 
     @Override
@@ -64,6 +64,7 @@ public class FacultyInformation extends AppCompatActivity {
         mail=(TextView)findViewById(R.id.email);
         freehour=(TextView)findViewById(R.id.freehour);
         backcard=(CardView)findViewById(R.id.backcard);
+        backcard.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
 
     }
 

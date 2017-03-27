@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,11 +16,12 @@ import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 public class PagerAdapterEvents  extends FragmentPagerAdapter {
 
 
-    private final int PAGE_COUNT = Globals.eventList.size();
+    private int PAGE_COUNT = 0;
 
-    public PagerAdapterEvents(FragmentManager fm) {
+    public PagerAdapterEvents(FragmentManager fm, Activity activity) {
         super(fm);
-        Log.d("tagg","size:"+ Globals.eventList.size());
+        PAGE_COUNT=Globals.getEventList(activity).size();
+//        Log.d("tagg","size:"+ Globals.eventList.size());
     }
 
     @Override

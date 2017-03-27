@@ -129,6 +129,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Leave Request"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textColor="#c9c9c9"
                             android:id="@+id/leavetext"/>
                     </LinearLayout>
@@ -164,6 +166,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Outing Request"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textColor="#c9c9c9"
                             android:id="@+id/outingtext"/>
                     </LinearLayout>
@@ -199,6 +203,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Late Request"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textColor="#c9c9c9"
                             android:id="@+id/latetext"/>
                     </LinearLayout>

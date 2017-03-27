@@ -103,14 +103,13 @@ public class Details extends AppCompatActivity {
         ImageButton miss_plus = (ImageButton) findViewById(R.id.miss_plus);
         ImageButton miss_minus = (ImageButton) findViewById(R.id.miss_minus);
 
-
-//        attend_minus.setColorFilter(ContextCompat.getColor(this));
-
+        attend_minus.setColorFilter(Color.parseColor(SetTheme.colorName));
+        attend_plus.setColorFilter(Color.parseColor(SetTheme.colorName));
+        miss_minus.setColorFilter(Color.parseColor(SetTheme.colorName));
+        miss_plus.setColorFilter(Color.parseColor(SetTheme.colorName));
 
         detailsLayout = (CardView) findViewById(R.id.detaillistlayout);
-
-
-
+        
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //$$ setting adapter

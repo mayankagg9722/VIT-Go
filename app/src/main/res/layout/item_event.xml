@@ -71,6 +71,7 @@
             app:cardBackgroundColor="#E32797"
             app:cardCornerRadius="8dp"
             android:layout_marginBottom="5dp"
+            app:cardElevation="0dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="right|bottom">
 

@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -24,6 +26,7 @@ public class Settings extends AppCompatActivity {
 
 
     FloatingActionButton one,two,three,four,five,six,seven,eight,nine;
+    CardView logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +120,16 @@ public class Settings extends AppCompatActivity {
                 setTheme(R.style.nine);
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RealmController.with(activity).clearAll();
+                Prefs.deletePrefs(activity);
+                activity.startActivity(new Intent(activity,SplashSlider.class));
+            }
+        });
+
     }
 
     private void init() {
@@ -137,6 +150,8 @@ public class Settings extends AppCompatActivity {
         seven=(FloatingActionButton)findViewById(R.id.seven);
         eight=(FloatingActionButton)findViewById(R.id.eight);
         nine=(FloatingActionButton)findViewById(R.id.nine);
+
+        logout=(CardView)findViewById(R.id.logout);
 
     }
 
