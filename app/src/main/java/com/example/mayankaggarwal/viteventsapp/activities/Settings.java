@@ -128,6 +128,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 RealmController.with(activity).clearAll();
                 Prefs.deletePrefs(activity);
+                activity.finishAffinity();
                 activity.startActivity(new Intent(activity,SplashSlider.class));
             }
         });

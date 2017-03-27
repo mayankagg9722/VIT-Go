@@ -69,16 +69,18 @@
             android:id="@+id/listlinearlayout">
 
 
-            <View
-                android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:background="#ff8585"
-                android:id="@+id/custom_view"/>
+            <!--<View-->
+                <!--android:layout_width="5dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="#ff8585"-->
+                <!--android:id="@+id/custom_view"/>-->
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/listview"
+                android:dividerHeight="0dp"
+                android:divider="@null"
                 android:listSelector="@color/transparent">
             </ListView>
 

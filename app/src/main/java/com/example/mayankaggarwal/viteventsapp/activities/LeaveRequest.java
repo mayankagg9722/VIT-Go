@@ -115,12 +115,14 @@ public class LeaveRequest extends AppCompatActivity {
             }
         });
 
+
         toDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CalenderSetting.setCalendar(LeaveRequest.this, toDate);
             }
         });
+
 
         fromtime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,12 +131,14 @@ public class LeaveRequest extends AppCompatActivity {
             }
         });
 
+
         totime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CalenderTime.setTime(LeaveRequest.this, totime);
             }
         });
+
 
         submitLeave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +153,7 @@ public class LeaveRequest extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void setFieldsText() {
@@ -221,7 +226,7 @@ public class LeaveRequest extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -148,6 +148,8 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
 
+
+
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
         if (per - Math.floor(per) > 0.0) {
             per = (int) per + 1;
@@ -156,6 +158,10 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
         if (per >= 75) {
             holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
             holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
+        }
+        else {
+            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
+            holder.percentage.setTextColor(Color.parseColor("#ffffff"));
         }
 
         holder.percentage.setText(String.valueOf((int) per) + "%");

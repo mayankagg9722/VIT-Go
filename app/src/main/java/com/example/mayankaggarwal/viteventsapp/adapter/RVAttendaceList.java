@@ -170,11 +170,12 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         }
 //        Log.d("tagg", String.valueOf(per));
         if (per >= 75) {
-
             holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
-
-//            holder.cardView.setBackground(R.drawable.custom_shape_notdebaared);
             holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
+        }
+        else {
+            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
+            holder.percentage.setTextColor(Color.parseColor("#ffffff"));
         }
 
         holder.percentage.setText(String.valueOf((int) per) + "%");

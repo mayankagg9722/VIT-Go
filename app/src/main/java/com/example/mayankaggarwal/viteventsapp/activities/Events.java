@@ -141,7 +141,6 @@ public class Events extends AppCompatActivity {
             viewPager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             fetchEvents(this);
-            Globals.fetchEvent = 1;
         } else {
             if (Globals.gridorliner == 0) {
                 Globals.gridorliner = 1;
@@ -261,6 +260,8 @@ public class Events extends AppCompatActivity {
 
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
+
+                        Globals.fetchEvent = 1;
 
                     }
 

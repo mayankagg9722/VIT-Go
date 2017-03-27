@@ -61,10 +61,13 @@ public class Marks extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
+
         linearLayout=(LinearLayout) findViewById(R.id.activity_marks);
+
 
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.digital_swipe_refresh_layout);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.digital_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,6 +78,7 @@ public class Marks extends AppCompatActivity {
             fetchMarks(this);
             Globals.fetchMarks = 1;
         }
+
 
     }
 
