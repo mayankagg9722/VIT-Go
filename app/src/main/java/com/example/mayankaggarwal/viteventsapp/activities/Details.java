@@ -217,8 +217,10 @@ public class Details extends AppCompatActivity {
             }
             if(flag==1){
                 avi.hide();
-                recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
-                        Globals.detailAttendances.get(p), this, true));
+                if(Globals.couresePages.size()>=p && Globals.detailAttendances.size()>=p){
+                    recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
+                            Globals.detailAttendances.get(p), this, true));
+                }
             }
 
         }
@@ -256,7 +258,6 @@ public class Details extends AppCompatActivity {
 //        progressBar.setVisibility(View.VISIBLE);
         avi.show();
         detailsLayout.setVisibility(View.GONE);
-
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
