@@ -101,19 +101,22 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     public RVTimeTableDetails(List<AttendanceList> atendance, Activity context, boolean clickable,String daygiven) {
 
         parser = new JsonParser();
-        json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
-        main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
-        main_faculty= json.getAsJsonArray("faculties");
+        this.attendanceList = new ArrayList<>();
+
+        if(!(Prefs.getPrefs("myTimetable", context).equals("notfound"))){
+            json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
+            main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
+            main_faculty= json.getAsJsonArray("faculties");
 //        Log.d("tagg", json.getAsJsonArray("faculties").get(0).getAsJsonObject().get("courseName").toString());
 
 //        Date date = new Date();
 //        SimpleDateFormat day = new SimpleDateFormat("E");
 
 //        myday = day.format(date).toString().toUpperCase();
-        myday=daygiven;
+            myday=daygiven;
 
-        //set data according to day
-        setDataAccday();
+            //set data according to day
+            setDataAccday();
 
 //        Log.d("tagg", String.valueOf(course_code_day));
 //        Log.d("tagg", String.valueOf(course_classroom));
@@ -121,26 +124,24 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
 //        Log.d("tagg", String.valueOf(course_time));
 //        Log.d("tagg",String.valueOf(course_slot));
 
-        this.attendanceList = new ArrayList<>();
+            int k = 0;
+            for (String code : course_code_day) {
 
-        int k = 0;
-        for (String code : course_code_day) {
-
-            for (AttendanceList a : atendance) {
-                if (code.toString().contains(a.getCourseCode().toString())) {
-                    if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
-                        this.attendanceList.add(a);
-                    } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
-                        this.attendanceList.add(a);
-                    } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
-                        this.attendanceList.add(a);
+                for (AttendanceList a : atendance) {
+                    if (code.toString().contains(a.getCourseCode().toString())) {
+                        if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
+                            this.attendanceList.add(a);
+                        } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
+                            this.attendanceList.add(a);
+                        } else if ((course_type.get(k).contains("SS") && a.getCourseType().contains("Soft"))) {
+                            this.attendanceList.add(a);
 //                            Log.d("tagg", String.valueOf(attendanceList));
+                        }
                     }
                 }
+                k++;
             }
-            k++;
         }
-
         this.context = context;
         this.clickable = clickable;
 

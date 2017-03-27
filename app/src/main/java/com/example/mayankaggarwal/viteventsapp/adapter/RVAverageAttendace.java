@@ -71,13 +71,16 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
     public RVAverageAttendace(List<AttendanceList> atendance, Activity context, boolean clickable) {
 
         parser = new JsonParser();
-        json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
-        main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
-        main_faculty= json.getAsJsonArray("faculties");
+        this.attendanceList = new ArrayList<>();
 
-          this.attendanceList = new ArrayList<>();
+        if(!(Prefs.getPrefs("myTimetable", context).equals("notfound"))){
+            json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
+            main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
+            main_faculty= json.getAsJsonArray("faculties");
 
-        AverageAttendance.avg_per=0;
+
+
+            AverageAttendance.avg_per=0;
 
             for (AttendanceList a : atendance) {
                 this.attendanceList.add(a);
@@ -85,11 +88,12 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
                 AverageAttendance.avg_per+=k;
             }
 
-        AverageAttendance.avg_per=AverageAttendance.avg_per/atendance.size();
+            AverageAttendance.avg_per=AverageAttendance.avg_per/atendance.size();
 
-        AverageAttendance.avgnumber.setText(String.valueOf(AverageAttendance.avg_per));
+            AverageAttendance.avgnumber.setText(String.valueOf(AverageAttendance.avg_per));
 
-        fetchClass(main_timetable,attendanceList);
+            fetchClass(main_timetable,attendanceList);
+        }
 
         this.context = context;
         this.clickable = clickable;

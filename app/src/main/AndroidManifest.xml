@@ -116,7 +116,7 @@
             android:name=".activities.Marks"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Settings"
+        <activity android:name=".activities.Settings"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
     </application>
