@@ -83,11 +83,10 @@ public class DigitalAssignment extends AppCompatActivity {
 
 
     private void fetchAssignment(final Activity activity) {
-
+        CustomProgressDialog.showProgress(activity, "Fetching Assignment..");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity, "Fetching Assignment..");
                 Data.getDigitalAssignment(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
@@ -110,6 +109,7 @@ public class DigitalAssignment extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 swipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }

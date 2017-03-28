@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class TimeTable extends AppCompatActivity {
 
     public static RecyclerView recyclerView;
 
+    public ImageView imageView;
+
     private ProgressDialog progressDialog;
 
     public static CardView mycard, mycard1, mycard2, mycard3, mycard4, mycard5, mycard6;
@@ -43,7 +46,6 @@ public class TimeTable extends AppCompatActivity {
 
     public static int pagerHieght = 0;
     public static int cardwidth = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class TimeTable extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
+
         viewPager = (ViewPager) findViewById(R.id.view);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -63,6 +68,7 @@ public class TimeTable extends AppCompatActivity {
         PagerAdapter pagerAdapter = new PagerAdapter(fm);
 
         viewPager.setAdapter(pagerAdapter);
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -203,6 +209,7 @@ public class TimeTable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setCardAndTextColor(TimeTable.this, 6);
+
             }
         });
 
@@ -213,6 +220,12 @@ public class TimeTable extends AppCompatActivity {
         String days[] = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
         int textViews[] = {R.id.mytext, R.id.mytext1, R.id.mytext2, R.id.mytext3, R.id.mytext4, R.id.mytext5, R.id.mytext6};
         int cardViews[] = {R.id.mycard, R.id.mycard1, R.id.mycard2, R.id.mycard3, R.id.mycard4, R.id.mycard5, R.id.mycard6};
+
+        if( k==5 ||k==6 ){
+            activity.findViewById(R.id.noclass).setVisibility(View.VISIBLE);
+        }else{
+            activity.findViewById(R.id.noclass).setVisibility(View.GONE);
+        }
 
         viewPager.setCurrentItem(k);
         recyclerView.setAdapter(new RVTimeTableDetails(RealmController.with(activity).getAtendance(), activity, true, days[k]));
@@ -227,5 +240,4 @@ public class TimeTable extends AppCompatActivity {
             }
         }
     }
-
 }
