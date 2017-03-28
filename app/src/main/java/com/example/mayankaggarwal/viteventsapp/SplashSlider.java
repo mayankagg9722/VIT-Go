@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.fragment.LoginFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
@@ -29,6 +30,8 @@ public class SplashSlider extends IntroActivity {
         boolean skipEnabled = true;
         boolean finishEnabled =  true;
         boolean getStartedEnabled =  false;
+
+
 
         setFullscreen(fullscreen);
 

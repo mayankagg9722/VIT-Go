@@ -27,6 +27,6 @@
 
     <color name="transparent">#00ffffff</color>
 
-    <!--<color name="themeColor">#f37051</color>-->
+    <color name="myColor">#009688</color>
 
 </resources>

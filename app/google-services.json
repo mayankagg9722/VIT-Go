@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "263027828479",
+    "firebase_url": "https://govit-3f55d.firebaseio.com",
+    "project_id": "govit-3f55d",
+    "storage_bucket": "govit-3f55d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263027828479:android:8022d24b725b0955",
+        "android_client_info": {
+          "package_name": "com.example.mayankaggarwal.viteventsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263027828479-84clmclmssr25h4q3anb0abm02p574dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mayankaggarwal.viteventsapp",
+            "certificate_hash": "d6724ec76f170a172ccef922977bc743d33bf836"
+          }
+        },
+        {
+          "client_id": "263027828479-o1kff7mk7t3pjv640bjd6krvu5kekuoh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU0anK5gESAffHJhQyVf8hyzi7yDTcCjY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263027828479-o1kff7mk7t3pjv640bjd6krvu5kekuoh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

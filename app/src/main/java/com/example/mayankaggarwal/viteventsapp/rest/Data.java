@@ -639,7 +639,6 @@ public class Data {
             registerEventRequest.regno = Prefs.getPrefs("regno", activity);
             registerEventRequest.password = Prefs.getPrefs("password", activity);
             registerEventRequest.name = Prefs.getPrefs("name", activity);
-            ;
             registerEventRequest.eventId = id;
             registerEventRequest.fields = fields;
 

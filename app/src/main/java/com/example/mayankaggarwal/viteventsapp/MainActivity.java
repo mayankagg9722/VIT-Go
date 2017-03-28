@@ -29,6 +29,7 @@ import com.example.mayankaggarwal.viteventsapp.rest.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     ActionBarDrawerToggle mActionDrawerToggle;
     public static ImageView imageView;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         SetTheme.setThemePref(this);
 
