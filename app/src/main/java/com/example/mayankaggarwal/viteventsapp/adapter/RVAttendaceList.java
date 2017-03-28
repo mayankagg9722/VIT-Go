@@ -159,7 +159,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
-        Log.d("tagg", "list:" + attendanceList.toString());
+//         Log.d("tagg", "list:" + attendanceList.toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));

@@ -101,7 +101,7 @@ public class ImageGallery extends AppCompatActivity {
             }else{
                 try {
                     String path=ImagePath.getPath(this,Uri.parse(Prefs.getPrefs("profileimage",this)));
-                    Log.d("tagg","path:"+path);
+//                    Log.d("tagg","path:"+path);
                     Bitmap myBitmap = BitmapFactory.decodeFile(path);
                     imageView.setImageBitmap(myBitmap);
                 } catch (Exception e) {

@@ -748,7 +748,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg",response.body().toString());
+//                    Log.d("tagg",response.body().toString());
                     updateCallback.onUpdate();
                 }
 
@@ -794,7 +794,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg",response.body().toString());
+//                    Log.d("tagg",response.body().toString());
                     updateCallback.onUpdate();
                 }
 
@@ -1003,7 +1003,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg", response.body().toString());
+//                    Log.d("tagg", response.body().toString());
                     if(response.body().get("code").getAsString().equals("200")){
                         activity.finish();
                         activity.startActivity(new Intent(activity, Hosteller.class));

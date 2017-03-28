@@ -227,7 +227,7 @@ public class navigation_drawer extends Fragment {
     private void setNavImage(View v) {
             try {
                 String path=ImagePath.getPath(getContext(),Uri.parse(Prefs.getPrefs("profileimage",getContext())));
-                Log.d("tagg","path:"+path);
+//                Log.d("tagg","path:"+path);
                 Bitmap myBitmap = BitmapFactory.decodeFile(path);
                 profile.setImageBitmap(myBitmap);
             } catch (Exception e) {
