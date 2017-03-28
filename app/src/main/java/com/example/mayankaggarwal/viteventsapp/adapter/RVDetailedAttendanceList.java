@@ -31,8 +31,6 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public List<CouresePage> couresePages;
-        public List<DetailAttendance> detailAttendances;
         public TextView detail_attendance;
         public TextView detail_date;
         public TextView sno;
@@ -108,7 +106,13 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
 
     @Override
-    public int getItemCount() {
-        return couresePages.size();
+    public int getItemCount()
+    {
+        if(couresePages.size()>0){
+            return couresePages.size();
+        }
+        else {
+            return 0;
+        }
     }
 }

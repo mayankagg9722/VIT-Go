@@ -43,7 +43,10 @@
     </style>
 
 
-
+    <!--<style name="income" parent="TextAppearance.AppCompat">-->
+        <!--<item name="android:textColorHint">#ffffff</item>-->
+        <!--<item name="textColor">#ffffff</item>-->
+    <!--</style>-->
 
 
     <!--CUSTOM THEMES FOR APP-->  <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->   <!--CUSTOM THEMES FOR APP-->

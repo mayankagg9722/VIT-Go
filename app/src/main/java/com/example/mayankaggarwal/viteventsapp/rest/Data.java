@@ -165,6 +165,7 @@ public class Data {
     public static class GetAttendance extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetAttendance(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -200,6 +201,7 @@ public class Data {
                 }
                 realm.close();
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
             return 0;
@@ -207,13 +209,18 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
     }
 
     public static class GetTimetable extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetTimetable(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -237,6 +244,7 @@ public class Data {
                 Prefs.setPrefs("myTimetable", timetable.execute().body().toString(), activity);
 
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
 
             }
@@ -245,7 +253,11 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
     }
 
@@ -253,6 +265,7 @@ public class Data {
     public static class GetDeatilAttendance extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetDeatilAttendance(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -263,7 +276,6 @@ public class Data {
             final Activity activity = params[0];
 
             final String classnbr = activity.getIntent().getStringExtra("classnbr");
-            ;
             final String semcode = activity.getIntent().getStringExtra("semcode");
             final String crscd = activity.getIntent().getStringExtra("crscd");
             final String crstp = activity.getIntent().getStringExtra("crstp");
@@ -296,7 +308,9 @@ public class Data {
                     detailedAttendance.add(e);
                 }
 
-                Globals.detailAttendances.add(detailedAttendance);
+
+                Globals.singleCopydetailAttendances.clear();
+                Globals.singleCopydetailAttendances.add(detailAttendances);
 
 
                 Realm realm = Realm.getDefaultInstance();
@@ -315,13 +329,20 @@ public class Data {
                 realm.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                error=1;
+
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
+
         }
 
     }
@@ -329,6 +350,7 @@ public class Data {
     public static class GetCoursePage extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetCoursePage(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -339,7 +361,6 @@ public class Data {
             final Activity activity = params[0];
 
             final String classnbr = activity.getIntent().getStringExtra("classnbr");
-            ;
             final String semcode = activity.getIntent().getStringExtra("semcode");
             final String crscd = activity.getIntent().getStringExtra("crscd");
             final String crstp = activity.getIntent().getStringExtra("crstp");
@@ -372,7 +393,9 @@ public class Data {
                     couresePage.add(e);
                 }
 
-                Globals.couresePages.add(couresePage);
+                Globals.singleCopycouresePages.clear();
+
+                Globals.singleCopycouresePages.add(couresePage);
 
 
                 Realm realm = Realm.getDefaultInstance();
@@ -392,13 +415,18 @@ public class Data {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                error=1;
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
 
     }
@@ -406,6 +434,7 @@ public class Data {
     public static class GetFaculties extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetFaculties(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -438,6 +467,7 @@ public class Data {
                 realm.close();
 
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
             return 0;
@@ -445,7 +475,11 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
 
     }
@@ -492,7 +526,7 @@ public class Data {
                         FacultyInformation.intercom.setText(Globals.faculty_intercom);
                         FacultyInformation.mail.setText(Globals.faculty_email);
                         FacultyInformation.freehour.setText(Globals.faculty_openhours.toString().replace("[", " ").replace("]", " ")
-                                .replace(",", " and "));
+                                .replace(",", "\n"));
 
                         CustomProgressDialog.hideProgress();
                     }
@@ -509,7 +543,6 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-//            Log.d("tagg","out of timetable async");
             updateCallback.onUpdate();
         }
 
@@ -519,6 +552,7 @@ public class Data {
     public static class GetEvent extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetEvent(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -562,6 +596,7 @@ public class Data {
                 }
                 realm.close();
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
             return 0;
@@ -571,7 +606,11 @@ public class Data {
         @Override
         protected void onPostExecute(Integer integer) {
 //            Log.d("tagg","out of timetable async");
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
 
     }
@@ -622,6 +661,8 @@ public class Data {
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
 
+                    updateCallback.onFailure();
+
                 }
             });
             return 0;
@@ -660,6 +701,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                    Log.d("tagg",response.body().toString());
                     Prefs.setPrefs("messages", response.body().toString(), activity);
                     updateCallback.onUpdate();
                 }
@@ -675,6 +717,7 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
+//            Log.d("tagg","out of timetable async");
         }
 
     }
@@ -834,6 +877,7 @@ public class Data {
     public static class GetLateNight extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetLateNight(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -869,6 +913,7 @@ public class Data {
                 }
                 realm.close();
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
 
@@ -878,7 +923,12 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
+
         }
 
     }
@@ -981,6 +1031,7 @@ public class Data {
     public static class GetExamShedule extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetExamShedule(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -1008,6 +1059,7 @@ public class Data {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                error=1;
             }
 
             return 0;
@@ -1016,7 +1068,11 @@ public class Data {
         @Override
         protected void onPostExecute(Integer integer) {
 //            Log.d("tagg","out of timetable async");
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
 
     }
@@ -1024,6 +1080,7 @@ public class Data {
     public static class GetDigitalAssignment extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
 
         GetDigitalAssignment(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -1047,6 +1104,7 @@ public class Data {
                 Prefs.setPrefs("digitalassignment",jsonObject.toString(),activity);
 
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
 
@@ -1055,7 +1113,11 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
     }
 
@@ -1063,6 +1125,7 @@ public class Data {
 
         UpdateCallback updateCallback;
         DigitalMarksRequest digitalMarksRequest;
+        int error=0;
 
         GetDigitalMarks(UpdateCallback updateCallback,DigitalMarksRequest digitalMarksRequest) {
             this.updateCallback = updateCallback;
@@ -1097,19 +1160,26 @@ public class Data {
                 realm.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                error=1;
             }
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
     }
 
     public static class GetMarks extends AsyncTask<Activity, Void, Integer> {
 
         UpdateCallback updateCallback;
+        int error=0;
+
 
         GetMarks(UpdateCallback updateCallback) {
             this.updateCallback = updateCallback;
@@ -1133,6 +1203,7 @@ public class Data {
                 Prefs.setPrefs("marksjson",jsonObject.toString(),activity);
 
             } catch (Exception e) {
+                error=1;
                 e.printStackTrace();
             }
 
@@ -1141,7 +1212,11 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
+            if(error==0){
+                updateCallback.onUpdate();
+            }else {
+                updateCallback.onFailure();
+            }
         }
     }
 

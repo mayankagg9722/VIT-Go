@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,7 +28,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.Random;
 
 import at.grabner.circleprogress.CircleProgressView;
-
 
 
 public class Details extends AppCompatActivity {
@@ -62,30 +62,30 @@ public class Details extends AppCompatActivity {
 
         mCircleView.setBarColor(Color.parseColor(SetTheme.colorName));
 
-        actionBar=getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         actionBar.setTitle("Detail Attendance");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        cardView=(CardView)findViewById(R.id.percentage_card);
+        cardView = (CardView) findViewById(R.id.percentage_card);
         cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
 
-        textView=(TextView)findViewById(R.id.detail_course_name);
+        textView = (TextView) findViewById(R.id.detail_course_name);
         textView.setTextColor(Color.parseColor(SetTheme.colorName));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
 
 
-        String[] s={"BallClipRotateIndicator","BallClipRotatePulseIndicator","SquareSpinIndicator","BallClipRotateMultipleIndicator"
-                ,"BallTrianglePathIndicator","LineScaleIndicator","BallBeatIndicator","BallScaleRippleMultipleIndicator"
-                ,"TriangleSkewSpinIndicator"};
+        String[] s = {"BallClipRotateIndicator", "BallClipRotatePulseIndicator", "SquareSpinIndicator", "BallClipRotateMultipleIndicator"
+                , "BallTrianglePathIndicator", "LineScaleIndicator", "BallBeatIndicator", "BallScaleRippleMultipleIndicator"
+                , "TriangleSkewSpinIndicator"};
 
-        Random r=new Random();
-        int i=r.nextInt(s.length);
-        avi = (AVLoadingIndicatorView)findViewById(R.id.detailavv);
+        Random r = new Random();
+        int i = r.nextInt(s.length);
+        avi = (AVLoadingIndicatorView) findViewById(R.id.detailavv);
         avi.setIndicator(s[i]);
         avi.setIndicatorColor(Color.parseColor(SetTheme.colorName));
 
@@ -109,7 +109,9 @@ public class Details extends AppCompatActivity {
         miss_plus.setColorFilter(Color.parseColor(SetTheme.colorName));
 
         detailsLayout = (CardView) findViewById(R.id.detaillistlayout);
-        
+        detailsLayout.setVisibility(View.GONE);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //$$ setting adapter
@@ -151,7 +153,7 @@ public class Details extends AppCompatActivity {
             public void onClick(View v) {
                 int try_prog = (int) calcPercentage(attendedClasses - 1, totalClasses - 1);
                 if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && attendedClasses > (Integer.parseInt(getIntent().getStringExtra("attendedclass")))
-                        && (attend>0)) {
+                        && (attend > 0)) {
                     attend = attend - 1;
                     attendtext.setText("Attend " + attend);
                     attendedClasses = attendedClasses - 1;
@@ -183,7 +185,7 @@ public class Details extends AppCompatActivity {
             public void onClick(View v) {
                 int try_prog = (int) calcPercentage(attendedClasses, totalClasses - 1);
                 if (try_prog >= 0 && try_prog <= 100 && (attendedClasses <= totalClasses) && totalClasses > (Integer.parseInt(getIntent().getStringExtra("totalclass")))
-                        && (miss>0) ) {
+                        && (miss > 0)) {
                     miss = miss - 1;
                     misstext.setText("Miss " + miss);
                     totalClasses = totalClasses - 1;
@@ -197,57 +199,57 @@ public class Details extends AppCompatActivity {
     }
 
     private void setGlobalAdapter() {
+
         String crscd = getIntent().getStringExtra("crscd");
         String crstp = getIntent().getStringExtra("crstp");
-        int flag=0;
-        int p=0;
-        if(Globals.courseCode.size()>0){
-            for (int i = 0; i <Globals.courseCode.size(); i++) {
+        int flag = 0;
+        int p = 0;
+        if (Globals.courseCode.size() > 0) {
+            for (int i = 0; i < Globals.courseCode.size(); i++) {
                 if ((Globals.courseCode.get(i).equals(crscd.toString())) && (Globals.courseType.get(i).equals(crstp.toString()))) {
-                    flag=1;
-                    p=i;
+                    flag = 1;
+                    p = i;
                     break;
                 }
             }
-            if(flag==0){
+            if (flag == 0) {
                 //fetchCoursePage
                 fetchCoursePage();
-                recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(this).getCoursePage(),
-                        RealmController.with(this).getDetailAttendance(), this, true));
-            }
-            if(flag==1){
+            } else if (flag == 1) {
                 avi.hide();
-                if(Globals.couresePages.size()>=p && Globals.detailAttendances.size()>=p){
-                    recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
-                            Globals.detailAttendances.get(p), this, true));
-                }
+                Log.d("tagg", "detail att:" + Globals.detailAttendances.toString());
+                Log.d("tagg", "detail course:" + Globals.couresePages.toString());
+                Log.d("tagg", Globals.courseCode.toString());
+                Log.d("tagg", Globals.courseType.toString());
+                Log.d("tagg", String.valueOf(Globals.courseCode.size()) + " " + p);
+                Log.d("tagg", String.valueOf(Globals.courseType.size() + " " + p));
+                detailsLayout.setVisibility(View.VISIBLE);
+                recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
+                        Globals.detailAttendances.get(p), this, true));
             }
 
-        }
-        else{
+        } else {
             //fetchCoursePage
             fetchCoursePage();
-            recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(this).getCoursePage(),
-                    RealmController.with(this).getDetailAttendance(), this, true));
         }
     }
 
     private void addDataToGlobals() {
         String crscd = getIntent().getStringExtra("crscd");
         String crstp = getIntent().getStringExtra("crstp");
-        int k=0;
-        if(Globals.courseCode.size()>0){
-            for (int i = 0; i <Globals.courseCode.size(); i++) {
+        int k = 0;
+        if (Globals.courseCode.size() > 0) {
+            for (int i = 0; i < Globals.courseCode.size(); i++) {
                 if ((Globals.courseCode.get(i).equals(crscd.toString())) && (Globals.courseType.get(i).equals(crstp.toString()))) {
-                   k=1;
+                    k = 1;
                     break;
                 }
             }
-            if(k==0){
+            if (k == 0) {
                 Globals.courseCode.add(crscd);
                 Globals.courseType.add(crstp);
             }
-        }else{
+        } else {
             Globals.courseCode.add(crscd);
             Globals.courseType.add(crstp);
         }
@@ -255,9 +257,7 @@ public class Details extends AppCompatActivity {
 
 
     private void fetchCoursePage() {
-//        progressBar.setVisibility(View.VISIBLE);
         avi.show();
-        detailsLayout.setVisibility(View.GONE);
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
@@ -269,6 +269,7 @@ public class Details extends AppCompatActivity {
 
                     @Override
                     public void onFailure() {
+                        Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                         avi.hide();
                     }
                 });
@@ -289,18 +290,25 @@ public class Details extends AppCompatActivity {
                 Data.updateDetailAttendance(Details.this, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-//                    Log.d("tagg","success api")
+
                         avi.hide();
                         detailsLayout.setVisibility(View.VISIBLE);
 
-//                  @@@@ add to globals
+                        if (Globals.singleCopycouresePages.size() > 0 && Globals.singleCopydetailAttendances.size() > 0) {
+                            if (Globals.singleCopycouresePages.get(0).size() > 0 && Globals.singleCopydetailAttendances.get(0).size() > 0)
+                                Globals.couresePages.add(Globals.singleCopycouresePages.get(0));
+                            Globals.detailAttendances.add(Globals.singleCopydetailAttendances.get(0));
+                        }
+
                         addDataToGlobals();
 
-                        setGlobalAdapter();
+                        recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(Details.this).getCoursePage(),
+                                RealmController.with(Details.this).getDetailAttendance(), Details.this, true));
                     }
 
                     @Override
                     public void onFailure() {
+                        Toast.makeText(Details.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                         avi.hide();
                     }
                 });

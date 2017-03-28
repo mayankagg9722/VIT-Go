@@ -39,7 +39,7 @@ public class CustomFacultyLayout extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Log.d("tagg","custom working");
+//        Log.d("tagg","custom working");
 
         myLayout=new Paint();
         myLayout.setColor(Color.parseColor(SetTheme.colorName));

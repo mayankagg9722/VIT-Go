@@ -6,12 +6,12 @@
             android:shape="rectangle"
             >
             <size android:width="100dp"
-                android:height="100dp"></size>
+                android:height="100dp"/>
             <solid android:color="#FF8383" />
             <corners android:bottomLeftRadius="0dp"
                 android:bottomRightRadius="8dp"
                 android:topLeftRadius="0dp"
-                android:topRightRadius="8dp"></corners>
+                android:topRightRadius="8dp"/>
         </shape>
     </item>
 </layer-list>

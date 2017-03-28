@@ -31,10 +31,13 @@ public class ApiClient {
 
         String[] BASE_URLS = {"https://vitmantra.feedveed.com","https://customserver2.feedveed.com"};
 
+
         Random rn = new Random();
         int i = rn.nextInt(BASE_URLS.length);
 
         String url=BASE_URLS[i];
+
+//        String url="https://vitmantra.feedveed.com";
 
             OkHttpClient ok = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)

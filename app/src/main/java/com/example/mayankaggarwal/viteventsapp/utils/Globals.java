@@ -24,7 +24,11 @@ public class Globals {
 
     public static List<List<CouresePage>> couresePages = new ArrayList<>();
 
+    public static List<List<CouresePage>> singleCopycouresePages = new ArrayList<>();
+
     public static List<List<DetailAttendance>> detailAttendances = new ArrayList<>();
+
+    public static List<List<DetailAttendance>> singleCopydetailAttendances = new ArrayList<>();
 
     public static List<String> courseCode=new ArrayList<>();
 

@@ -12,11 +12,13 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -28,7 +30,8 @@ public class EventRegister extends AppCompatActivity {
     private EventList e;
     private int i;
     private List<String> fields;
-    CardView oneclick, b;
+    CardView b;
+    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,32 +42,23 @@ public class EventRegister extends AppCompatActivity {
 
         e = Globals.register_event;
 
-        if (e.getFields().length() != 0) {
-            addFloatEditText();
-            b.setVisibility(View.VISIBLE);
+        addFloatEditText();
+        b.setVisibility(View.VISIBLE);
 
-        } else {
-            oneclick.setVisibility(View.VISIBLE);
-        }
 
         fields = new ArrayList<>();
 
-        oneclick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerEvent(e.getId(), fields, EventRegister.this);
-            }
-        });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int k = 0; k < i; k++) {
                     fields.add(((EditText) findViewById(k)).getText().toString());
-                    registerEvent(e.getId(), fields, EventRegister.this);
                 }
+                registerEvent(e.getId(), fields, EventRegister.this);
             }
         });
+
     }
 
     private void init() {
@@ -74,25 +68,50 @@ public class EventRegister extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
+        relativeLayout=(RelativeLayout)findViewById(R.id.event_register);
+//        relativeLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+
         b = (CardView) findViewById(R.id.postreg);
-        oneclick = (CardView) findViewById(R.id.oneclick);
-        oneclick.setVisibility(View.GONE);
         b.setVisibility(View.GONE);
+    }
+
+    private void addFloatEditText() {
+        String f = e.getFields();
+        i = 0;
+        String[] orgF = f.replace("*", "").split("//");
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.boxes);
+
+        for (String s : orgF) {
+            TextInputLayout textInputLayout = new TextInputLayout(this);
+//          textInputLayout.setHintTextAppearance(R.style.income);
+            EditText name = new EditText(this);
+            name.setTextColor(Color.parseColor("#000000"));
+//            name.getBackground().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
+            name.setHint(s);
+            name.setId(i);
+            textInputLayout.addView(name);
+            linearLayout.addView(textInputLayout);
+            i++;
+        }
+
     }
 
     private void registerEvent(final String id, final List<String> field, final Activity activity) {
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
+                CustomProgressDialog.showProgress(activity, "Registering...");
                 Data.getEventRegister(activity, id, field, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-
+                        CustomProgressDialog.hideProgress();
                     }
 
                     @Override
                     public void onFailure() {
-
+                        Toast.makeText(activity, "No Internet", Toast.LENGTH_LONG).show();
+                        CustomProgressDialog.hideProgress();
                     }
                 });
             }
@@ -105,23 +124,4 @@ public class EventRegister extends AppCompatActivity {
 
     }
 
-    private void addFloatEditText() {
-        String f = e.getFields();
-        i = 0;
-        String[] orgF = f.replace("*", "").split("//");
-
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.boxes);
-
-        for (String s : orgF) {
-            TextInputLayout textInputLayout = new TextInputLayout(this);
-            EditText name = new EditText(this);
-            name.getBackground().mutate().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
-            name.setHint(s);
-            name.setId(i);
-            textInputLayout.addView(name);
-            linearLayout.addView(textInputLayout);
-            i++;
-        }
-
-    }
 }

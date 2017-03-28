@@ -28,6 +28,7 @@ import com.example.mayankaggarwal.viteventsapp.rest.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        appBarLayout=(AppBarLayout)findViewById(R.id.appBarLayout);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         appBarLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.rrv_swipe_refresh_layout);
@@ -76,26 +77,26 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        if(RealmController.with(this).hasAttendance()){
+        if (RealmController.with(this).hasAttendance()) {
             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Globals.doneFetching=0;
+                Globals.doneFetching = 0;
                 fetchAttendance(MainActivity.this);
             }
         });
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        final CoordinatorLayout mainView=(CoordinatorLayout)findViewById(R.id.main_coordinate);
+        final CoordinatorLayout mainView = (CoordinatorLayout) findViewById(R.id.main_coordinate);
 
-         mActionDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,
-                R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+        mActionDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -137,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void updateDayAndDate() {
 
         TextView main_date = (TextView) findViewById(R.id.main_date);
@@ -153,23 +153,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onUpdate() {
                 if (Globals.doneFetching == 0) {
-                    CustomProgressDialog.showProgress(MainActivity.this,"Fetching Attendance...");
+                    CustomProgressDialog.showProgress(MainActivity.this, "Fetching Attendance...");
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
                             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
                             swipeRefreshLayout.setRefreshing(false);
                             Globals.doneFetching = 1;
-                            if(Globals.doneFetching==1){
+                            if (Globals.doneFetching == 1) {
                                 CustomProgressDialog.hideProgress();
                             }
                         }
+
                         @Override
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
-                            if(Globals.doneFetching==1){
-                                CustomProgressDialog.hideProgress();
-                            }
+                            CustomProgressDialog.hideProgress();
+                            Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -185,8 +185,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -196,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
 
 }
