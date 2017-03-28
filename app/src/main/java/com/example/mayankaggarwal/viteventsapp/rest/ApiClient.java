@@ -26,8 +26,8 @@ public class ApiClient {
 
     public static Retrofit getClient(final Context context) {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         String[] BASE_URLS = {"https://vitmantra.feedveed.com","https://customserver2.feedveed.com"};
 
@@ -40,7 +40,7 @@ public class ApiClient {
 //        String url="https://vitmantra.feedveed.com";
 
             OkHttpClient ok = new OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
+//                    .addInterceptor(interceptor)
                     .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
