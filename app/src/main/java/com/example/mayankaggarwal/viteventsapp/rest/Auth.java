@@ -54,7 +54,8 @@ public class Auth {
                                     Prefs.setPrefs("password", password, activity);
                                     onLoginCallback.onSuccess();
                                 } else {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                                         final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                         LayoutInflater inflater = activity.getLayoutInflater();
@@ -70,16 +71,19 @@ public class Auth {
                                             }
                                         });
                                         alertDialog.show();
-                                    }else {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                                        builder.setMessage("Invalid Credentials").setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                        builder.show();
-                                    }
+
+//                                    }else {
+//
+//                                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//                                        builder.setMessage("Invalid Credentials").setNegativeButton("OK", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                dialog.dismiss();
+//                                            }
+//                                        });
+//                                        builder.show();
+//                                    }
+
                                     onLoginCallback.onFailure();
                                 }
                             } else {
@@ -101,7 +105,7 @@ public class Auth {
 
             @Override
             public void onFailure() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     final AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                     LayoutInflater inflater = activity.getLayoutInflater();
                     final View dialogView = inflater.inflate(R.layout.error_window, null);
@@ -118,16 +122,16 @@ public class Auth {
                         }
                     });
                     alertDialog.show();
-                }else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setMessage("No Internet Connection").setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-                }
+//                }else {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//                    builder.setMessage("No Internet Connection").setNegativeButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    builder.show();
+//                }
                 onLoginCallback.onFailure();
             }
 

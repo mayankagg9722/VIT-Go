@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                                 CustomProgressDialog.hideProgress();
                             }
                         }
-
                         @Override
                         public void onFailure() {
                             swipeRefreshLayout.setRefreshing(false);
