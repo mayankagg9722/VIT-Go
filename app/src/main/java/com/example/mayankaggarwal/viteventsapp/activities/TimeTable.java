@@ -37,7 +37,7 @@ public class TimeTable extends AppCompatActivity {
 
     public static RecyclerView recyclerView;
 
-    public ImageView imageView;
+    static public ImageView imageView;
 
     private ProgressDialog progressDialog;
 
@@ -221,11 +221,11 @@ public class TimeTable extends AppCompatActivity {
         int textViews[] = {R.id.mytext, R.id.mytext1, R.id.mytext2, R.id.mytext3, R.id.mytext4, R.id.mytext5, R.id.mytext6};
         int cardViews[] = {R.id.mycard, R.id.mycard1, R.id.mycard2, R.id.mycard3, R.id.mycard4, R.id.mycard5, R.id.mycard6};
 
-        if( k==5 ||k==6 ){
-            activity.findViewById(R.id.noclass).setVisibility(View.VISIBLE);
-        }else{
-            activity.findViewById(R.id.noclass).setVisibility(View.GONE);
-        }
+//        if( k==5 ||k==6 ){
+//            activity.findViewById(R.id.noclass).setVisibility(View.VISIBLE);
+//        }else{
+//            activity.findViewById(R.id.noclass).setVisibility(View.GONE);
+//        }
 
         viewPager.setCurrentItem(k);
         recyclerView.setAdapter(new RVTimeTableDetails(RealmController.with(activity).getAtendance(), activity, true, days[k]));

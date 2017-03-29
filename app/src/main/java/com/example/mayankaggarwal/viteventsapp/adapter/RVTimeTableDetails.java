@@ -16,8 +16,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.activities.Details;
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.TimeTable;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
@@ -130,6 +132,14 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
                 k++;
             }
         }
+
+        if (this.attendanceList.size()>0) {
+            TimeTable.imageView.setVisibility(View.GONE);
+        } else {
+            TimeTable.imageView.setVisibility(View.VISIBLE);
+        }
+
+
         this.context = context;
         this.clickable = clickable;
 

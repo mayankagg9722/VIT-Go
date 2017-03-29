@@ -655,6 +655,7 @@ public class Data {
                         activity.finish();
                         activity.startActivity(intent);
                     }
+                    updateCallback.onUpdate();
                 }
 
                 @Override
@@ -670,7 +671,6 @@ public class Data {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            updateCallback.onUpdate();
         }
 
     }

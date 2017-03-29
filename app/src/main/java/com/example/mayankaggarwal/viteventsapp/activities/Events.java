@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.icu.text.DateFormat;
+import java.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +36,12 @@ import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
+import java.util.Date;
 
 import io.realm.Realm;
 
@@ -56,6 +64,7 @@ public class Events extends AppCompatActivity {
         setContentView(R.layout.activity_events);
 
         init();
+        deleteOldPref(this);
         setGradientAnimation();
 
 
@@ -268,6 +277,38 @@ public class Events extends AppCompatActivity {
         });
     }
 
+    public void deleteOldPref(Activity activity) {
+        if (!(Prefs.getPrefs("registeredEvents", activity).equals("notfound"))) {
+
+            String str = Prefs.getPrefs("registeredEvents", activity);
+            java.text.SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+            String today = simpleDateFormat.format(date);
+
+            JsonParser jsonParser = new JsonParser();
+            JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
+            JsonArray newJsonArray=new JsonArray();
+
+            boolean err=false;
+
+            for (int i = 0; i < jsonArray.size(); i++) {
+                try {
+                    if (today.compareTo(jsonArray.get(i).getAsJsonObject().get("date").getAsString()) <= 0) {
+//                        Log.d("tagg", "working");
+//                        Log.d("tagg", jsonArray.get(i).getAsJsonObject().get("date").getAsString());
+                        newJsonArray.add(jsonArray.get(i).getAsJsonObject());
+                    }
+                } catch (Exception e) {
+                    err=true;
+                    e.printStackTrace();
+                }
+            }
+            if(!err){
+                Prefs.setPrefs("registeredEvents", newJsonArray.toString(), activity);
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -324,4 +365,6 @@ public class Events extends AppCompatActivity {
         hand.removeCallbacks(r);
         return super.onNavigateUp();
     }
+
+
 }

@@ -108,12 +108,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
 //        myday="SUN";
 
-        if (myday.equals("SUN") || myday.equals("SAT")) {
-            MainActivity.imageView.setVisibility(View.VISIBLE);
-        } else {
-            MainActivity.imageView.setVisibility(View.GONE);
-        }
-
         if (!(Prefs.getPrefs("myTimetable", context).equals("notfound"))) {
             json = (JsonObject) parser.parse(Prefs.getPrefs("myTimetable", context));
             main_timetable = json.getAsJsonArray("timetable").getAsJsonArray();
@@ -139,6 +133,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 k++;
             }
         }
+
+        if (this.attendanceList.size()>0) {
+            MainActivity.imageView.setVisibility(View.GONE);
+        } else {
+            MainActivity.imageView.setVisibility(View.VISIBLE);
+        }
+
+
         this.context = context;
         this.clickable = clickable;
     }

@@ -23,9 +23,15 @@ import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +66,7 @@ public class EventDetails extends AppCompatActivity {
         RelativeLayout relativeLayout=(RelativeLayout) findViewById(R.id.eventcontent);
         ImageView eventImage=(ImageView)findViewById(R.id.eventimage);
         TextView eventName=(TextView)findViewById(R.id.eventname);
-        TextView chapname=(TextView)findViewById(R.id.chapname);
+        final TextView chapname=(TextView)findViewById(R.id.chapname);
         TextView desc=(TextView)findViewById(R.id.eventdesc);
         TextView date=(TextView)findViewById(R.id.datetext);
         TextView time=(TextView)findViewById(R.id.timetext);
@@ -124,29 +130,56 @@ public class EventDetails extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (e.getFields().length() > 0) {
-                    startActivity(new Intent(EventDetails.this,EventRegister.class));
-                } else {
-                    registerEvent(e.getId(), fields, EventDetails.this);
+                if(checkAlreadyRegistered()){
+                    Toast.makeText(EventDetails.this, "Already Registerd", Toast.LENGTH_LONG).show();
+                }else {
+                    if (e.getFields().length() > 0) {
+                        startActivity(new Intent(EventDetails.this, EventRegister.class));
+                    } else {
+                        registerEvent(e.getId(), fields, EventDetails.this);
+                    }
                 }
             }
         });
     }
 
+    private Boolean checkAlreadyRegistered() {
+        int flag = 0;
+        if (!(Prefs.getPrefs("registeredEvents", EventDetails.this).equals("notfound"))) {
+            String str = Prefs.getPrefs("registeredEvents", EventDetails.this);
+            JsonParser jsonParser = new JsonParser();
+            JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
+            for (int i = 0; i < jsonArray.size(); i++) {
+                if (e.getId().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void registerEvent(final String id, final List<String> field, final Activity activity) {
+        CustomProgressDialog.showProgress(activity,"Registering...");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity,"Registering...");
                 Data.getEventRegister(activity, id, field, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        Toast.makeText(activity, "Success!!", Toast.LENGTH_LONG).show();
+                        storeEventPref(activity);
+                        Toast.makeText(activity, "Successfully Registered!!", Toast.LENGTH_LONG).show();
                         CustomProgressDialog.hideProgress();
                     }
 
                     @Override
                     public void onFailure() {
+                        CustomProgressDialog.hideProgress();
                         Toast.makeText(activity, "No Internet", Toast.LENGTH_LONG).show();
                         CustomProgressDialog.hideProgress();
                     }
@@ -155,8 +188,34 @@ public class EventDetails extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 Toast.makeText(activity, "No Internet", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+
+    private void storeEventPref(Activity activity) {
+        try{
+            if (!(Prefs.getPrefs("registeredEvents", activity).equals("notfound"))) {
+                String str = Prefs.getPrefs("registeredEvents", activity);
+                JsonParser jsonParser = new JsonParser();
+                JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
+                JsonObject jsonObject=new JsonObject();
+                jsonObject.addProperty("id",e.getId());
+                jsonObject.addProperty("date",e.getDate());
+                jsonArray.add(jsonObject);
+                Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
+            }else {
+                JsonArray jsonArray = new JsonArray();
+                JsonObject jsonObject=new JsonObject();
+                jsonObject.addProperty("id",e.getId());
+                jsonObject.addProperty("date",e.getDate());
+                jsonArray.add(jsonObject);
+                Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

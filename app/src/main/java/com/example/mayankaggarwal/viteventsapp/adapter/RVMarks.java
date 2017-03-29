@@ -74,6 +74,8 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
 
         customMarksLayout.removeAllViews();
 
+        // gson to json mapping of key & value pairs
+
         Set<Map.Entry<String, JsonElement>> entrySet = marks.entrySet();
 
         for(Map.Entry<String,JsonElement> entry : entrySet){
