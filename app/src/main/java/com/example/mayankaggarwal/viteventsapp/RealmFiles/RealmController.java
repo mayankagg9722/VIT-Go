@@ -3,13 +3,9 @@ package com.example.mayankaggarwal.viteventsapp.RealmFiles;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
-
-import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
-import com.example.mayankaggarwal.viteventsapp.models.EventList;
-import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.LateNightData;
 import com.example.mayankaggarwal.viteventsapp.models.PostParams;
 
@@ -77,8 +73,6 @@ public class RealmController {
         realm.delete(CouresePage.class);
         realm.delete(DetailAttendance.class);
         realm.delete(PostParams.class);
-//        realm.delete(EventList.class);
-        realm.delete(FacultiesList.class);
         realm.delete(LateNightData.class);
         realm.commitTransaction();
     }
@@ -87,9 +81,6 @@ public class RealmController {
         return realm.where(AttendanceList.class).findAll();
     }
 
-    public RealmResults<FacultiesList> getFaculty() {
-        return realm.where(FacultiesList.class).findAll();
-    }
 
     public RealmResults<CouresePage> getCoursePage() {
         return realm.where(CouresePage.class).findAll();
@@ -104,26 +95,10 @@ public class RealmController {
     }
 
 
-//    public RealmResults<EventList> getEvents() {
-//        return realm.where(EventList.class).findAll();
-//    }
-
-
-//    public EventList getEvent(String id) {
-//        return realm.where(EventList.class).equalTo("id", id).findFirst();
-//    }
-
 
     public boolean hasAttendance() {
         return !realm.where(AttendanceList.class).findAll().isEmpty();
     }
-
-    public boolean hasFaculty() {
-        return !realm.where(FacultiesList.class).findAll().isEmpty();
-    }
-
-
-
 
 }
 

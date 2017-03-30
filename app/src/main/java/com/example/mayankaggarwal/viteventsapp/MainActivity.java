@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-                            Log.d("playyynormal",RealmController.with(activity).getAtendance().toString());
+//                            Log.d("playyynormal",RealmController.with(activity).getAtendance().toString());
 
                             RVAttendaceList attendaceList=new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true);
                             if(Globals.attendanceListSize==Globals.courseCodeDaySize){

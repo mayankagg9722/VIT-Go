@@ -69,6 +69,8 @@ public class Globals {
 
     public static int eventNumber;
 
+    public static int averageAttendanceSize;
+
 
 
 

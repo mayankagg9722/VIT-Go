@@ -43,9 +43,8 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
         init();
 
-        if(!RealmController.with(this).hasFaculty()){
-            Globals.firstCallFaculty=1;
-            Prefs.setPrefs("firstFacultyFetch","1",this);
+
+        if (Globals.firstCallFaculty == 0) {
             updateFaculties(this);
         }
 
@@ -57,33 +56,35 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         });
 
 
-        adapter=new RVFaculties(RealmController.with(this).getFaculty(),this, true);
+        if (!(Prefs.getPrefs("facultiesListJson", this).equals("notfound"))) {
+            adapter = new RVFaculties(Prefs.getPrefs("facultiesListJson", this), this, true);
+            recyclerView.setAdapter(adapter);
+        }
 
-        recyclerView.setAdapter(adapter);
 
     }
 
     private void init() {
-        Toolbar toolbar=(Toolbar)findViewById(R.id.fac_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.fac_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Search Faculties");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
-        search=(EditText)findViewById(R.id.search_faculties);
+        search = (EditText) findViewById(R.id.search_faculties);
 
-        textview=(TextView)findViewById(R.id.namelongtext);
+        textview = (TextView) findViewById(R.id.namelongtext);
 
         search.addTextChangedListener(this);
 
-        String name=Prefs.getPrefs("name",this);
-        String str=name.split(" ")[0];
-        String finalName=str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        String name = Prefs.getPrefs("name", this);
+        String str = name.split(" ")[0];
+        String finalName = str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
 
-        textview.setText("Hey "+finalName+", type in the name you are looking for:");
+        textview.setText("Hey " + finalName + ", type in the name you are looking for:");
 
-        recyclerView=(RecyclerView)findViewById(R.id.faculty_recycler);
-        relativeLayout=(RelativeLayout) findViewById(R.id.activity_faculties) ;
+        recyclerView = (RecyclerView) findViewById(R.id.faculty_recycler);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_faculties);
 
         relativeLayout.setBackground(new ColorDrawable(Color.parseColor(SetTheme.colorName)));
 
@@ -94,38 +95,35 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
     }
 
     public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
+        if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
     private void updateFaculties(final Activity activity) {
-
+        CustomProgressDialog.showProgress(activity, "Fetching faculties...");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity,"Fetching faculties...");
                 Data.updateFaculty(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
-                        if(Prefs.getPrefs("firstFacultyFetch",Faculties.this).equals("1")){
-                            CustomProgressDialog.hideProgress();
-                            if(Globals.firstCallFaculty==1){
-                                finish();
-                                startActivity(getIntent());
-                                Globals.firstCallFaculty=0;
-                            }
-                        }
+                        CustomProgressDialog.hideProgress();
+                        finish();
+                        startActivity(getIntent());
+                        Globals.firstCallFaculty = 1;
                         swipeRefreshLayout.setRefreshing(false);
                         search.addTextChangedListener(Faculties.this);
-                        recyclerView.setAdapter(new RVFaculties(RealmController.with(activity).getFaculty(), Faculties.this, true));
+                        if (!(Prefs.getPrefs("facultiesListJson", activity).equals("notfound"))) {
+                            adapter = new RVFaculties(Prefs.getPrefs("facultiesListJson", activity), activity, true);
+                            recyclerView.setAdapter(adapter);
+                        }
                     }
+
                     @Override
                     public void onFailure() {
-                        if(Prefs.getPrefs("firstFacultyFetch",Faculties.this).equals("1")){
-                            CustomProgressDialog.hideProgress();
-                        }
+                        CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
@@ -133,9 +131,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
             @Override
             public void onFailure() {
-                if(Prefs.getPrefs("firstFacultyFetch",Faculties.this).equals("1")){
-                    CustomProgressDialog.hideProgress();
-                }
+                CustomProgressDialog.hideProgress();
                 swipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(Faculties.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
@@ -149,7 +145,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-            this.adapter.filter(s.toString());
+        this.adapter.filter(s.toString());
     }
 
     @Override

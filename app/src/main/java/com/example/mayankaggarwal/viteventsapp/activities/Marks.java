@@ -83,11 +83,11 @@ public class Marks extends AppCompatActivity {
 
 
     private void fetchMarks(final Activity activity) {
-
+        CustomProgressDialog.showProgress(activity, "Fetching Data..");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity, "Fetching Data..");
+
                 Data.getMarks(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
@@ -110,6 +110,7 @@ public class Marks extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 swipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }

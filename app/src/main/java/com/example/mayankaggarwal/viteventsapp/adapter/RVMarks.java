@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,15 +79,29 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
 
         Set<Map.Entry<String, JsonElement>> entrySet = marks.entrySet();
 
-        for(Map.Entry<String,JsonElement> entry : entrySet){
-            TextInputLayout textInputLayout = new TextInputLayout(context);
-            TextView name = new TextView(context);
-            name.setText(entry.getKey()+" : "+entry.getValue().getAsString()+"\n");
-            textInputLayout.addView(name);
-            name.setTextColor(Color.parseColor("#ffffff"));
-            name.setTextSize(15f);
-            customMarksLayout.addView(textInputLayout);
+        if(entrySet.size()<=0){
+                TextInputLayout textInputLayout = new TextInputLayout(context);
+                TextView name = new TextView(context);
+                name.setLineSpacing(0f,1.1f);
+                textInputLayout.addView(name);
+                name.setText("Marks:");
+                name.setTextColor(Color.parseColor("#ffffff"));
+                name.setTextSize(13);
+                customMarksLayout.addView(textInputLayout);
+        }else {
+            for(Map.Entry<String,JsonElement> entry : entrySet){
+                TextInputLayout textInputLayout = new TextInputLayout(context);
+                TextView name = new TextView(context);
+                name.setLineSpacing(0f,1.18f);
+                name.setText(entry.getKey()+" : "+entry.getValue().getAsString());
+                textInputLayout.addView(name);
+                name.setTextColor(Color.parseColor("#ffffff"));
+                name.setTextSize(13);
+                customMarksLayout.addView(textInputLayout);
+            }
         }
+
+
 
     }
 

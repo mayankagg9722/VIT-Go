@@ -21,14 +21,18 @@ import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.SplashSlider;
 import com.example.mayankaggarwal.viteventsapp.activities.ImageGallery;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+
+import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
 
 
-    FloatingActionButton one,two,three,four,five,six,seven,eight,nine;
+    FloatingActionButton one, two, three, four, five, six, seven, eight, nine;
     CardView logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +46,8 @@ public class Settings extends AppCompatActivity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","1", activity);
-                SetTheme.changeToTheme(activity,SetTheme.ONE);
+                Prefs.setPrefs("theme", "1", activity);
+                SetTheme.changeToTheme(activity, SetTheme.ONE);
                 setTheme(R.style.one);
             }
         });
@@ -51,8 +55,8 @@ public class Settings extends AppCompatActivity {
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","2", activity);
-                SetTheme.changeToTheme(activity,SetTheme.TWO);
+                Prefs.setPrefs("theme", "2", activity);
+                SetTheme.changeToTheme(activity, SetTheme.TWO);
                 setTheme(R.style.two);
             }
         });
@@ -60,8 +64,8 @@ public class Settings extends AppCompatActivity {
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","3", activity);
-                SetTheme.changeToTheme(activity,SetTheme.THREE);
+                Prefs.setPrefs("theme", "3", activity);
+                SetTheme.changeToTheme(activity, SetTheme.THREE);
                 setTheme(R.style.three);
             }
         });
@@ -69,8 +73,8 @@ public class Settings extends AppCompatActivity {
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","4", activity);
-                SetTheme.changeToTheme(activity,SetTheme.FOUR);
+                Prefs.setPrefs("theme", "4", activity);
+                SetTheme.changeToTheme(activity, SetTheme.FOUR);
                 setTheme(R.style.four);
             }
         });
@@ -78,8 +82,8 @@ public class Settings extends AppCompatActivity {
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","5", activity);
-                SetTheme.changeToTheme(activity,SetTheme.FIVE);
+                Prefs.setPrefs("theme", "5", activity);
+                SetTheme.changeToTheme(activity, SetTheme.FIVE);
                 setTheme(R.style.five);
 
             }
@@ -88,8 +92,8 @@ public class Settings extends AppCompatActivity {
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","6", activity);
-                SetTheme.changeToTheme(activity,SetTheme.SIX);
+                Prefs.setPrefs("theme", "6", activity);
+                SetTheme.changeToTheme(activity, SetTheme.SIX);
                 setTheme(R.style.six);
 
             }
@@ -98,8 +102,8 @@ public class Settings extends AppCompatActivity {
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","7", activity);
-                SetTheme.changeToTheme(activity,SetTheme.SEVEN);
+                Prefs.setPrefs("theme", "7", activity);
+                SetTheme.changeToTheme(activity, SetTheme.SEVEN);
                 setTheme(R.style.seven);
 
             }
@@ -108,8 +112,8 @@ public class Settings extends AppCompatActivity {
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","8", activity);
-                SetTheme.changeToTheme(activity,SetTheme.EIGHT);
+                Prefs.setPrefs("theme", "8", activity);
+                SetTheme.changeToTheme(activity, SetTheme.EIGHT);
                 setTheme(R.style.eight);
             }
         });
@@ -117,8 +121,8 @@ public class Settings extends AppCompatActivity {
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prefs.setPrefs("theme","9", activity);
-                SetTheme.changeToTheme(activity,SetTheme.NINE);
+                Prefs.setPrefs("theme", "9", activity);
+                SetTheme.changeToTheme(activity, SetTheme.NINE);
                 setTheme(R.style.nine);
             }
         });
@@ -128,11 +132,43 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 RealmController.with(activity).clearAll();
                 Prefs.deletePrefs(activity);
+                settingGlobalback();
                 activity.finishAffinity();
-                activity.startActivity(new Intent(activity,SplashSlider.class));
+                activity.startActivity(new Intent(activity, SplashSlider.class));
             }
         });
 
+    }
+
+    private void settingGlobalback() {
+        Globals.couresePages = new ArrayList<>();
+        Globals.singleCopydetailAttendances = new ArrayList<>();
+        Globals.singleCopycouresePages = new ArrayList<>();
+        Globals.detailAttendances = new ArrayList<>();
+        Globals.attendanceListSize = 0;
+        Globals.courseCodeDaySize = 0;
+        Globals.digitalAssignmentMarks = new ArrayList<>();
+        Globals.digitalCourseCode = new ArrayList<>();
+        Globals.digitalCourseType = new ArrayList<>();
+        Globals.courseCode = new ArrayList<>();
+        Globals.courseType = new ArrayList<>();
+        Globals.doneFetching = 0;
+        Globals.faculty_email = null;
+        Globals.faculty_openhours = null;
+        Globals.faculty_venue = null;
+        Globals.faculty_designation = null;
+        Globals.faculty_intercom = null;
+        Globals.faculty_openhours = new ArrayList<>();
+        Globals.register_event = null;
+        Globals.fetchEvent = 0;
+        Globals.fetchAssignment = 0;
+        Globals.fetchMarks = 0;
+        Globals.fetchMessage = 0;
+        Globals.dayName = null;
+        Globals.firstCallFaculty = 0;
+        Globals.gridorliner = 0;
+        Globals.eventNumber = 0;
+        Globals.averageAttendanceSize = 0;
     }
 
     private void init() {
@@ -144,17 +180,17 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
-        one=(FloatingActionButton)findViewById(R.id.one);
-        two=(FloatingActionButton)findViewById(R.id.two);
-        three=(FloatingActionButton)findViewById(R.id.three);
-        four=(FloatingActionButton)findViewById(R.id.four);
-        five=(FloatingActionButton)findViewById(R.id.five);
-        six=(FloatingActionButton)findViewById(R.id.six);
-        seven=(FloatingActionButton)findViewById(R.id.seven);
-        eight=(FloatingActionButton)findViewById(R.id.eight);
-        nine=(FloatingActionButton)findViewById(R.id.nine);
+        one = (FloatingActionButton) findViewById(R.id.one);
+        two = (FloatingActionButton) findViewById(R.id.two);
+        three = (FloatingActionButton) findViewById(R.id.three);
+        four = (FloatingActionButton) findViewById(R.id.four);
+        five = (FloatingActionButton) findViewById(R.id.five);
+        six = (FloatingActionButton) findViewById(R.id.six);
+        seven = (FloatingActionButton) findViewById(R.id.seven);
+        eight = (FloatingActionButton) findViewById(R.id.eight);
+        nine = (FloatingActionButton) findViewById(R.id.nine);
 
-        logout=(CardView)findViewById(R.id.logout);
+        logout = (CardView) findViewById(R.id.logout);
     }
 
     @Override

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
@@ -25,9 +23,7 @@ import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
-import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesData;
-import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetails;
 import com.example.mayankaggarwal.viteventsapp.models.FacultyDetailsRequest;
 import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
@@ -40,7 +36,6 @@ import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -188,6 +183,8 @@ public class Data {
 
             try {
                 final List<AttendanceList> attendenceList = attendance.execute().body().data;
+
+                Globals.attendanceListSize=attendenceList.size();
 //                Log.d("taggplay", attendenceList.size() + "");
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
@@ -454,22 +451,10 @@ public class Data {
 
             final Call<FacultiesData> facultiesListCall = apiInterface.getFaculties();
             try {
-                List<FacultiesList> facultiesDatas = facultiesListCall.execute().body().data;
+                List<JsonObject> facultiesDatas = facultiesListCall.execute().body().data;
 
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.delete(FacultiesList.class);
-                realm.commitTransaction();
+                Prefs.setPrefs("facultiesListJson",facultiesDatas.toString(),activity);
 
-                for (final FacultiesList e : facultiesDatas) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
-                realm.close();
 
             } catch (Exception e) {
                 error=1;

@@ -21,6 +21,7 @@ import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVAverageAttendace;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 public class AverageAttendance extends AppCompatActivity {
@@ -88,10 +89,15 @@ public class AverageAttendance extends AppCompatActivity {
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-                            recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(activity).getAtendance(),
-                                    AverageAttendance.this, true));
-                            CustomProgressDialog.hideProgress();
-                            swipeRefreshLayout.setRefreshing(false);
+                            if(Globals.attendanceListSize!=RealmController.with(activity).getAtendance().size()){
+                                CustomProgressDialog.hideProgress();
+                                fetchAverageAttendance(activity);
+                            }else {
+                                recyclerView.setAdapter(new RVAverageAttendace(RealmController.with(activity).getAtendance(),
+                                        AverageAttendance.this, true));
+                                CustomProgressDialog.hideProgress();
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                         @Override
                         public void onFailure() {

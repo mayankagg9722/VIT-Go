@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_settings_white_24dp"
                 android:background="#00ffffff"
-                android:padding="3dp"
+                android:padding="9dp"
                 android:id="@+id/settings"
                 android:layout_gravity="end"/>
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:text="15BCE0751"
                 android:textSize="15dp"
-                android:textColor="#20ffffff" />
+                android:textColor="#40ffffff" />
 
         </LinearLayout>
 

@@ -93,7 +93,7 @@ public interface ApiInterface {
     Call<DigitalMarksResponse> getDigitalAssignmentMarks(@Body DigitalMarksRequest digitalMarksRequest);
 
 
-    @POST("getMarks")
+    @POST("getMarks2")
     Call<JsonObject> getMarks(@Body LoginRequest loginRequest);
 
 

@@ -13,12 +13,11 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.LateNightRequest;
-import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mayankaggarwal on 14/03/17.
@@ -29,22 +28,19 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
 
     public Activity context;
     Boolean clickable;
-    public List<FacultiesList> faculties,facultiesListCopy;
+    JsonParser parser;
+    JsonArray jsonArray;
+    JsonArray jsonArrayCopy;
 
 
-    public  RVFaculties(List<FacultiesList> faculties, Activity context, boolean clickable){
+    public  RVFaculties(String faculties, Activity context, boolean clickable){
 
-        this.faculties = new ArrayList<>();
 
-        for (FacultiesList a : faculties) {
-            this.faculties.add(a);
-        }
+        parser=new JsonParser();
+        jsonArray=parser.parse(faculties).getAsJsonArray();
+        jsonArrayCopy=parser.parse(faculties).getAsJsonArray();
 
-        facultiesListCopy=new ArrayList<>();
 
-        for (FacultiesList a : faculties) {
-            this.facultiesListCopy.add(a);
-        }
 
         this.context = context;
         this.clickable = clickable;
@@ -69,16 +65,23 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
     }
 
     public void filter(String text){
-        faculties.clear();
+        jsonArray=new JsonArray();
         if(text.isEmpty()){
-            faculties.addAll(facultiesListCopy);
+            jsonArray=jsonArrayCopy;
+//            faculties.addAll(facultiesListCopy);
         }else{
             text=text.toLowerCase();
-            for(FacultiesList f:facultiesListCopy){
-                if(f.getName().toString().toLowerCase().contains(text) || f.getSchool().toString().toLowerCase().contains(text)){
-                    faculties.add(f);
+            for(int i=0;i<jsonArrayCopy.size();i++){
+                if(jsonArrayCopy.get(i).getAsJsonObject().get("name").toString().toLowerCase().contains(text)
+                        || jsonArrayCopy.get(i).getAsJsonObject().get("school").toString().toLowerCase().contains(text)){
+                    jsonArray.add(jsonArrayCopy.get(i));
                 }
             }
+//            for(FacultiesList f:facultiesListCopy){
+//                if(f.getName().toString().toLowerCase().contains(text) || f.getSchool().toString().toLowerCase().contains(text)){
+//                    faculties.add(f);
+//                }
+//            }
         }
         notifyDataSetChanged();
     }
@@ -94,10 +97,14 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final RVFaculties.MyViewHolder holder, int position) {
-        FacultiesList faculties=this.faculties.get(position);
-        holder.name.setText(faculties.getName());
-        holder.school.setText(faculties.getSchool());
-        holder.empid.setText(faculties.getEmpid());
+
+        JsonObject faculties=this.jsonArray.get(position).getAsJsonObject();
+
+//        FacultiesList faculties=this.faculties.get(position);
+
+        holder.name.setText(faculties.get("name").getAsString());
+        holder.school.setText(faculties.get("school").getAsString());
+        holder.empid.setText(faculties.get("empid").getAsString());
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +132,7 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return this.faculties.size();
+        return this.jsonArray.size();
     }
 
 }

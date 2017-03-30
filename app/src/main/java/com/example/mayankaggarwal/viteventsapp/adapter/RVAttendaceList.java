@@ -119,9 +119,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
             int k = 0;
 
-//            Log.d("taggplay",course_code_day.toString());
-//            Log.d("taggplay",course_type.toString());
-//            Log.d("taggplay",atendance.toString());
 
             Globals.courseCodeDaySize=course_code_day.size();
 
@@ -170,19 +167,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-//        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
 
-//        Log.d("tagg",attendanceList.toString());
-
-//         Log.d("tagg", "list:" + attendanceList.toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
 
         float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
-//        Log.d("tagg", String.valueOf(per));
         if (per - Math.floor(per) > 0.0) {
             per = (int) per + 1;
         }
