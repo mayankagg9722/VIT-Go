@@ -139,13 +139,11 @@ public class Events extends AppCompatActivity {
             fetchEvents(this);
         } else {
             if (Globals.gridorliner == 0) {
-                Globals.gridorliner = 1;
                 viewPager.setVisibility(View.VISIBLE);
                 tabLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             } else {
                 //setting grid again
-                Globals.gridorliner = 0;
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);

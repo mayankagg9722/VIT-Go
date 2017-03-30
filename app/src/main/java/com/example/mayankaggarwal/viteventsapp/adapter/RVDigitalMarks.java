@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 import java.util.ArrayList;
@@ -26,15 +29,15 @@ import java.util.List;
 public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHolder> {
 
     private Context context;
+    JsonParser parser;
+    JsonArray jsonArray;
 
     List<DigitalMarksData> digitalMarksResponseList=new ArrayList<>();
 
-    public RVDigitalMarks(List<DigitalMarksData> digitalMarksDatas, Activity context) {
+    public RVDigitalMarks(String digitalMarksDatas, Activity context) {
         this.context=context;
-
-        for(DigitalMarksData d:digitalMarksDatas){
-            this.digitalMarksResponseList.add(d);
-        }
+        parser=new JsonParser();
+        jsonArray= parser.parse(digitalMarksDatas).getAsJsonArray();
 
     }
 
@@ -50,19 +53,18 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
     @Override
     public void onBindViewHolder(RVDigitalMarks.MyViewHolder holder, final int position) {
 
-        final DigitalMarksData digitalMarks=this.digitalMarksResponseList.get(position);
+        final JsonObject ob= this.jsonArray.get(position).getAsJsonObject();
 
-        holder.title.setText(digitalMarks.getTitle());
-        holder.duedate.setText(digitalMarks.getDueDate());
-        holder.status.setText(digitalMarks.getStatus());
-        holder.score.setText(digitalMarks.getScore());
-
+        holder.title.setText(ob.get("title").getAsString());
+        holder.duedate.setText(ob.get("dueDate").getAsString());
+        holder.status.setText(ob.get("status").getAsString());
+        holder.score.setText(ob.get("score").getAsString());
 
     }
 
     @Override
     public int getItemCount() {
-        return this.digitalMarksResponseList.size();
+        return this.jsonArray.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

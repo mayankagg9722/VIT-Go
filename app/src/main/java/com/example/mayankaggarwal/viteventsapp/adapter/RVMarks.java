@@ -65,7 +65,7 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
         final JsonObject marks=object.get("marks").getAsJsonObject();
 
         holder.course_name.setText(object.get("Course Title").getAsString());
-        holder.coursecode.setText(object.get("Course Code").getAsString()+" - "+object.get("Faculty").getAsString());
+        holder.coursecode.setText(object.get("Course Code").getAsString());
         holder.facultyname.setText(object.get("Faculty").getAsString());
         addTextFields(marks,holder.customMarksLayout);
     }

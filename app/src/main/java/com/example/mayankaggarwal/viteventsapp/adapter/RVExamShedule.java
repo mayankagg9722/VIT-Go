@@ -59,7 +59,7 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
         holder.day.setText(object.get("day").getAsString());
         holder.tableno.setText(object.get("tableNumber").getAsString());
         holder.slottime.setText(object.get("time").getAsString());
-        holder.type.setText(object.get("subjectName").getAsString());
+        holder.type.setText(object.get("courseType").getAsString());
 
     }
 

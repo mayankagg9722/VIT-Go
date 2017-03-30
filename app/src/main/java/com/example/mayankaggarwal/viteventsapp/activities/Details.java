@@ -217,12 +217,6 @@ public class Details extends AppCompatActivity {
                 fetchCoursePage();
             } else if (flag == 1) {
                 avi.hide();
-//                Log.d("tagg", "detail att:" + Globals.detailAttendances.toString());
-//                Log.d("tagg", "detail course:" + Globals.couresePages.toString());
-//                Log.d("tagg", Globals.courseCode.toString());
-//                Log.d("tagg", Globals.courseType.toString());
-//                Log.d("tagg", String.valueOf(Globals.courseCode.size()) + " " + p);
-//                Log.d("tagg", String.valueOf(Globals.courseType.size() + " " + p));
                 detailsLayout.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
                         Globals.detailAttendances.get(p), this, true));

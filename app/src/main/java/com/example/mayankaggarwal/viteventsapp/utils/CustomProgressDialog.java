@@ -25,7 +25,11 @@ public class CustomProgressDialog {
 
     private static AlertDialog alert;
 
+    private static boolean showingAlert=false;
+
     public static void showProgress(Activity activity, String str) {
+
+        showingAlert=false;
 
         com.wang.avi.AVLoadingIndicatorView avi;
 
@@ -51,13 +55,15 @@ public class CustomProgressDialog {
         alert.setCancelable(false);
         alert.show();
         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
-
+        showingAlert=true;
 
     }
 
 
     public static void hideProgress() {
-        alert.dismiss();
+        if(showingAlert==true){
+            alert.dismiss();
+        }
     }
 
 }

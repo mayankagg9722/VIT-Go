@@ -58,7 +58,7 @@ public class DigitalAssignment extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Digital Assignment");
+        getSupportActionBar().setTitle("Digital Assignments");
         toolbar.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 

@@ -9,20 +9,24 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVAttendaceList;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVDigitalAssignment;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVDigitalMarks;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class DigitalMarks extends AppCompatActivity {
 
@@ -47,7 +51,6 @@ public class DigitalMarks extends AppCompatActivity {
             }
         });
 
-        recyclerView.setAdapter(new RVDigitalMarks(RealmController.with(this).getDigitalMarks(), this));
     }
 
     private void init() {
@@ -55,7 +58,7 @@ public class DigitalMarks extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Digital Assignment");
+        getSupportActionBar().setTitle(getIntent().getStringExtra("crscd"));
         toolbar.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
@@ -74,13 +77,36 @@ public class DigitalMarks extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        fetchDigitalMarks(this);
-
-
         String sem = getIntent().getStringExtra("sem");
         String classnbr = getIntent().getStringExtra("classnbr");
         String crscd = getIntent().getStringExtra("crscd");
         String crstp = getIntent().getStringExtra("crstp");
+
+        int i;
+        int flag=0;
+        int pos=0;
+
+
+        for(i=0;i<Globals.digitalCourseCode.size();i++){
+            if(Globals.digitalCourseCode.get(i).equals(crscd) && Globals.digitalCourseType.get(i).equals(crstp)){
+                flag=1;
+                pos=i;
+                break;
+            }
+        }
+
+        Log.d("tagg",Globals.digitalCourseCode.toString());
+        Log.d("tagg",Globals.digitalCourseType.toString());
+        Log.d("tagg","flag:"+" "+flag+"pos:"+pos);
+
+        if(flag==0){
+            fetchDigitalMarks(this);
+        }else {
+            if(!(Prefs.getPrefs("digitalAssignmentMarks",this).equals("notfound"))){
+                recyclerView.setAdapter(new RVDigitalMarks(Globals.digitalAssignmentMarks.get(pos), this));
+            }
+
+        }
 
         digitalMarksRequest.sem = sem;
         digitalMarksRequest.classnbr = classnbr;
@@ -100,7 +126,9 @@ public class DigitalMarks extends AppCompatActivity {
                     public void onUpdate() {
                         CustomProgressDialog.hideProgress();
                         swipeRefreshLayout.setRefreshing(false);
-                        recyclerView.setAdapter(new RVDigitalMarks(RealmController.with(DigitalMarks.this).getDigitalMarks(), activity));
+                        if(!(Prefs.getPrefs("digitalAssignmentMarks",activity).equals("notfound"))){
+                            recyclerView.setAdapter(new RVDigitalMarks(Prefs.getPrefs("digitalAssignmentMarks",activity), activity));
+                        }
                     }
 
                     @Override

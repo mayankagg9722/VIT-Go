@@ -155,7 +155,16 @@ public class Settings extends AppCompatActivity {
         nine=(FloatingActionButton)findViewById(R.id.nine);
 
         logout=(CardView)findViewById(R.id.logout);
-
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
 }

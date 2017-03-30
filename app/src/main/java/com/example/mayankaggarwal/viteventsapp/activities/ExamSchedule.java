@@ -66,10 +66,10 @@ public class ExamSchedule extends AppCompatActivity {
     }
 
     private void fetchExamSchedule(final Activity activity) {
+        CustomProgressDialog.showProgress(activity,"Fetching Schedule...");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(activity,"Fetching Schedule...");
                 Data.getExamShedule(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
@@ -87,6 +87,7 @@ public class ExamSchedule extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });

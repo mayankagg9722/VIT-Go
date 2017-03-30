@@ -3,7 +3,8 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
+
+import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
@@ -39,6 +40,7 @@ import com.example.mayankaggarwal.viteventsapp.models.TimetableRequest;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -184,13 +186,15 @@ public class Data {
 
             final Call<AttendanceResponse> attendance = apiInterface.attendance(attendenceRequest);
 
-
             try {
-                List<AttendanceList> attendenceList = attendance.execute().body().data;
+                final List<AttendanceList> attendenceList = attendance.execute().body().data;
+//                Log.d("taggplay", attendenceList.size() + "");
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 realm.delete(AttendanceList.class);
                 realm.commitTransaction();
+
+//                Log.d("taggplayattbefore", attendenceList.size() + "");
                 for (final AttendanceList e : attendenceList) {
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
@@ -199,6 +203,7 @@ public class Data {
                         }
                     });
                 }
+
                 realm.close();
             } catch (Exception e) {
                 error=1;
@@ -1139,24 +1144,20 @@ public class Data {
             this.digitalMarksRequest.regno = Prefs.getPrefs("regno", activity);
             this.digitalMarksRequest.password = Prefs.getPrefs("password", activity);
 
+
             final Call<DigitalMarksResponse> digitalAssignmentMarks = apiInterface.getDigitalAssignmentMarks(digitalMarksRequest);
 
             try {
-                List<DigitalMarksData> digitalMarksResponses = digitalAssignmentMarks.execute().body().data;
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.delete(DigitalMarksData.class);
-                realm.commitTransaction();
 
-                for (final DigitalMarksData e : digitalMarksResponses) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
-                realm.close();
+                List<JsonObject> digitalMarksResponses = digitalAssignmentMarks.execute().body().data;
+
+                Prefs.setPrefs("digitalAssignmentMarks",digitalMarksResponses.toString(),activity);
+
+                Globals.digitalAssignmentMarks.add(digitalMarksResponses.toString());
+                Globals.digitalCourseCode.add(activity.getIntent().getStringExtra("crscd"));
+                Globals.digitalCourseType.add(activity.getIntent().getStringExtra("crstp"));
+
+
             } catch (Exception e) {
                 e.printStackTrace();
                 error=1;

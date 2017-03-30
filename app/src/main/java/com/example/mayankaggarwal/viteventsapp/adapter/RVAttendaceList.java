@@ -21,6 +21,7 @@ import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.activities.Details;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
+import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
@@ -118,10 +119,17 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
             int k = 0;
 
+//            Log.d("taggplay",course_code_day.toString());
+//            Log.d("taggplay",course_type.toString());
+//            Log.d("taggplay",atendance.toString());
+
+            Globals.courseCodeDaySize=course_code_day.size();
+
             for (String code : course_code_day) {
                 for (AttendanceList a : atendance) {
-                    if (code.toString().contains(a.getCourseCode().toString())) {
-                        if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
+
+                    if  ( code.trim().toString().equals(a.getCourseCode().trim().toString()) ){//(code.toString().contains(a.getCourseCode().toString())) {
+                        if((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
                             this.attendanceList.add(a);
                         } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
                             this.attendanceList.add(a);
@@ -132,7 +140,11 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 }
                 k++;
             }
+
+            Globals.attendanceListSize=this.attendanceList.size();
+
         }
+
 
         if (this.attendanceList.size()>0) {
             MainActivity.imageView.setVisibility(View.GONE);
@@ -160,6 +172,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
 //        Log.d("tagg","pos:"+position);
         final AttendanceList attendanceList = this.attendanceList.get(position);
+
+//        Log.d("tagg",attendanceList.toString());
 
 //         Log.d("tagg", "list:" + attendanceList.toString());
 
@@ -232,7 +246,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
         });
     }
 
-    private void setDataAccday() {
+    public void setDataAccday() {
         if (myday.equals("MON")) {
             sub_timetable_array = main_timetable.get(2).getAsJsonArray();
             //finding information

@@ -1,5 +1,7 @@
 package com.example.mayankaggarwal.viteventsapp.models;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,7 +17,7 @@ public class DigitalMarksResponse {
     public String code;
     @SerializedName("data")
     @Expose
-    public List<DigitalMarksData> data = null;
+    public List<JsonObject> data = null;
 
     public String getCode() {
         return code;
@@ -25,11 +27,11 @@ public class DigitalMarksResponse {
         this.code = code;
     }
 
-    public List<DigitalMarksData> getData() {
+    public List<JsonObject> getData() {
         return data;
     }
 
-    public void setData(List<DigitalMarksData> data) {
+    public void setData(List<JsonObject> data) {
         this.data = data;
     }
 

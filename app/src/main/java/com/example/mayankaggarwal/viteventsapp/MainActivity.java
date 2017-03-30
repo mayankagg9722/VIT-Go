@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         if (RealmController.with(this).hasAttendance()) {
+            Log.d("playyyRefresh",RealmController.with(this).getAtendance().toString());
             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
         }
 
@@ -165,7 +167,14 @@ public class MainActivity extends AppCompatActivity {
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-                            recyclerView.setAdapter(new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true));
+                            Log.d("playyynormal",RealmController.with(activity).getAtendance().toString());
+
+                            RVAttendaceList attendaceList=new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true);
+                            if(Globals.attendanceListSize==Globals.courseCodeDaySize){
+                                recyclerView.setAdapter(attendaceList);
+                            }else {
+                                fetchAttendance(activity);
+                            }
                             swipeRefreshLayout.setRefreshing(false);
                             Globals.doneFetching = 1;
                             if (Globals.doneFetching == 1) {

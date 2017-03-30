@@ -2,19 +2,16 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.activities.Events;
+import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
+import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by mayankaggarwal on 25/02/17.
@@ -29,6 +26,15 @@ public class Globals {
     public static List<List<DetailAttendance>> detailAttendances = new ArrayList<>();
 
     public static List<List<DetailAttendance>> singleCopydetailAttendances = new ArrayList<>();
+
+    public static int attendanceListSize=0;
+    public static int courseCodeDaySize=0;
+
+
+    public static List<String> digitalAssignmentMarks=new ArrayList<>();
+    public  static List<String> digitalCourseCode=new ArrayList<>();
+    public  static List<String> digitalCourseType=new ArrayList<>();
+
 
     public static List<String> courseCode=new ArrayList<>();
 
