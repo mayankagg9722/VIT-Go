@@ -121,7 +121,15 @@ public class Details extends AppCompatActivity {
         course_name.setText(getIntent().getStringExtra("coursename"));
         course_slot.setText(getIntent().getStringExtra("classroom"));
         course_code.setText(getIntent().getStringExtra("code"));
-        faculty.setText(getIntent().getStringExtra("faculty"));
+
+
+        if(!(getIntent().getStringExtra("crstp").equals("SS"))){
+            faculty.setVisibility(View.VISIBLE);
+            faculty.setText(getIntent().getStringExtra("faculty"));
+        }else {
+            faculty.setVisibility(View.GONE);
+        }
+
         attend_number.setText(getIntent().getStringExtra("attendedclass") + "/" + getIntent().getStringExtra("totalclass"));
 
         attendedClasses = Integer.parseInt(getIntent().getStringExtra("attendedclass"));

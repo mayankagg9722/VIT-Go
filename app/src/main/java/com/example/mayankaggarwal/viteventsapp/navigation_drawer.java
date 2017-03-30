@@ -110,7 +110,7 @@ public class navigation_drawer extends Fragment {
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         linearLayouttop.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         ListView listView=(ListView)v.findViewById(R.id.listview);
-        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Message","Digital Assignments","Exam Schedule","Marks","Leave"
+        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Messages","Digital Assignments","Exam Schedule","Marks","Leave"
                 ,"Grades","Course Page","Default Password"};
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),R.layout.item_list_nav,R.id.mytextcustom,names);
         listView.setSelector(R.drawable.custom_selector);

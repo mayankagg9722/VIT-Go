@@ -201,7 +201,7 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
 
         for (JsonElement a : main_faculty) {
-            if (attendanceList.getCourseName().toLowerCase().contains(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())) {
+            if (attendanceList.getCourseName().toLowerCase().equals(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())) {
                 if ((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))) {
                     holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
                 } else if (attendanceList.getCourseType().toLowerCase().contains("lab")) {
