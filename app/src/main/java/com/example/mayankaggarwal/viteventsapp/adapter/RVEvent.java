@@ -37,17 +37,23 @@ import io.realm.RealmResults;
 public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     private Activity context;
-    private List<EventList> eventList = new ArrayList<>();
+//    private List<EventList> eventList = new ArrayList<>();
     int item;
+    JsonParser parser;
+    JsonArray jsonArray;
 
 
-    public RVEvent(List<EventList> eventLists, int item_event, Activity context) {
+    public RVEvent(String eventLists, int item_event, Activity context) {
         this.context = context;
         this.item = item_event;
 
-        for (EventList e : eventLists) {
-            this.eventList.add(e);
-        }
+        parser=new JsonParser();
+
+        jsonArray=parser.parse(eventLists).getAsJsonArray();
+
+//        for (EventList e : eventLists) {
+//            this.eventList.add(e);
+//        }
 
         this.context = context;
 
@@ -65,12 +71,12 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        final EventList event = this.eventList.get(position);
+        final JsonObject event = this.jsonArray.get(position).getAsJsonObject();
 
-        holder.eventname.setText(event.getEventName());
-        holder.chapname.setText(event.getChapterName());
-        holder.date.setText(event.getDate());
-        holder.going.setText(event.getGoing() + " Going");
+        holder.eventname.setText(event.get("eventName").getAsString());
+        holder.chapname.setText(event.get("chapterName").getAsString());
+        holder.date.setText(event.get("date").getAsString());
+        holder.going.setText(event.get("going").getAsString() + " Going");
 
         if (checkAlreadyRegistered(this.context, event)) {
             holder.regcard.setVisibility(View.GONE);
@@ -102,7 +108,7 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return this.eventList.size();
+        return this.jsonArray.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -128,14 +134,14 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
         }
     }
 
-    private Boolean checkAlreadyRegistered(Activity activity, EventList event) {
+    private Boolean checkAlreadyRegistered(Activity activity, JsonObject event) {
         int flag = 0;
         if (!(Prefs.getPrefs("registeredEvents", activity).equals("notfound"))) {
             String str = Prefs.getPrefs("registeredEvents", activity);
             JsonParser jsonParser = new JsonParser();
             JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
-                if (event.getId().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
+                if (event.get("_id").getAsString().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
                     flag = 1;
                     break;
                 }

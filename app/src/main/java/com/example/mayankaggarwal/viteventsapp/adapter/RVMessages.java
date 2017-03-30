@@ -29,7 +29,7 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
 
 
     private Context context;
-    private List<EventList> eventList=new ArrayList<>();
+//    private List<EventList> eventList=new ArrayList<>();
 
     JsonParser parser;
     JsonObject jsonObject;

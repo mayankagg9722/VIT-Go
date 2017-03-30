@@ -20,7 +20,7 @@ public class PagerAdapterEvents  extends FragmentPagerAdapter {
 
     public PagerAdapterEvents(FragmentManager fm, Activity activity) {
         super(fm);
-        PAGE_COUNT=Globals.getEventList(activity).size();
+        PAGE_COUNT=Globals.eventNumber;
 //        Log.d("tagg","size:"+ Globals.eventList.size());
     }
 

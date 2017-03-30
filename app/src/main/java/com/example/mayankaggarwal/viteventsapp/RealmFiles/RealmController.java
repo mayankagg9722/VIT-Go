@@ -8,7 +8,6 @@ import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
-import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.models.FacultiesList;
 import com.example.mayankaggarwal.viteventsapp.models.LateNightData;
@@ -78,8 +77,7 @@ public class RealmController {
         realm.delete(CouresePage.class);
         realm.delete(DetailAttendance.class);
         realm.delete(PostParams.class);
-        realm.delete(DigitalMarksData.class);
-        realm.delete(EventList.class);
+//        realm.delete(EventList.class);
         realm.delete(FacultiesList.class);
         realm.delete(LateNightData.class);
         realm.commitTransaction();
@@ -105,18 +103,15 @@ public class RealmController {
         return realm.where(LateNightData.class).findAll();
     }
 
-    public RealmResults<DigitalMarksData> getDigitalMarks() {
-        return realm.where(DigitalMarksData.class).findAll();
-    }
 
-    public RealmResults<EventList> getEvents() {
-        return realm.where(EventList.class).findAll();
-    }
+//    public RealmResults<EventList> getEvents() {
+//        return realm.where(EventList.class).findAll();
+//    }
 
 
-    public EventList getEvent(String id) {
-        return realm.where(EventList.class).equalTo("id", id).findFirst();
-    }
+//    public EventList getEvent(String id) {
+//        return realm.where(EventList.class).equalTo("id", id).findFirst();
+//    }
 
 
     public boolean hasAttendance() {

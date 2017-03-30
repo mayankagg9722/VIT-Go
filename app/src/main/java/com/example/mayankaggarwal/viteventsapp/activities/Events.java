@@ -110,8 +110,6 @@ public class Events extends AppCompatActivity {
         // sets a margin b/w individual pages to ensure that there is a gap b/w them
         viewPager.setPageMargin(40);
 
-        Globals.getEventList(this);
-
         FragmentManager fm = getSupportFragmentManager();
         PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,this);
         viewPager.setAdapter(pagerAdapter);
@@ -122,15 +120,6 @@ public class Events extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_event);
 
-
-        if (getIntent().getStringExtra("eventid") != null) {
-            EventList ev = RealmController.with(this).getEvent(getIntent().getStringExtra("eventid"));
-            Realm realm = Realm.getDefaultInstance();
-            realm.beginTransaction();
-            ev.setGoing(String.valueOf((Integer.parseInt(ev.getGoing()) + 1)));
-            realm.commitTransaction();
-            realm.close();
-        }
 
         if (Globals.fetchEvent == 0) {
             recyclerView.setVisibility(View.GONE);
@@ -147,7 +136,9 @@ public class Events extends AppCompatActivity {
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
+                if(!(Prefs.getPrefs("eventslist", this).equals("notfound"))){
+                    recyclerView.setAdapter(new RVEvent(Prefs.getPrefs("eventslist", this), R.layout.item_event, this));
+                }
             }
         }
 
@@ -238,24 +229,26 @@ public class Events extends AppCompatActivity {
 
 
     private void fetchEvents(final Activity activity) {
+        CustomProgressDialog.showProgress(Events.this, "Fetching Events...");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(Events.this, "Fetching Events...");
                 Data.getEvent(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
 
-                        recyclerView.setAdapter(new RVEvent(RealmController.with(activity).getEvents(), R.layout.item_event, activity));
+                        if(!(Prefs.getPrefs("eventslist", activity).equals("notfound"))){
+                            recyclerView.setAdapter(new RVEvent(Prefs.getPrefs("eventslist", activity), R.layout.item_event, activity));
 
-                        FragmentManager fm = getSupportFragmentManager();
-                        PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,activity);
-                        viewPager.setAdapter(pagerAdapter);
+                            FragmentManager fm = getSupportFragmentManager();
+                            PagerAdapterEvents pagerAdapter = new PagerAdapterEvents(fm,activity);
+                            viewPager.setAdapter(pagerAdapter);
 
-                        CustomProgressDialog.hideProgress();
-                        swipeRefreshLayout.setRefreshing(false);
+                            CustomProgressDialog.hideProgress();
+                            swipeRefreshLayout.setRefreshing(false);
 
-                        Globals.fetchEvent = 1;
+                            Globals.fetchEvent = 1;
+                        }
 
                     }
 
@@ -269,6 +262,7 @@ public class Events extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 Toast.makeText(Events.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -292,8 +286,6 @@ public class Events extends AppCompatActivity {
             for (int i = 0; i < jsonArray.size(); i++) {
                 try {
                     if (today.compareTo(jsonArray.get(i).getAsJsonObject().get("date").getAsString()) <= 0) {
-//                        Log.d("tagg", "working");
-//                        Log.d("tagg", jsonArray.get(i).getAsJsonObject().get("date").getAsString());
                         newJsonArray.add(jsonArray.get(i).getAsJsonObject());
                     }
                 } catch (Exception e) {
@@ -328,7 +320,9 @@ public class Events extends AppCompatActivity {
                 tabLayout.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-                recyclerView.setAdapter(new RVEvent(RealmController.with(this).getEvents(), R.layout.item_event, Events.this));
+                if(!(Prefs.getPrefs("eventslist", this).equals("notfound"))){
+                    recyclerView.setAdapter(new RVEvent(Prefs.getPrefs("eventslist", this), R.layout.item_event, this));
+                }
             } else {
                 //setting grid again
                 Globals.gridorliner = 0;

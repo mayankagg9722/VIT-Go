@@ -4,11 +4,10 @@ package com.example.mayankaggarwal.viteventsapp.utils;
 import android.app.Activity;
 
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
-import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class Globals {
 
     public static List<String> faculty_openhours=new ArrayList<>();
 
-    public static EventList register_event=null;
+    public static JsonObject register_event=null;
 
     public static int fetchEvent=0;
 
@@ -68,20 +67,7 @@ public class Globals {
 
     public static int gridorliner=0;
 
-    public static List<EventList> eventList=new ArrayList<>();
-
-
-    public  static  List<EventList> getEventList (Activity activity){
-        List<EventList> eventLists= RealmController.with(activity).getEvents();
-
-        List<EventList> eventList=new ArrayList<>();
-
-        for(EventList e:eventLists){
-            eventList.add(e);
-        }
-
-        return eventList;
-    }
+    public static int eventNumber;
 
 
 

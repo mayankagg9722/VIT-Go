@@ -21,7 +21,6 @@ import com.example.mayankaggarwal.viteventsapp.models.CoursePageRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DARequest;
 import com.example.mayankaggarwal.viteventsapp.models.DAResponse;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
-import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksResponse;
 import com.example.mayankaggarwal.viteventsapp.models.EventData;
@@ -573,33 +572,15 @@ public class Data {
             final Call<EventData> eventDataCall = apiInterface.getEvent();
 
             try {
-                List<EventList> eventLists = eventDataCall.execute().body().data;
+
+                EventData eventData=eventDataCall.execute().body();
+
+                List<JsonObject> eventLists =eventData.data;
+
+                Globals.eventNumber=eventData.count;
 
                 Prefs.setPrefs("eventslist", eventLists.toString(), activity);
 
-                List<EventList> events = new ArrayList<>();
-
-                Globals.eventList.clear();
-
-                for (final EventList e : eventLists) {
-                    events.add(e);
-                    Globals.eventList.add(e);
-                }
-
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.delete(EventList.class);
-                realm.commitTransaction();
-
-                for (final EventList e : events) {
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(e);
-                        }
-                    });
-                }
-                realm.close();
             } catch (Exception e) {
                 error=1;
                 e.printStackTrace();

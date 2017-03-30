@@ -36,7 +36,7 @@ import java.util.List;
 
 public class EventRegister extends AppCompatActivity {
 
-    private EventList e;
+    private JsonObject e;
     private int i;
     private List<String> fields;
     CardView b;
@@ -67,7 +67,7 @@ public class EventRegister extends AppCompatActivity {
                     for (int k = 0; k < i; k++) {
                         fields.add(((EditText) findViewById(k)).getText().toString());
                     }
-                    registerEvent(e.getId(), fields, EventRegister.this);
+                    registerEvent(e.get("_id").getAsString(), fields, EventRegister.this);
                 }
             }
         });
@@ -89,7 +89,7 @@ public class EventRegister extends AppCompatActivity {
     }
 
     private void addFloatEditText() {
-        String f = e.getFields();
+        String f = e.get("fieldsAndroid").getAsString();
         i = 0;
         String[] orgF = f.replace("*", "").split("//");
 
@@ -147,15 +147,15 @@ public class EventRegister extends AppCompatActivity {
                 JsonParser jsonParser = new JsonParser();
                 JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
                 JsonObject jsonObject=new JsonObject();
-                jsonObject.addProperty("id",e.getId());
-                jsonObject.addProperty("date",e.getDate());
+                jsonObject.addProperty("id",e.get("_id").getAsString());
+                jsonObject.addProperty("date",e.get("date").getAsString());
                 jsonArray.add(jsonObject);
                 Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
             }else {
                 JsonArray jsonArray = new JsonArray();
                 JsonObject jsonObject=new JsonObject();
-                jsonObject.addProperty("id",e.getId());
-                jsonObject.addProperty("date",e.getDate());
+                jsonObject.addProperty("id",e.get("_id").getAsString());
+                jsonObject.addProperty("date",e.get("date").getAsString());
                 jsonArray.add(jsonObject);
                 Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
             }
@@ -172,7 +172,7 @@ public class EventRegister extends AppCompatActivity {
             JsonParser jsonParser = new JsonParser();
             JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
-                if (e.getId().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
+                if (e.get("_id").getAsString().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
                     flag = 1;
                     break;
                 }

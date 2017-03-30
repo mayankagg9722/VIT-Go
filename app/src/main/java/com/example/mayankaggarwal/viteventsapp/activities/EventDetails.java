@@ -40,7 +40,7 @@ import java.util.List;
 public class EventDetails extends AppCompatActivity {
 
     ProgressBar prog;
-    EventList e;
+    JsonObject e;
     private List<String> fields;
 
     @Override
@@ -79,7 +79,7 @@ public class EventDetails extends AppCompatActivity {
 //        Data.DownloadImageTask download=new Data.DownloadImageTask(eventImage,this);
 //        download.execute("https://vitmantra.feedveed.com/posters/"+e.getId());
 
-        Picasso.with(this).load("https://vitmantra.feedveed.com/posters/"+e.getId()).into(eventImage, new Callback() {
+        Picasso.with(this).load("https://vitmantra.feedveed.com/posters/"+e.get("_id").getAsString()).into(eventImage, new Callback() {
             @Override
             public void onSuccess() {
                 prog.setVisibility(View.GONE);
@@ -98,13 +98,13 @@ public class EventDetails extends AppCompatActivity {
             }
         });
 
-        eventName.setText(e.getEventName());
-        chapname.setText(e.getChapterName());
-        desc.setText(e.getDescription());
-        date.setText(e.getDate());
-        time.setText(e.getTime());
-        venue.setText(e.getVenue());
-        fee.setText(e.getFees());
+        eventName.setText(e.get("eventName").getAsString());
+        chapname.setText(e.get("chapterName").getAsString());
+        desc.setText(e.get("description").getAsString());
+        date.setText(e.get("date").getAsString());
+        time.setText(e.get("time").getAsString());
+        venue.setText(e.get("venue").getAsString());
+        fee.setText(e.get("fees").getAsString());
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -133,10 +133,10 @@ public class EventDetails extends AppCompatActivity {
                 if(checkAlreadyRegistered()){
                     Toast.makeText(EventDetails.this, "Already Registerd", Toast.LENGTH_LONG).show();
                 }else {
-                    if (e.getFields().length() > 0) {
+                    if (e.get("fieldsAndroid").getAsString().length() > 0) {
                         startActivity(new Intent(EventDetails.this, EventRegister.class));
                     } else {
-                        registerEvent(e.getId(), fields, EventDetails.this);
+                        registerEvent(e.get("_id").getAsString(), fields, EventDetails.this);
                     }
                 }
             }
@@ -150,7 +150,7 @@ public class EventDetails extends AppCompatActivity {
             JsonParser jsonParser = new JsonParser();
             JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
-                if (e.getId().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
+                if (e.get("_id").getAsString().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
                     flag = 1;
                     break;
                 }
@@ -202,15 +202,15 @@ public class EventDetails extends AppCompatActivity {
                 JsonParser jsonParser = new JsonParser();
                 JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
                 JsonObject jsonObject=new JsonObject();
-                jsonObject.addProperty("id",e.getId());
-                jsonObject.addProperty("date",e.getDate());
+                jsonObject.addProperty("id",e.get("_id").getAsString());
+                jsonObject.addProperty("date",e.get("date").getAsString());
                 jsonArray.add(jsonObject);
                 Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
             }else {
                 JsonArray jsonArray = new JsonArray();
                 JsonObject jsonObject=new JsonObject();
-                jsonObject.addProperty("id",e.getId());
-                jsonObject.addProperty("date",e.getDate());
+                jsonObject.addProperty("id",e.get("_id").getAsString());
+                jsonObject.addProperty("date",e.get("date").getAsString());
                 jsonArray.add(jsonObject);
                 Prefs.setPrefs("registeredEvents",jsonArray.toString(),activity);
             }

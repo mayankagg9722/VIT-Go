@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.activities.EventDetails;
+import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -44,7 +46,9 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
     TextView date;
     TextView going;
     ImageView imageView;
-    private List<EventList> eventList=new ArrayList<>();
+    JsonParser parser;
+    JsonArray jsonArray;
+//    private List<EventList> eventList=new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +73,16 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
         tickcard.setVisibility(View.GONE);
 
 
-        final EventList event=Globals.getEventList(getActivity()).get(count);
+        parser=new JsonParser();
 
-        Picasso.with(getContext()).load("https://vitmantra.feedveed.com/posters/"+event.getId()).into(imageView);
+        if(!(Prefs.getPrefs("eventslist", getContext()).equals("notfound"))){
+            jsonArray=parser.parse(Prefs.getPrefs("eventslist", getActivity())).getAsJsonArray();
+        }
+
+        final JsonObject event = this.jsonArray.get(count).getAsJsonObject();
+
+
+        Picasso.with(getContext()).load("https://vitmantra.feedveed.com/posters/"+event.get("_id").getAsString()).into(imageView);
 
         if(checkAlreadyRegistered(getActivity(),event)){
             tickcard.setVisibility(View.VISIBLE);
@@ -79,10 +90,10 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
             tickcard.setVisibility(View.GONE);
         }
 
-        eventname.setText(event.getEventName());
-        chapname.setText(event.getChapterName());
-        date.setText(event.getDate());
-        going.setText(event.getGoing()+" Going");
+        eventname.setText(event.get("eventName").getAsString());
+        chapname.setText(event.get("chapterName").getAsString());
+        date.setText(event.get("date").getAsString());
+        going.setText(event.get("going").getAsString()+" Going");
         regcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,14 +106,14 @@ public class SwipeEventFragment  extends android.support.v4.app.Fragment {
         return view;
     }
 
-    private Boolean checkAlreadyRegistered(Activity activity, EventList event) {
+    private Boolean checkAlreadyRegistered(Activity activity, JsonObject event) {
         int flag = 0;
         if (!(Prefs.getPrefs("registeredEvents", activity).equals("notfound"))) {
             String str = Prefs.getPrefs("registeredEvents", activity);
             JsonParser jsonParser = new JsonParser();
             JsonArray jsonArray = jsonParser.parse(str).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
-                if (event.getId().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
+                if (event.get("_id").getAsString().equals(jsonArray.get(i).getAsJsonObject().get("id").getAsString())) {
                     flag = 1;
                     break;
                 }

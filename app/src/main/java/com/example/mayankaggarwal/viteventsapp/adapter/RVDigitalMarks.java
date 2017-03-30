@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -32,7 +31,6 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
     JsonParser parser;
     JsonArray jsonArray;
 
-    List<DigitalMarksData> digitalMarksResponseList=new ArrayList<>();
 
     public RVDigitalMarks(String digitalMarksDatas, Activity context) {
         this.context=context;
@@ -59,6 +57,7 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
         holder.duedate.setText(ob.get("dueDate").getAsString());
         holder.status.setText(ob.get("status").getAsString());
         holder.score.setText(ob.get("score").getAsString());
+        holder.uploadstatus.setText(ob.get("uploadStatus").getAsString());
 
     }
 
@@ -68,7 +67,7 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title,status,duedate,score;
+        TextView title,status,duedate,score,uploadstatus;
         CardView cardView;
 
         public MyViewHolder(View itemView) {
@@ -78,6 +77,7 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
             duedate=(TextView)itemView.findViewById(R.id.duedate);
             status=(TextView)itemView.findViewById(R.id.status);
             score=(TextView)itemView.findViewById(R.id.score);
+            uploadstatus=(TextView)itemView.findViewById(R.id.uploadstatus);
             cardView.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
         }
     }

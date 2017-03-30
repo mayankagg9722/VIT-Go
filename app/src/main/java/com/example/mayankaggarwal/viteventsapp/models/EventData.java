@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.models;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,15 +14,19 @@ public class EventData {
 
     @SerializedName("data")
     @Expose
-    public List<EventList> data = null;
+    public List<JsonObject> data = null;
 
-    public List<EventList> getData() {
+    public List<JsonObject> getData() {
         return data;
     }
 
-    public void setData(List<EventList> data) {
+    public void setData(List<JsonObject> data) {
         this.data = data;
     }
+
+    @SerializedName("count")
+    @Expose
+    public int count;
 
 }
 

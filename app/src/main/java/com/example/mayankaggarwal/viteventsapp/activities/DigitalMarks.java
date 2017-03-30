@@ -14,19 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVDigitalMarks;
-import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksData;
 import com.example.mayankaggarwal.viteventsapp.models.DigitalMarksRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class DigitalMarks extends AppCompatActivity {
 
