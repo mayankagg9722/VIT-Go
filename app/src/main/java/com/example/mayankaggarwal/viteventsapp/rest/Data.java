@@ -3,6 +3,7 @@ package com.example.mayankaggarwal.viteventsapp.rest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
@@ -686,7 +687,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                    Log.d("tagg",response.body().toString());
+                    Log.d("tagg",response.body().toString());
                     Prefs.setPrefs("messages", response.body().toString(), activity);
                     updateCallback.onUpdate();
                 }

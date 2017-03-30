@@ -43,6 +43,7 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             if(messages!=null){
                 jsonObject=parser.parse(messages).getAsJsonObject();
                 messagesList=jsonObject.get("messages").getAsJsonArray();
+                Log.d("play",messagesList.toString());
             }
 
         }
@@ -68,6 +69,13 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
     }
 
     private void setMessageLyoutContent(JsonObject message,RVMessages.MyViewHolder holder) {
+        holder.facname.setVisibility(View.VISIBLE);
+        holder.subj.setVisibility(View.VISIBLE);
+        holder.content.setVisibility(View.VISIBLE);
+        holder.customtext.setVisibility(View.VISIBLE);
+        holder.date.setVisibility(View.VISIBLE);
+        holder.custom.setVisibility(View.VISIBLE);
+
         if(message.size()==4){
             String facultyname=message.get("0").toString().replace("\"","");
             String subj=message.get("1").toString().replace("\"","");

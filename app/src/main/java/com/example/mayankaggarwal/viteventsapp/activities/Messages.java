@@ -70,10 +70,10 @@ public class Messages extends AppCompatActivity {
     }
 
     private void fetchMessages(final Activity activity) {
+        CustomProgressDialog.showProgress(Messages.this, "Fetching Messages...");
         Data.internetConnection(new Data.UpdateCallback() {
             @Override
             public void onUpdate() {
-                CustomProgressDialog.showProgress(Messages.this, "Fetching Messages...");
                 Data.getMessages(activity, new Data.UpdateCallback() {
                     @Override
                     public void onUpdate() {
@@ -95,6 +95,7 @@ public class Messages extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                CustomProgressDialog.hideProgress();
                 Toast.makeText(Messages.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
