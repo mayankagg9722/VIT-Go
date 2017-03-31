@@ -55,7 +55,7 @@ public class Marks extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Marks");
-        toolbar.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+        toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

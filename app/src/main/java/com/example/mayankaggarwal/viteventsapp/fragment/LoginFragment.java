@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 
 import com.heinrichreimersoftware.materialintro.app.SlideFragment;
+
+import io.realm.Realm;
 
 public class LoginFragment extends SlideFragment {
 
@@ -47,6 +50,8 @@ public class LoginFragment extends SlideFragment {
 
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
+        Realm.init(getContext());
+
         hideKeyboard(root);
 
         username = (EditText) root.findViewById(R.id.regno);
@@ -65,27 +70,40 @@ public class LoginFragment extends SlideFragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
+                if (checkFields(username.getText().toString(), password.getText().toString())) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    Auth.login(username.getText().toString(), password.getText().toString(), getActivity(), new Auth.OnLoginCallback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            CustomProgressDialog.showProgress(getActivity(), "Fetching Attendance and Timetable...");
+                            //fetch timetable
+                            fetchTimetable(getActivity());
+                        }
 
-                Auth.login(username.getText().toString(), password.getText().toString(), getActivity(), new Auth.OnLoginCallback() {
-                    @Override
-                    public void onSuccess() {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        CustomProgressDialog.showProgress(getActivity(),"Fetching Attendance and Timetable..." );
-
-                        //fetch timetable
-                        fetchTimetable(getActivity());
-                    }
-                    @Override
-                    public void onFailure() {
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                });
-
+                        @Override
+                        public void onFailure() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(getContext(), "Failed To Connect", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Fill all the fields completely", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         return root;
+    }
+
+    private Boolean checkFields(String username, String passwd) {
+        Boolean flag = false;
+        if (username.length() > 0 && passwd.length() > 0) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
     }
 
     private void hideKeyboard(View root) {
@@ -108,23 +126,21 @@ public class LoginFragment extends SlideFragment {
     }
 
     private void fetchAttendance(final Activity activity) {
-        if (!(RealmController.with(activity).hasAttendance())) {
-            Data.updateAttendance(activity, new Data.UpdateCallback() {
-                @Override
-                public void onUpdate() {
-                    CustomProgressDialog.hideProgress();
-                    getActivity().finish();
-                    startActivity(new Intent(activity, MainActivity.class));
-                }
+        Data.updateAttendance(activity, new Data.UpdateCallback() {
+            @Override
+            public void onUpdate() {
+                CustomProgressDialog.hideProgress();
+                getActivity().finish();
+                startActivity(new Intent(activity, MainActivity.class));
+            }
 
-                @Override
-                public void onFailure() {
-                    CustomProgressDialog.hideProgress();
-                }
-            });
-        }else{
-            CustomProgressDialog.hideProgress();
-        }
+            @Override
+            public void onFailure() {
+                Log.d("tagg","call2");
+                Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                CustomProgressDialog.hideProgress();
+            }
+        });
     }
 
     private void fetchTimetable(final Activity activity) {
@@ -134,14 +150,15 @@ public class LoginFragment extends SlideFragment {
             public void onUpdate() {
                 fetchAttendance(activity);
             }
+
             @Override
             public void onFailure() {
+                Log.d("tagg","call1");
                 Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 CustomProgressDialog.hideProgress();
             }
         });
     }
-
 
 
     @Override

@@ -51,9 +51,6 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
         jsonArray=parser.parse(eventLists).getAsJsonArray();
 
-//        for (EventList e : eventLists) {
-//            this.eventList.add(e);
-//        }
 
         this.context = context;
 

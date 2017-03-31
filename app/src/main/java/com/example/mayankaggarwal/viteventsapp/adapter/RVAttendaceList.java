@@ -120,13 +120,13 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             int k = 0;
 
 
-            Globals.courseCodeDaySize=course_code_day.size();
+            Globals.courseCodeDaySize = course_code_day.size();
 
             for (String code : course_code_day) {
                 for (AttendanceList a : atendance) {
 
-                    if  ( code.trim().toString().equals(a.getCourseCode().trim().toString()) ){//(code.toString().contains(a.getCourseCode().toString())) {
-                        if((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
+                    if (code.trim().toString().equals(a.getCourseCode().trim().toString())) {//(code.toString().contains(a.getCourseCode().toString())) {
+                        if ((course_type.get(k).contains("ELA") || course_type.get(k).contains("LO")) && a.getCourseType().contains("Lab")) {
                             this.attendanceList.add(a);
                         } else if ((course_type.get(k).contains("ETH") || course_type.get(k).contains("TH")) && a.getCourseType().contains("Theory")) {
                             this.attendanceList.add(a);
@@ -138,12 +138,12 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 k++;
             }
 
-            Globals.attendanceListSize=this.attendanceList.size();
+            Globals.attendanceListSize = this.attendanceList.size();
 
         }
 
 
-        if (this.attendanceList.size()>0) {
+        if (this.attendanceList.size() > 0) {
             MainActivity.imageView.setVisibility(View.GONE);
         } else {
             MainActivity.imageView.setVisibility(View.VISIBLE);
@@ -174,22 +174,27 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
 
-        float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
-        if (per - Math.floor(per) > 0.0) {
-            per = (int) per + 1;
-        }
-//        Log.d("tagg", String.valueOf(per));
-        if (per >= 75) {
-            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
-            holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
-        } else {
-            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
-            holder.percentage.setTextColor(Color.parseColor("#ffffff"));
+        if ((Float.parseFloat(attendanceList.getTotalClasses()) != 0)) {
+            float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
+
+            if (per - Math.floor(per) > 0.0) {
+                per = (int) per + 1;
+            }
+
+            if (per >= 75) {
+                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
+                holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
+            } else {
+                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
+                holder.percentage.setTextColor(Color.parseColor("#ffffff"));
+            }
+
+            holder.percentage.setText(String.valueOf((int) per) + "%");
+
         }
 
-        holder.percentage.setText(String.valueOf((int) per) + "%");
+
         holder.course_name.setText(attendanceList.getCourseName());
-//        holder.course_code.setText(attendanceList.getCourseCode());
 
 
         for (JsonElement a : main_faculty) {
@@ -199,7 +204,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 } else if (attendanceList.getCourseType().toLowerCase().contains("lab")) {
                     holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
                 }
-//                Log.d("tagg", a.getAsJsonObject().get("courseName").getAsString());
             }
         }
         holder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(position));
@@ -239,42 +243,43 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     }
 
     public void setDataAccday() {
-        if (myday.equals("MON")) {
-            sub_timetable_array = main_timetable.get(2).getAsJsonArray();
-            //finding information
-            findInfo();
-        } else if (myday.equals("TUE")) {
-            sub_timetable_array = main_timetable.get(3).getAsJsonArray();
-            //finding information
-            findInfo();
-        } else if (myday.equals("WED")) {
-            sub_timetable_array = main_timetable.get(4).getAsJsonArray();
-            //finding information
-            findInfo();
+        if (main_timetable.size() > 0) {
+            if (myday.equals("MON")) {
+                sub_timetable_array = main_timetable.get(2).getAsJsonArray();
+                //finding information
+                findInfo();
+            } else if (myday.equals("TUE")) {
+                sub_timetable_array = main_timetable.get(3).getAsJsonArray();
+                //finding information
+                findInfo();
+            } else if (myday.equals("WED")) {
+                sub_timetable_array = main_timetable.get(4).getAsJsonArray();
+                //finding information
+                findInfo();
 
-        } else if (myday.equals("THU")) {
-            sub_timetable_array = main_timetable.get(5).getAsJsonArray();
-            //finding information
-            findInfo();
-        } else if (myday.equals("FRI")) {
-            sub_timetable_array = main_timetable.get(6).getAsJsonArray();
-            //finding information
-            findInfo();
-        } else if (myday.equals("SAT")) {
-            sub_timetable_array = main_timetable.get(7).getAsJsonArray();
-            //finding information
-            //findInfo();
-        } else if (myday.equals("SUN")) {
-            sub_timetable_array = main_timetable.get(8).getAsJsonArray();
-            //finding information
-            // findInfo();
+            } else if (myday.equals("THU")) {
+                sub_timetable_array = main_timetable.get(5).getAsJsonArray();
+                //finding information
+                findInfo();
+            } else if (myday.equals("FRI")) {
+                sub_timetable_array = main_timetable.get(6).getAsJsonArray();
+                //finding information
+                findInfo();
+            } else if (myday.equals("SAT")) {
+                sub_timetable_array = main_timetable.get(7).getAsJsonArray();
+                //finding information
+                //findInfo();
+            } else if (myday.equals("SUN")) {
+                sub_timetable_array = main_timetable.get(8).getAsJsonArray();
+                //finding information
+                // findInfo();
+            }
         }
     }
 
     private void findInfo() {
         int i = 0;
         for (JsonElement st : sub_timetable_array) {
-//                 Log.d("tagg",String.valueOf(st));
             if (st.toString().contains("-")) {
                 String[] sub_day_array = null;
                 sub_day_array = st.toString().trim().split("-");
@@ -291,7 +296,6 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
                 course_type.add(type);
                 course_time.add(slotTime.replace("\"", ""));
                 course_slot.add(slot);
-
 //                Log.d("tagg",String.valueOf(classroom+"time:"+String.valueOf(slotTime)+"slot:"+String.valueOf(slot)));
             }
             i++;

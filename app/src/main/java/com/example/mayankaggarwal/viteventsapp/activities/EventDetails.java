@@ -76,8 +76,6 @@ public class EventDetails extends AppCompatActivity {
 
         reg.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
 
-//        Data.DownloadImageTask download=new Data.DownloadImageTask(eventImage,this);
-//        download.execute("https://vitmantra.feedveed.com/posters/"+e.getId());
 
         Picasso.with(this).load("https://vitmantra.feedveed.com/posters/"+e.get("_id").getAsString()).into(eventImage, new Callback() {
             @Override

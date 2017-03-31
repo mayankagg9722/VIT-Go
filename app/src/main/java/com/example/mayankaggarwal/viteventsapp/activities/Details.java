@@ -327,11 +327,15 @@ public class Details extends AppCompatActivity {
 
     public float calcPercentage(int attended, int total) {
 
-        float per = ((Float.parseFloat(String.valueOf(attended))) * 100) / (Float.parseFloat(String.valueOf(total)));
-        if (per - Math.floor(per) > 0.0) {
-            per = (int) per + 1;
+        if((Float.parseFloat(String.valueOf(total))!=0)){
+            float per = ((Float.parseFloat(String.valueOf(attended))) * 100) / (Float.parseFloat(String.valueOf(total)));
+            if (per - Math.floor(per) > 0.0) {
+                per = (int) per + 1;
+            }
+            return per;
+        }else {
+            return 0;
         }
-        return per;
     }
 
     @Override

@@ -88,9 +88,12 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
                 AverageAttendance.avg_per+=k;
             }
 
-            AverageAttendance.avg_per=AverageAttendance.avg_per/atendance.size();
+            if(atendance.size()>0){
+                AverageAttendance.avg_per=AverageAttendance.avg_per/atendance.size();
+            }
 
             AverageAttendance.avgnumber.setText(String.valueOf(AverageAttendance.avg_per));
+
 
             fetchClass(main_timetable,attendanceList);
         }
@@ -148,23 +151,25 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
             holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
         }
 
+        if ((Float.parseFloat(attendanceList.getTotalClasses()) != 0)) {
+            float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
+            if (per - Math.floor(per) > 0.0) {
+                per = (int) per + 1;
+            }
 
+            if (per >= 75) {
+                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
+                holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
+            }
+            else {
+                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
+                holder.percentage.setTextColor(Color.parseColor("#ffffff"));
+            }
 
-        float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
-        if (per - Math.floor(per) > 0.0) {
-            per = (int) per + 1;
+            holder.percentage.setText(String.valueOf((int) per) + "%");
         }
 
-        if (per >= 75) {
-            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
-            holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
-        }
-        else {
-            holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
-            holder.percentage.setTextColor(Color.parseColor("#ffffff"));
-        }
 
-        holder.percentage.setText(String.valueOf((int) per) + "%");
         holder.course_name.setText(attendanceList.getCourseName());
         holder.course_type.setText(attendanceList.getSlot());
         holder.classroom.setText(course_room.get(position));

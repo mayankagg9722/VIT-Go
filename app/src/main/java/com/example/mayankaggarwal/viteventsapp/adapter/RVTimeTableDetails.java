@@ -266,6 +266,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
     }
 
     private void setDataAccday() {
+        if(main_timetable.size()>0){
         if (myday.equals("MON")) {
             sub_timetable_array = main_timetable.get(2).getAsJsonArray();
             //finding information
@@ -295,6 +296,7 @@ public class RVTimeTableDetails extends RecyclerView.Adapter<RVTimeTableDetails.
             sub_timetable_array = main_timetable.get(8).getAsJsonArray();
             //finding information
             // findInfo();
+        }
         }
     }
 

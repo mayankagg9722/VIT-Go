@@ -166,10 +166,10 @@ public class OutingRequest extends AppCompatActivity {
     private int checkEmptyFields() {
         flag = 0;
         if(fromtime.getText().length()>0 && totime.getText().length()>0) {
-            int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
-            int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
-            String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
-            String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
+//            int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
+//            int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
+//            String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
+//            String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
             if (wrongSpinnerItem == 1) {
                 flag = 1;
             } else if (isEmpty(fromdate)) {
@@ -182,10 +182,6 @@ public class OutingRequest extends AppCompatActivity {
                 flag = 1;
             } else if (isEmpty(reason)) {
                 flag = 1;
-//            } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
-//                flag = 2;
-//            } else if (entry_hour >= 6 && entry_am_pm.equals("PM")) {
-//                flag = 2;
             } else if (!(Globals.dayName.equals("Saturday") || Globals.dayName.equals("Sunday"))) {
                 flag = 3;
             }

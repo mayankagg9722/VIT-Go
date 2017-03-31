@@ -24,7 +24,6 @@ import java.util.List;
 public class RVExamFat extends RecyclerView.Adapter<RVExamFat.MyViewHolder> {
 
     private Context context;
-//    private List<Fat> fatArrayList=new ArrayList<>();
 
     JsonParser parser;
     JsonArray jsonArray;
