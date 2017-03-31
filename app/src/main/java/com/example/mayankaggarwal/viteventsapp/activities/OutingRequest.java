@@ -182,10 +182,10 @@ public class OutingRequest extends AppCompatActivity {
                 flag = 1;
             } else if (isEmpty(reason)) {
                 flag = 1;
-            } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
-                flag = 2;
-            } else if (entry_hour >= 6 && entry_am_pm.equals("PM")) {
-                flag = 2;
+//            } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
+//                flag = 2;
+//            } else if (entry_hour >= 6 && entry_am_pm.equals("PM")) {
+//                flag = 2;
             } else if (!(Globals.dayName.equals("Saturday") || Globals.dayName.equals("Sunday"))) {
                 flag = 3;
             }

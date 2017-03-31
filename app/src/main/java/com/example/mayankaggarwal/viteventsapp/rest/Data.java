@@ -1,9 +1,13 @@
 package com.example.mayankaggarwal.viteventsapp.rest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
 import com.example.mayankaggarwal.viteventsapp.activities.LeaveRequest;
 import com.example.mayankaggarwal.viteventsapp.activities.Events;
@@ -936,6 +940,17 @@ public class Data {
                     if(response.body().get("code").getAsString().equals("200")){
                         activity.finish();
                         activity.startActivity(new Intent(activity, Hosteller.class));
+                    }else {
+                        AlertDialog.Builder alert=new AlertDialog.Builder(activity);
+                        alert.setTitle("Error");
+                        alert.setMessage(response.body().get("message").getAsString());
+                        alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.show();
                     }
                     updateCallback.onUpdate();
                 }
