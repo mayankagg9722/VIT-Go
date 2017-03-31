@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mActionDrawerToggle.setDrawerIndicatorEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.navvv);
+        toolbar.setNavigationIcon(R.drawable.navvvv);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

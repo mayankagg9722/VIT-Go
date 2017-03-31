@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.fragment.LoginFragment;
+import com.example.mayankaggarwal.viteventsapp.fragment.SliderThree;
 import com.example.mayankaggarwal.viteventsapp.fragment.SliderTwo;
 import com.example.mayankaggarwal.viteventsapp.fragment.Sliderfour;
 import com.example.mayankaggarwal.viteventsapp.fragment.SplashSliderOne;
@@ -69,7 +70,7 @@ public class SplashSlider extends IntroActivity {
         slidethree = new FragmentSlide.Builder()
                 .background(R.color.clolor_slidethree)
                 .backgroundDark(R.color.clor_slidethreedark)
-                .fragment(SplashSliderOne.newInstance())
+                .fragment(SliderThree.newInstance())
                 .build();
         addSlide(slidethree);
 
