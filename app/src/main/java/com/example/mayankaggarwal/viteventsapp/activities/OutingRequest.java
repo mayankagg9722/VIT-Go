@@ -48,6 +48,9 @@ public class OutingRequest extends AppCompatActivity {
 
         init();
 
+        fac_name.clear();
+        fac_id.clear();
+
         getLeave(this);
 
         setClickListener();
@@ -131,6 +134,7 @@ public class OutingRequest extends AppCompatActivity {
         submitLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("tag",""+Globals.dayName);
                 int p=checkEmptyFields();
                 if (p== 0) {
                     setFieldsText();
@@ -140,7 +144,7 @@ public class OutingRequest extends AppCompatActivity {
                 } else if(p==2) {
                     Toast.makeText(OutingRequest.this, "Check Date or time.", Toast.LENGTH_SHORT).show();
                 } else if(p==3) {
-                    Toast.makeText(OutingRequest.this, "Select only weekands.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OutingRequest.this, "Select only weekends.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -161,31 +165,32 @@ public class OutingRequest extends AppCompatActivity {
 
     private int checkEmptyFields() {
         flag = 0;
-        int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
-        int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
-        String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
-        String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
-//        Log.d("tagg",Globals.dayName);
-        if (wrongSpinnerItem == 1) {
-            flag = 1;
-        } else if (isEmpty(fromdate)) {
-            flag = 1;
-        } else if (isEmpty(fromtime)) {
-            flag = 1;
-        } else if (isEmpty(totime)) {
-            flag = 1;
-        } else if (isEmpty(place)) {
-            flag = 1;
-        } else if (isEmpty(reason)) {
-            flag = 1;
-        } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
-            flag=2;
-        }
-        else if (entry_hour >=6 && entry_am_pm.equals("PM")) {
-            flag=2;
-        }
-        else if(!(Globals.dayName.equals("Saturday") || Globals.dayName.equals("Sunday"))){
-            flag=3;
+        if(fromtime.getText().length()>0 && totime.getText().length()>0) {
+            int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
+            int entry_hour = Integer.parseInt(totime.getText().toString().trim().substring(0, 2).trim());
+            String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
+            String entry_am_pm = totime.getText().toString().trim().substring(5).trim();
+            if (wrongSpinnerItem == 1) {
+                flag = 1;
+            } else if (isEmpty(fromdate)) {
+                flag = 1;
+            } else if (isEmpty(fromtime)) {
+                flag = 1;
+            } else if (isEmpty(totime)) {
+                flag = 1;
+            } else if (isEmpty(place)) {
+                flag = 1;
+            } else if (isEmpty(reason)) {
+                flag = 1;
+            } else if (exit_hour <= 7 && exit_am_pm.equals("AM")) {
+                flag = 2;
+            } else if (entry_hour >= 6 && entry_am_pm.equals("PM")) {
+                flag = 2;
+            } else if (!(Globals.dayName.equals("Saturday") || Globals.dayName.equals("Sunday"))) {
+                flag = 3;
+            }
+        }else {
+            flag=1;
         }
         return flag;
     }

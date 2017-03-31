@@ -814,6 +814,11 @@ public class Data {
 
                     Prefs.setPrefs("leaves",response.body().get("leaves").toString(),activity);
 
+                    OutingRequest.fac_name.clear();
+                    OutingRequest.fac_id.clear();
+                    LeaveRequest.fac_name.clear();
+                    LeaveRequest.fac_id.clear();
+
                     for (JsonElement str : names) {
                         LeaveRequest.fac_name.add(str.getAsString());
                         OutingRequest.fac_name.add(str.getAsString());

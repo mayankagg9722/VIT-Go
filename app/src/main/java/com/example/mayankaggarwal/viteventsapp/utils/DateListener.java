@@ -30,7 +30,8 @@ public class DateListener implements DatePickerDialog.OnDateSetListener {
 
         String monthName = getMonthName(mMonth);
 
-        Globals.dayName=getDayName(mYear,mMonth,mDay);
+
+        Globals.dayName=getDayName(mYear,mMonth+1,mDay);
 
         textView.setText(new StringBuilder().append(mDay).append("-")
                 .append(monthName).append("-")
@@ -85,6 +86,7 @@ public class DateListener implements DatePickerDialog.OnDateSetListener {
         Date date = null;
         try {
             date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
+            Log.d("tag","date:"+date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -31,14 +31,15 @@ import java.util.List;
 
 public class LateNightRequest extends AppCompatActivity {
 
-    public static TextView fromdate, toDate, fromtime, totime,authority;
+    public static TextView fromdate, toDate, fromtime, totime, authority;
     private EditText place, reason;
     CardView submitLeave;
     LateRequest lateRequest;
     int wrongSpinnerItem = 0;
     int flag = 0;
-    String empid=null;
-    String profname=null;
+    String empid = null;
+    String profname = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class LateNightRequest extends AppCompatActivity {
 
         setClickListener();
     }
+
     private void init() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.leave_toolbar);
@@ -71,12 +73,12 @@ public class LateNightRequest extends AppCompatActivity {
         place = (EditText) findViewById(R.id.place);
         reason = (EditText) findViewById(R.id.reason);
 
-        lateRequest=new LateRequest();
+        lateRequest = new LateRequest();
 
-        empid=getIntent().getStringExtra("empid");
-        profname=getIntent().getStringExtra("profname");
+        empid = getIntent().getStringExtra("empid");
+        profname = getIntent().getStringExtra("profname");
 
-        if(profname!=null){
+        if (profname != null) {
             authority.setText(profname);
         }
 
@@ -87,8 +89,8 @@ public class LateNightRequest extends AppCompatActivity {
         authority.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LateNightRequest.this,Faculties.class);
-                intent.putExtra("comefrom","latenight");
+                Intent intent = new Intent(LateNightRequest.this, Faculties.class);
+                intent.putExtra("comefrom", "latenight");
                 startActivity(intent);
             }
         });
@@ -125,14 +127,13 @@ public class LateNightRequest extends AppCompatActivity {
         submitLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int p=checkEmptyFields();
-                if (p==0) {
+                int p = checkEmptyFields();
+                if (p == 0) {
                     setFieldsText();
                     submitLateNight(LateNightRequest.this, lateRequest);
-                } else if(p==2){
+                } else if (p == 2) {
                     Toast.makeText(LateNightRequest.this, "Wrong Time Selected", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(LateNightRequest.this, "Fill all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -140,37 +141,41 @@ public class LateNightRequest extends AppCompatActivity {
     }
 
     private void setFieldsText() {
-        lateRequest.cvFaculty=empid;
-        lateRequest.frmdate=fromdate.getText().toString();
-        lateRequest.todate=toDate.getText().toString();
-        lateRequest.frmtm=fromtime.getText().toString();
-        lateRequest.totm=totime.getText().toString();
-        lateRequest.txtVenue=place.getText().toString();
-        lateRequest.txtRsn=reason.getText().toString();
+        lateRequest.cvFaculty = empid;
+        lateRequest.frmdate = fromdate.getText().toString();
+        lateRequest.todate = toDate.getText().toString();
+        lateRequest.frmtm = fromtime.getText().toString();
+        lateRequest.totm = totime.getText().toString();
+        lateRequest.txtVenue = place.getText().toString();
+        lateRequest.txtRsn = reason.getText().toString();
     }
 
     private int checkEmptyFields() {
         flag = 0;
-        int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
-        String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
-        if (wrongSpinnerItem == 1) {
+        if (fromtime.getText().length() > 0) {
+            int exit_hour = Integer.parseInt(fromtime.getText().toString().trim().substring(0, 2).trim());
+            String exit_am_pm = fromtime.getText().toString().trim().substring(5).trim();
+            if (wrongSpinnerItem == 1) {
+                flag = 1;
+            } else if (isEmpty(fromdate)) {
+                flag = 1;
+            } else if (isEmpty(toDate)) {
+                flag = 1;
+            } else if (isEmpty(fromtime)) {
+                flag = 1;
+            } else if (isEmpty(totime)) {
+                flag = 1;
+            } else if (isEmpty(place)) {
+                flag = 1;
+            } else if (isEmpty(reason)) {
+                flag = 1;
+            } else if (empid.length() <= 0) {
+                flag = 1;
+            } else if (!(exit_am_pm.equals("PM") && exit_hour >= 8)) {
+                flag = 2;
+            }
+        } else {
             flag = 1;
-        } else if (isEmpty(fromdate)) {
-            flag = 1;
-        } else if (isEmpty(toDate)) {
-            flag = 1;
-        } else if (isEmpty(fromtime)) {
-            flag = 1;
-        } else if (isEmpty(totime)) {
-            flag = 1;
-        } else if (isEmpty(place)) {
-            flag = 1;
-        } else if (isEmpty(reason)) {
-            flag = 1;
-        }else if(empid.length()<=0){
-            flag=1;
-        }else if(!(exit_am_pm.equals("PM") && exit_hour>=8)){
-            flag=2;
         }
         return flag;
     }
