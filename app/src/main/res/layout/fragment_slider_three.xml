@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="No, need for registration for events\n from desks, sit back,relaxed use our app to register upcoming events."
                 android:textColor="#fff"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:gravity="center"
                 />
             <!--<LinearLayout-->
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
                 android:layout_gravity="bottom|center_horizontal"
                 android:src="@drawable/sliderthree"

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamCatTwo;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -35,6 +37,12 @@ public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHold
         parser=new JsonParser();
         if(examSchedule!=null){
             jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT1").getAsJsonArray();
+        }
+
+        if(jsonArray.size()>0){
+            ExamFragment.imageView.setVisibility(View.GONE);
+        }else {
+            ExamFragment.imageView.setVisibility(View.VISIBLE);
         }
     }
 

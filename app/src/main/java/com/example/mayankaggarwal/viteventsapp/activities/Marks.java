@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.example.mayankaggarwal.viteventsapp.adapter.RVMarks;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
+import com.example.mayankaggarwal.viteventsapp.utils.ImagePath;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
@@ -28,6 +31,7 @@ public class Marks extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout linearLayout;
+    public static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,9 @@ public class Marks extends AppCompatActivity {
         getSupportActionBar().setTitle("Marks");
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));

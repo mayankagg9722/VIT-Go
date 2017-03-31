@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class Events extends AppCompatActivity {
     Menu menu;
     public static ViewPager viewPager;
     public static TabLayout tabLayout;
+    public static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,9 @@ public class Events extends AppCompatActivity {
     private void init() {
         linearLayout = (LinearLayout) findViewById(R.id.event_layout);
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.event_toolbar);
 

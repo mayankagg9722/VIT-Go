@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
@@ -24,6 +26,7 @@ public class Messages extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    public static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class Messages extends AppCompatActivity {
         getSupportActionBar().setTitle("Faculty Messages");
 
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.Marks;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -46,6 +47,12 @@ public class RVMarks extends RecyclerView.Adapter<RVMarks.MyViewHolder> {
         parser=new JsonParser();
         if(marks!=null){
             jsonArray=parser.parse(marks).getAsJsonObject().get("data").getAsJsonArray();
+        }
+
+        if(jsonArray.size()>0){
+            Marks.imageView.setVisibility(View.GONE);
+        }else {
+            Marks.imageView.setVisibility(View.VISIBLE);
         }
     }
 

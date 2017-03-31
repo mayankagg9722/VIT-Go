@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
@@ -22,6 +23,7 @@ import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 public class ExamFat extends Fragment {
 
     private  RecyclerView recyclerView;
+    public static ImageView imageView;
 
     public ExamFat() {
         // Required empty public constructor
@@ -34,6 +36,8 @@ public class ExamFat extends Fragment {
         View view=null;
         view=inflater.inflate(R.layout.fragment_exam_fat, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.exam);
+        imageView=(ImageView)view.findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         if(!(Prefs.getPrefs("examschedule",getActivity()).equals("notfound"))){

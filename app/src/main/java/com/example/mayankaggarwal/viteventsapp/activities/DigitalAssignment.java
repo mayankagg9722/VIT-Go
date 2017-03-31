@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class DigitalAssignment extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    public static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,10 @@ public class DigitalAssignment extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));
         }
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
+
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.digital_swipe_refresh_layout);
         recyclerView = (RecyclerView) findViewById(R.id.digital_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

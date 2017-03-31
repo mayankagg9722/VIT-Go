@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamCatTwo;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamFat;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -35,6 +37,12 @@ public class RVExamSceduleTwo extends RecyclerView.Adapter<RVExamSceduleTwo.MyVi
 
         if(examSchedule!=null){
             jsonArray=parser.parse(examSchedule).getAsJsonObject().get("CAT2").getAsJsonArray();
+        }
+
+        if(jsonArray.size()>0){
+            ExamCatTwo.imageView.setVisibility(View.GONE);
+        }else {
+            ExamCatTwo.imageView.setVisibility(View.VISIBLE);
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.Messages;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
@@ -43,6 +44,12 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             if(messages!=null){
                 jsonObject=parser.parse(messages).getAsJsonObject();
                 messagesList=jsonObject.get("messages").getAsJsonArray();
+            }
+
+            if(messagesList.size()>0){
+                Messages.imageView.setVisibility(View.GONE);
+            }else {
+                Messages.imageView.setVisibility(View.VISIBLE);
             }
 
         }

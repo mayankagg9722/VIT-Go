@@ -98,6 +98,12 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RVAverageAttendace.
             fetchClass(main_timetable,attendanceList);
         }
 
+        if(this.attendanceList.size()>0){
+            AverageAttendance.imageView.setVisibility(View.GONE);
+        }else {
+            AverageAttendance.imageView.setVisibility(View.VISIBLE);
+        }
+
         this.context = context;
         this.clickable = clickable;
 

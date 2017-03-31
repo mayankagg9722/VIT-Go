@@ -12,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
     private EditText search;
     private SwipeRefreshLayout swipeRefreshLayout;
     RVFaculties adapter;
+    public static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,9 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Search Faculties");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         search = (EditText) findViewById(R.id.search_faculties);
 
@@ -145,7 +151,8 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        this.adapter.filter(s.toString());
+            this.adapter.filter(s.toString());
+
     }
 
     @Override

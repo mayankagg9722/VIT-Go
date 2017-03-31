@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class DigitalMarks extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     DigitalMarksRequest digitalMarksRequest;
     RelativeLayout relativeLayout;
+    public static ImageView imageView;
 
 
     @Override
@@ -55,6 +58,9 @@ public class DigitalMarks extends AppCompatActivity {
         getSupportActionBar().setTitle(getIntent().getStringExtra("crscd"));
         toolbar.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));

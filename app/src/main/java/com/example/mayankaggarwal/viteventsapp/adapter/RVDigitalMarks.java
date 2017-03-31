@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
+import com.example.mayankaggarwal.viteventsapp.activities.Marks;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -36,6 +38,12 @@ public class RVDigitalMarks extends RecyclerView.Adapter<RVDigitalMarks.MyViewHo
         this.context=context;
         parser=new JsonParser();
         jsonArray= parser.parse(digitalMarksDatas).getAsJsonArray();
+
+        if(jsonArray.size()>0){
+            DigitalMarks.imageView.setVisibility(View.GONE);
+        }else {
+            DigitalMarks.imageView.setVisibility(View.VISIBLE);
+        }
 
     }
 

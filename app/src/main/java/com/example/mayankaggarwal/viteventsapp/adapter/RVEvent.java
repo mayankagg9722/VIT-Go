@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.EventDetails;
+import com.example.mayankaggarwal.viteventsapp.activities.Events;
 import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
@@ -37,7 +38,6 @@ import io.realm.RealmResults;
 public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
 
     private Activity context;
-//    private List<EventList> eventList = new ArrayList<>();
     int item;
     JsonParser parser;
     JsonArray jsonArray;
@@ -50,6 +50,12 @@ public class RVEvent extends RecyclerView.Adapter<RVEvent.MyViewHolder> {
         parser=new JsonParser();
 
         jsonArray=parser.parse(eventLists).getAsJsonArray();
+
+        if(jsonArray.size()>0){
+            Events.imageView.setVisibility(View.GONE);
+        }else {
+            Events.imageView.setVisibility(View.VISIBLE);
+        }
 
 
         this.context = context;

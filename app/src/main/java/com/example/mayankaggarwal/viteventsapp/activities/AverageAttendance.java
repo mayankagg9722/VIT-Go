@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ public class AverageAttendance extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private  RecyclerView recyclerView;
+    public static ImageView imageView;
 
     public static int avg_per=0;
 
@@ -73,6 +75,9 @@ public class AverageAttendance extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.spinimage);
         final Animation myRotation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
         image.startAnimation(myRotation);
+
+        imageView=(ImageView)findViewById(R.id.noclass);
+        imageView.setVisibility(View.GONE);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.avg_swipe);
 

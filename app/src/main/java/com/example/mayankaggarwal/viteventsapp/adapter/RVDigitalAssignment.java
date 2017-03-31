@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.activities.DigitalAssignment;
 import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.gson.JsonArray;
@@ -37,6 +38,12 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
         parser=new JsonParser();
         if(digitalAssignment!=null){
             jsonArray=parser.parse(digitalAssignment).getAsJsonObject().get("data").getAsJsonArray();
+        }
+
+        if(jsonArray.size()>0){
+            DigitalAssignment.imageView.setVisibility(View.GONE);
+        }else {
+            DigitalAssignment.imageView.setVisibility(View.VISIBLE);
         }
     }
 

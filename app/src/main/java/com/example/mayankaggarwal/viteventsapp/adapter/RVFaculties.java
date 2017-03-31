@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mayankaggarwal.viteventsapp.activities.Faculties;
 import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.LateNightRequest;
@@ -41,6 +42,11 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
         jsonArrayCopy=parser.parse(faculties).getAsJsonArray();
 
 
+        if(jsonArray.size()>0){
+            Faculties.imageView.setVisibility(View.GONE);
+        }else {
+            Faculties.imageView.setVisibility(View.VISIBLE);
+        }
 
         this.context = context;
         this.clickable = clickable;

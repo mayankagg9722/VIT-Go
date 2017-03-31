@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
+import com.example.mayankaggarwal.viteventsapp.fragment.ExamFat;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -35,6 +36,12 @@ public class RVExamFat extends RecyclerView.Adapter<RVExamFat.MyViewHolder> {
 
         if(examSchedule!=null){
             jsonArray=parser.parse(examSchedule).getAsJsonObject().get("fat").getAsJsonArray();
+        }
+
+        if(jsonArray.size()>0){
+            ExamFat.imageView.setVisibility(View.GONE);
+        }else {
+            ExamFat.imageView.setVisibility(View.VISIBLE);
         }
 
     }
