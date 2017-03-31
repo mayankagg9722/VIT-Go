@@ -31,7 +31,7 @@ public class Settings extends AppCompatActivity {
 
 
     FloatingActionButton one, two, three, four, five, six, seven, eight, nine;
-    CardView logout;
+    CardView logout,about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +138,13 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this,AboutUs.class));
+            }
+        });
+
     }
 
     private void settingGlobalback() {
@@ -189,6 +196,7 @@ public class Settings extends AppCompatActivity {
         seven = (FloatingActionButton) findViewById(R.id.seven);
         eight = (FloatingActionButton) findViewById(R.id.eight);
         nine = (FloatingActionButton) findViewById(R.id.nine);
+        about=(CardView)findViewById(R.id.aboutus);
 
         logout = (CardView) findViewById(R.id.logout);
     }

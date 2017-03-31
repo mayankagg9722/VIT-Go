@@ -71,7 +71,6 @@ public class Globals {
 
     public static int averageAttendanceSize;
 
-
-
+    public  static int cloud=0;
 
 }
