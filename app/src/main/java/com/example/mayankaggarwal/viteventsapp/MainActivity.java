@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         if (RealmController.with(this).hasAttendance()) {
-            Log.d("playyyRefresh",RealmController.with(this).getAtendance().toString());
             recyclerView.setAdapter(new RVAttendaceList(RealmController.with(this).getAtendance(), this, true));
         }
 
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final  DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         final CoordinatorLayout mainView = (CoordinatorLayout) findViewById(R.id.main_coordinate);
 
@@ -167,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
                     Data.updateAttendance(activity, new Data.UpdateCallback() {
                         @Override
                         public void onUpdate() {
-//                            Log.d("playyynormal",RealmController.with(activity).getAtendance().toString());
-
                             RVAttendaceList attendaceList=new RVAttendaceList(RealmController.with(activity).getAtendance(), MainActivity.this, true);
                             if(Globals.attendanceListSize==Globals.courseCodeDaySize){
                                 recyclerView.setAdapter(attendaceList);

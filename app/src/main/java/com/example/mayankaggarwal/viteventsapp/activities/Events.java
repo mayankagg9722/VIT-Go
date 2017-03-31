@@ -339,12 +339,6 @@ public class Events extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        hand.removeCallbacks(r);
-
-    }
 
     @Override
     protected void onDestroy() {
@@ -352,10 +346,17 @@ public class Events extends AppCompatActivity {
         hand.removeCallbacks(r);
     }
 
+
     @Override
-    public boolean onNavigateUp() {
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
         hand.removeCallbacks(r);
-        return super.onNavigateUp();
     }
 
 

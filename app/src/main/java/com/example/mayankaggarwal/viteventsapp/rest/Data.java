@@ -672,7 +672,7 @@ public class Data {
             apiInterfaceMessages.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.d("tagg",response.body().toString());
+//                    Log.d("tagg",response.body().toString());
                     Prefs.setPrefs("messages", response.body().toString(), activity);
                     updateCallback.onUpdate();
                 }

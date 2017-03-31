@@ -110,8 +110,7 @@ public class navigation_drawer extends Fragment {
         linearLayout.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         linearLayouttop.setBackgroundColor(Color.parseColor(SetTheme.colorName));
         ListView listView=(ListView)v.findViewById(R.id.listview);
-        String[] names={"Events","Home","Time Table","Attendance","Search Faculty","Faculty Messages","Digital Assignments","Exam Schedule","Marks","Leave"
-                ,"Grades","Course Page","Default Password"};
+        String[] names={"Events","Time Table","Attendance","Search Faculty","Faculty Messages","Digital Assignments","Exam Schedule","Marks","Hosteller"};
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),R.layout.item_list_nav,R.id.mytextcustom,names);
         listView.setSelector(R.drawable.custom_selector);
         listView.setAdapter(arrayAdapter);
@@ -121,24 +120,20 @@ public class navigation_drawer extends Fragment {
                 if(position==0){
                     startActivity(new Intent(getActivity(),Events.class));
                 }else if(position==1){
-                    getActivity().finish();
-                    startActivity(new Intent(getActivity(),MainActivity.class));
-                }
-                else if(position==2){
                     startActivity(new Intent(getActivity(),TimeTable.class));
-                }else if(position==3){
+                }else if(position==2){
                     startActivity(new Intent(getActivity(),AverageAttendance.class));
-                }else if(position==4){
+                }else if(position==3){
                     startActivity(new Intent(getActivity(),Faculties.class));
-                }else if(position==5){
+                }else if(position==4){
                     startActivity(new Intent(getActivity(),Messages.class));
-                }else if(position==6){
+                }else if(position==5){
                     startActivity(new Intent(getActivity(),DigitalAssignment.class));
-                }else if(position==7){
+                }else if(position==6){
                     startActivity(new Intent(getActivity(),ExamSchedule.class));
-                }else if(position==8){
+                }else if(position==7){
                     startActivity(new Intent(getActivity(),Marks.class));
-                }else if(position==9){
+                }else if(position==8){
                     startActivity(new Intent(getActivity(),Hosteller.class));
                 }
             }

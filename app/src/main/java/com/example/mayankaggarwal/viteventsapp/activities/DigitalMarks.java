@@ -89,10 +89,6 @@ public class DigitalMarks extends AppCompatActivity {
             }
         }
 
-        Log.d("tagg",Globals.digitalCourseCode.toString());
-        Log.d("tagg",Globals.digitalCourseType.toString());
-        Log.d("tagg","flag:"+" "+flag+"pos:"+pos);
-
         if(flag==0){
             fetchDigitalMarks(this);
         }else {

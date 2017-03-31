@@ -33,7 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Poster Making"
+                    android:text="Title"
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:id="@+id/titledigital"
@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Uploaded Status : "
+                        android:text="Status : "
                         android:layout_marginLeft="10dp"
                         android:paddingTop="4dp"
                         android:textSize="10dp"
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:layout_marginLeft="10dp"
-                        android:id="@+id/uploadstatus"
+                        android:id="@+id/status"
                         android:paddingTop="4dp"
                         android:textSize="10dp"
                         android:textColor="#fff"/>
@@ -117,6 +117,8 @@
                         android:textColor="#fff"/>
                 </LinearLayout>
 
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status : "
+                        android:text="Upload Status : "
                         android:layout_marginLeft="10dp"
                         android:paddingTop="4dp"
                         android:textSize="10dp"
@@ -135,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:layout_marginLeft="10dp"
-                        android:id="@+id/status"
+                        android:id="@+id/uploadstatus"
                         android:paddingTop="4dp"
                         android:textSize="10dp"
                         android:textColor="#fff"/>

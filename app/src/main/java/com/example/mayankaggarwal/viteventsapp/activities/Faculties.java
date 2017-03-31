@@ -153,5 +153,16 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
+
 
 }

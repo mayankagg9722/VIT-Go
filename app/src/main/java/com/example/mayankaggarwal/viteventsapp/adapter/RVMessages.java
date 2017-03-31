@@ -43,7 +43,6 @@ public class RVMessages extends RecyclerView.Adapter<RVMessages.MyViewHolder>  {
             if(messages!=null){
                 jsonObject=parser.parse(messages).getAsJsonObject();
                 messagesList=jsonObject.get("messages").getAsJsonArray();
-                Log.d("play",messagesList.toString());
             }
 
         }
