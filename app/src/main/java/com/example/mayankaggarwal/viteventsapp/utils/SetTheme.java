@@ -89,7 +89,7 @@ public class SetTheme {
     public static void onActivityCreateSetTheme(Activity activity) {
         String color = Prefs.getPrefs("theme", activity);
         if (color.equals("notfound")) {
-            sTheme = 0;
+            sTheme = 2;
             colorName = "#009688";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity.getWindow().setStatusBarColor(Color.parseColor(colorName));
@@ -179,7 +179,7 @@ public class SetTheme {
     public static void setThemePref(Activity activity) {
         String color = Prefs.getPrefs("theme", activity);
         if (color.equals("notfound")) {
-            sTheme = 0;
+            sTheme = 2;
             colorName = "#009688";
         } else {
             sTheme = Integer.parseInt(color);

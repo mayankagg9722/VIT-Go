@@ -1,5 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.fragment.LoginFragment;
+import com.example.mayankaggarwal.viteventsapp.fragment.SliderTwo;
+import com.example.mayankaggarwal.viteventsapp.fragment.Sliderfour;
+import com.example.mayankaggarwal.viteventsapp.fragment.SplashSliderOne;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
@@ -21,16 +25,16 @@ public class SplashSlider extends IntroActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        boolean fullscreen =  true;
-        boolean scrollable =  true;
-        boolean customFragments =  true;
+        boolean fullscreen = true;
+        boolean scrollable = true;
+        boolean customFragments = true;
 //      boolean permissions = true;
         boolean showBack = true;
         boolean showNext = true;
         boolean skipEnabled = true;
-        boolean finishEnabled =  true;
-        boolean getStartedEnabled =  false;
-
+        boolean finishEnabled = true;
+        boolean getStartedEnabled = false;
+        boolean pagerindiactor=true;
 
 
         setFullscreen(fullscreen);
@@ -43,53 +47,88 @@ public class SplashSlider extends IntroActivity {
         setButtonNextVisible(showNext);
         setButtonCtaVisible(getStartedEnabled);
         setButtonCtaTintMode(BUTTON_CTA_TINT_MODE_TEXT);
+        setPagerIndicatorVisible(pagerindiactor);
 
-        addSlide(new SimpleSlide.Builder()
-                .title(R.string.title_material_metaphor)
-                .description(R.string.description_material_metaphor)
-                .image(R.drawable.sample)
-                .background(R.color.color_material_metaphor)
-                .backgroundDark(R.color.color_dark_material_metaphor)
-                .scrollable(scrollable)
-                .buttonCtaLabel("Know More")
-                .buttonCtaClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast toast = Toast.makeText(SplashSlider.this, R.string.toast_button_cta, Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+        final Slide slideone;
+        slideone = new FragmentSlide.Builder()
+                .background(R.color.clolor_slideone)
+                .backgroundDark(R.color.clor_slideonedark)
+                .fragment(SplashSliderOne.newInstance())
+                .build();
+        addSlide(slideone);
 
-                        nextSlide();
-                    }
-                })
-                .build());
+        final Slide slidetwo;
+        slidetwo = new FragmentSlide.Builder()
+                .background(R.color.clolor_slidetwo)
+                .backgroundDark(R.color.clor_slidetwodark)
+                .fragment(SliderTwo.newInstance())
+                .build();
+        addSlide(slidetwo);
 
-        addSlide(new SimpleSlide.Builder()
-                .title(R.string.title_material_bold)
-                .description(R.string.description_material_bold)
-                .image(R.drawable.sample)
-                .background(R.color.color_material_bold)
-                .backgroundDark(R.color.color_dark_material_bold)
-                .scrollable(scrollable)
-                .build());
+        final Slide slidethree;
+        slidethree = new FragmentSlide.Builder()
+                .background(R.color.clolor_slidethree)
+                .backgroundDark(R.color.clor_slidethreedark)
+                .fragment(SplashSliderOne.newInstance())
+                .build();
+        addSlide(slidethree);
 
-        addSlide(new SimpleSlide.Builder()
-                .title(R.string.title_material_motion)
-                .description(R.string.description_material_motion)
-                .image(R.drawable.sample)
-                .background(R.color.color_material_motion)
-                .backgroundDark(R.color.color_dark_material_motion)
-                .scrollable(scrollable)
-                .build());
+        final Slide slidefour;
+        slidefour = new FragmentSlide.Builder()
+                .background(R.color.clolor_slidefour)
+                .backgroundDark(R.color.clor_slidefourdark)
+                .fragment(Sliderfour.newInstance())
+                .build();
+        addSlide(slidefour);
 
-        addSlide(new SimpleSlide.Builder()
-                .title(R.string.title_material_shadow)
-                .description(R.string.description_material_shadow)
-                .image(R.drawable.sample)
-                .background(R.color.color_material_shadow)
-                .backgroundDark(R.color.color_dark_material_shadow)
-                .scrollable(scrollable)
-                .build());
+
+
+//        addSlide(new SimpleSlide.Builder()
+//                .title(R.string.title_material_metaphor)
+//                .description(R.string.description_material_metaphor)
+//                .image(R.drawable.sample)
+//                .background(R.color.color_material_metaphor)
+//                .backgroundDark(R.color.color_dark_material_metaphor)
+////                .scrollable(scrollable)
+//                .buttonCtaLabel("Know More")
+//                .buttonCtaClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast toast = Toast.makeText(SplashSlider.this, R.string.toast_button_cta, Toast.LENGTH_SHORT);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
+//
+//                        nextSlide();
+//                    }
+//                })
+//                .build());
+//
+//        addSlide(new SimpleSlide.Builder()
+//                .title(R.string.title_material_bold)
+//                .description(R.string.description_material_bold)
+//                .image(R.drawable.sample)
+//                .background(R.color.color_material_bold)
+//                .backgroundDark(R.color.color_dark_material_bold)
+////                .scrollable(scrollable)
+//                .build());
+//
+//        addSlide(new SimpleSlide.Builder()
+//                .title(R.string.title_material_motion)
+//                .description(R.string.description_material_motion)
+//                .image(R.drawable.sample)
+//                .background(R.color.color_material_motion)
+//                .backgroundDark(R.color.color_dark_material_motion)
+////                .scrollable(scrollable)
+//                .build());
+//
+//        addSlide(new SimpleSlide.Builder()
+//                .title(R.string.title_material_shadow)
+//                .description(R.string.description_material_shadow)
+//                .image(R.drawable.sample)
+//                .background(R.color.color_material_shadow)
+//                .backgroundDark(R.color.color_dark_material_shadow)
+////                .scrollable(scrollable)
+//                .build());
 
 //        final Slide permissionsSlide;
 //        if (permissions) {

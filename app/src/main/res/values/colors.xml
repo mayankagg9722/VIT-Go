@@ -25,6 +25,18 @@
     <color name="color_dark_custom_fragment_2">#1e2430</color>
     <color name="color_dark_canteen">#ebeef0</color>
 
+    <color name="clolor_slideone">#673AB7</color>
+    <color name="clor_slideonedark">#673AB7</color>
+
+    <color name="clolor_slidetwo">#F44236</color>
+    <color name="clor_slidetwodark">#F44236</color>
+
+    <color name="clolor_slidethree">#E91E63</color>
+    <color name="clor_slidethreedark">#E91E63</color>
+
+    <color name="clolor_slidefour">#009688</color>
+    <color name="clor_slidefourdark">#009688</color>
+
     <color name="transparent">#00ffffff</color>
 
     <color name="myColor">#009688</color>

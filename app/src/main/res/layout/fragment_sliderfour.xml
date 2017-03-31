@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mayankaggarwal.viteventsapp.fragment.Sliderfour">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/goicon"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Never settle for one thing.\nSo have multiple color theme options \nto enhance your experience."
+            android:textColor="#fff"
+            android:textSize="17dp"
+            android:gravity="center"
+            />
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="bottom">-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:src="@drawable/slidefour"
+            android:background="#00000000"
+            />
+
+    </LinearLayout>
+
+    <!--</LinearLayout>-->
+
+</FrameLayout>
