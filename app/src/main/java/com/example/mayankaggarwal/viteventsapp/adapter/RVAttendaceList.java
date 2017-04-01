@@ -265,10 +265,18 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
 //                Log.d("tagg",myViewHolder.faculty.getText().toString());
+                    int pos=position;
+                    if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                        if(Prefs.getPrefs("showads",context).equals("true")){
+                            pos=position-1;
+                        }else {
+                            pos=position;
+                        }
+                    }
                     Intent intent = new Intent(context, Details.class);
                     intent.putExtra("percentage", myViewHolder.percentage.getText().toString());
                     intent.putExtra("coursename", myViewHolder.course_name.getText().toString());
-                    intent.putExtra("classroom", course_classroom.get(position));
+                    intent.putExtra("classroom", course_classroom.get(pos));
                     intent.putExtra("code", attendanceList.getCourseCode());
                     intent.putExtra("faculty", myViewHolder.faculty.getText());
                     intent.putExtra("attendedclass", attendanceList.getAttended().toString());
