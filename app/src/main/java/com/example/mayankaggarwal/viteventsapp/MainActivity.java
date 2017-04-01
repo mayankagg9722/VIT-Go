@@ -30,6 +30,9 @@ import com.example.mayankaggarwal.viteventsapp.rest.Data;
 
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         SetTheme.setThemePref(this);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1043169578514521~6151311099");
 
         setContentView(R.layout.activity_main);
 

@@ -169,9 +169,9 @@ public class SplashSlider extends IntroActivity {
 //                    if (slide == permissionsSlide) {
 //                        Snackbar.make(contentView, R.string.label_grant_permissions, Snackbar.LENGTH_LONG).show();
 //                    } else
-                    if (slide == loginSlide) {
-                        Snackbar.make(contentView, R.string.label_fill_out_form, Snackbar.LENGTH_LONG).show();
-                    }
+//                    if (slide == loginSlide) {
+//                        Snackbar.make(contentView, R.string.label_fill_out_form, Snackbar.LENGTH_LONG).show();
+//                    }
                 }
             }
         });

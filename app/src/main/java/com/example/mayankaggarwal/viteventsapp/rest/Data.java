@@ -186,8 +186,10 @@ public class Data {
             final Call<AttendanceResponse> attendance = apiInterface.attendance(attendenceRequest);
 
             try {
-                final List<AttendanceList> attendenceList = attendance.execute().body().data;
 
+                AttendanceResponse attendanceResponse=attendance.execute().body();
+                final List<AttendanceList> attendenceList = attendanceResponse.data;
+                Prefs.setPrefs("showads",attendanceResponse.showAds.toString(),activity);
                 Globals.attendanceListSize=attendenceList.size();
 //                Log.d("taggplay", attendenceList.size() + "");
                 Realm realm = Realm.getDefaultInstance();

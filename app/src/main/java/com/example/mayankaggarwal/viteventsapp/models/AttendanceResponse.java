@@ -22,5 +22,10 @@ public class AttendanceResponse {
     @Expose
     public List<AttendanceList> data =new ArrayList<>();
 
+    @SerializedName("showAds")
+    @Expose
+    public Boolean showAds;
+
+
 }
 

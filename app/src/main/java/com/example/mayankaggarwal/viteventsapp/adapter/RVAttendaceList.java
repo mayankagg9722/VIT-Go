@@ -24,6 +24,11 @@ import com.example.mayankaggarwal.viteventsapp.models.AttendanceList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,7 +45,11 @@ import java.util.List;
  * Created by mayankaggarwal on 13/02/17.
  */
 
-public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyViewHolder> {
+public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
+    private static final int AD_VIEW_TYPE = 0;
+    private static final int MENU_VIEW_TYPE = 1;
 
     public List<AttendanceList> attendanceList;
     public Activity context;
@@ -98,6 +107,22 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
     }
 
+    public class NativeExpressAdViewHolder extends RecyclerView.ViewHolder {
+        public NativeExpressAdViewHolder(View view) {
+            super(view);
+            NativeExpressAdView mAdView = (NativeExpressAdView)view.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
+            mAdView.loadAd(adRequest);
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("false")){
+                    mAdView.setVisibility(View.GONE);
+                }else {
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
     public RVAttendaceList(List<AttendanceList> atendance, Activity context, boolean clickable) {
 
         parser = new JsonParser();
@@ -142,104 +167,122 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
 
         }
 
-
         if (this.attendanceList.size() > 0) {
             MainActivity.imageView.setVisibility(View.GONE);
         } else {
             MainActivity.imageView.setVisibility(View.VISIBLE);
         }
 
-
         this.context = context;
         this.clickable = clickable;
     }
 
     @Override
-    public RVAttendaceList.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         SetTheme.onActivityCreateSetTheme(context);
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_layout, parent, false);
-
-        return new RVAttendaceList.MyViewHolder(itemView);
-
+        switch (viewType) {
+            case AD_VIEW_TYPE:
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.native_express_ad, parent, false);
+                return new RVAttendaceList.NativeExpressAdViewHolder(view);
+            case MENU_VIEW_TYPE:
+            default:
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_layout, parent, false);
+                return new RVAttendaceList.MyViewHolder(itemView);
+        }
     }
 
+
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        final AttendanceList attendanceList = this.attendanceList.get(position);
+        if (holder instanceof NativeExpressAdViewHolder) {
+            NativeExpressAdViewHolder nativeExpressViewHolder = (NativeExpressAdViewHolder) holder;
+            ViewGroup adView=(ViewGroup)nativeExpressViewHolder.itemView;
 
+//            adView.removeAllViews();
+//            NativeExpressAdView nativeexpress=new NativeExpressAdView(context);
+//            nativeexpress.setAdSize(new AdSize(320,150));
+//            nativeexpress.setAdUnitId("ca-app-pub-1043169578514521/7037347897");
+//            nativeexpress.loadAd(new AdRequest.Builder().build());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
-        }
+        } else if (holder instanceof MyViewHolder) {
 
-        if ((Float.parseFloat(attendanceList.getTotalClasses()) != 0)) {
-            float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
+            final MyViewHolder myViewHolder = (MyViewHolder) holder;
+            final AttendanceList attendanceList = this.attendanceList.get(position-1);
 
-            if (per - Math.floor(per) > 0.0) {
-                per = (int) per + 1;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                myViewHolder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
             }
 
-            if (per >= 75) {
-                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
-                holder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
-            } else {
-                holder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
-                holder.percentage.setTextColor(Color.parseColor("#ffffff"));
+            if ((Float.parseFloat(attendanceList.getTotalClasses()) != 0)) {
+                float per = ((Float.parseFloat(attendanceList.getAttended())) * 100) / (Float.parseFloat(attendanceList.getTotalClasses()));
+
+                if (per - Math.floor(per) > 0.0) {
+                    per = (int) per + 1;
+                }
+
+                if (per >= 75) {
+                    myViewHolder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape_notdebaared));
+                    myViewHolder.percentage.setTextColor(Color.parseColor(SetTheme.colorName));
+                } else {
+                    myViewHolder.cardView.setBackground(context.getResources().getDrawable(R.drawable.custom_shape));
+                    myViewHolder.percentage.setTextColor(Color.parseColor("#ffffff"));
+                }
+
+                myViewHolder.percentage.setText(String.valueOf((int) per) + "%");
+
             }
 
-            holder.percentage.setText(String.valueOf((int) per) + "%");
 
-        }
-
-
-        holder.course_name.setText(attendanceList.getCourseName());
+            myViewHolder.course_name.setText(attendanceList.getCourseName());
 
 
-        for (JsonElement a : main_faculty) {
-            if (attendanceList.getCourseName().toLowerCase().equals(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())) {
-                if ((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))) {
-                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
-                } else if (attendanceList.getCourseType().toLowerCase().contains("lab")) {
-                    holder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+            for (JsonElement a : main_faculty) {
+                if (attendanceList.getCourseName().toLowerCase().equals(a.getAsJsonObject().get("courseName").getAsString().toLowerCase())) {
+                    if ((attendanceList.getCourseType().toLowerCase().contains("theory")) && (a.getAsJsonObject().get("courseType").getAsString().toLowerCase().contains("theory"))) {
+                        myViewHolder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                    } else if (attendanceList.getCourseType().toLowerCase().contains("lab")) {
+                        myViewHolder.faculty.setText(a.getAsJsonObject().get("facultyName").getAsString().split("-")[0]);
+                    }
                 }
             }
-        }
-        holder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(position));
-        holder.timeView.setText(course_time.get(position));
+            myViewHolder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(position-1));
+            myViewHolder.timeView.setText(course_time.get(position-1));
 
-        if (attendanceList.getCourseType().contains("Theory")) {
-            holder.course_type.setText(course_slot.get(position) + " - Theory");
-        } else if (attendanceList.getCourseType().equals("Soft Skill")) {
-            holder.course_type.setText(course_slot.get(position) + " - Soft Skills");
-        } else {
-            holder.course_type.setText(course_slot.get(position) + " - Lab");
-        }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Log.d("tagg",holder.faculty.getText().toString());
-                Intent intent = new Intent(context, Details.class);
-                intent.putExtra("percentage", holder.percentage.getText().toString());
-                intent.putExtra("coursename", holder.course_name.getText().toString());
-                intent.putExtra("classroom", course_classroom.get(position));
-                intent.putExtra("code", attendanceList.getCourseCode());
-                intent.putExtra("faculty", holder.faculty.getText());
-                intent.putExtra("attendedclass", attendanceList.getAttended().toString());
-                intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
-
-                intent.putExtra("classnbr", attendanceList.getPostParams().getClassnbr().toString());
-                intent.putExtra("semcode", attendanceList.getPostParams().getSemcode().toString());
-                intent.putExtra("crscd", attendanceList.getPostParams().getCrscd().toString());
-                intent.putExtra("crstp", attendanceList.getPostParams().getCrstp().toString());
-                intent.putExtra("from_date", attendanceList.getPostParams().getFromDate().toString());
-                intent.putExtra("to_date", attendanceList.getPostParams().getToDate().toString());
-
-                context.startActivity(intent);
+            if (attendanceList.getCourseType().contains("Theory")) {
+                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Theory");
+            } else if (attendanceList.getCourseType().equals("Soft Skill")) {
+                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Soft Skills");
+            } else {
+                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Lab");
             }
-        });
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                Log.d("tagg",myViewHolder.faculty.getText().toString());
+                    Intent intent = new Intent(context, Details.class);
+                    intent.putExtra("percentage", myViewHolder.percentage.getText().toString());
+                    intent.putExtra("coursename", myViewHolder.course_name.getText().toString());
+                    intent.putExtra("classroom", course_classroom.get(position));
+                    intent.putExtra("code", attendanceList.getCourseCode());
+                    intent.putExtra("faculty", myViewHolder.faculty.getText());
+                    intent.putExtra("attendedclass", attendanceList.getAttended().toString());
+                    intent.putExtra("totalclass", attendanceList.getTotalClasses().toString());
+
+                    intent.putExtra("classnbr", attendanceList.getPostParams().getClassnbr().toString());
+                    intent.putExtra("semcode", attendanceList.getPostParams().getSemcode().toString());
+                    intent.putExtra("crscd", attendanceList.getPostParams().getCrscd().toString());
+                    intent.putExtra("crstp", attendanceList.getPostParams().getCrstp().toString());
+                    intent.putExtra("from_date", attendanceList.getPostParams().getFromDate().toString());
+                    intent.putExtra("to_date", attendanceList.getPostParams().getToDate().toString());
+
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     public void setDataAccday() {
@@ -336,8 +379,14 @@ public class RVAttendaceList extends RecyclerView.Adapter<RVAttendaceList.MyView
     @Override
     public int getItemCount() {
 
-        return attendanceList.size();
+        return attendanceList.size() + 1;
     }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return AD_VIEW_TYPE;
+        }
+        return MENU_VIEW_TYPE;
+    }
 }

@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.DigitalAssignment;
 import com.example.mayankaggarwal.viteventsapp.activities.DigitalMarks;
+import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,7 +29,12 @@ import java.io.InputStream;
  * Created by mayankaggarwal on 26/03/17.
  */
 
-public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignment.MyViewHolder> {
+public class RVDigitalAssignment extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
+    private static final int AD_VIEW_TYPE = 0;
+    private static final int MENU_VIEW_TYPE = 1;
+
 
     private Context context;
 
@@ -48,41 +56,74 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
     }
 
     @Override
-    public RVDigitalAssignment.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_digital_assignment, parent, false);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new RVDigitalAssignment.MyViewHolder(itemView);
+        switch (viewType) {
+            case AD_VIEW_TYPE:
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.native_express_ad, parent, false);
+                return new RVDigitalAssignment.NativeExpressAdViewHolder(view);
+            case MENU_VIEW_TYPE:
+            default:
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_digital_assignment, parent, false);
+                return new RVDigitalAssignment.MyViewHolder(itemView);
+        }
 
     }
 
     @Override
-    public void onBindViewHolder(RVDigitalAssignment.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final JsonObject object=jsonArray.get(position).getAsJsonObject();
-        final JsonArray postParam=object.get("post_parameters").getAsJsonArray();
 
-        holder.course_name.setText(object.get("Course Title").getAsString());
-        holder.coursecode.setText(object.get("Course Code").getAsString());
-        holder.facultyname.setText(object.get("Faculty").getAsString());
-        holder.type.setText(object.get("Course Type").getAsString());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(context,DigitalMarks.class);
-                intent.putExtra("sem",postParam.get(0).getAsString());
-                intent.putExtra("classnbr",postParam.get(1).getAsString());
-                intent.putExtra("crscd",postParam.get(2).getAsString());
-                intent.putExtra("crstp",postParam.get(3).getAsString());
-                context.startActivity(intent);
-            }
-        });
+        if (holder instanceof RVDigitalAssignment.NativeExpressAdViewHolder) {
+            RVDigitalAssignment.NativeExpressAdViewHolder nativeExpressViewHolder = (RVDigitalAssignment.NativeExpressAdViewHolder) holder;
+            ViewGroup adView=(ViewGroup)nativeExpressViewHolder.itemView;
+
+//            adView.removeAllViews();
+//            NativeExpressAdView nativeexpress=new NativeExpressAdView(context);
+//            nativeexpress.setAdSize(new AdSize(320,150));
+//            nativeexpress.setAdUnitId("ca-app-pub-1043169578514521/7037347897");
+//            nativeexpress.loadAd(new AdRequest.Builder().build());
+
+        } else if (holder instanceof RVDigitalAssignment.MyViewHolder) {
+
+            final RVDigitalAssignment.MyViewHolder myViewHolder = (RVDigitalAssignment.MyViewHolder) holder;
+
+            final JsonObject object=jsonArray.get(position-1).getAsJsonObject();
+            final JsonArray postParam=object.get("post_parameters").getAsJsonArray();
+
+            myViewHolder.course_name.setText(object.get("Course Title").getAsString());
+            myViewHolder.coursecode.setText(object.get("Course Code").getAsString());
+            myViewHolder.facultyname.setText(object.get("Faculty").getAsString());
+            myViewHolder.type.setText(object.get("Course Type").getAsString());
+            myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context,DigitalMarks.class);
+                    intent.putExtra("sem",postParam.get(0).getAsString());
+                    intent.putExtra("classnbr",postParam.get(1).getAsString());
+                    intent.putExtra("crscd",postParam.get(2).getAsString());
+                    intent.putExtra("crstp",postParam.get(3).getAsString());
+                    context.startActivity(intent);
+                }
+            });
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return this.jsonArray.size();
+
+        return this.jsonArray.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return AD_VIEW_TYPE;
+        }
+        return MENU_VIEW_TYPE;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -99,6 +140,22 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RVDigitalAssignmen
             type=(TextView)itemView.findViewById(R.id.typedigital);
 
             type.setTextColor(Color.parseColor(SetTheme.colorName));
+        }
+    }
+
+    public class NativeExpressAdViewHolder extends RecyclerView.ViewHolder {
+        public NativeExpressAdViewHolder(View view) {
+            super(view);
+            NativeExpressAdView mAdView = (NativeExpressAdView)view.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
+            mAdView.loadAd(adRequest);
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("false")){
+                    mAdView.setVisibility(View.GONE);
+                }else {
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+            }
         }
     }
 
