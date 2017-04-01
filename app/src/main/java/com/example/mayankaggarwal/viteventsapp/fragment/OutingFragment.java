@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
 import com.example.mayankaggarwal.viteventsapp.activities.Hosteller;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVOuting;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;

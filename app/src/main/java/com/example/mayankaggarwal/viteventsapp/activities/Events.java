@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.icu.text.DateFormat;
 import java.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Handler;
@@ -30,10 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVEvent;
 import com.example.mayankaggarwal.viteventsapp.fragment.PagerAdapterEvents;
-import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
@@ -44,7 +41,6 @@ import com.google.gson.JsonParser;
 
 import java.util.Date;
 
-import io.realm.Realm;
 
 public class Events extends AppCompatActivity {
 

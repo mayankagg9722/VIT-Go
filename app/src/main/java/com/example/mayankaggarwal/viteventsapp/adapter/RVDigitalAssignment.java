@@ -23,7 +23,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.InputStream;
 
 /**
  * Created by mayankaggarwal on 26/03/17.
@@ -89,7 +88,16 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RecyclerView.ViewH
 
             final RVDigitalAssignment.MyViewHolder myViewHolder = (RVDigitalAssignment.MyViewHolder) holder;
 
-            final JsonObject object=jsonArray.get(position-1).getAsJsonObject();
+            int pos = 0;
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    pos=position-1;
+                }else {
+                    pos=position;
+                }
+            }
+
+            final JsonObject object=jsonArray.get(pos).getAsJsonObject();
             final JsonArray postParam=object.get("post_parameters").getAsJsonArray();
 
             myViewHolder.course_name.setText(object.get("Course Title").getAsString());
@@ -115,13 +123,23 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
 
-        return this.jsonArray.size() + 1;
+        if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+            if(Prefs.getPrefs("showads",context).equals("true")){
+                return this.jsonArray.size() + 1;
+            }
+        }
+
+        return this.jsonArray.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return AD_VIEW_TYPE;
+        if (position == 0 ) {
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    return AD_VIEW_TYPE;
+                }
+            }
         }
         return MENU_VIEW_TYPE;
     }
@@ -149,13 +167,13 @@ public class RVDigitalAssignment extends RecyclerView.Adapter<RecyclerView.ViewH
             NativeExpressAdView mAdView = (NativeExpressAdView)view.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
             mAdView.loadAd(adRequest);
-            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
-                if(Prefs.getPrefs("showads",context).equals("false")){
-                    mAdView.setVisibility(View.GONE);
-                }else {
-                    mAdView.setVisibility(View.VISIBLE);
-                }
-            }
+//            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+//                if(Prefs.getPrefs("showads",context).equals("false")){
+//                    mAdView.setVisibility(View.GONE);
+//                }else {
+//                    mAdView.setVisibility(View.VISIBLE);
+//                }
+//            }
         }
     }
 

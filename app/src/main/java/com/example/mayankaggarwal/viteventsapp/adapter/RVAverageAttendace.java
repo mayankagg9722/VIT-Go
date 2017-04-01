@@ -81,13 +81,13 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RecyclerView.ViewHo
             NativeExpressAdView mAdView = (NativeExpressAdView) view.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
             mAdView.loadAd(adRequest);
-            if (!(Prefs.getPrefs("showads", context).equals("notfound"))) {
-                if (Prefs.getPrefs("showads", context).equals("false")) {
-                    mAdView.setVisibility(View.GONE);
-                } else {
-                    mAdView.setVisibility(View.VISIBLE);
-                }
-            }
+//            if (!(Prefs.getPrefs("showads", context).equals("notfound"))) {
+//                if (Prefs.getPrefs("showads", context).equals("false")) {
+//                    mAdView.setVisibility(View.GONE);
+//                } else {
+//                    mAdView.setVisibility(View.VISIBLE);
+//                }
+//            }
         }
     }
 
@@ -184,7 +184,16 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RecyclerView.ViewHo
             ViewGroup adView = (ViewGroup) nativeExpressViewHolder.itemView;
         } else if (holder instanceof RVAverageAttendace.MyViewHolder) {
             final RVAverageAttendace.MyViewHolder myViewHolder = (RVAverageAttendace.MyViewHolder) holder;
-            int pos = position - 1;
+
+            int pos = 0;
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    pos=position-1;
+                }else {
+                    pos=position;
+                }
+            }
+
             final AttendanceList attendanceList = this.attendanceList.get(pos);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -268,17 +277,24 @@ public class RVAverageAttendace extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-
-        return attendanceList.size() + 1;
+        if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+            if(Prefs.getPrefs("showads",context).equals("true")){
+                return attendanceList.size() + 1;
+            }
+        }
+        return attendanceList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return AD_VIEW_TYPE;
+        if (position == 0 ) {
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    return AD_VIEW_TYPE;
+                }
+            }
         }
         return MENU_VIEW_TYPE;
     }
-
 
 }

@@ -1,22 +1,16 @@
 package com.example.mayankaggarwal.viteventsapp;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.fragment.LoginFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.SliderThree;
 import com.example.mayankaggarwal.viteventsapp.fragment.SliderTwo;
 import com.example.mayankaggarwal.viteventsapp.fragment.Sliderfour;
 import com.example.mayankaggarwal.viteventsapp.fragment.SplashSliderOne;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
 
 

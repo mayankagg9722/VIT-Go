@@ -10,15 +10,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.models.HomeTownRequest;
 import com.example.mayankaggarwal.viteventsapp.models.LateRequest;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CalenderSetting;
@@ -26,8 +22,6 @@ import com.example.mayankaggarwal.viteventsapp.utils.CalenderTime;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class LateNightRequest extends AppCompatActivity {
 

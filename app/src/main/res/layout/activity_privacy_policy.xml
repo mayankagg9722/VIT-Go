@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_privacy_policy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mayankaggarwal.viteventsapp.activities.PrivacyPolicy"
+    android:background="#ffffff">
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/fac_toolbar"
+        >
+    </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#ECEFF1"
+        app:cardCornerRadius="8dp"
+        android:layout_below="@id/fac_toolbar"
+        android:layout_margin="15dp"
+        >
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textColor="#000"
+                        android:text="Privacy Policy:"
+                        android:layout_margin="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="When you use VIT GO, we want to guarantee full privacy when it comes to your personal information. That is why VIT GO stores no user details on the cloud/server. Your username and password gets stored in your personal mobile. Your username and password during verification is also done through an encrypted HTTPS secure connection."/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Events:"
+                        android:textSize="15dp"
+                        android:layout_margin="10dp"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="So how the “events” work is that the clubs and chapters register through a link provided to them.
+They decide what inputs they want from the students. So if a student see’s an event and is interested in it, he/she needs to give all the details required in order to register for the event. And these details are then sent to the admin of those clubs/chapters handling the registrations."/>
+                </LinearLayout>
+
+            </ScrollView>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

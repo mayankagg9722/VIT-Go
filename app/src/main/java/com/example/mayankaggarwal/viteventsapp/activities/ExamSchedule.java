@@ -1,7 +1,6 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
@@ -9,23 +8,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVExamShedule;
 import com.example.mayankaggarwal.viteventsapp.fragment.ExamCatTwo;
 import com.example.mayankaggarwal.viteventsapp.fragment.ExamFat;
 import com.example.mayankaggarwal.viteventsapp.fragment.ExamFragment;
-import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
 import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
-import io.realm.Realm;
 
 import static com.example.mayankaggarwal.viteventsapp.activities.TimeTable.viewPager;
 

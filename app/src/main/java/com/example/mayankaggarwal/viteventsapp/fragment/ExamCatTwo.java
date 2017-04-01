@@ -11,10 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVExamFat;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVExamSceduleTwo;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVExamShedule;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 
 /**

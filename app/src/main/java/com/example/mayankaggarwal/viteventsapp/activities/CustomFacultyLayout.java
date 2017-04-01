@@ -6,10 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-
-import com.example.mayankaggarwal.viteventsapp.activities.FacultyInformation;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
 /**

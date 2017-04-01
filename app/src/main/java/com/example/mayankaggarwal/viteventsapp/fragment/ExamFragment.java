@@ -1,26 +1,16 @@
 package com.example.mayankaggarwal.viteventsapp.fragment;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.example.mayankaggarwal.viteventsapp.MainActivity;
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.RealmFiles.RealmController;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVAttendaceList;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVExamFat;
 import com.example.mayankaggarwal.viteventsapp.adapter.RVExamShedule;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
-import com.example.mayankaggarwal.viteventsapp.rest.Data;
-import com.example.mayankaggarwal.viteventsapp.utils.CustomProgressDialog;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 
 /**

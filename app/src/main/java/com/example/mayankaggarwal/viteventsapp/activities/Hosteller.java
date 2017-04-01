@@ -15,17 +15,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,12 +33,9 @@ import com.example.mayankaggarwal.viteventsapp.fragment.LateNightFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.LeaveListFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.OutingFragment;
 import com.example.mayankaggarwal.viteventsapp.fragment.ViewPagerAdapter;
-import com.example.mayankaggarwal.viteventsapp.adapter.RVLeave;
-import com.example.mayankaggarwal.viteventsapp.rest.Data;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
-import static com.example.mayankaggarwal.viteventsapp.activities.TimeTable.viewPager;
 
 public class Hosteller extends AppCompatActivity {
 

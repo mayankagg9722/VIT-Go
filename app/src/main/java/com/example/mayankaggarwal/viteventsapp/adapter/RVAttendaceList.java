@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
@@ -25,10 +23,7 @@ import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.example.mayankaggarwal.viteventsapp.utils.Prefs;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.google.android.gms.ads.formats.NativeAd;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -113,13 +108,13 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             NativeExpressAdView mAdView = (NativeExpressAdView)view.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
             mAdView.loadAd(adRequest);
-            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
-                if(Prefs.getPrefs("showads",context).equals("false")){
-                    mAdView.setVisibility(View.GONE);
-                }else {
-                    mAdView.setVisibility(View.VISIBLE);
-                }
-            }
+//            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+//                if(Prefs.getPrefs("showads",context).equals("false")){
+//                    mAdView.setVisibility(View.GONE);
+//                }else {
+//                    mAdView.setVisibility(View.VISIBLE);
+//                }
+//            }
         }
     }
 
@@ -209,7 +204,15 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof MyViewHolder) {
 
             final MyViewHolder myViewHolder = (MyViewHolder) holder;
-            final AttendanceList attendanceList = this.attendanceList.get(position-1);
+            int pos = position;
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    pos=position-1;
+                }else {
+                    pos=position;
+                }
+            }
+            final AttendanceList attendanceList = this.attendanceList.get(pos);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 myViewHolder.maincard.setElevation(Float.parseFloat(String.valueOf(0)));
@@ -247,15 +250,15 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             }
-            myViewHolder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(position-1));
-            myViewHolder.timeView.setText(course_time.get(position-1));
+            myViewHolder.classroom.setText(attendanceList.getCourseCode() + " - " + course_classroom.get(pos));
+            myViewHolder.timeView.setText(course_time.get(pos));
 
             if (attendanceList.getCourseType().contains("Theory")) {
-                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Theory");
+                myViewHolder.course_type.setText(course_slot.get(pos) + " - Theory");
             } else if (attendanceList.getCourseType().equals("Soft Skill")) {
-                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Soft Skills");
+                myViewHolder.course_type.setText(course_slot.get(pos) + " - Soft Skills");
             } else {
-                myViewHolder.course_type.setText(course_slot.get(position-1) + " - Lab");
+                myViewHolder.course_type.setText(course_slot.get(pos) + " - Lab");
             }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -378,14 +381,22 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-
-        return attendanceList.size() + 1;
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    return attendanceList.size() + 1;
+                }
+            }
+        return attendanceList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return AD_VIEW_TYPE;
+        if (position == 0 ) {
+            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
+                if(Prefs.getPrefs("showads",context).equals("true")){
+                    return AD_VIEW_TYPE;
+                }
+            }
         }
         return MENU_VIEW_TYPE;
     }

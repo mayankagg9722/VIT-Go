@@ -27,7 +27,6 @@ import java.util.List;
 public class RVExamShedule extends RecyclerView.Adapter<RVExamShedule.MyViewHolder> {
 
     private Context context;
-//    private List<Fat> fatArrayList=new ArrayList<>();
 
     JsonParser parser;
     JsonArray jsonArray;

@@ -1,16 +1,12 @@
 package com.example.mayankaggarwal.viteventsapp.activities;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.example.mayankaggarwal.viteventsapp.R;
-import com.example.mayankaggarwal.viteventsapp.models.EventList;
 import com.example.mayankaggarwal.viteventsapp.utils.Globals;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ImageFull extends AppCompatActivity {
