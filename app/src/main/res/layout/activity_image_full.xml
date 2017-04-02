@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.mayankaggarwal.viteventsapp.activities.ImageFull"
+    tools:context="com.vitgo.mayankaggarwal.viteventsapp.activities.ImageFull"
     android:background="#000">
 
     <ImageView

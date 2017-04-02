@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:263027828479:android:8022d24b725b0955",
         "android_client_info": {
-          "package_name": "com.example.mayankaggarwal.viteventsapp"
+          "package_name": "com.vitgo.mayankaggarwal.viteventsapp"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "263027828479-84clmclmssr25h4q3anb0abm02p574dk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mayankaggarwal.viteventsapp",
+            "package_name": "com.vitgo.mayankaggarwal.viteventsapp",
             "certificate_hash": "d6724ec76f170a172ccef922977bc743d33bf836"
           }
         },

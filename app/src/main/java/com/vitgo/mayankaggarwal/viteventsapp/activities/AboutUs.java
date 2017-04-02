@@ -1,0 +1,55 @@
+package com.vitgo.mayankaggarwal.viteventsapp.activities;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.vitgo.mayankaggarwal.viteventsapp.R;
+import com.vitgo.mayankaggarwal.viteventsapp.utils.Globals;
+
+public class AboutUs extends AppCompatActivity {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about_us);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.fac_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(" ");
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+        ImageView imageView;
+        imageView = (ImageView) findViewById(R.id.imageone);
+
+        Globals.cloud=0;
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Globals.cloud++;
+                if (Globals.cloud == 7) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AboutUs.this);
+                    builder.setTitle("Developers");
+                    builder.setCancelable(false);
+                    builder.setMessage("1. Navdeesh Ahuja\n2. Mayank Aggarwal\n3. Shubhanjan Chakrabarty");
+                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Globals.cloud=0;
+                        }
+                    });
+                    builder.show();
+                }
+            }
+        });
+    }
+}

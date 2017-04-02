@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mayankaggarwal.viteventsapp">
+    package="com.vitgo.mayankaggarwal.viteventsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,115 +28,115 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashSlider"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.SplashSlider"
             android:label="@string/title_activity_splash_slider"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.Details"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Details"
             android:label="Details"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".activities.TimeTable"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.TimeTable"
             android:label="TimeTable"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".activities.ImageGallery"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.ImageGallery"
             android:label="ImageGallery"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".activities.Faculties"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Faculties"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activities.FacultyInformation"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.FacultyInformation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.AverageAttendance"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.AverageAttendance"
             android:label="@string/title_activity_average_attendance"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.Events"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Events"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.EventDetails"
-            android:parentActivityName=".activities.Events"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.EventDetails"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Events"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.EventRegister"
-            android:parentActivityName=".activities.EventDetails"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.EventRegister"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.EventDetails"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".activities.Messages"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Messages"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ImageFull"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.ImageFull"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Hosteller"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Hosteller"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.LeaveRequest"
-            android:parentActivityName=".activities.Hosteller"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.LeaveRequest"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Hosteller"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.OutingRequest"
-            android:parentActivityName=".activities.Hosteller"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.OutingRequest"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Hosteller"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ExamSchedule"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.ExamSchedule"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.LateNightRequest"
-            android:parentActivityName=".activities.Hosteller"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.LateNightRequest"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Hosteller"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.DigitalAssignment"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.DigitalAssignment"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.DigitalMarks"
-            android:parentActivityName=".activities.DigitalAssignment"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.DigitalMarks"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.DigitalAssignment"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Marks"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Marks"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Settings"
-            android:parentActivityName=".MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.Settings"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.AboutUs"
-            android:parentActivityName=".activities.Settings"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.AboutUs"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PrivacyPolicy"
-            android:parentActivityName=".activities.Settings"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.PrivacyPolicy"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Settings"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.OpenSource"
-            android:parentActivityName=".activities.Settings"
+        <activity android:name="com.vitgo.mayankaggarwal.viteventsapp.activities.OpenSource"
+            android:parentActivityName="com.vitgo.mayankaggarwal.viteventsapp.activities.Settings"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".utils.MyFirebaseMessagingService">
+        <service android:name="com.vitgo.mayankaggarwal.viteventsapp.utils.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

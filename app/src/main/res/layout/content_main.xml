@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mayankaggarwal.viteventsapp.MainActivity"
+    tools:context="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
 

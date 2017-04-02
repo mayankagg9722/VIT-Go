@@ -5,7 +5,7 @@
     android:id="@+id/activity_exam_schedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mayankaggarwal.viteventsapp.activities.ExamSchedule">
+    tools:context="com.vitgo.mayankaggarwal.viteventsapp.activities.ExamSchedule">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

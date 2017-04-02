@@ -8,7 +8,7 @@
     android:gravity="center"
     android:padding="@dimen/mi_baseline"
     android:background="#314264"
-    tools:context="com.example.mayankaggarwal.viteventsapp.SplashScreen">
+    tools:context="com.vitgo.mayankaggarwal.viteventsapp.SplashScreen">
 
     <ImageView
         android:layout_width="100dp"

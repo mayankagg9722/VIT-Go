@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mayankaggarwal.viteventsapp"
+    package="com.vitgo.mayankaggarwal.viteventsapp"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.mayankaggarwal.viteventsapp.SplashScreen" >
+        <activity android:name="com.vitgo.mayankaggarwal.viteventsapp.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,12 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.mayankaggarwal.viteventsapp.SplashSlider"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.SplashSlider"
             android:label="@string/title_activity_splash_slider"
             android:theme="@style/Theme.Intro" >
         </activity>
         <activity
-            android:name="com.example.mayankaggarwal.viteventsapp.MainActivity"
+            android:name="com.vitgo.mayankaggarwal.viteventsapp.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.mayankaggarwal.viteventsapp.test;
+package com.vitgo.mayankaggarwal.viteventsapp.test;
 
 public final class R {
     public static final class attr {
