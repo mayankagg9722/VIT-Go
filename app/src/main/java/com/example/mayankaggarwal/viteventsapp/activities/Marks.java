@@ -60,7 +60,7 @@ public class Marks extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         imageView=(ImageView)findViewById(R.id.noclass);
-        imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(SetTheme.colorName));

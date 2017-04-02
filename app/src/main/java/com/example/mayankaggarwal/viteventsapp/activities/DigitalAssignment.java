@@ -62,7 +62,7 @@ public class DigitalAssignment extends AppCompatActivity {
         }
 
         imageView=(ImageView)findViewById(R.id.noclass);
-        imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.digital_swipe_refresh_layout);
         recyclerView = (RecyclerView) findViewById(R.id.digital_recycler);
@@ -114,5 +114,19 @@ public class DigitalAssignment extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
+
+
+
 }
 

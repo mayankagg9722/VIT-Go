@@ -34,17 +34,17 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
     JsonArray jsonArrayCopy;
 
 
-    public  RVFaculties(String faculties, Activity context, boolean clickable){
+    public RVFaculties(String faculties, Activity context, boolean clickable) {
 
 
-        parser=new JsonParser();
-        jsonArray=parser.parse(faculties).getAsJsonArray();
-        jsonArrayCopy=parser.parse(faculties).getAsJsonArray();
+        parser = new JsonParser();
+        jsonArray = parser.parse(faculties).getAsJsonArray();
+        jsonArrayCopy = parser.parse(faculties).getAsJsonArray();
 
 
-        if(jsonArray.size()>0){
+        if (jsonArray.size() > 0) {
             Faculties.imageView.setVisibility(View.GONE);
-        }else {
+        } else {
             Faculties.imageView.setVisibility(View.VISIBLE);
         }
 
@@ -62,34 +62,36 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name=(TextView)itemView.findViewById(R.id.faculty_name);
-            school=(TextView)itemView.findViewById(R.id.school_name);
-            card=(CardView)itemView.findViewById(R.id.faculty_card);
-            empid=(TextView)itemView.findViewById(R.id.empid);
-             card.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
+            name = (TextView) itemView.findViewById(R.id.faculty_name);
+            school = (TextView) itemView.findViewById(R.id.school_name);
+            card = (CardView) itemView.findViewById(R.id.faculty_card);
+            empid = (TextView) itemView.findViewById(R.id.empid);
+            card.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
         }
     }
 
-    public void filter(String text){
-        jsonArray=new JsonArray();
-        if(text.isEmpty()){
-            jsonArray=jsonArrayCopy;
+    public void filter(String text) {
+        if (this.jsonArray.size() > 0) {
+            jsonArray = new JsonArray();
+            if (text.isEmpty()) {
+                jsonArray = jsonArrayCopy;
 //            faculties.addAll(facultiesListCopy);
-        }else{
-            text=text.toLowerCase();
-            for(int i=0;i<jsonArrayCopy.size();i++){
-                if(jsonArrayCopy.get(i).getAsJsonObject().get("name").toString().toLowerCase().contains(text)
-                        || jsonArrayCopy.get(i).getAsJsonObject().get("school").toString().toLowerCase().contains(text)){
-                    jsonArray.add(jsonArrayCopy.get(i));
+            } else {
+                text = text.toLowerCase();
+                for (int i = 0; i < jsonArrayCopy.size(); i++) {
+                    if (jsonArrayCopy.get(i).getAsJsonObject().get("name").toString().toLowerCase().contains(text)
+                            || jsonArrayCopy.get(i).getAsJsonObject().get("school").toString().toLowerCase().contains(text)) {
+                        jsonArray.add(jsonArrayCopy.get(i));
+                    }
                 }
-            }
 //            for(FacultiesList f:facultiesListCopy){
 //                if(f.getName().toString().toLowerCase().contains(text) || f.getSchool().toString().toLowerCase().contains(text)){
 //                    faculties.add(f);
 //                }
 //            }
+            }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
 
@@ -104,7 +106,7 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
     @Override
     public void onBindViewHolder(final RVFaculties.MyViewHolder holder, int position) {
 
-        JsonObject faculties=this.jsonArray.get(position).getAsJsonObject();
+        JsonObject faculties = this.jsonArray.get(position).getAsJsonObject();
 
 //        FacultiesList faculties=this.faculties.get(position);
 
@@ -116,18 +118,18 @@ public class RVFaculties extends RecyclerView.Adapter<RVFaculties.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
-                if(context.getIntent().getStringExtra("comefrom")!=null){
-                    if(context.getIntent().getStringExtra("comefrom").equals("latenight")){
-                        Intent intent=new Intent(context,LateNightRequest.class);
-                        intent.putExtra("empid",holder.empid.getText());
-                        intent.putExtra("profname",holder.name.getText().toString());
+                if (context.getIntent().getStringExtra("comefrom") != null) {
+                    if (context.getIntent().getStringExtra("comefrom").equals("latenight")) {
+                        Intent intent = new Intent(context, LateNightRequest.class);
+                        intent.putExtra("empid", holder.empid.getText());
+                        intent.putExtra("profname", holder.name.getText().toString());
                         context.startActivity(intent);
                     }
-                }else{
-                    Intent intent=new Intent(context,FacultyInformation.class);
-                    intent.putExtra("profname",holder.name.getText().toString());
-                    intent.putExtra("profschool",holder.school.getText().toString());
-                    intent.putExtra("empid",holder.empid.getText());
+                } else {
+                    Intent intent = new Intent(context, FacultyInformation.class);
+                    intent.putExtra("profname", holder.name.getText().toString());
+                    intent.putExtra("profschool", holder.school.getText().toString());
+                    intent.putExtra("empid", holder.empid.getText());
                     context.startActivity(intent);
                 }
 

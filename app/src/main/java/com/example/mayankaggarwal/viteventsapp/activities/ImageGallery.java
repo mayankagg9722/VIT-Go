@@ -93,8 +93,10 @@ public class ImageGallery extends AppCompatActivity {
             if(Prefs.getPrefs("readPermission",this).equals("1")){
                 try {
                     String path=ImagePath.getPath(this,Uri.parse(Prefs.getPrefs("profileimage",this)));
-                    Bitmap myBitmap = BitmapFactory.decodeFile(path);
-                    imageView.setImageBitmap(myBitmap);
+                    if (path != null) {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                        imageView.setImageBitmap(myBitmap);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,8 +104,10 @@ public class ImageGallery extends AppCompatActivity {
                 try {
                     String path=ImagePath.getPath(this,Uri.parse(Prefs.getPrefs("profileimage",this)));
 //                    Log.d("tagg","path:"+path);
-                    Bitmap myBitmap = BitmapFactory.decodeFile(path);
-                    imageView.setImageBitmap(myBitmap);
+                    if (path != null) {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                        imageView.setImageBitmap(myBitmap);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

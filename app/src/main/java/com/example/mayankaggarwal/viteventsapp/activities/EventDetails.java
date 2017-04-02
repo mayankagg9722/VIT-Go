@@ -72,6 +72,13 @@ public class EventDetails extends AppCompatActivity {
         TextView venue=(TextView)findViewById(R.id.venuetext);
         TextView fee=(TextView)findViewById(R.id.fee);
         CardView reg=(CardView) findViewById(R.id.regcardone);
+        TextView textView=(TextView)findViewById(R.id.textView);
+
+        if (e.get("fieldsAndroid").getAsString().length() <= 0){
+            textView.setText("One Click Register");
+        }else {
+            textView.setText("Register");
+        }
 
         reg.setCardBackgroundColor(Color.parseColor(SetTheme.colorName));
 

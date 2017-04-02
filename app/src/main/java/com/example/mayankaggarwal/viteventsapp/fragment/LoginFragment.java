@@ -129,7 +129,7 @@ public class LoginFragment extends SlideFragment {
             @Override
             public void onUpdate() {
                 CustomProgressDialog.hideProgress();
-                getActivity().finish();
+                activity.finish();
                 startActivity(new Intent(activity, MainActivity.class));
             }
 

@@ -77,7 +77,7 @@ public class AverageAttendance extends AppCompatActivity {
         image.startAnimation(myRotation);
 
         imageView=(ImageView)findViewById(R.id.noclass);
-        imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.avg_swipe);
 

@@ -35,7 +35,7 @@ public class ExamFat extends Fragment {
         view=inflater.inflate(R.layout.fragment_exam_fat, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.exam);
         imageView=(ImageView)view.findViewById(R.id.noclass);
-        imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         if(!(Prefs.getPrefs("examschedule",getActivity()).equals("notfound"))){

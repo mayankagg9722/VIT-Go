@@ -149,7 +149,7 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/regcardone"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 app:cardBackgroundColor="#8057E1"
                 app:cardCornerRadius="8dp"
@@ -161,6 +161,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="Register"
+                    android:padding="10dp"
                     android:textColor="#fff" />
             </android.support.v7.widget.CardView>
 

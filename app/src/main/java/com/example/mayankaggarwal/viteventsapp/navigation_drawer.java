@@ -145,8 +145,10 @@ public class navigation_drawer extends Fragment {
             try {
                 String path=ImagePath.getPath(getContext(),Uri.parse(Prefs.getPrefs("profileimage",getContext())));
 //                Log.d("tagg","path:"+path);
-                Bitmap myBitmap = BitmapFactory.decodeFile(path);
-                profile.setImageBitmap(myBitmap);
+                if(path!=null){
+                    Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                    profile.setImageBitmap(myBitmap);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

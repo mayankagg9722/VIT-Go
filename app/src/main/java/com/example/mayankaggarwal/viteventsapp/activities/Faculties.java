@@ -73,7 +73,7 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         imageView=(ImageView)findViewById(R.id.noclass);
-        imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
 
         search = (EditText) findViewById(R.id.search_faculties);
 
@@ -149,8 +149,9 @@ public class Faculties extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(!(Prefs.getPrefs("facultiesListJson", this).equals("notfound"))){
             this.adapter.filter(s.toString());
-
+        }
     }
 
     @Override
