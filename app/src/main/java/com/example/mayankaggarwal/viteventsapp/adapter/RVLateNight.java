@@ -48,6 +48,8 @@ public class RVLateNight extends RecyclerView.Adapter<RVLateNight.MyViewHolder> 
 
         final LateNightData late=this.lateNightDataList.get(position);
 
+        Log.d("tagg",late.getTo()+" ");
+
         holder.applyid.setText(late.getVenue());
         holder.type.setText("Late Night");
         holder.from.setText(late.getFrom());

@@ -58,7 +58,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_margin="5dp"
-                android:text="12-01-2017"
+                android:text="12-Mar-2017"
                 android:textStyle="bold"
                 android:textColor="#8057E1"/>
             </LinearLayout>
