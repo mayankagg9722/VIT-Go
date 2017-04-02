@@ -26,7 +26,8 @@ public class ApiClient {
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 //        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        String[] BASE_URLS = {"https://vitmantra.feedveed.com","https://customserver2.feedveed.com"};
+        String[] BASE_URLS = {"https://vitmantra.feedveed.com","https://customserver2.feedveed.com","https://play.feedveed.com"
+                ,"https://mayank.feedveed.com","https://sunny.feedveed.com"};
 
 
         Random rn = new Random();

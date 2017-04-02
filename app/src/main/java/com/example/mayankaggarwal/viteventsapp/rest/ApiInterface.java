@@ -35,65 +35,64 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-    @POST("checkLogin")
+    @POST("checkCookieLogin")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("getAttendance")
+    @POST("getCookieAttendance")
     Call<AttendanceResponse> attendance(@Body AttendanceRequest attendanceRequest);
 
-    @POST("getTimetable")
+    @POST("getCookieTimetable")
     Call<JsonObject> timetable(@Body TimetableRequest timetableRequest);
 
-    @POST("detailAttendance")
+    @POST("detailCookieAttendance")
     Call<DAResponse> detaialAttendance(@Body DARequest daRequest);
 
-    @POST("getCoursePage")
+    @POST("getCookieCoursePage")
     Call<CouresePageResponse> getCoursePage(@Body CoursePageRequest coursePageRequest);
 
     @GET("faculties.json")
     Call<FacultiesData> getFaculties();
 
-    @POST("getFaculty")
+    @POST("getCookieFaculty")
     Call<FacultyDetails> getFacultyDetails(@Body FacultyDetailsRequest facultyDetailsRequest);
 
-    @GET("getEventsAndroid")
+    @GET("getCookieEventsAndroid")
     Call<EventData> getEvent();
 
-    @POST("registerEvent")
+    @POST("registerCookieEvent")
     Call<JsonObject> getEventRegister(@Body RegisterEventRequest registerEventRequest);
 
-    @POST("getMessages")
+    @POST("getCookieMessages")
     Call<JsonObject> getMessages(@Body LoginRequest loginRequest);
 
-    @POST("getLeaves")
+    @POST("getCookieLeaves")
     Call<JsonObject> getLeaves(@Body LoginRequest loginRequest);
 
-    @POST("getLateHourPermission")
+    @POST("getCookieLateHourPermission")
     Call<LateNightResponse> getLateNight(@Body LoginRequest loginRequest);
 
-    @POST("cancelLeave")
+    @POST("cancelCookieLeave")
     Call<JsonObject> cancelLeave(@Body CancelRequest cancelRequest);
 
-    @POST("cancelLateHour")
+    @POST("cancelCookieLateHour")
     Call<JsonObject> cancelLateNight(@Body CancelNightRequest cancelNightRequest);
 
-    @POST("applyHometownLeave")
+    @POST("applyCookieHometownLeave")
     Call<JsonObject> applyHomeTown(@Body HomeTownRequest homeTownRequest);
 
-    @POST("getExamSchedule")
+    @POST("getCookieExamSchedule")
     Call<JsonObject> getExamSchedule(@Body LoginRequest loginRequest);
 
-    @POST("applyLateHour")
+    @POST("applyCookieLateHour")
     Call<JsonObject> applyLateNight(@Body LateRequest lateRequest);
 
-    @POST("getDigitalAssignments")
+    @POST("getCookieDigitalAssignments")
     Call<JsonObject> getDigitalAssignment(@Body LoginRequest loginRequest);
 
-    @POST("getDigitalAssignmentMarks")
+    @POST("getCookieDigitalAssignmentMarks")
     Call<DigitalMarksResponse> getDigitalAssignmentMarks(@Body DigitalMarksRequest digitalMarksRequest);
 
-
-    @POST("getMarks2")
+    @POST("getCookieMarks2")
     Call<JsonObject> getMarks(@Body LoginRequest loginRequest);
 
 

@@ -108,6 +108,8 @@ public class RVAttendaceList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             NativeExpressAdView mAdView = (NativeExpressAdView)view.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("EC94735EDFFCB883AB73D12F21BD5B00").build();
             mAdView.loadAd(adRequest);
+            TextView textView=(TextView)view.findViewById(R.id.sponsor);
+            textView.setTextColor(Color.parseColor(SetTheme.colorName));
 //            if(!(Prefs.getPrefs("showads",context).equals("notfound"))){
 //                if(Prefs.getPrefs("showads",context).equals("false")){
 //                    mAdView.setVisibility(View.GONE);
