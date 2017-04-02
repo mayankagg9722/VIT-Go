@@ -13,7 +13,10 @@ import com.example.mayankaggarwal.viteventsapp.models.CouresePage;
 import com.example.mayankaggarwal.viteventsapp.models.DetailAttendance;
 import com.example.mayankaggarwal.viteventsapp.utils.SetTheme;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +30,6 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
     public List<DetailAttendance> detailAttendances;
     public Activity context;
     Boolean clickable;
-
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -48,13 +50,24 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
     }
 
-    public  RVDetailedAttendanceList(List<CouresePage> couresePages, List<DetailAttendance> detailAttendances, Activity context, boolean clickable){
+    public RVDetailedAttendanceList(List<CouresePage> couresePages, List<DetailAttendance> detailAttendances, String from_date, Activity context, boolean clickable) {
 
         this.couresePages = new ArrayList<>();
         this.detailAttendances = new ArrayList<>();
 
+
         for (CouresePage a : couresePages) {
-            this.couresePages.add(a);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+            try {
+                Date coursePagedate = simpleDateFormat.parse(a.getDate());
+                Date fromDate = simpleDateFormat.parse(from_date);
+                if (coursePagedate.compareTo(fromDate) < 0) {
+                    continue;
+                }
+                this.couresePages.add(a);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         for (DetailAttendance a : detailAttendances) {
@@ -81,37 +94,35 @@ public class RVDetailedAttendanceList extends RecyclerView.Adapter<RVDetailedAtt
 
         CouresePage couresePage = this.couresePages.get(position);
         holder.detail_date.setText(couresePage.getDate());
-        holder.sno.setText(String.valueOf(position+1));
+        holder.sno.setText(String.valueOf(position + 1));
 
-            for(DetailAttendance d:this.detailAttendances){
-                if(d.getDate().toString().toLowerCase().equals(holder.detail_date.getText().toString().toLowerCase())){
-                    if (d.getStatus().toString().toLowerCase().equals("absent")) {
-                        holder.detail_attendance.setText(d.getStatus());
-                        holder.detail_attendance.setTextColor(Color.parseColor("#f37051"));
+        for (DetailAttendance d : this.detailAttendances) {
+            if (d.getDate().toString().toLowerCase().equals(holder.detail_date.getText().toString().toLowerCase())) {
+                if (d.getStatus().toString().toLowerCase().equals("absent")) {
+                    holder.detail_attendance.setText(d.getStatus());
+                    holder.detail_attendance.setTextColor(Color.parseColor("#f37051"));
 
-                    }else if(d.getStatus().toString().toLowerCase().equals("present")){
-                        holder.detail_attendance.setText(d.getStatus());
-                        holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
-                    }else{
-                        holder.detail_attendance.setText(d.getStatus());
-                        holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
-                    }
-                    break;
-                }else{
-                    holder.detail_attendance.setText("");
-                    holder.detail_attendance.setTextColor(Color.parseColor("#000000"));
+                } else if (d.getStatus().toString().toLowerCase().equals("present")) {
+                    holder.detail_attendance.setText(d.getStatus());
+                    holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
+                } else {
+                    holder.detail_attendance.setText(d.getStatus());
+                    holder.detail_attendance.setTextColor(Color.parseColor("#1ae24b"));
                 }
+                break;
+            } else {
+                holder.detail_attendance.setText("");
+                holder.detail_attendance.setTextColor(Color.parseColor("#000000"));
             }
         }
+    }
 
 
     @Override
-    public int getItemCount()
-    {
-        if(couresePages.size()>0){
+    public int getItemCount() {
+        if (couresePages.size() > 0) {
             return couresePages.size();
-        }
-        else {
+        } else {
             return 0;
         }
     }

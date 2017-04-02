@@ -42,6 +42,7 @@ public class Details extends AppCompatActivity {
     ActionBar actionBar;
     com.wang.avi.AVLoadingIndicatorView avi;
     TextView textView;
+    String from_date;
 
 
     @Override
@@ -72,6 +73,8 @@ public class Details extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.detail_course_name);
         textView.setTextColor(Color.parseColor(SetTheme.colorName));
+
+        from_date=getIntent().getStringExtra("from_date");
 
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler);
@@ -225,7 +228,7 @@ public class Details extends AppCompatActivity {
                 avi.hide();
                 detailsLayout.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(new RVDetailedAttendanceList(Globals.couresePages.get(p),
-                        Globals.detailAttendances.get(p), this, true));
+                        Globals.detailAttendances.get(p),from_date, this, true));
             }
 
         } else {
@@ -303,7 +306,7 @@ public class Details extends AppCompatActivity {
                         addDataToGlobals();
 
                         recyclerView.setAdapter(new RVDetailedAttendanceList(RealmController.with(Details.this).getCoursePage(),
-                                RealmController.with(Details.this).getDetailAttendance(), Details.this, true));
+                                RealmController.with(Details.this).getDetailAttendance(),from_date, Details.this, true));
                     }
 
                     @Override
