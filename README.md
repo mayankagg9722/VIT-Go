@@ -22,3 +22,10 @@ Features:
 Additional features:
 • Some Easter Eggs in the app. Keep looking for them
 • 9 Theme colors so you never get bored
+
+<img src="https://github.com/mayankagg9722/VIT-Go/1.webp"/>
+<img src="https://github.com/mayankagg9722/VIT-Go/2.webp"/>
+<img src="https://github.com/mayankagg9722/VIT-Go/3.webp"/>
+<img src="https://github.com/mayankagg9722/VIT-Go/4.webp"/>
+<img src="https://github.com/mayankagg9722/VIT-Go/5.png"/>
+<img src="https://github.com/mayankagg9722/VIT-Go/6.png"/>
